@@ -16,15 +16,18 @@
 export default {
   data() {
     return {
-      sizeOptions: [
-        { label: 'Default', value: 'default' },
-        { label: 'Medium', value: 'medium' },
-        { label: 'Small', value: 'small' },
-        { label: 'Mini', value: 'mini' }
-      ]
+
     }
   },
   computed: {
+    sizeOptions() {
+      return [
+        { label: this.$t('navbar.sizes.default'), value: 'default' },
+        { label: this.$t('navbar.sizes.medium'), value: 'medium' },
+        { label: this.$t('navbar.sizes.small'), value: 'small' },
+        { label: this.$t('navbar.sizes.mini'), value: 'mini' }
+      ]
+    },
     size() {
       return this.$store.getters.size
     }

@@ -1,8 +1,8 @@
 export default {
   route: {
-    dashboard: 'Dashboard',
-    addressType: 'Address Type',
-    master: 'Master Setup',
+    dashboard: 'Dasbor',
+    addressType: 'Jenis Alamat',
+    master: 'Pengaturan Master',
     permission: 'Permission',
     pagePermission: 'Page Permission',
     rolePermission: 'Role Permission',
@@ -11,25 +11,25 @@ export default {
     page404: '404'
   },
   navbar: {
-    logOut: 'Log Out',
-    dashboard: 'Dashboard',
+    logOut: 'Keluar',
+    dashboard: 'Dasbor',
     github: 'Github',
-    theme: 'Theme',
-    size: 'Global Size',
+    theme: 'Tema',
+    size: 'Ukuran Huruf',
     sizes: {
-      default: 'default',
-      medium: 'medium',
-      small: 'small',
-      mini: 'mini'
+      default: 'standar',
+      medium: 'sedang',
+      small: 'kecil',
+      mini: 'sangat kecil'
     }
   },
   login: {
-    title: 'Welcome',
-    logIn: 'Login',
+    title: 'Selamat Datang',
+    logIn: 'Masuk',
     username: 'Username',
-    password: 'Password',
-    any: 'any',
-    thirdparty: 'Or connect with',
+    password: 'Sandi',
+    any: 'bebas',
+    thirdparty: 'Atau masuk dengan',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
   permission: {
@@ -69,8 +69,8 @@ export default {
     confirm: 'Confirm'
   },
   settings: {
-    title: 'Page style setting',
-    theme: 'Theme Color',
+    title: 'Pengaturan Tampilan',
+    theme: 'Warna Tampilan',
     tagsView: 'Open Tags-View',
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
