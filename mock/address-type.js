@@ -18,9 +18,15 @@ export default [
     type: 'get',
     response: config => {
       const { type, page = 1, limit = 20, sort } = config.query
+      let { isMemberAddress, isCompanyAddress } = config.query
+      isMemberAddress = isMemberAddress ? (isMemberAddress === 'true') : isMemberAddress
+      isCompanyAddress = isCompanyAddress ? (isCompanyAddress === 'true') : isCompanyAddress
 
       let mockList = List.filter(item => {
-        if (type && item.type !== type) return false
+        console.log(item.isMemberAddress, isMemberAddress)
+        if (type && !item.type.includes(type)) return false
+        if (isMemberAddress && item.isMemberAddress !== isMemberAddress) return false
+        if (isCompanyAddress && item.isCompanyAddress !== isCompanyAddress) return false
         return true
       })
 

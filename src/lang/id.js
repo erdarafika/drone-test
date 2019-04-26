@@ -43,30 +43,18 @@ export default {
     cancel: 'Cancel'
   },
   table: {
-    dynamicTips1: 'Fixed header, sorted by header order',
-    dynamicTips2: 'Not fixed header, sorted by click order',
-    dragTips1: 'The default order',
-    dragTips2: 'The after dragging order',
-    title: 'Title',
-    importance: 'Imp',
-    type: 'Type',
-    remark: 'Remark',
-    search: 'Search',
-    add: 'Add',
+    type: 'Tipe',
+    search: 'Pencarian',
+    add: 'Tambah',
     export: 'Export',
-    reviewer: 'reviewer',
-    id: 'ID',
-    date: 'Date',
-    author: 'Author',
-    readings: 'Readings',
     status: 'Status',
-    actions: 'Actions',
-    edit: 'Edit',
-    publish: 'Publish',
-    draft: 'Draft',
-    delete: 'Delete',
-    cancel: 'Cancel',
-    confirm: 'Confirm'
+    actions: 'Aksi',
+    edit: 'Ubah',
+    delete: 'Hapus',
+    cancel: 'Batal',
+    confirm: 'Konfirmasi',
+    successCaption: 'Operasi Berhasil',
+    successTitle: 'Berhasil'
   },
   settings: {
     title: 'Pengaturan Tampilan',
@@ -74,5 +62,12 @@ export default {
     tagsView: 'Open Tags-View',
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
+  },
+  addressType: {
+    type: 'Tipe',
+    displayOnMember: 'Tampilkan dipelanggan',
+    displayOnCompany: 'Tampilkan diperusahaan',
+    active: 'Aktif',
+    showActiveOnly: 'Tampilkan yang aktif'
   }
 }
