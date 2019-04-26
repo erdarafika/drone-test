@@ -23,7 +23,6 @@ export default [
       isCompanyAddress = isCompanyAddress ? (isCompanyAddress === 'true') : isCompanyAddress
 
       let mockList = List.filter(item => {
-        console.log(item.isMemberAddress, isMemberAddress)
         if (type && !item.type.includes(type)) return false
         if (isMemberAddress && item.isMemberAddress !== isMemberAddress) return false
         if (isCompanyAddress && item.isCompanyAddress !== isCompanyAddress) return false
