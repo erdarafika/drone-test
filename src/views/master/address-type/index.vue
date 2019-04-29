@@ -41,21 +41,21 @@
           <span>{{ scope.row.type }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" sortable="custom" align="left" width="210">
+      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" align="left" width="150">
         <template slot-scope="scope">
           <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
             {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" sortable="custom" align="left" width="210">
+      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" align="left" width="160">
         <template slot-scope="scope">
           <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
             {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.createdDate')" prop="id" sortable="custom" align="left" width="140">
+      <el-table-column :label="$t('table.createdDate')" prop="id" sortable="custom" align="left" width="200">
         <!-- {{ randomDate() | moment("Do MMMM, YYYY") }} -->
         <template slot-scope="scope">
           {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
