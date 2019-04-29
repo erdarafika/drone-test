@@ -5,9 +5,8 @@ const count = 100
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
-    type: '@title(5, 10)',
-    'isMemberAddress|1-2': true,
-    'isCompanyAddress|1-4': true,
+    name: '@title(5, 10)',
+    'code|1-99999': 100,
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
 
@@ -16,18 +15,13 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
-    url: '/address-type/list',
+    url: '/business-line/list',
     type: 'get',
     response: config => {
-      const { type, page = 1, limit = 20, sort } = config.query
-      let { isMemberAddress, isCompanyAddress } = config.query
-      isMemberAddress = isMemberAddress ? (isMemberAddress === 'true') : isMemberAddress
-      isCompanyAddress = isCompanyAddress ? (isCompanyAddress === 'true') : isCompanyAddress
+      const { name, page = 1, limit = 20, sort } = config.query
 
       let mockList = List.filter(item => {
-        if (type && !item.type.includes(type)) return false
-        if (isMemberAddress && item.isMemberAddress !== isMemberAddress) return false
-        if (isCompanyAddress && item.isCompanyAddress !== isCompanyAddress) return false
+        if (name && !item.name.includes(name)) return false
         return true
       })
 
@@ -48,15 +42,15 @@ export default [
   },
 
   {
-    url: '/address-type/detail',
+    url: '/business-line/detail',
     type: 'get',
     response: config => {
       const { id } = config.query
-      for (const addressType of List) {
-        if (addressType.id === +id) {
+      for (const businessLine of List) {
+        if (businessLine.id === +id) {
           return {
             code: 20000,
-            data: addressType
+            data: businessLine
           }
         }
       }
@@ -64,7 +58,7 @@ export default [
   },
 
   {
-    url: '/address-type/create',
+    url: '/business-line/create',
     type: 'post',
     response: _ => {
       return {
@@ -75,7 +69,7 @@ export default [
   },
 
   {
-    url: '/address-type/update',
+    url: '/business-line/update',
     type: 'post',
     response: _ => {
       return {

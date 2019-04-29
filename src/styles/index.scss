@@ -209,3 +209,17 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+span.label-enable {
+  color: white;
+  padding: 5px;
+  background: #53b982;
+  border-radius: 5px;
+}
+
+span.label-disable {
+  color: white;
+  padding: 5px;
+  background: #c8422d;
+  border-radius: 5px;
+}

@@ -6,13 +6,15 @@ import role from './role'
 import article from './article'
 import search from './remote-search'
 import addressType from './address-type'
+import businessLine from './business-line'
 
 const mocks = [
   ...user,
   ...role,
   ...article,
   ...search,
-  ...addressType
+  ...addressType,
+  ...businessLine
 ]
 
 // for front mock

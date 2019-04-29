@@ -2,31 +2,31 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/address-type/list',
+    url: '/business-line/list',
     method: 'get',
     params: query
   })
 }
 
-export function fetchAddressType(id) {
+export function fetchBusinessLine(id) {
   return request({
-    url: '/address-type/detail',
+    url: '/business-line/detail',
     method: 'get',
     params: { id }
   })
 }
 
-export function createAddressType(data) {
+export function createBusinessLine(data) {
   return request({
-    url: '/address-type/create',
+    url: '/business-line/create',
     method: 'post',
     data
   })
 }
 
-export function updateAddressType(data) {
+export function updateBusinessLine(data) {
   return request({
-    url: '/address-type/update',
+    url: '/business-line/update',
     method: 'post',
     data
   })

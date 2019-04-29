@@ -42,8 +42,8 @@ export default {
 </script>
 
 <style scoped>
-.pensiunku-language-icon {
+/* .pensiunku-language-icon {
   margin-top:15px;
   width: 24px;
-}
+} */
 </style>

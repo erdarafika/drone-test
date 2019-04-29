@@ -2,19 +2,6 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.type" prefix-icon="el-icon-search" :placeholder="$t('table.searchPlaceholder')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.isMemberAddress" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in isMemberAddressOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.isCompanyAddress" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in isCompanyAddressOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select>
-
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        {{ $t('table.search') }}
-      </el-button> -->
 
       <el-button class="filter-item add-button" style="margin-left: 10px;float:right" type="primary" @click="handleCreate">
         {{ $t('table.add') }}
@@ -31,37 +18,32 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <!-- <el-table-column :label="`ID`" prop="id" sortable="custom" align="center" width="80">
-        <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
-        </template>
-      </el-table-column> -->
-      <el-table-column :label="$t('addressType.type')" prop="id" sortable="custom" align="left">
+
+      <el-table-column :label="$t('addressType.type')" sortable="custom" align="left">
         <template slot-scope="scope">
           <span>{{ scope.row.type }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" align="left" width="180">
+      <el-table-column :label="$t('addressType.displayOnMember')" align="left" width="180">
         <template slot-scope="scope">
-          <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
+          <span :class="scope.row.isMemberAddress?'label-enable':'label-disable'">
             {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
-          </el-button>
+          </span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" align="left" width="190">
+      <el-table-column :label="$t('addressType.displayOnCompany')" align="left" width="190">
         <template slot-scope="scope">
-          <el-button :type="getStatusStyle(scope.row.isCompanyAddress)" size="mini">
+          <span :class="scope.row.isCompanyAddress?'label-enable':'label-disable'">
             {{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}
-          </el-button>
+          </span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.createdDate')" prop="id" sortable="custom" align="left" width="200">
-        <!-- {{ randomDate() | moment("Do MMMM, YYYY") }} -->
+      <el-table-column :label="$t('table.createdDate')" align="left" width="200">
         <template slot-scope="scope">
           {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
         </template>
       </el-table-column>
-      <el-table-column :label="``" align="right" class-name="small-padding fixed-width" width="100">
+      <el-table-column label="" align="right" class-name="small-padding fixed-width" width="100">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t('table.edit') }}
@@ -103,28 +85,16 @@
         </el-button>
       </div>
     </el-dialog>
-
-    <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
-      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel  " />
-        <el-table-column prop="pv" label="Pv" />
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">{{ $t('table.confirm') }}</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { fetchList, fetchPv, createAddressType, updateAddressType } from '@/api/address-type'
-import waves from '@/directive/waves' // waves directive
+import { fetchList, createAddressType, updateAddressType } from '@/api/address-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   name: 'AddressType',
   components: { Pagination },
-  directives: { waves },
   data() {
     return {
       tableKey: 0,
@@ -139,10 +109,6 @@ export default {
         isCompanyAddress: undefined,
         sort: '+id'
       },
-      statusOptions: [{ value: true, label: ' Enable' }, { value: false, label: ' Disable' }],
-      sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
-      isMemberAddressOptions: [{ label: 'Enable Display on Member', key: true }, { label: 'Disable Display on Member', key: false }],
-      isCompanyAddressOptions: [{ label: 'Enable Display on Company', key: true }, { label: 'Disable Display on Company', key: false }],
       temp: {
         id: undefined,
         type: '',
@@ -150,15 +116,12 @@ export default {
         isCompanyAddress: true,
         isActive: undefined
       },
-      showActive: false,
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
         update: 'Edit',
         create: 'Create'
       },
-      dialogPvVisible: false,
-      pvData: [],
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }]
       }
@@ -166,16 +129,8 @@ export default {
   },
   created() {
     this.getList()
-    console.log('mm', this.randomDate())
   },
   methods: {
-    randomDate() {
-      const start = new Date(2012, 0, 1); const end = new Date()
-      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    },
-    getStatusStyle(status) {
-      return status ? 'success' : 'danger'
-    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
@@ -209,12 +164,10 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        type: '',
+        isMemberAddress: true,
+        isCompanyAddress: true,
+        isActive: undefined
       }
     },
     handleCreate() {
@@ -286,12 +239,6 @@ export default {
       })
       const index = this.list.indexOf(row)
       this.list.splice(index, 1)
-    },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
     }
   }
 }
