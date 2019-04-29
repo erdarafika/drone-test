@@ -61,6 +61,9 @@ export default {
   @import "~@/styles/mixin.scss";
   @import "~@/styles/variables.scss";
 
+  // PensiunKu version
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+
   .app-wrapper {
     @include clearfix;
     position: relative;

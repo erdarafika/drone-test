@@ -12,13 +12,13 @@ const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    avatar: 'https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png',
+    avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
     name: 'Super Admin'
   },
   'editor-token': {
     roles: ['editor'],
     introduction: 'I am an editor',
-    avatar: 'https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png',
+    avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
     name: 'Normal Editor'
   }
 }

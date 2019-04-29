@@ -8,7 +8,9 @@ for (let i = 0; i < count; i++) {
     type: '@title(5, 10)',
     'isMemberAddress|1-2': true,
     'isCompanyAddress|1-4': true,
-    'isActive|1-10': true
+    'isActive|1-10': true,
+    createdDate: '@date("yyyy-MM-dd")'
+
   }))
 }
 

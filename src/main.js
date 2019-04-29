@@ -20,6 +20,9 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+const moment = require('moment')
+require('moment/locale/id')
+
 /**
  * If you don't want to use mock-server
  * you want to use mockjs for request interception
@@ -28,6 +31,10 @@ import * as filters from './filters' // global filters
  * import { mockXHR } from '../mock'
  * mockXHR()
  */
+
+Vue.use(require('vue-moment'), {
+  moment
+})
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

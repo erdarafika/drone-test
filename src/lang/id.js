@@ -2,6 +2,7 @@ export default {
   route: {
     dashboard: 'Dasbor',
     addressType: 'Jenis Alamat',
+    businessLine: 'Jalur Bisnis',
     master: 'Pengaturan Master',
     permission: 'Permission',
     pagePermission: 'Page Permission',
@@ -54,7 +55,9 @@ export default {
     cancel: 'Batal',
     confirm: 'Konfirmasi',
     successCaption: 'Operasi Berhasil',
-    successTitle: 'Berhasil'
+    successTitle: 'Berhasil',
+    searchPlaceholder: 'Cari Sesuatu',
+    createdDate: 'Tanggal dibuat'
   },
   settings: {
     title: 'Pengaturan Tampilan',
@@ -64,7 +67,7 @@ export default {
     sidebarLogo: 'Sidebar Logo'
   },
   addressType: {
-    type: 'Tipe',
+    type: 'Nama',
     displayOnMember: 'Tampilkan dipelanggan',
     displayOnCompany: 'Tampilkan diperusahaan',
     active: 'Aktif',

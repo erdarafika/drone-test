@@ -23,7 +23,10 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          {{ username }}
+          <!-- <i class="el-icon-caret-bottom" /> -->
+          <!-- PensiunKu version -->
+
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
@@ -65,7 +68,10 @@ export default {
       'sidebar',
       'avatar',
       'device'
-    ])
+    ]),
+    username() {
+      return this.$store.getters.name
+    }
   },
   methods: {
     toggleSideBar() {
@@ -85,7 +91,7 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  // box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
     line-height: 46px;
@@ -148,6 +154,8 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
+          // PensiunKu version
+          vertical-align: middle;
         }
 
         .el-icon-caret-bottom {

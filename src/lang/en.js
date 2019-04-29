@@ -2,6 +2,7 @@ export default {
   route: {
     dashboard: 'Dashboard',
     addressType: 'Address Type',
+    businessLine: 'Business Line',
     master: 'Master Setup',
     permission: 'Permission',
     pagePermission: 'Page Permission',
@@ -54,7 +55,9 @@ export default {
     cancel: 'Cancel',
     confirm: 'Confirm',
     successCaption: 'Success',
-    successTitle: 'Operation Success'
+    successTitle: 'Operation Success',
+    searchPlaceholder: 'Find something',
+    createdDate: 'Created Date'
   },
   settings: {
     title: 'Page style setting',
@@ -64,7 +67,7 @@ export default {
     sidebarLogo: 'Sidebar Logo'
   },
   addressType: {
-    type: 'Type',
+    type: 'Name',
     displayOnMember: 'Display on Member',
     displayOnCompany: 'Display on Company',
     active: 'Active',

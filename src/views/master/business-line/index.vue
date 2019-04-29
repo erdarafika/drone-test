@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.type" prefix-icon="el-icon-search" :placeholder="$t('table.searchPlaceholder')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+      <el-input v-model="listQuery.type" :placeholder="$t('addressType.type')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
       <el-select v-model="listQuery.isMemberAddress" style="width: 140px" class="filter-item" @change="handleFilter">
@@ -14,9 +14,9 @@
 
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         {{ $t('table.search') }}
-      </el-button> -->
+      </el-button>
 
-      <el-button class="filter-item add-button" style="margin-left: 10px;float:right" type="primary" @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         {{ $t('table.add') }}
       </el-button>
 
@@ -26,49 +26,40 @@
       :key="tableKey"
       v-loading="listLoading"
       :data="list"
+      border
       fit
       highlight-current-row
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <!-- <el-table-column :label="`ID`" prop="id" sortable="custom" align="center" width="80">
+      <el-table-column :label="`ID`" prop="id" sortable="custom" align="center" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
-      </el-table-column> -->
-      <el-table-column :label="$t('addressType.type')" prop="id" sortable="custom" align="left">
+      </el-table-column>
+      <el-table-column :label="$t('addressType.type')" prop="id" sortable="custom" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.type }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" sortable="custom" align="left" width="210">
+      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" sortable="custom" align="center" width="210">
         <template slot-scope="scope">
-          <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
-            {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
-          </el-button>
+          <span>{{ scope.row.isMemberAddress? 'Enable': 'Disable' }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" sortable="custom" align="left" width="210">
+      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" sortable="custom" align="center" width="210">
         <template slot-scope="scope">
-          <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
-            {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
-          </el-button>
+          <span>{{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.createdDate')" prop="id" sortable="custom" align="left" width="140">
-        <!-- {{ randomDate() | moment("Do MMMM, YYYY") }} -->
-        <template slot-scope="scope">
-          {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-        </template>
-      </el-table-column>
-      <el-table-column :label="``" align="right" class-name="small-padding fixed-width" width="100">
+      <el-table-column :label="`#`" align="center" class-name="small-padding fixed-width" width="200">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t('table.edit') }}
           </el-button>
-          <!-- <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">
             {{ $t('table.delete') }}
-          </el-button> -->
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -122,7 +113,7 @@ import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'AddressType',
+  name: 'BusinessLine',
   components: { Pagination },
   directives: { waves },
   data() {
@@ -166,16 +157,8 @@ export default {
   },
   created() {
     this.getList()
-    console.log('mm', this.randomDate())
   },
   methods: {
-    randomDate() {
-      const start = new Date(2012, 0, 1); const end = new Date()
-      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    },
-    getStatusStyle(status) {
-      return status ? 'success' : 'danger'
-    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {

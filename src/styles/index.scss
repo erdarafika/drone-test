@@ -181,6 +181,26 @@ aside {
   }
 }
 
+
+// PensiunKu version
+.add-button {  
+  background: #62d6c4;
+  border: None !important;
+
+  &:hover {
+    background: #43bba8;
+  }
+  &:active {
+    background: #43bba8;
+  }  
+  &:focus {
+    background: #43bba8;
+  }
+}
+
+
+
+
 //refine vue-multiselect plugin
 .multiselect {
   line-height: 16px;
