@@ -66,6 +66,10 @@ export default {
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
   },
+  modal: {
+    addModalHeader: 'Tambah Data Baru',
+    editModalHeader: 'Ubah Data'
+  },
   addressType: {
     type: 'Nama',
     displayOnMember: 'Tampilkan dipelanggan',
@@ -78,5 +82,9 @@ export default {
     close: 'Tutup',
     closeOthers: 'Tutup Lainnya',
     closeAll: 'Tutup Semua'
+  },
+  businessLine: {
+    name: 'Nama Jalur Bisnis',
+    code: 'Kode Jalur Bisnis'
   }
 }

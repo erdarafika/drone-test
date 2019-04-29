@@ -57,22 +57,26 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="140px" style="width: 400px; margin-left:50px;">
+    <el-dialog :title="getDialogHeader(dialogStatus)" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="200px" style="width: 80%; margin-left:50px;">
 
         <el-form-item :label="$t('addressType.type')" prop="title">
-          <el-input v-model="temp.type" />
+          <!-- <el-input v-model="temp.type" /> -->
+          <el-input
+            v-model="temp.type"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+          />
         </el-form-item>
 
         <el-form-item :label="$t('addressType.displayOnMember')">
-          <el-select v-model="temp.isMemberAddress" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-switch v-model="temp.isMemberAddress" />
+          <span class="switch-status">{{ temp.isMemberAddress?'Enabled':'Disabled' }}</span>
         </el-form-item>
+
         <el-form-item :label="$t('addressType.displayOnCompany')">
-          <el-select v-model="temp.isCompanyAddress" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-switch v-model="temp.isCompanyAddress" />
+          <span class="switch-status">{{ temp.isCompanyAddress?'Enabled':'Disabled' }}</span>
         </el-form-item>
 
       </el-form>
@@ -87,6 +91,12 @@
     </el-dialog>
   </div>
 </template>
+<style>
+.switch-status {
+  margin-left: 5px;
+  font-size: 14px;
+}
+</style>
 
 <script>
 import { fetchList, createAddressType, updateAddressType } from '@/api/address-type'
@@ -109,19 +119,17 @@ export default {
         isCompanyAddress: undefined,
         sort: '+id'
       },
+      statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
         id: undefined,
         type: '',
         isMemberAddress: true,
         isCompanyAddress: true,
-        isActive: undefined
+        isActive: undefined,
+        createdDate: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }]
       }
@@ -131,6 +139,13 @@ export default {
     this.getList()
   },
   methods: {
+    getDialogHeader(dialogStatus) {
+      if (dialogStatus === 'update') {
+        return this.$t('modal.editModalHeader')
+      } else {
+        return this.$t('modal.addModalHeader')
+      }
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
@@ -182,8 +197,11 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
+          const current_datetime = new Date()
+          const formatted_date = `${current_datetime.getFullYear()} - ${(current_datetime.getMonth() + 1)} - ${current_datetime.getDate()}`
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true
+          this.temp.createdDate = formatted_date
           createAddressType(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false

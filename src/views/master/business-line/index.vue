@@ -19,12 +19,12 @@
       @sort-change="sortChange"
     >
 
-      <el-table-column :label="$t('addressType.type')" sortable="custom" align="left">
+      <el-table-column :label="$t('businessLine.name')" sortable="custom" align="left">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.type')" align="left" width="100">
+      <el-table-column :label="$t('businessLine.code')" align="left" width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.code }}</span>
         </template>

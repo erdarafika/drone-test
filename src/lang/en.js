@@ -66,6 +66,10 @@ export default {
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
   },
+  modal: {
+    addModalHeader: 'Add New Data',
+    editModalHeader: 'Edit Data'
+  },
   addressType: {
     type: 'Name',
     displayOnMember: 'Display on Member',
@@ -78,5 +82,9 @@ export default {
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
+  },
+  businessLine: {
+    name: 'Business Line Name',
+    code: 'Business Line Code'
   }
 }

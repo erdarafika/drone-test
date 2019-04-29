@@ -223,3 +223,10 @@ span.label-disable {
   background: #c8422d;
   border-radius: 5px;
 }
+
+.el-dialog__header {
+  background: #2C2C2C;
+  .el-dialog__title {
+    color: white;
+  }
+}

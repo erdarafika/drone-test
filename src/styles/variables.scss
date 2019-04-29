@@ -16,7 +16,7 @@ $subMenuActiveText:#f4f4f5; // https://github.com/ElemeFE/element/issues/12951
 // $menuBg:#304156;
 // Pensiunku version
 $menuBg: #2C2C2C;
-
+$dialodheaderBg: #2C2C2C;
 $menuHover:#232323;
 
 $subMenuBg:#232323;
@@ -35,4 +35,5 @@ $sideBarWidth: 210px;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;
+  dialogHeaderBg: $dialodheaderBg;
 }
