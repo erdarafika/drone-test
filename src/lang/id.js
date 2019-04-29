@@ -72,5 +72,11 @@ export default {
     displayOnCompany: 'Tampilkan diperusahaan',
     active: 'Aktif',
     showActiveOnly: 'Tampilkan yang aktif'
+  },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Tutup',
+    closeOthers: 'Tutup Lainnya',
+    closeAll: 'Tutup Semua'
   }
 }

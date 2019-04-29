@@ -3,7 +3,8 @@
     <div>
       <!-- <svg-icon class-name="international-icon" icon-class="language" /> -->
       <!-- PensiunKu version -->
-      <img src="../../assets/icon/english-language.png" class="pensiunku-language-icon">
+      <!-- <img src="../../assets/icon/english-language.png" class="pensiunku-language-icon"> -->
+      <svg-icon :icon-class="flagIcon" />
 
     </div>
     <el-dropdown-menu slot="dropdown">
@@ -22,6 +23,9 @@ export default {
   computed: {
     language() {
       return this.$store.getters.language
+    },
+    flagIcon() {
+      return this.$store.getters.language === 'en' ? 'united-kingdom' : 'indonesia'
     }
   },
   methods: {

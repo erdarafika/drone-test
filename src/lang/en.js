@@ -72,5 +72,11 @@ export default {
     displayOnCompany: 'Display on Company',
     active: 'Active',
     showActiveOnly: 'Show Active Only'
+  },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All'
   }
 }

@@ -41,17 +41,17 @@
           <span>{{ scope.row.type }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" align="left" width="150">
+      <el-table-column :label="$t('addressType.displayOnMember')" prop="id" align="left" width="180">
         <template slot-scope="scope">
           <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
             {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" align="left" width="160">
+      <el-table-column :label="$t('addressType.displayOnCompany')" prop="id" align="left" width="190">
         <template slot-scope="scope">
-          <el-button :type="getStatusStyle(scope.row.isMemberAddress)" size="mini">
-            {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
+          <el-button :type="getStatusStyle(scope.row.isCompanyAddress)" size="mini">
+            {{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}
           </el-button>
         </template>
       </el-table-column>
