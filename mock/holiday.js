@@ -1,12 +1,11 @@
 import Mock from 'mockjs'
 
 const List = []
-const count = 8
+const count = 15
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
-    name: '@title(5, 10)',
-    code: '@word',
+    holidayDate: '@date("yyyy-MM-dd")',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
 
@@ -15,13 +14,13 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
-    url: '/document/list',
+    url: '/holiday/list',
     type: 'get',
     response: config => {
-      const { q, page = 1, limit = 20, sort } = config.query
+      const { page = 1, limit = 20, sort } = config.query
 
       let mockList = List.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        // if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
         return true
       })
 
@@ -41,24 +40,24 @@ export default [
     }
   },
 
-  {
-    url: '/document/detail',
-    type: 'get',
-    response: config => {
-      const { id } = config.query
-      for (const document of List) {
-        if (document.id === +id) {
-          return {
-            code: 20000,
-            data: document
-          }
-        }
-      }
-    }
-  },
+  // {
+  //   url: '/holiday/detail',
+  //   type: 'get',
+  //   response: config => {
+  //     const { id } = config.query
+  //     for (const holiday of List) {
+  //       if (holiday.id === +id) {
+  //         return {
+  //           code: 20000,
+  //           data: holiday
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
 
   {
-    url: '/document/create',
+    url: '/holiday/create',
     type: 'post',
     response: _ => {
       return {
@@ -69,7 +68,7 @@ export default [
   },
 
   {
-    url: '/document/update',
+    url: '/holiday/update',
     type: 'post',
     response: _ => {
       return {

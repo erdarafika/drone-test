@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 
 const List = []
-const count = 100
+const count = 11
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',

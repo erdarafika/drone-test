@@ -6,6 +6,7 @@ export default {
     document: 'Dokumen',
     master: 'Pengaturan Master',
     permission: 'Permission',
+    holiday: 'Hari Libur',
     pagePermission: 'Page Permission',
     rolePermission: 'Role Permission',
     directivePermission: 'Directive Permission',
@@ -91,5 +92,8 @@ export default {
   document: {
     name: 'Nama Dokumen',
     code: 'Kode Dokumen'
+  },
+  holiday: {
+    date: 'Tanggal Libur'
   }
 }

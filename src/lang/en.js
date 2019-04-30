@@ -3,6 +3,7 @@ export default {
     dashboard: 'Dashboard',
     addressType: 'Address Type',
     businessLine: 'Business Line',
+    holiday: 'Holiday',
     document: 'Document',
     master: 'Master Setup',
     permission: 'Permission',
@@ -91,5 +92,8 @@ export default {
   document: {
     name: 'Document Name',
     code: 'Document Code'
+  },
+  holiday: {
+    date: 'Holiday Date'
   }
 }
