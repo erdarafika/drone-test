@@ -20,7 +20,7 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('holiday.date')", prop='name')
+      el-form-item(:label="$t('holiday.date')", prop='holidayDate')
         //- el-input(v-model='temp.holidayDate', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-date-picker(v-model='temp.holidayDate', type='date', placeholder='Pick a day')
 
