@@ -5,9 +5,8 @@ const count = 100
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
-    type: '@title(5, 10)',
-    'isMemberAddress|1-2': true,
-    'isCompanyAddress|1-4': true,
+    name: '@title(5, 10)',
+    code: '@word',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
 
@@ -16,15 +15,19 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
-    url: '/address-type/list',
+    url: '/document/list',
     type: 'get',
     response: config => {
-      const { type, page = 1, limit = 20 } = config.query
+      const { q, page = 1, limit = 20, sort } = config.query
 
-      const mockList = List.filter(item => {
-        if (type && !item.type.toLowerCase().includes(type.toLowerCase())) return false
+      let mockList = List.filter(item => {
+        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
         return true
       })
+
+      if (sort === '-id') {
+        mockList = mockList.reverse()
+      }
 
       const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
@@ -39,15 +42,15 @@ export default [
   },
 
   {
-    url: '/address-type/detail',
+    url: '/document/detail',
     type: 'get',
     response: config => {
       const { id } = config.query
-      for (const addressType of List) {
-        if (addressType.id === +id) {
+      for (const document of List) {
+        if (document.id === +id) {
           return {
             code: 20000,
-            data: addressType
+            data: document
           }
         }
       }
@@ -55,7 +58,7 @@ export default [
   },
 
   {
-    url: '/address-type/create',
+    url: '/document/create',
     type: 'post',
     response: _ => {
       return {
@@ -66,7 +69,7 @@ export default [
   },
 
   {
-    url: '/address-type/update',
+    url: '/document/update',
     type: 'post',
     response: _ => {
       return {

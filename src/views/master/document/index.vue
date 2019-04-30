@@ -7,10 +7,10 @@
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('businessLine.name')", align='left')
+    el-table-column(:label="$t('document.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name }}
-    el-table-column(:label="$t('businessLine.code')", align='left', width='180')
+    el-table-column(:label="$t('document.code')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.code }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
@@ -23,9 +23,9 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('businessLine.name')", prop='name')
+      el-form-item(:label="$t('document.name')", prop='name')
         el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-      el-form-item(:label="$t('businessLine.code')", prop='code')
+      el-form-item(:label="$t('document.code')", prop='code')
         el-input(v-model.number='temp.code', type='input')
 
     .dialog-footer(slot='footer')
@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import { fetchList, createBusinessLine, updateBusinessLine } from '@/api/business-line'
+import { fetchList, createDocument, updateDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
 
 export default {
-  name: 'BusinessLine',
+  name: 'Document',
   components: { Pagination },
   data() {
     return {
@@ -65,8 +65,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'Business name is required', trigger: 'change' }],
-        code: [{ required: true, message: 'Business code is required', trigger: 'change' }, { type: 'number', message: 'Business code must be a number' }]
+        name: [{ required: true, message: 'Document name is required', trigger: 'change' }],
+        code: [{ required: true, message: 'Document code is required', trigger: 'change' }]
       }
     }
   },
@@ -121,7 +121,7 @@ export default {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true
           this.temp.createdDate = generateDate()
-          createBusinessLine(this.temp).then(() => {
+          createDocument(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -148,7 +148,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateBusinessLine(tempData).then(() => {
+          updateDocument(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)

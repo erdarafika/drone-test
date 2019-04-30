@@ -3,6 +3,7 @@ export default {
     dashboard: 'Dasbor',
     addressType: 'Jenis Alamat',
     businessLine: 'Jalur Bisnis',
+    document: 'Dokumen',
     master: 'Pengaturan Master',
     permission: 'Permission',
     pagePermission: 'Page Permission',
@@ -86,5 +87,9 @@ export default {
   businessLine: {
     name: 'Nama Jalur Bisnis',
     code: 'Kode Jalur Bisnis'
+  },
+  document: {
+    name: 'Nama Dokumen',
+    code: 'Kode Dokumen'
   }
 }

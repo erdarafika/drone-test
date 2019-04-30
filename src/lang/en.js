@@ -3,6 +3,7 @@ export default {
     dashboard: 'Dashboard',
     addressType: 'Address Type',
     businessLine: 'Business Line',
+    document: 'Document',
     master: 'Master Setup',
     permission: 'Permission',
     pagePermission: 'Page Permission',
@@ -86,5 +87,9 @@ export default {
   businessLine: {
     name: 'Business Line Name',
     code: 'Business Line Code'
+  },
+  document: {
+    name: 'Document Name',
+    code: 'Document Code'
   }
 }

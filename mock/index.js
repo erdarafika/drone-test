@@ -7,6 +7,7 @@ import article from './article'
 import search from './remote-search'
 import addressType from './address-type'
 import businessLine from './business-line'
+import document from './document'
 
 const mocks = [
   ...user,
@@ -14,7 +15,8 @@ const mocks = [
   ...article,
   ...search,
   ...addressType,
-  ...businessLine
+  ...businessLine,
+  ...document
 ]
 
 // for front mock

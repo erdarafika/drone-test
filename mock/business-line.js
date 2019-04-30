@@ -18,10 +18,10 @@ export default [
     url: '/business-line/list',
     type: 'get',
     response: config => {
-      const { name, page = 1, limit = 20, sort } = config.query
+      const { q, page = 1, limit = 20, sort } = config.query
 
       let mockList = List.filter(item => {
-        if (name && !item.name.includes(name)) return false
+        if (q && (!item.name.includes(q) && !`${item.code}`.includes(q))) return false
         return true
       })
 

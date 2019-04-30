@@ -114,6 +114,15 @@ export const asyncRoutes = [
           title: 'businessLine',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'document',
+        name: 'document',
+        component: () => import('@/views/master/document/index'),
+        meta: {
+          title: 'document',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
       }
     ]
   },

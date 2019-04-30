@@ -1,95 +1,45 @@
-<template>
-  <div class="app-container">
-    <div class="filter-container">
-      <el-input v-model="listQuery.type" prefix-icon="el-icon-search" :placeholder="$t('table.searchPlaceholder')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+<template lang="pug">
+.app-container
+  .filter-container
+    el-input.filter-item(v-model='listQuery.type', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      | {{ $t('table.add') }}
+  el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+    el-table-column(:label="$t('addressType.type')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.type }}
+    el-table-column(:label="$t('addressType.displayOnMember')", align='left', width='180')
+      template(slot-scope='scope')
+        span(:class="scope.row.isMemberAddress?'label-enable':'label-disable'")
+          | {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
+    el-table-column(:label="$t('addressType.displayOnCompany')", align='left', width='190')
+      template(slot-scope='scope')
+        span(:class="scope.row.isCompanyAddress?'label-enable':'label-disable'")
+          | {{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}
+    el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+      template(slot-scope='scope')
+        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
+      template(slot-scope='{row}')
+        el-button(type='primary', size='mini', @click='handleUpdate(row)')
+          | {{ $t('table.edit') }}
+  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
+  el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('addressType.type')", prop='type')
+        el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' )
+      el-form-item(:label="$t('addressType.displayOnMember')" prop="isMemberAddress")
+        el-switch(v-model='temp.isMemberAddress')
+        span.switch-status {{ temp.isMemberAddress?'Enabled':'Disabled' }}
+      el-form-item(:label="$t('addressType.displayOnCompany')" prop="isCompanyAddress")
+        el-switch(v-model='temp.isCompanyAddress')
+        span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+        | {{ $t('table.confirm') }}
 
-      <el-button class="filter-item add-button" style="margin-left: 10px;float:right" type="primary" @click="handleCreate">
-        {{ $t('table.add') }}
-      </el-button>
-
-    </div>
-
-    <el-table
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      fit
-      highlight-current-row
-      style="width: 100%;"
-      @sort-change="sortChange"
-    >
-
-      <el-table-column :label="$t('addressType.type')" sortable="custom" align="left">
-        <template slot-scope="scope">
-          <span>{{ scope.row.type }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnMember')" align="left" width="180">
-        <template slot-scope="scope">
-          <span :class="scope.row.isMemberAddress?'label-enable':'label-disable'">
-            {{ scope.row.isMemberAddress? 'Enable': 'Disable' }}
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('addressType.displayOnCompany')" align="left" width="190">
-        <template slot-scope="scope">
-          <span :class="scope.row.isCompanyAddress?'label-enable':'label-disable'">
-            {{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('table.createdDate')" align="left" width="200">
-        <template slot-scope="scope">
-          {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-        </template>
-      </el-table-column>
-      <el-table-column label="" align="right" class-name="small-padding fixed-width" width="100">
-        <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            {{ $t('table.edit') }}
-          </el-button>
-          <!-- <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">
-            {{ $t('table.delete') }}
-          </el-button> -->
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-    <el-dialog :title="getDialogHeader(dialogStatus)" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="200px" style="width: 80%; margin-left:50px;">
-
-        <el-form-item :label="$t('addressType.type')" prop="title">
-          <!-- <el-input v-model="temp.type" /> -->
-          <el-input
-            v-model="temp.type"
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-          />
-        </el-form-item>
-
-        <el-form-item :label="$t('addressType.displayOnMember')">
-          <el-switch v-model="temp.isMemberAddress" />
-          <span class="switch-status">{{ temp.isMemberAddress?'Enabled':'Disabled' }}</span>
-        </el-form-item>
-
-        <el-form-item :label="$t('addressType.displayOnCompany')">
-          <el-switch v-model="temp.isCompanyAddress" />
-          <span class="switch-status">{{ temp.isCompanyAddress?'Enabled':'Disabled' }}</span>
-        </el-form-item>
-
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          {{ $t('table.cancel') }}
-        </el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          {{ $t('table.confirm') }}
-        </el-button>
-      </div>
-    </el-dialog>
-  </div>
 </template>
 <style>
 .switch-status {
@@ -101,6 +51,7 @@
 <script>
 import { fetchList, createAddressType, updateAddressType } from '@/api/address-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'AddressType',
@@ -116,8 +67,7 @@ export default {
         limit: 20,
         type: undefined,
         isMemberAddress: undefined,
-        isCompanyAddress: undefined,
-        sort: '+id'
+        isCompanyAddress: undefined
       },
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
@@ -131,7 +81,9 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }]
+        type: [{ required: true, message: 'Address name is required', trigger: 'blur' }],
+        isMemberAddress: [{ required: true, message: 'Display on member is required', trigger: 'blur' }],
+        isCompanyAddress: [{ required: true, message: 'Display on company is required', trigger: 'blur' }]
       }
     }
   },
@@ -162,20 +114,6 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
-    sortChange(data) {
-      const { prop, order } = data
-      if (prop === 'id') {
-        this.sortByID(order)
-      }
-    },
-    sortByID(order) {
-      if (order === 'ascending') {
-        this.listQuery.sort = '+id'
-      } else {
-        this.listQuery.sort = '-id'
-      }
-      this.handleFilter()
-    },
     resetTemp() {
       this.temp = {
         id: undefined,
@@ -197,11 +135,9 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          const current_datetime = new Date()
-          const formatted_date = `${current_datetime.getFullYear()} - ${(current_datetime.getMonth() + 1)} - ${current_datetime.getDate()}`
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true
-          this.temp.createdDate = formatted_date
+          this.temp.createdDate = generateDate()
           createAddressType(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
