@@ -12,7 +12,7 @@
           th {{ $t('table.createdDate') }}
           td {{ data.createdDate | moment("Do MMMM, YYYY") }}
 
-    el-table(:data='dummyReason')
+    el-table(:data='reasons' v-loading='listLoading')
       el-table-column(property='reason', label='Reason')
       el-table-column(label='Created Date', width='150')
         template(slot-scope='scope')
@@ -41,28 +41,34 @@
 </style>
 
 <script>
+import { fetchReason } from '@/api/document'
 export default {
   name: 'ViewDocument',
-  props: ['data'],
+  props: {
+    data: Object
+  },
   data() {
     return {
-      dummyReason: [{
-        createdDate: '2016-05-02',
-        reason: 'No.1518,  Jinshajiang Road, Putuo District'
-      }, {
-        createdDate: '2016-05-04',
-        reason: 'No.1518,  Jinshajiang Road, Putuo District'
-      }, {
-        createdDate: '2016-05-01',
-        reason: 'No.1518,  Jinshajiang Road, Putuo District'
-      }, {
-        createdDate: '2016-05-03',
-        reason: 'No.1518,  Jinshajiang Road, Putuo District'
-      }]
+      reasons: null,
+      total: null,
+      listLoading: false
     }
   },
   created() {
-    console.log('data', this.data)
+    this.getReasons()
+  },
+  methods: {
+    getReasons() {
+      this.listLoading = true
+      fetchReason().then(response => {
+        this.reasons = response.data.items
+        this.total = response.data.total
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+    }
   }
 }
 </script>

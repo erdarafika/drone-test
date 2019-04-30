@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 
 const List = []
+const ReasonList = []
 const count = 8
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
@@ -11,23 +12,41 @@ for (let i = 0; i < count; i++) {
     createdDate: '@date("yyyy-MM-dd")'
 
   }))
+
+  ReasonList.push(Mock.mock({
+    id: '@increment',
+    reason: '@title(5, 10)',
+    'isActive|1-10': true,
+    createdDate: '@date("yyyy-MM-dd")'
+  }))
 }
 
 export default [
   {
+    url: '/document/reason/list',
+    type: 'get',
+    response: config => {
+      // const { q, page = 1, limit = 20 } = config.query
+      const mockList = ReasonList
+      return {
+        code: 20000,
+        data: {
+          total: mockList.length,
+          items: mockList
+        }
+      }
+    }
+  },
+  {
     url: '/document/list',
     type: 'get',
     response: config => {
-      const { q, page = 1, limit = 20, sort } = config.query
+      const { q, page = 1, limit = 20 } = config.query
 
-      let mockList = List.filter(item => {
+      const mockList = List.filter(item => {
         if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
         return true
       })
-
-      if (sort === '-id') {
-        mockList = mockList.reverse()
-      }
 
       const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
