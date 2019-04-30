@@ -49,6 +49,7 @@ export default {
     type: 'Type',
     search: 'Search',
     add: 'Add',
+    view: 'View',
     export: 'Export',
     status: 'Status',
     actions: 'Actions',

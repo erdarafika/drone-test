@@ -50,6 +50,7 @@ export default {
     search: 'Pencarian',
     add: 'Tambah',
     export: 'Export',
+    view: 'Lihat',
     status: 'Status',
     actions: 'Aksi',
     edit: 'Ubah',

@@ -16,10 +16,12 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='140')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
+        el-button(type='success', size='mini', @click='handleView(row)')
+          | {{ $t('table.view') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -34,16 +36,19 @@
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
 
+  el-dialog(:title="$t('table.view')", :visible.sync='viewRecordVisible')
+    ViewDocument(:data="viewData")
 </template>
 
 <script>
 import { fetchList, createDocument, updateDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
+import ViewDocument from './components/view-document/index'
 
 export default {
   name: 'Document',
-  components: { Pagination },
+  components: { Pagination, ViewDocument },
   data() {
     return {
       tableKey: 0,
@@ -62,7 +67,9 @@ export default {
         isActive: undefined,
         createdDate: undefined
       },
+      viewData: null,
       dialogFormVisible: false,
+      viewRecordVisible: false,
       dialogStatus: '',
       rules: {
         name: [{ required: true, message: 'Document name is required', trigger: 'change' }],
@@ -113,6 +120,10 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
+    },
+    handleView(row) {
+      this.viewData = row
+      this.viewRecordVisible = true
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
