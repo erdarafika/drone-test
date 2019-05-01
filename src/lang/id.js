@@ -11,7 +11,8 @@ export default {
     rolePermission: 'Role Permission',
     directivePermission: 'Directive Permission',
     page401: '401',
-    page404: '404'
+    page404: '404',
+    location: 'Lokasi'
   },
   navbar: {
     logOut: 'Keluar',
@@ -96,5 +97,10 @@ export default {
   },
   holiday: {
     date: 'Tanggal Libur'
+  },
+  location: {
+    country: 'Negara',
+    province: 'Provinsi',
+    city: 'Kota'
   }
 }

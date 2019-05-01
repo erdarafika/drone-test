@@ -11,7 +11,8 @@ export default {
     rolePermission: 'Role Permission',
     directivePermission: 'Directive Permission',
     page401: '401',
-    page404: '404'
+    page404: '404',
+    location: 'Location'
   },
   navbar: {
     logOut: 'Log Out',
@@ -96,5 +97,10 @@ export default {
   },
   holiday: {
     date: 'Holiday Date'
+  },
+  location: {
+    country: 'Country',
+    province: 'Province',
+    city: 'City'
   }
 }

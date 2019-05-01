@@ -132,6 +132,15 @@ export const asyncRoutes = [
           title: 'holiday',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'location',
+        name: 'location',
+        component: () => import('@/views/master/location/index'),
+        meta: {
+          title: 'location',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
       }
     ]
   },

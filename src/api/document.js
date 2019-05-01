@@ -16,6 +16,14 @@ export function fetchReason(query) {
   })
 }
 
+export function createReason(data) {
+  return request({
+    url: '/document/reason/create',
+    method: 'post',
+    data
+  })
+}
+
 export function fetchDocument(id) {
   return request({
     url: '/document/detail',

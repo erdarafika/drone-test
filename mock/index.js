@@ -8,6 +8,7 @@ import addressType from './address-type'
 import businessLine from './business-line'
 import document from './document'
 import holiday from './holiday'
+import location from './location'
 
 const mocks = [
   ...user,
@@ -16,7 +17,8 @@ const mocks = [
   ...addressType,
   ...businessLine,
   ...document,
-  ...holiday
+  ...holiday,
+  ...location
 ]
 
 // for front mock

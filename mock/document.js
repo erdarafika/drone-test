@@ -2,6 +2,7 @@ import Mock from 'mockjs'
 
 const List = []
 const ReasonList = []
+const reasonCount = 4
 const count = 8
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
@@ -10,9 +11,10 @@ for (let i = 0; i < count; i++) {
     code: '@word',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
-
   }))
+}
 
+for (let i = 0; i < reasonCount; i++) {
   ReasonList.push(Mock.mock({
     id: '@increment',
     reason: '@title(5, 10)',
@@ -34,6 +36,16 @@ export default [
           total: mockList.length,
           items: mockList
         }
+      }
+    }
+  },
+  {
+    url: '/document/reason/create',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
       }
     }
   },

@@ -2,33 +2,27 @@
 <template lang="pug">
 .app-container
   .filter-container
-    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
+    //- el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('document.name')", align='left')
+    el-table-column(:label="$t('holiday.date')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.name }}
-    el-table-column(:label="$t('document.code')", align='left', width='180')
-      template(slot-scope='scope')
-        span {{ scope.row.code }}
+        span {{ scope.row.holidayDate | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='140')
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
-        el-button(type='success', size='mini', @click='handleView(row)')
-          | {{ $t('table.view') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('document.name')", prop='name')
-        el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-      el-form-item(:label="$t('document.code')", prop='code')
-        el-input(v-model.number='temp.code', type='input')
+      el-form-item(:label="$t('holiday.date')", prop='holidayDate')
+        //- el-input(v-model='temp.holidayDate', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-date-picker(v-model='temp.holidayDate', type='date', placeholder='Pick a day')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
@@ -36,19 +30,16 @@
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
 
-  el-dialog(:title="$t('table.view')", :visible.sync='viewRecordVisible')
-    ViewDocument(:data="viewData" :handleDocumentDelete="handleDelete")
 </template>
 
 <script>
-import { fetchList, createDocument, updateDocument } from '@/api/document'
+import { fetchList, createHoliday, updateHoliday } from '@/api/holiday'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
-import ViewDocument from './components/view-document/index'
 
 export default {
-  name: 'Document',
-  components: { Pagination, ViewDocument },
+  name: 'Country',
+  components: { Pagination },
   data() {
     return {
       tableKey: 0,
@@ -57,23 +48,19 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        q: undefined
+        limit: 20
+        // q: undefined
       },
       temp: {
         id: undefined,
-        name: '',
-        code: '',
+        holidayDate: undefined,
         isActive: undefined,
         createdDate: undefined
       },
-      viewData: null,
       dialogFormVisible: false,
-      viewRecordVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'Document name is required', trigger: 'change' }],
-        code: [{ required: true, message: 'Document code is required', trigger: 'change' }]
+        holidayDate: [{ required: true, message: 'Holiday date is required', trigger: 'change' }]
       }
     }
   },
@@ -106,8 +93,7 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        code: '',
+        holidayDate: undefined,
         isActive: undefined,
         createdDate: undefined
       }
@@ -120,10 +106,6 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    handleView(row) {
-      this.viewData = row
-      this.viewRecordVisible = true
-    },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
@@ -131,7 +113,7 @@ export default {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true
           this.temp.createdDate = generateDate()
-          createDocument(this.temp).then(() => {
+          createHoliday(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -158,7 +140,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateDocument(tempData).then(() => {
+          updateHoliday(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -178,7 +160,6 @@ export default {
       })
     },
     handleDelete(row) {
-      this.viewRecordVisible = false
       this.$notify({
         title: this.$t('table.successTitle'),
         message: this.$t('table.successCaption'),
