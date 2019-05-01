@@ -101,6 +101,7 @@ export default {
   location: {
     country: 'Negara',
     province: 'Provinsi',
-    city: 'Kota'
+    city: 'Kota',
+    name: 'Nama'
   }
 }

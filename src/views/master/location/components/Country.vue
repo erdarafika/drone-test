@@ -2,27 +2,28 @@
 <template lang="pug">
 .app-container
   .filter-container
-    //- el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
+    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('holiday.date')", align='left')
+    el-table-column(:label="$t('location.name')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.holidayDate | moment("Do MMMM, YYYY") }}
+        span {{ scope.row.name | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
+        el-button(type='danger', size='mini', @click='handleDelete(row)')
+          | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('holiday.date')", prop='holidayDate')
-        //- el-input(v-model='temp.holidayDate', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-        el-date-picker(v-model='temp.holidayDate', type='date', placeholder='Pick a day')
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('location.name')", prop='name')
+        el-input(v-model='temp.name')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-import { fetchList, createHoliday, updateHoliday } from '@/api/holiday'
+import { fetchCountryList, createCountry, updateCountry } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
 
@@ -48,19 +49,19 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
-        // q: undefined
+        limit: 20,
+        q: undefined
       },
       temp: {
         id: undefined,
-        holidayDate: undefined,
+        name: undefined,
         isActive: undefined,
         createdDate: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        holidayDate: [{ required: true, message: 'Holiday date is required', trigger: 'change' }]
+        name: [{ required: true, message: 'Country name is required', trigger: 'change' }]
       }
     }
   },
@@ -77,7 +78,7 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      fetchCountryList(this.listQuery).then(response => {
         this.list = response.data.items
         this.total = response.data.total
         // Just to simulate the time of the request
@@ -93,7 +94,7 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        holidayDate: undefined,
+        name: undefined,
         isActive: undefined,
         createdDate: undefined
       }
@@ -113,7 +114,7 @@ export default {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true
           this.temp.createdDate = generateDate()
-          createHoliday(this.temp).then(() => {
+          createCountry(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -140,7 +141,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateHoliday(tempData).then(() => {
+          updateCountry(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)

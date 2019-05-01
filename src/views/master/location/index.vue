@@ -3,9 +3,10 @@
   el-tabs.pensiun-tab(type='border-card')
     el-tab-pane(:label='$t("location.country")')
       Country
-    el-tab-pane(:label='$t("location.province")') Config
+    el-tab-pane(:label='$t("location.province")')
+      Province
     el-tab-pane(:label='$t("location.city")') Role
-
+      City
 </template>
 
 <script>

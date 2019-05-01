@@ -12,21 +12,23 @@ for (let i = 0; i < countryCount; i++) {
   }))
 }
 const provinceList = []
-const provinceCount = 33
+const provinceCount = 100
 for (let i = 0; i < provinceCount; i++) {
   provinceList.push(Mock.mock({
     id: '@increment',
     name: faker.address.state(),
+    'countryId|1-32': 100,
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))
 }
 const cityList = []
-const cityCount = 33
+const cityCount = 400
 for (let i = 0; i < cityCount; i++) {
   cityList.push(Mock.mock({
     id: '@increment',
     name: faker.address.city(),
+    'provinceId|1-99': 100,
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))
@@ -40,7 +42,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = countryList.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        if (q && !item.name.toLowerCase().includes(q.toLowerCase())) return false
         return true
       })
 
@@ -61,7 +63,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = provinceList.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        if (q && !item.name.toLowerCase().includes(q.toLowerCase())) return false
         return true
       })
 
@@ -82,7 +84,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = cityList.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        if (q && !item.name.toLowerCase().includes(q.toLowerCase())) return false
         return true
       })
 
@@ -153,6 +155,37 @@ export default [
       return {
         code: 20000,
         data: 'success'
+      }
+    }
+  },
+
+  {
+    url: '/country/detail',
+    type: 'get',
+    response: config => {
+      const { id } = config.query
+      for (const country of countryList) {
+        if (country.id === +id) {
+          return {
+            code: 20000,
+            data: country
+          }
+        }
+      }
+    }
+  },
+  {
+    url: '/province/detail',
+    type: 'get',
+    response: config => {
+      const { id } = config.query
+      for (const province of provinceList) {
+        if (province.id === +id) {
+          return {
+            code: 20000,
+            data: province
+          }
+        }
       }
     }
   }

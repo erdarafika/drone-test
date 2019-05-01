@@ -101,6 +101,7 @@ export default {
   location: {
     country: 'Country',
     province: 'Province',
-    city: 'City'
+    city: 'City',
+    name: 'Name'
   }
 }
