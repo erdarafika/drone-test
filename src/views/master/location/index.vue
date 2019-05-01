@@ -5,7 +5,7 @@
       Country
     el-tab-pane(:label='$t("location.province")')
       Province
-    el-tab-pane(:label='$t("location.city")') Role
+    el-tab-pane(:label='$t("location.city")')
       City
 </template>
 
