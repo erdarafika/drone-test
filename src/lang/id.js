@@ -106,5 +106,13 @@ export default {
     province: 'Provinsi',
     city: 'Kota',
     name: 'Nama'
+  },
+  emailConfig: {
+    editTemplate: 'Ubah Templat',
+    template: 'Templat',
+    attachments: 'Lampiran',
+    subject: 'Judul',
+    selectFile: 'Pilih Berkas',
+    name: 'Nama Lampiran'
   }
 }

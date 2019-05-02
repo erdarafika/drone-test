@@ -13,10 +13,10 @@ const template = [`<html>
           </tr>
           </thead>
           <tbody>
-          <th:block th:each="fund : ${funds}">
+          <th:block th:each="fund : funds>
               <tr>
-                  <td th:text="${fund.name}"></td>
-                  <td th:text="${fund.effectiveDate}"></td>
+                  <td th:text="fund.name></td>
+                  <td th:text="fund.effectiveDate></td>
               </tr>
           </th:block>
           </tbody>
@@ -36,15 +36,15 @@ const template = [`<html>
       <body>
       <p>Kepada Yang Terhormat :</p>
 
-      <p><span th:text="${receiver.salutation}"></span> <span th:text="${receiver.name}"></span></p>
+      <p><span th:text="receiver.salutation></span> <span th:text="receiver.name></span></p>
 
       <p>
-          Terlampir kami sampaikan <span th:text="${attachmentName}"></span>
-          atas nama <span th:text="${receiver.onBehalf}"></span>
+          Terlampir kami sampaikan <span th:text="attachmentName></span>
+          atas nama <span th:text="receiver.onBehalf></span>
       </p>
 
       <p>
-          Sebagai upaya kami untuk menjaga kerahasiaan data <span th:text="${receiver.salutation}"></span>,
+          Sebagai upaya kami untuk menjaga kerahasiaan data <span th:text="receiver.salutation></span>,
           silahkan gunakan kata sandi untuk membuka dokumen tersebut.
       </p>
 
@@ -68,37 +68,39 @@ const template = [`<html>
       </table>
 
       <p>
-          Apabila <span th:text="${receiver.salutation}"></span> memerlukan penjelasan lebih lanjut
-          <span th:text="${receiver.salutation}"></span> dapat menghubungi Customer Service kami di:
+          Apabila <span th:text="receiver.salutation></span> memerlukan penjelasan lebih lanjut
+          <span th:text="receiver.salutation></span> dapat menghubungi Customer Service kami di:
       </p>
 
       <table>
           <tr>
               <td>Telp</td>
               <td>:</td>
-              <td><span th:text="${dplk.telp}"></span></td>
+              <td><span th:text="dplk.telp></span></td>
           </tr>
           <tr>
               <td>Email</td>
               <td>:</td>
-              <td style="text-decoration:none;" th:text="${dplk.email}"></td>
+              <td style="text-decoration:none;" th:text="dplk.email></td>
           </tr>
       </table>
 
       <p>
           Demikian kami sampaikan, atas perhatian dan kepercayaan yang
-          <span th:text="${receiver.salutation}"></span> berikan, kami mengucapkan terima kasih.
+          <span th:text="receiver.salutation></span> berikan, kami mengucapkan terima kasih.
       </p>
 
-      <p>Hormat Kami,<br/><span th:text="${dplk.name}"></span></p>
+      <p>Hormat Kami,<br/><span th:text="dplk.name></span></p>
 
       <p>
-          <span th:text="${sender.name}"></span><br/>Pelaksana Tugas Pengurus <span th:text="${dplk.name}"></span>
+          <span th:text="sender.name></span><br/>Pelaksana Tugas Pengurus <span th:text="dplk.name></span>
       </p>
 
       </body>
       </html>`]
-const attachments = [`https://elemence.net/wp-content/uploads/2017/09/LeanStartup-HowAboutLeanLearning-12-12-16_Image.jpg`, `https://cdn.slidemodel.com/wp-content/uploads/6656-04-presentation-of-customer-development-process-16x9-1-870x489.jpg`]
+const attachments = [
+  { file: `https://elemence.net/wp-content/uploads/2017/09/LeanStartup-HowAboutLeanLearning-12-12-16_Image.jpg`, name: 'File 1' },
+  { file: `https://cdn.slidemodel.com/wp-content/uploads/6656-04-presentation-of-customer-development-process-16x9-1-870x489.jpg`, name: 'File 2' }]
 
 const List = []
 const count = 11

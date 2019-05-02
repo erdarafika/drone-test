@@ -106,5 +106,13 @@ export default {
     province: 'Province',
     city: 'City',
     name: 'Name'
+  },
+  emailConfig: {
+    editTemplate: 'Edit Template',
+    template: 'Template',
+    attachments: 'Attachments',
+    subject: 'Subject',
+    selectFile: 'Select File',
+    name: 'Attachment Name'
   }
 }

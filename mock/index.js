@@ -10,6 +10,7 @@ import document from './document'
 import holiday from './holiday'
 import location from './location'
 import tolerance from './tolerance'
+import emailConfig from './email-config'
 
 const mocks = [
   ...user,
@@ -20,7 +21,8 @@ const mocks = [
   ...document,
   ...holiday,
   ...location,
-  ...tolerance
+  ...tolerance,
+  ...emailConfig
 ]
 
 // for front mock
