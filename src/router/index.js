@@ -141,6 +141,24 @@ export const asyncRoutes = [
           title: 'location',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'tolerance',
+        name: 'tolerance',
+        component: () => import('@/views/master/tolerance/index'),
+        meta: {
+          title: 'tolerance',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'email-config',
+        name: 'emailConfig',
+        component: () => import('@/views/master/email-config/index'),
+        meta: {
+          title: 'emailConfig',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
       }
     ]
   },

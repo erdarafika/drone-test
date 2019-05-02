@@ -12,7 +12,9 @@ export default {
     directivePermission: 'Directive Permission',
     page401: '401',
     page404: '404',
-    location: 'Location'
+    location: 'Location',
+    tolerance: 'Tolerance',
+    emailConfig: 'Email Config'
   },
   navbar: {
     logOut: 'Log Out',
@@ -48,6 +50,7 @@ export default {
   },
   table: {
     type: 'Type',
+    save: 'Save',
     search: 'Search',
     add: 'Add',
     view: 'View',

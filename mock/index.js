@@ -9,6 +9,7 @@ import businessLine from './business-line'
 import document from './document'
 import holiday from './holiday'
 import location from './location'
+import tolerance from './tolerance'
 
 const mocks = [
   ...user,
@@ -18,7 +19,8 @@ const mocks = [
   ...businessLine,
   ...document,
   ...holiday,
-  ...location
+  ...location,
+  ...tolerance
 ]
 
 // for front mock

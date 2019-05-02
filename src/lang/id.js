@@ -12,7 +12,9 @@ export default {
     directivePermission: 'Directive Permission',
     page401: '401',
     page404: '404',
-    location: 'Lokasi'
+    location: 'Lokasi',
+    tolerance: 'Toleransi',
+    emailConfig: 'Pengaturan Email'
   },
   navbar: {
     logOut: 'Keluar',
@@ -48,6 +50,7 @@ export default {
   },
   table: {
     type: 'Tipe',
+    save: 'Simpan',
     search: 'Pencarian',
     add: 'Tambah',
     export: 'Export',

@@ -23,6 +23,9 @@ import * as filters from './filters' // global filters
 const moment = require('moment')
 require('moment/locale/id')
 
+import money from 'v-money'
+// register directive v-money and component <money>
+Vue.use(money, { precision: 0 })
 /**
  * If you don't want to use mock-server
  * you want to use mockjs for request interception
