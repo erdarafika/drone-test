@@ -18,7 +18,10 @@ export default {
     feeType: 'Fee Type',
     productType: 'Product Type',
     bank: 'Bank',
-    dplkBank: 'DPLK Bank'
+    dplkBank: 'DPLK Bank',
+    benefitType: 'Benefit Type',
+    subBenefit: 'Sub Benefit Type',
+    subBenefitDocument: 'Sub Benefit Document'
   },
   navbar: {
     logOut: 'Log Out',
@@ -58,6 +61,7 @@ export default {
     search: 'Search',
     add: 'Add',
     view: 'View',
+    detail: 'Detail',
     export: 'Export',
     status: 'Status',
     actions: 'Actions',
@@ -105,7 +109,8 @@ export default {
     reason: 'Reason'
   },
   holiday: {
-    date: 'Holiday Date'
+    date: 'Holiday Date',
+    description: 'Description'
   },
   location: {
     country: 'Country',
@@ -145,5 +150,14 @@ export default {
     bankBranch: 'Bank Branch',
     bankAddress: 'Bank Address',
     country: 'Country'
+  },
+  benefitType: {
+    name: 'Name',
+    type: 'Type',
+    code: 'Code',
+    documentName: 'Document Name',
+    documentCode: 'Document Code',
+    document: 'Configure Document',
+    required: 'Required'
   }
 }

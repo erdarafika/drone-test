@@ -6,6 +6,7 @@ for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
     holidayDate: '@date("yyyy-MM-dd")',
+    description: '@title(5, 10)',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
 

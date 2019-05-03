@@ -195,6 +195,35 @@ export const asyncRoutes = [
           title: 'dplkBank',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'benefit-type',
+        name: 'benefitType',
+        component: () => import('@/views/master/benefit-type/index'),
+        meta: {
+          title: 'benefitType',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'sub-benefit',
+        component: () => import('@/views/master/benefit-type/sub-benefit/index'),
+        name: 'subBenefit',
+        meta: {
+          title: 'subBenefit',
+          roles: ['admin', 'editor']
+        },
+        hidden: true
+      },
+      {
+        path: 'sub-benefit-document',
+        component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
+        name: 'subBenefitDocument',
+        meta: {
+          title: 'subBenefitDocument',
+          roles: ['admin', 'editor']
+        },
+        hidden: true
       }
     ]
   },

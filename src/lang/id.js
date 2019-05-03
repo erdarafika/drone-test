@@ -18,7 +18,10 @@ export default {
     feeType: 'Jenis Biaya',
     productType: 'Jenis Produk',
     bank: 'Bank',
-    dplkBank: 'Bank DPLK'
+    dplkBank: 'Bank DPLK',
+    benefitType: 'Jenis Manfaat',
+    subBenefit: 'Sub Jenis Manfaat',
+    subBenefitDocument: 'Dokumen Sub Manfaat'
   },
   navbar: {
     logOut: 'Keluar',
@@ -60,6 +63,7 @@ export default {
     export: 'Export',
     view: 'Lihat',
     status: 'Status',
+    detail: 'Detail',
     actions: 'Aksi',
     edit: 'Ubah',
     delete: 'Hapus',
@@ -105,7 +109,8 @@ export default {
     reason: 'Alasan'
   },
   holiday: {
-    date: 'Tanggal Libur'
+    date: 'Tanggal Libur',
+    description: 'Deskripsi'
   },
   location: {
     country: 'Negara',
@@ -145,5 +150,14 @@ export default {
     bankBranch: 'Cabang Bank',
     bankAddress: 'Alamat Bank',
     country: 'Negara'
+  },
+  benefitType: {
+    name: 'Nama',
+    type: 'Tipe',
+    code: 'Kode',
+    documentName: 'Nama Dokumen',
+    documentCode: 'Kode Dokumen',
+    document: 'Atur Dokumen',
+    required: 'Wajib'
   }
 }

@@ -15,6 +15,7 @@ import feeType from './fee-type'
 import productType from './product-type'
 import bank from './bank'
 import dplkBank from './dplk-bank'
+import benefitType from './benefit-type'
 
 const mocks = [
   ...user,
@@ -30,7 +31,8 @@ const mocks = [
   ...feeType,
   ...productType,
   ...bank,
-  ...dplkBank
+  ...dplkBank,
+  ...benefitType
 ]
 
 // for front mock
