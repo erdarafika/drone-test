@@ -186,6 +186,15 @@ export const asyncRoutes = [
           title: 'bank',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'dplk-bank',
+        name: 'dplkBank',
+        component: () => import('@/views/master/dplk-bank/index'),
+        meta: {
+          title: 'dplkBank',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
       }
     ]
   },

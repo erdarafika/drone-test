@@ -17,7 +17,8 @@ export default {
     emailConfig: 'Pengaturan Email',
     feeType: 'Jenis Biaya',
     productType: 'Jenis Produk',
-    bank: 'Bank'
+    bank: 'Bank',
+    dplkBank: 'Bank DPLK'
   },
   navbar: {
     logOut: 'Keluar',
@@ -136,5 +137,13 @@ export default {
     branchName: 'Nama',
     branchAddress: 'Alamat',
     branchCountry: 'Negara'
+  },
+  dplkBank: {
+    accountName: 'Nama Pemilik',
+    bankName: 'Nama Bank',
+    accountNumber: 'Nomor Rekening',
+    bankBranch: 'Cabang Bank',
+    bankAddress: 'Alamat Bank',
+    country: 'Negara'
   }
 }

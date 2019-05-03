@@ -14,6 +14,7 @@ import emailConfig from './email-config'
 import feeType from './fee-type'
 import productType from './product-type'
 import bank from './bank'
+import dplkBank from './dplk-bank'
 
 const mocks = [
   ...user,
@@ -28,7 +29,8 @@ const mocks = [
   ...emailConfig,
   ...feeType,
   ...productType,
-  ...bank
+  ...bank,
+  ...dplkBank
 ]
 
 // for front mock

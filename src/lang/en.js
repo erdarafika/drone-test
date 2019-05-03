@@ -17,7 +17,8 @@ export default {
     emailConfig: 'Email Config',
     feeType: 'Fee Type',
     productType: 'Product Type',
-    bank: 'Bank'
+    bank: 'Bank',
+    dplkBank: 'DPLK Bank'
   },
   navbar: {
     logOut: 'Log Out',
@@ -136,5 +137,13 @@ export default {
     branchName: 'Name',
     branchAddress: 'Address',
     branchCountry: 'Country'
+  },
+  dplkBank: {
+    accountName: 'Account Name',
+    bankName: 'Bank Name',
+    accountNumber: 'Account Number',
+    bankBranch: 'Bank Branch',
+    bankAddress: 'Bank Address',
+    country: 'Country'
   }
 }
