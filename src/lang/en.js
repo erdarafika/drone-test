@@ -16,7 +16,8 @@ export default {
     tolerance: 'Tolerance',
     emailConfig: 'Email Config',
     feeType: 'Fee Type',
-    productType: 'Product Type'
+    productType: 'Product Type',
+    bank: 'Bank'
   },
   navbar: {
     logOut: 'Log Out',
@@ -98,7 +99,9 @@ export default {
   },
   document: {
     name: 'Document Name',
-    code: 'Document Code'
+    code: 'Document Code',
+    rejectionReason: 'Rejection Reason',
+    reason: 'Reason'
   },
   holiday: {
     date: 'Holiday Date'
@@ -124,5 +127,14 @@ export default {
   productType: {
     name: 'Name',
     code: 'Code'
+  },
+  bank: {
+    name: 'Name',
+    swiftCode: 'Swift Code',
+    transferCode: 'Transfer Code',
+    branch: 'Branch',
+    branchName: 'Name',
+    branchAddress: 'Address',
+    branchCountry: 'Country'
   }
 }

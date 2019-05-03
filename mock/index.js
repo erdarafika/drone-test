@@ -13,6 +13,7 @@ import tolerance from './tolerance'
 import emailConfig from './email-config'
 import feeType from './fee-type'
 import productType from './product-type'
+import bank from './bank'
 
 const mocks = [
   ...user,
@@ -26,7 +27,8 @@ const mocks = [
   ...tolerance,
   ...emailConfig,
   ...feeType,
-  ...productType
+  ...productType,
+  ...bank
 ]
 
 // for front mock

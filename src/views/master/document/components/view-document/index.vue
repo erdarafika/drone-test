@@ -17,15 +17,14 @@
           th {{ $t('table.createdDate') }}
           td {{ data.createdDate | moment("Do MMMM, YYYY") }}
 
-    el-form(:model='temp', :inline='true' :rules='rules', ref='dataForm', label-width='100px')
-      el-form-item(label='Reason', prop='reason')
+    el-form(:model='temp', :inline='true' :rules='rules', ref='dataForm', label-width='150px')
+      el-form-item(:label='$t("document.rejectionReason")', prop='reason')
         el-input(v-model='temp.reason', autocomplete='off')
       el-form-item
-        el-button(type='primary' @click="createData()") Submit
-        el-button(@click="resetForm()") Reset
+        el-button(type='primary' @click="createData()") {{$t('table.save')}}
 
     el-table(:data='reasons' v-loading='listLoading')
-      el-table-column(property='reason', label='Reason')
+      el-table-column(property='reason', :label='$t("document.rejectionReason")')
       el-table-column(label='Created Date', width='150')
         template(slot-scope='scope')
           span {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}

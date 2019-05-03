@@ -177,6 +177,15 @@ export const asyncRoutes = [
           title: 'productType',
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
+      },
+      {
+        path: 'bank',
+        name: 'bank',
+        component: () => import('@/views/master/bank/index'),
+        meta: {
+          title: 'bank',
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+        }
       }
     ]
   },

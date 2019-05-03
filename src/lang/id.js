@@ -16,7 +16,8 @@ export default {
     tolerance: 'Toleransi',
     emailConfig: 'Pengaturan Email',
     feeType: 'Jenis Biaya',
-    productType: 'Jenis Produk'
+    productType: 'Jenis Produk',
+    bank: 'Bank'
   },
   navbar: {
     logOut: 'Keluar',
@@ -98,7 +99,9 @@ export default {
   },
   document: {
     name: 'Nama Dokumen',
-    code: 'Kode Dokumen'
+    code: 'Kode Dokumen',
+    rejectionReason: 'Alasan Penolakan',
+    reason: 'Alasan'
   },
   holiday: {
     date: 'Tanggal Libur'
@@ -124,5 +127,14 @@ export default {
   productType: {
     name: 'Nama',
     code: 'Kode'
+  },
+  bank: {
+    name: 'Nama',
+    swiftCode: 'Kode Swift',
+    transferCode: 'Kode Transfer',
+    branch: 'Cabang',
+    branchName: 'Nama',
+    branchAddress: 'Alamat',
+    branchCountry: 'Negara'
   }
 }
