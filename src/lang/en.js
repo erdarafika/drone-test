@@ -14,7 +14,9 @@ export default {
     page404: '404',
     location: 'Location',
     tolerance: 'Tolerance',
-    emailConfig: 'Email Config'
+    emailConfig: 'Email Config',
+    feeType: 'Fee Type',
+    productType: 'Product Type'
   },
   navbar: {
     logOut: 'Log Out',
@@ -114,5 +116,13 @@ export default {
     subject: 'Subject',
     selectFile: 'Select File',
     name: 'Attachment Name'
+  },
+  feeType: {
+    name: 'Name',
+    status: 'Status'
+  },
+  productType: {
+    name: 'Name',
+    code: 'Code'
   }
 }

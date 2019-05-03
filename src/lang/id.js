@@ -14,7 +14,9 @@ export default {
     page404: '404',
     location: 'Lokasi',
     tolerance: 'Toleransi',
-    emailConfig: 'Pengaturan Email'
+    emailConfig: 'Pengaturan Email',
+    feeType: 'Jenis Biaya',
+    productType: 'Jenis Produk'
   },
   navbar: {
     logOut: 'Keluar',
@@ -114,5 +116,13 @@ export default {
     subject: 'Judul',
     selectFile: 'Pilih Berkas',
     name: 'Nama Lampiran'
+  },
+  feeType: {
+    name: 'Nama',
+    status: 'Status'
+  },
+  productType: {
+    name: 'Nama',
+    code: 'Kode'
   }
 }

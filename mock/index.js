@@ -11,6 +11,8 @@ import holiday from './holiday'
 import location from './location'
 import tolerance from './tolerance'
 import emailConfig from './email-config'
+import feeType from './fee-type'
+import productType from './product-type'
 
 const mocks = [
   ...user,
@@ -22,7 +24,9 @@ const mocks = [
   ...holiday,
   ...location,
   ...tolerance,
-  ...emailConfig
+  ...emailConfig,
+  ...feeType,
+  ...productType
 ]
 
 // for front mock
