@@ -224,6 +224,36 @@ export const asyncRoutes = [
           roles: ['admin', 'editor']
         },
         hidden: true
+      },
+      {
+        path: 'virtual-account',
+        name: 'virtualAccount',
+        component: () => import('@/views/master/virtual-account/index'),
+        meta: {
+          title: 'virtualAccount',
+          roles: ['admin', 'editor']
+        },
+        redirect: '/virtual-account/bca',
+        children: [
+          {
+            path: 'bca',
+            name: 'bca',
+            component: () => import('@/views/master/virtual-account/index'),
+            meta: {
+              title: 'bca',
+              roles: ['admin', 'editor'] // or you can only set roles in sub nav
+            }
+          },
+          {
+            path: 'cimb',
+            name: 'cimb',
+            component: () => import('@/views/master/virtual-account/index'),
+            meta: {
+              title: 'cimb',
+              roles: ['admin', 'editor'] // or you can only set roles in sub nav
+            }
+          }
+        ]
       }
     ]
   },

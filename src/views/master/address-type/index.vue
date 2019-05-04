@@ -41,12 +41,6 @@
         | {{ $t('table.confirm') }}
 
 </template>
-<style>
-.switch-status {
-  margin-left: 5px;
-  font-size: 14px;
-}
-</style>
 
 <script>
 import { fetchList, createAddressType, updateAddressType } from '@/api/address-type'

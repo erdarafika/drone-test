@@ -21,7 +21,10 @@ export default {
     dplkBank: 'Bank DPLK',
     benefitType: 'Jenis Manfaat',
     subBenefit: 'Sub Jenis Manfaat',
-    subBenefitDocument: 'Dokumen Sub Manfaat'
+    subBenefitDocument: 'Dokumen Sub Manfaat',
+    virtualAccount: 'Rekening Virtual',
+    bca: 'BCA',
+    cimb: 'CIMB'
   },
   navbar: {
     logOut: 'Keluar',
@@ -159,5 +162,12 @@ export default {
     documentCode: 'Kode Dokumen',
     document: 'Atur Dokumen',
     required: 'Wajib'
+  },
+  virtualAccount: {
+    name: 'Nama',
+    dplkBank: 'Bank DPLK',
+    accountCode: 'Kode Akun',
+    active: 'Aktif',
+    inactive: 'Tidak Aktif'
   }
 }

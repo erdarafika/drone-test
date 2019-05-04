@@ -21,7 +21,10 @@ export default {
     dplkBank: 'DPLK Bank',
     benefitType: 'Benefit Type',
     subBenefit: 'Sub Benefit Type',
-    subBenefitDocument: 'Sub Benefit Document'
+    subBenefitDocument: 'Sub Benefit Document',
+    virtualAccount: 'Virtual Account',
+    bca: 'BCA',
+    cimb: 'CIMB'
   },
   navbar: {
     logOut: 'Log Out',
@@ -159,5 +162,12 @@ export default {
     documentCode: 'Document Code',
     document: 'Configure Document',
     required: 'Required'
+  },
+  virtualAccount: {
+    name: 'Name',
+    dplkBank: 'DPLK Bank',
+    accountCode: 'Account Code',
+    active: 'Active',
+    inactive: 'Inactive'
   }
 }
