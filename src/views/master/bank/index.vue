@@ -5,6 +5,8 @@
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
+    el-button.filter-item(:loading='downloadLoading', style='margin-left:10px;float:right', type='primary', @click='handleDownload' size="mini")
+      | {{ $t('table.export') }} Excel
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('bank.name')", align='left')
@@ -81,7 +83,8 @@ export default {
         name: [{ required: true, message: 'Bank name is required', trigger: 'change' }],
         swiftCode: [{ required: true, message: 'Swift code is required', trigger: 'change' }, { type: 'number', message: 'Swift code must be number' }],
         transferCode: [{ required: true, message: 'Transfer code is required', trigger: 'change' }, { type: 'number', message: 'Swift code must be number' }]
-      }
+      },
+      downloadLoading: false
     }
   },
   created() {
@@ -194,6 +197,29 @@ export default {
       })
       const index = this.list.indexOf(row)
       this.list.splice(index, 1)
+    },
+    handleDownload() {
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        // const bankName = this.$t('bank.name')
+
+        const tHeader = ['Bank Name']
+        const list = this.list
+        const filterVal = ['name']
+        const data = this.formatJson(filterVal, list)
+
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: `exported-${this.$route.name}`
+        })
+        this.downloadLoading = false
+      })
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        return v[j]
+      }))
     }
   }
 }
