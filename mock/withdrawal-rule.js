@@ -5,6 +5,8 @@ const item = Mock.mock({
   'maxPerYear|1-99999': 100,
   'minAmmount|1-99999': 100,
   'minEffectiveYear|1-99999': 100,
+  'normalRetiringAge|1-100':100,
+  'differenceRetiringAge|1-100':100,
   'isActive|1-10': true,
   createdDate: '@date("yyyy-MM-dd")'
 })

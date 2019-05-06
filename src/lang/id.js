@@ -179,7 +179,9 @@ export default {
   },
   withdrawalRule: {
     maxPerYear: 'Maksimal Penarikan Pertahun',
-    minAmmount: 'Jumlah Minimal Penarikan',
-    minEffectiveYear: 'Usia Minimal Kepesertaan'
+    minAmmount: 'Minimal Penarikan Nominal',
+    minEffectiveYear: 'Minimal Tahun Kepesertaan',
+    normalRetiringAge: 'Usia Pensiun Normal',
+    differenceRetiringAge: 'Selisih Usia Pensiun'
   }
 }
