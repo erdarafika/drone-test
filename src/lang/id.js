@@ -24,7 +24,11 @@ export default {
     subBenefitDocument: 'Dokumen Sub Manfaat',
     virtualAccount: 'Rekening Virtual',
     bca: 'BCA',
-    cimb: 'CIMB'
+    cimb: 'CIMB',
+    withdrawalRule: 'Aturan Penarikan'
+  },
+  validatorMessage: {
+    isRequired: 'wajib diisi'
   },
   navbar: {
     logOut: 'Keluar',
@@ -169,5 +173,10 @@ export default {
     accountCode: 'Kode Akun',
     active: 'Aktif',
     inactive: 'Tidak Aktif'
+  },
+  withdrawalRule: {
+    maxPerYear: 'Maksimal Penarikan Pertahun',
+    minAmmount: 'Jumlah Minimal Penarikan',
+    minEffectiveYear: 'Usia Minimal Kepesertaan'
   }
 }

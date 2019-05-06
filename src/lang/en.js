@@ -24,7 +24,11 @@ export default {
     subBenefitDocument: 'Sub Benefit Document',
     virtualAccount: 'Virtual Account',
     bca: 'BCA',
-    cimb: 'CIMB'
+    cimb: 'CIMB',
+    withdrawalRule: 'Withdrawal Rule'
+  },
+  validatorMessage: {
+    isRequired: 'is required'
   },
   navbar: {
     logOut: 'Log Out',
@@ -169,5 +173,10 @@ export default {
     accountCode: 'Account Code',
     active: 'Active',
     inactive: 'Inactive'
+  },
+  withdrawalRule: {
+    maxPerYear: 'Max Withdrawal Frequency per Year',
+    minAmmount: 'Minimum Withdrawal Amount',
+    minEffectiveYear: 'Minimum Effective Year'
   }
 }

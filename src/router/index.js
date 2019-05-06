@@ -254,6 +254,15 @@ export const asyncRoutes = [
             }
           }
         ]
+      },
+      {
+        path: 'withdrawal-rule',
+        component: () => import('@/views/master/withdrawal-rule/index'),
+        name: 'withdrawalRule',
+        meta: {
+          title: 'withdrawalRule',
+          roles: ['admin', 'editor']
+        }
       }
     ]
   },
