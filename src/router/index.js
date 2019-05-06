@@ -90,7 +90,7 @@ export const asyncRoutes = [
     path: '/master',
     component: Layout,
     redirect: '/master/address-type',
-    name: 'Master',
+    name: 'master',
     meta: {
       title: 'master',
       icon: 'component',
@@ -99,7 +99,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'address-type',
-        name: 'addressType',
+        name: 'AddressType',
         component: () => import('@/views/master/address-type/index'),
         meta: {
           title: 'addressType',
@@ -108,7 +108,7 @@ export const asyncRoutes = [
       },
       {
         path: 'business-line',
-        name: 'businessLine',
+        name: 'BusinessLine',
         component: () => import('@/views/master/business-line/index'),
         meta: {
           title: 'businessLine',
@@ -117,7 +117,7 @@ export const asyncRoutes = [
       },
       {
         path: 'document',
-        name: 'document',
+        name: 'Document',
         component: () => import('@/views/master/document/index'),
         meta: {
           title: 'document',
@@ -126,7 +126,7 @@ export const asyncRoutes = [
       },
       {
         path: 'holiday',
-        name: 'holiday',
+        name: 'Holiday',
         component: () => import('@/views/master/holiday/index'),
         meta: {
           title: 'holiday',
@@ -135,7 +135,7 @@ export const asyncRoutes = [
       },
       {
         path: 'location',
-        name: 'location',
+        name: 'Location',
         component: () => import('@/views/master/location/index'),
         meta: {
           title: 'location',
@@ -144,7 +144,7 @@ export const asyncRoutes = [
       },
       {
         path: 'tolerance',
-        name: 'tolerance',
+        name: 'Tolerance',
         component: () => import('@/views/master/tolerance/index'),
         meta: {
           title: 'tolerance',
@@ -153,7 +153,7 @@ export const asyncRoutes = [
       },
       {
         path: 'email-config',
-        name: 'emailConfig',
+        name: 'EmailConfig',
         component: () => import('@/views/master/email-config/index'),
         meta: {
           title: 'emailConfig',
@@ -162,7 +162,7 @@ export const asyncRoutes = [
       },
       {
         path: 'fee-type',
-        name: 'feeType',
+        name: 'FeeType',
         component: () => import('@/views/master/fee-type/index'),
         meta: {
           title: 'feeType',
@@ -171,7 +171,7 @@ export const asyncRoutes = [
       },
       {
         path: 'product-type',
-        name: 'productType',
+        name: 'ProductType',
         component: () => import('@/views/master/product-type/index'),
         meta: {
           title: 'productType',
@@ -180,7 +180,7 @@ export const asyncRoutes = [
       },
       {
         path: 'bank',
-        name: 'bank',
+        name: 'Bank',
         component: () => import('@/views/master/bank/index'),
         meta: {
           title: 'bank',
@@ -189,7 +189,7 @@ export const asyncRoutes = [
       },
       {
         path: 'dplk-bank',
-        name: 'dplkBank',
+        name: 'DplkBank',
         component: () => import('@/views/master/dplk-bank/index'),
         meta: {
           title: 'dplkBank',
@@ -198,7 +198,7 @@ export const asyncRoutes = [
       },
       {
         path: 'benefit-type',
-        name: 'benefitType',
+        name: 'BenefitType',
         component: () => import('@/views/master/benefit-type/index'),
         meta: {
           title: 'benefitType',
@@ -208,7 +208,7 @@ export const asyncRoutes = [
       {
         path: 'sub-benefit',
         component: () => import('@/views/master/benefit-type/sub-benefit/index'),
-        name: 'subBenefit',
+        name: 'SubBenefit',
         meta: {
           title: 'subBenefit',
           roles: ['admin', 'editor']
@@ -218,7 +218,7 @@ export const asyncRoutes = [
       {
         path: 'sub-benefit-document',
         component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
-        name: 'subBenefitDocument',
+        name: 'SubBenefitDocument',
         meta: {
           title: 'subBenefitDocument',
           roles: ['admin', 'editor']
@@ -227,7 +227,7 @@ export const asyncRoutes = [
       },
       {
         path: 'virtual-account',
-        name: 'virtualAccount',
+        name: 'VirtualAccount',
         component: () => import('@/views/master/virtual-account/index'),
         meta: {
           title: 'virtualAccount',
@@ -237,7 +237,7 @@ export const asyncRoutes = [
         children: [
           {
             path: 'bca',
-            name: 'bca',
+            name: 'Bca',
             component: () => import('@/views/master/virtual-account/index'),
             meta: {
               title: 'bca',
@@ -246,7 +246,7 @@ export const asyncRoutes = [
           },
           {
             path: 'cimb',
-            name: 'cimb',
+            name: 'Cimb',
             component: () => import('@/views/master/virtual-account/index'),
             meta: {
               title: 'cimb',
@@ -258,7 +258,7 @@ export const asyncRoutes = [
       {
         path: 'withdrawal-rule',
         component: () => import('@/views/master/withdrawal-rule/index'),
-        name: 'withdrawalRule',
+        name: 'WithdrawalRule',
         meta: {
           title: 'withdrawalRule',
           roles: ['admin', 'editor']

@@ -41,7 +41,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = BenefitList.filter(item => {
-        if (q && (!q.type.toLowerCase().includes(q.toLowerCase()) && !q.name.toLowerCase().includes(q.toLowerCase()))) return false
+        if (q && (!item.type.toLowerCase().includes(q.toLowerCase()) && !item.name.toLowerCase().includes(q.toLowerCase()))) return false
         return true
       })
 
@@ -64,7 +64,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = SubBenefitList.filter(item => {
-        if (q && (!q.code.toLowerCase().includes(q.toLowerCase()) && !q.name.toLowerCase().includes(q.toLowerCase()))) return false
+        if (q && (!item.code.toLowerCase().includes(q.toLowerCase()) && !item.name.toLowerCase().includes(q.toLowerCase()))) return false
         return true
       })
 
@@ -84,13 +84,9 @@ export default [
     url: '/benefit-type/sub-benefit/document/list',
     type: 'get',
     response: config => {
-      const { q, page = 1, limit = 20 } = config.query
+      const {  page = 1, limit = 20 } = config.query
 
-      const mockList = SubBenefitDocumentList.filter(item => {
-        if (q && (!q.code.toLowerCase().includes(q.toLowerCase()) && !q.name.toLowerCase().includes(q.toLowerCase()))) return false
-        return true
-      })
-
+      const mockList = SubBenefitDocumentList
       const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
 
       return {

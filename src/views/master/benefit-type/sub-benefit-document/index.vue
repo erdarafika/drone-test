@@ -2,7 +2,6 @@
 <template lang="pug">
 .app-container
   .filter-container
-    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
@@ -44,7 +43,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import { generateDate } from '@/utils/pensiunku'
 
 export default {
-  name: 'BusinessLine',
+  name: 'SubBenefitDocument',
   components: { Pagination },
   data() {
     return {
@@ -54,8 +53,7 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        q: undefined
+        limit: 20
       },
       temp: {
         id: undefined,

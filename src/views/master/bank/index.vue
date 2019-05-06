@@ -54,7 +54,7 @@ import { generateDate } from '@/utils/pensiunku'
 import ViewBank from './components/view-bank/index'
 
 export default {
-  name: 'Document',
+  name: 'Bank',
   components: { Pagination, ViewBank },
   data() {
     return {

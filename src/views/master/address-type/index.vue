@@ -73,11 +73,15 @@ export default {
         createdDate: undefined
       },
       dialogFormVisible: false,
-      dialogStatus: '',
-      rules: {
-        type: [{ required: true, message: 'Address name is required', trigger: 'blur' }],
-        isMemberAddress: [{ required: true, message: 'Display on member is required', trigger: 'blur' }],
-        isCompanyAddress: [{ required: true, message: 'Display on company is required', trigger: 'blur' }]
+      dialogStatus: ''
+    }
+  },
+  computed: {
+    rules() {
+      return {
+        type: [{ required: true, message: `${this.$t('addressType.type')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
+        isMemberAddress: [{ required: true, message: `${this.$t('addressType.displayOnMember')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
+        isCompanyAddress: [{ required: true, message: `${this.$t('addressType.displayOnCompany')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }]
       }
     }
   },

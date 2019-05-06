@@ -60,7 +60,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = List.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        if (q && (!item.name.includes(q))) return false
         return true
       })
 

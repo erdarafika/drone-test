@@ -27,8 +27,10 @@ export default {
     cimb: 'CIMB',
     withdrawalRule: 'Withdrawal Rule'
   },
+  // GLOBAL
   validatorMessage: {
-    isRequired: 'is required'
+    isRequired: 'is required',
+    isNumber: 'must be number'
   },
   navbar: {
     logOut: 'Log Out',
@@ -43,25 +45,7 @@ export default {
       mini: 'mini'
     }
   },
-  login: {
-    title: 'Welcome',
-    logIn: 'Login',
-    username: 'Username',
-    password: 'Password',
-    any: 'any',
-    thirdparty: 'Or connect with',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
-  },
-  permission: {
-    addRole: 'New Role',
-    editPermission: 'Edit',
-    roles: 'Your roles',
-    switchRoles: 'Switch roles',
-    tips: 'In some cases, using v-permission will have no effect. For example: Element-UI  el-tab or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.',
-    delete: 'Delete',
-    confirm: 'Confirm',
-    cancel: 'Cancel'
-  },
+
   table: {
     type: 'Type',
     save: 'Save',
@@ -88,6 +72,12 @@ export default {
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo'
   },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All'
+  },
   modal: {
     addModalHeader: 'Add New Data',
     editModalHeader: 'Edit Data'
@@ -99,11 +89,25 @@ export default {
     active: 'Active',
     showActiveOnly: 'Show Active Only'
   },
-  tagsView: {
-    refresh: 'Refresh',
-    close: 'Close',
-    closeOthers: 'Close Others',
-    closeAll: 'Close All'
+  // SINGLE PAGE
+  login: {
+    title: 'Welcome',
+    logIn: 'Login',
+    username: 'Username',
+    password: 'Password',
+    any: 'any',
+    thirdparty: 'Or connect with',
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  permission: {
+    addRole: 'New Role',
+    editPermission: 'Edit',
+    roles: 'Your roles',
+    switchRoles: 'Switch roles',
+    tips: 'In some cases, using v-permission will have no effect. For example: Element-UI  el-tab or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.',
+    delete: 'Delete',
+    confirm: 'Confirm',
+    cancel: 'Cancel'
   },
   businessLine: {
     name: 'Business Line Name',

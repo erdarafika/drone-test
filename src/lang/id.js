@@ -27,8 +27,10 @@ export default {
     cimb: 'CIMB',
     withdrawalRule: 'Aturan Penarikan'
   },
+  // GLOBAL
   validatorMessage: {
-    isRequired: 'wajib diisi'
+    isRequired: 'wajib diisi',
+    isNumber: 'harus berupa angka'
   },
   navbar: {
     logOut: 'Keluar',
@@ -42,25 +44,6 @@ export default {
       small: 'kecil',
       mini: 'sangat kecil'
     }
-  },
-  login: {
-    title: 'Selamat Datang',
-    logIn: 'Masuk',
-    username: 'Username',
-    password: 'Sandi',
-    any: 'bebas',
-    thirdparty: 'Atau masuk dengan',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
-  },
-  permission: {
-    addRole: 'New Role',
-    editPermission: 'Edit',
-    roles: 'Your roles',
-    switchRoles: 'Switch roles',
-    tips: 'In some cases, using v-permission will have no effect. For example: Element-UI  el-tab or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.',
-    delete: 'Delete',
-    confirm: 'Confirm',
-    cancel: 'Cancel'
   },
   table: {
     type: 'Tipe',
@@ -92,18 +75,38 @@ export default {
     addModalHeader: 'Tambah Data Baru',
     editModalHeader: 'Ubah Data'
   },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Tutup',
+    closeOthers: 'Tutup Lainnya',
+    closeAll: 'Tutup Semua'
+  },
+  // SINGLE PAGE
+  login: {
+    title: 'Selamat Datang',
+    logIn: 'Masuk',
+    username: 'Username',
+    password: 'Sandi',
+    any: 'bebas',
+    thirdparty: 'Atau masuk dengan',
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  permission: {
+    addRole: 'New Role',
+    editPermission: 'Edit',
+    roles: 'Your roles',
+    switchRoles: 'Switch roles',
+    tips: 'In some cases, using v-permission will have no effect. For example: Element-UI  el-tab or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.',
+    delete: 'Delete',
+    confirm: 'Confirm',
+    cancel: 'Cancel'
+  },
   addressType: {
     type: 'Nama',
     displayOnMember: 'Tampilkan dipelanggan',
     displayOnCompany: 'Tampilkan diperusahaan',
     active: 'Aktif',
     showActiveOnly: 'Tampilkan yang aktif'
-  },
-  tagsView: {
-    refresh: 'Refresh',
-    close: 'Tutup',
-    closeOthers: 'Tutup Lainnya',
-    closeAll: 'Tutup Semua'
   },
   businessLine: {
     name: 'Nama Jalur Bisnis',
