@@ -3,9 +3,9 @@ const tokens = {
   admin: {
     token: 'admin-token'
   },
-  editor: {
-    token: 'editor-token'
-  }
+  // editor: {
+  //   token: 'editor-token'
+  // }
 }
 
 const users = {
@@ -15,12 +15,12 @@ const users = {
     avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
     name: 'Super Admin'
   },
-  'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
-    name: 'Normal Editor'
-  }
+  // 'editor-token': {
+  //   roles: ['editor'],
+  //   introduction: 'I am an editor',
+  //   avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
+  //   name: 'Normal Editor'
+  // }
 }
 
 export default [

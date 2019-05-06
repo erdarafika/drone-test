@@ -8,7 +8,7 @@ export default {
     master: 'Master Setup',
     permission: 'Permission',
     pagePermission: 'Page Permission',
-    rolePermission: 'Role Permission',
+    role: 'Role',
     directivePermission: 'Directive Permission',
     page401: '401',
     page404: '404',
@@ -184,5 +184,11 @@ export default {
     minEffectiveYear: 'Minimum Effective Year',
     normalRetiringAge: 'Normal Retiring Age',
     differenceRetiringAge: 'Retiring Age Difference'
+  },
+  role: {
+    roleKey: 'Role Code',
+    roleName: 'Role Name',
+    description: 'Description',
+    menus: 'Page Permissions'
   }
 }

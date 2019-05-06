@@ -94,7 +94,7 @@ export const asyncRoutes = [
     meta: {
       title: 'master',
       icon: 'component',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin'] // you can set roles in root nav
     },
     children: [
       {
@@ -103,7 +103,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/address-type/index'),
         meta: {
           title: 'addressType',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -112,7 +112,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/business-line/index'),
         meta: {
           title: 'businessLine',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -121,7 +121,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/document/index'),
         meta: {
           title: 'document',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -130,7 +130,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/holiday/index'),
         meta: {
           title: 'holiday',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -139,7 +139,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/location/index'),
         meta: {
           title: 'location',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -148,7 +148,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/tolerance/index'),
         meta: {
           title: 'tolerance',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -157,7 +157,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/email-config/index'),
         meta: {
           title: 'emailConfig',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -166,7 +166,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/fee-type/index'),
         meta: {
           title: 'feeType',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -175,7 +175,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/product-type/index'),
         meta: {
           title: 'productType',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -184,7 +184,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/bank/index'),
         meta: {
           title: 'bank',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -193,7 +193,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/dplk-bank/index'),
         meta: {
           title: 'dplkBank',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -202,7 +202,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/benefit-type/index'),
         meta: {
           title: 'benefitType',
-          roles: ['admin', 'editor'] // or you can only set roles in sub nav
+          roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
@@ -211,7 +211,7 @@ export const asyncRoutes = [
         name: 'SubBenefit',
         meta: {
           title: 'subBenefit',
-          roles: ['admin', 'editor']
+          roles: ['admin']
         },
         hidden: true
       },
@@ -221,7 +221,7 @@ export const asyncRoutes = [
         name: 'SubBenefitDocument',
         meta: {
           title: 'subBenefitDocument',
-          roles: ['admin', 'editor']
+          roles: ['admin']
         },
         hidden: true
       },
@@ -231,7 +231,7 @@ export const asyncRoutes = [
         component: () => import('@/views/master/virtual-account/index'),
         meta: {
           title: 'virtualAccount',
-          roles: ['admin', 'editor']
+          roles: ['admin']
         },
         redirect: '/virtual-account/bca',
         children: [
@@ -241,7 +241,7 @@ export const asyncRoutes = [
             component: () => import('@/views/master/virtual-account/index'),
             meta: {
               title: 'bca',
-              roles: ['admin', 'editor'] // or you can only set roles in sub nav
+              roles: ['admin'] // or you can only set roles in sub nav
             }
           },
           {
@@ -250,7 +250,7 @@ export const asyncRoutes = [
             component: () => import('@/views/master/virtual-account/index'),
             meta: {
               title: 'cimb',
-              roles: ['admin', 'editor'] // or you can only set roles in sub nav
+              roles: ['admin'] // or you can only set roles in sub nav
             }
           }
         ]
@@ -261,7 +261,16 @@ export const asyncRoutes = [
         name: 'WithdrawalRule',
         meta: {
           title: 'withdrawalRule',
-          roles: ['admin', 'editor']
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/master/role/index'),
+        name: 'Role',
+        meta: {
+          title: 'role',
+          roles: ['admin']
         }
       }
     ]
@@ -277,7 +286,7 @@ export const asyncRoutes = [
     meta: {
       title: 'permission',
       icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin'] // you can set roles in root nav
     },
     children: [
       {

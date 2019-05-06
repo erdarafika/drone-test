@@ -10,6 +10,7 @@ export default {
     pagePermission: 'Page Permission',
     rolePermission: 'Role Permission',
     directivePermission: 'Directive Permission',
+    role: 'Jabatan',
     page401: '401',
     page404: '404',
     location: 'Lokasi',
@@ -183,5 +184,11 @@ export default {
     minEffectiveYear: 'Minimal Tahun Kepesertaan',
     normalRetiringAge: 'Usia Pensiun Normal',
     differenceRetiringAge: 'Selisih Usia Pensiun'
+  },
+  role: {
+    roleKey: 'Kode Jabatan',
+    roleName: 'Nama Jabatan',
+    description: 'Deskripsi',
+    menus: 'Izin Halaman'
   }
 }
