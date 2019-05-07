@@ -4,15 +4,14 @@
 
       <div class="title-container">
         <h3 class="title">
-          {{ $t('login.title') }}
+          <img v-if="logo" :src="getLogo(logo)" class="login-logo">
+          <!-- {{ $t('login.title') }} -->
+          {{ title }}
         </h3>
         <lang-select class="set-language" />
       </div>
 
       <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
         <el-input
           ref="username"
           v-model="loginForm.username"
@@ -26,9 +25,6 @@
 
       <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
         <el-form-item prop="password">
-          <span class="svg-container">
-            <svg-icon icon-class="password" />
-          </span>
           <el-input
             :key="passwordType"
             ref="password"
@@ -57,31 +53,19 @@
           <span>{{ $t('login.username') }} : admin</span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
-
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          {{ $t('login.thirdparty') }}
-        </el-button>
       </div>
     </el-form>
 
-    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
-      {{ $t('login.thirdpartyTips') }}
-      <br>
-      <br>
-      <br>
-      <social-sign />
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
-import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
-  components: { LangSelect, SocialSign },
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -109,8 +93,9 @@ export default {
       passwordType: 'password',
       capsTooltip: false,
       loading: false,
-      showDialog: false,
-      redirect: undefined
+      redirect: undefined,
+      title: 'PensiunKu',
+      logo: 'app-logo'
     }
   },
   watch: {
@@ -135,6 +120,10 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    getLogo(img) {
+      const images = require.context('@/assets/logo/', false, /\.png$/)
+      return images('./' + img + '.png')
+    },
     checkCapslock({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
@@ -213,6 +202,7 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+  font-family: 'Roboto';
   .el-input {
     display: inline-block;
     height: 47px;
@@ -224,9 +214,11 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: $bg;
+      font-size: 17px;
+      font-family: inherit;
       height: 47px;
-      caret-color: $cursor;
+      caret-color: $bg;
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
@@ -236,37 +228,38 @@ $cursor: #fff;
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    border-bottom: 1px solid #e8e8e8;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0px;
     color: #454545;
   }
 }
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
+$bg:#fff;
 $dark_gray:#889aa4;
-$light_gray:#eee;
+$light_gray:#2d2d2d;
 
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: $light_gray;
   overflow: hidden;
 
   .login-form {
     position: relative;
-    width: 520px;
+    width: 450px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    padding: 40px 30px;
+    margin: 100px auto;
+    background: #ffffff;
     overflow: hidden;
   }
 
   .tips {
     font-size: 14px;
-    color: #fff;
+    color: $light_gray;
     margin-bottom: 10px;
 
     span {

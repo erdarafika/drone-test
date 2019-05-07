@@ -35,7 +35,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = List.filter(item => {
-        if (q && (!item.transactionType.toLowerCase().includes(q.toLowerCase()) && !item.type.toLowerCase().includes(q))) return false
+        if (q && (!item.transactionType.toLowerCase().includes(q.toLowerCase()) && !item.type.toLowerCase().includes(q.toLowerCase()))) return false //FIXME: Make All Atribut As Search
         return true
       })
 
