@@ -1,23 +1,18 @@
-<template>
-  <div class="wscn-http404-container">
-    <div class="wscn-http404">
-      <div class="pic-404">
-        <img class="pic-404__parent" src="@/assets/404_images/404.png" alt="404">
-        <img class="pic-404__child left" src="@/assets/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child mid" src="@/assets/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404">
-      </div>
-      <div class="bullshit">
-        <div class="bullshit__oops">OOPS!</div>
-        <!-- <div class="bullshit__info">All rights reserved
-          <a style="color:#20a0ff" href="https://wallstreetcn.com" target="_blank">wallstreetcn</a>
-        </div> -->
-        <div class="bullshit__headline">{{ message }}</div>
-        <div class="bullshit__info">Please check that the URL you entered is correct, or click the button below to return to the homepage.</div>
-        <a href="" class="bullshit__return-home">Back to home</a>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+.wscn-http404-container
+  .wscn-http404
+    .pic-404
+      img.pic-404__parent(src='@/assets/404_images/404.png', alt='404')
+      img.pic-404__child.left(src='@/assets/404_images/404_cloud.png', alt='404')
+      img.pic-404__child.mid(src='@/assets/404_images/404_cloud.png', alt='404')
+      img.pic-404__child.right(src='@/assets/404_images/404_cloud.png', alt='404')
+    .bullshit
+      .bullshit__oops {{title}}
+      .bullshit__headline {{subTitle}}
+      .bullshit__info
+        | {{description}}
+      a.bullshit__return-home(href='') {{backToHome}}
+
 </template>
 
 <script>
@@ -25,8 +20,17 @@
 export default {
   name: 'Page404',
   computed: {
-    message() {
-      return 'The webmaster said that you can not enter this page...'
+    title() {
+      return this.$t('page404.title')
+    },
+    subTitle() {
+      return this.$t('page404.subTitle')
+    },
+    description() {
+      return this.$t('page404.description')
+    },
+    backToHome() {
+      return this.$t('page404.backToHome')
     }
   }
 }
@@ -48,6 +52,7 @@ export default {
     position: relative;
     float: left;
     width: 600px;
+    margin-right: 50px;
     overflow: hidden;
     &__parent {
       width: 100%;
@@ -165,7 +170,7 @@ export default {
       font-size: 32px;
       font-weight: bold;
       line-height: 40px;
-      color: #1482f0;
+      color: #2d2d2d;
       opacity: 0;
       margin-bottom: 20px;
       animation-name: slideUp;

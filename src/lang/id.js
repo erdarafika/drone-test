@@ -83,6 +83,18 @@ export default {
     closeAll: 'Tutup Semua'
   },
   // SINGLE PAGE
+  page404: {
+    title: 'OOPS!',
+    subTitle: 'Maaf, Halamn Tidak Ditemukan...',
+    description: 'Pastikan url yang anda masukan benar, atau tekan tombol dibawah untuk kembali ke halaman utama',
+    backToHome: 'Kembali'
+  },
+  page401: {
+    title: 'OOPS!',
+    subTitle: 'Maaf, Anda Tidak Bisa Masuk Ke Halaman Ini',
+    description: 'Tolong pastikan anda menggunakan akun dengan hak akses yang sesuai',
+    backToHome: 'Kembali'
+  },
   login: {
     title: 'Selamat Datang',
     logIn: 'Masuk',
@@ -152,7 +164,8 @@ export default {
     branch: 'Cabang',
     branchName: 'Nama',
     branchAddress: 'Alamat',
-    branchCountry: 'Negara'
+    branchCountry: 'Negara',
+    codeName: 'Kode Nama'
   },
   dplkBank: {
     accountName: 'Nama Pemilik',

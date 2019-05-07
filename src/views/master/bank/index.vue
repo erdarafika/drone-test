@@ -12,6 +12,9 @@
     el-table-column(:label="$t('bank.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name }}
+    el-table-column(:label="$t('bank.codeName')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.codeName }}
     el-table-column(:label="$t('bank.swiftCode')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.swiftCode }}
@@ -32,6 +35,8 @@
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('bank.name')", prop='name')
         el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+      el-form-item(:label="$t('bank.codeName')", prop='codeName')
+        el-input(v-model='temp.codeName', type='input')
       el-form-item(:label="$t('bank.swiftCode')", prop='swiftCode')
         el-input(v-model.number='temp.swiftCode', type='input')
       el-form-item(:label="$t('bank.transferCode')", prop='transferCode')
@@ -69,9 +74,10 @@ export default {
       },
       temp: {
         id: undefined,
-        name: '',
-        swiftCode: '',
-        transferCode: '',
+        name: undefined,
+        swiftCode: undefined,
+        transferCode: undefined,
+        codeName: undefined,
         isActive: undefined,
         createdDate: undefined
       },
@@ -82,7 +88,8 @@ export default {
       rules: {
         name: [{ required: true, message: 'Bank name is required', trigger: 'change' }],
         swiftCode: [{ required: true, message: 'Swift code is required', trigger: 'change' }, { type: 'number', message: 'Swift code must be number' }],
-        transferCode: [{ required: true, message: 'Transfer code is required', trigger: 'change' }, { type: 'number', message: 'Swift code must be number' }]
+        transferCode: [{ required: true, message: 'Transfer code is required', trigger: 'change' }, { type: 'number', message: 'Swift code must be number' }],
+        codeName: [{ required: true, message: 'Code name is required', trigger: 'change' }]
       },
       downloadLoading: false
     }
@@ -116,8 +123,10 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        code: '',
+        name: undefined,
+        swiftCode: undefined,
+        transferCode: undefined,
+        codeName: undefined,
         isActive: undefined,
         createdDate: undefined
       }

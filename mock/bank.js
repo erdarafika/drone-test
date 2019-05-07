@@ -11,6 +11,7 @@ for (let i = 0; i < count; i++) {
     name: '@title(5, 10)',
     'swiftCode|1-99999': 100,
     'transferCode|1-99999': 100,
+    codeName:'@word',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))

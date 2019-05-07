@@ -90,6 +90,18 @@ export default {
     showActiveOnly: 'Show Active Only'
   },
   // SINGLE PAGE
+  page404: {
+    title: 'OOPS!',
+    subTitle: 'Sorry, Page Not Found...',
+    description: 'Please check that the URL you entered is correct, or click the button below to return to the homepage.',
+    backToHome: 'Back to Home'
+  },
+  page401: {
+    title: 'OOPS!',
+    subTitle: 'Sorry, You Cannot Enter This Page',
+    description: 'Please check account you are using, make sure it has right access',
+    backToHome: 'Back to Home'
+  },
   login: {
     title: 'Welcome',
     logIn: 'Login',
@@ -152,7 +164,8 @@ export default {
     branch: 'Branch',
     branchName: 'Name',
     branchAddress: 'Address',
-    branchCountry: 'Country'
+    branchCountry: 'Country',
+    codeName: 'Code Name'
   },
   dplkBank: {
     accountName: 'Account Name',
