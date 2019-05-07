@@ -1,16 +1,27 @@
 import Mock from 'mockjs'
 
+const DtransactionType = [
+    'Register Company',
+    'Register Group',
+    'Register Member PPUKP',
+    'Register Member PPIP Organisasi',
+    'Register Member PPIP Individu'
+]
+
+const Dtype = [
+    'Additional',
+    'Mandatory'
+]
+
+
 const List = []
 const count = 7
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
-    accountName: '@title(5, 10)',
-    'accountNumber|1-999999999999': 100,
-    'bankId|1-8': 100,
-    'bankBranchId|1-8': 100,
-    'countryId|1-32': 100,
-    'isActive|1-10': true,
+    transactionType: DtransactionType[Math.floor(Math.random() * DtransactionType.length)],
+    type: Dtype[Math.floor(Math.random() * Dtype.length)],
+    'documentId|1-7': 100,
     createdDate: '@date("yyyy-MM-dd")'
 
   }))
@@ -18,13 +29,13 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
-    url: '/dplk-bank/list',
+    url: '/document-matrix/list',
     type: 'get',
     response: config => {
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = List.filter(item => {
-        if (q && (!item.accountName.toLowerCase().includes(q.toLowerCase()) && !`${item.accountNumber}`.includes(q))) return false
+        if (q && (!item.transactionType.toLowerCase().includes(q.toLowerCase()) && !item.type.toLowerCase().includes(q))) return false
         return true
       })
 
@@ -41,23 +52,7 @@ export default [
   },
 
   {
-    url: '/dplk-bank/detail',
-    type: 'get',
-    response: config => {
-      const { id } = config.query
-      for (const dplkBank of List) {
-        if (dplkBank.id === +id) {
-          return {
-            code: 20000,
-            data: dplkBank
-          }
-        }
-      }
-    }
-  },
-
-  {
-    url: '/dplk-bank/create',
+    url: '/document-matrix/create',
     type: 'post',
     response: _ => {
       return {
@@ -68,7 +63,7 @@ export default [
   },
 
   {
-    url: '/dplk-bank/update',
+    url: '/document-matrix/update',
     type: 'post',
     response: _ => {
       return {

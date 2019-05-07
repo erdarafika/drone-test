@@ -13,6 +13,7 @@ export default {
     role: 'Jabatan',
     page401: '401',
     page404: '404',
+    documentMatrix: 'Matriks Dokumen',
     location: 'Lokasi',
     tolerance: 'Toleransi',
     emailConfig: 'Pengaturan Email',
@@ -203,5 +204,10 @@ export default {
     roleName: 'Nama Jabatan',
     description: 'Deskripsi',
     menus: 'Izin Halaman'
+  },
+  documentMatrix: {
+    name: 'Nama Dokumen',
+    type: 'Tipe Dokumen',
+    transactionType: 'Jenis Transaksi'
   }
 }

@@ -18,6 +18,7 @@ import dplkBank from './dplk-bank'
 import benefitType from './benefit-type'
 import virtualAccount from './virtual-account'
 import withdrawalRule from './withdrawal-rule'
+import documentMatrix from  './document-matrix'
 
 const mocks = [
   ...user,
@@ -36,7 +37,8 @@ const mocks = [
   ...dplkBank,
   ...benefitType,
   ...virtualAccount,
-  ...withdrawalRule
+  ...withdrawalRule,
+  ...documentMatrix
 ]
 
 // for front mock

@@ -125,6 +125,15 @@ export const asyncRoutes = [
         }
       },
       {
+        path: 'document-matrix',
+        component: () => import('@/views/master/document-matrix/index'),
+        name: 'DocumentMatrix',
+        meta: {
+          title: 'documentMatrix',
+          roles: ['admin']
+        }
+      },
+      {
         path: 'holiday',
         name: 'Holiday',
         component: () => import('@/views/master/holiday/index'),

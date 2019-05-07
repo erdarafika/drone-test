@@ -12,6 +12,7 @@ export default {
     directivePermission: 'Directive Permission',
     page401: '401',
     page404: '404',
+    documentMatrix: 'Document Matrix',
     location: 'Location',
     tolerance: 'Tolerance',
     emailConfig: 'Email Config',
@@ -203,5 +204,10 @@ export default {
     roleName: 'Role Name',
     description: 'Description',
     menus: 'Page Permissions'
+  },
+  documentMatrix: {
+    name: 'Document Name',
+    type: 'Document Type',
+    transactionType: 'Transaction Type'
   }
 }
