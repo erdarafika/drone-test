@@ -130,7 +130,8 @@ export default {
     name: 'Nama Dokumen',
     code: 'Kode Dokumen',
     rejectionReason: 'Alasan Penolakan',
-    reason: 'Alasan'
+    reason: 'Alasan',
+    description: 'Keterangan'
   },
   holiday: {
     date: 'Tanggal Libur',

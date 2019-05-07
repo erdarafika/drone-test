@@ -13,6 +13,9 @@
     el-table-column(:label="$t('document.code')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.code }}
+    el-table-column(:label="$t('document.description')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.description }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
@@ -29,7 +32,8 @@
         el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
       el-form-item(:label="$t('document.code')", prop='code')
         el-input(v-model.number='temp.code', type='input')
-
+      el-form-item(:label="$t('document.description')")
+        el-input(v-model.number='temp.description', type='textarea' :autosize='{ minRows: 2, maxRows: 4}')
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -62,8 +66,9 @@ export default {
       },
       temp: {
         id: undefined,
-        name: '',
-        code: '',
+        name: undefined,
+        code: undefined,
+        description: undefined,
         isActive: undefined,
         createdDate: undefined
       },
@@ -106,8 +111,9 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        code: '',
+        name: undefined,
+        code: undefined,
+        description: undefined,
         isActive: undefined,
         createdDate: undefined
       }

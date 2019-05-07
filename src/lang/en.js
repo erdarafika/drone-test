@@ -130,7 +130,8 @@ export default {
     name: 'Document Name',
     code: 'Document Code',
     rejectionReason: 'Rejection Reason',
-    reason: 'Reason'
+    reason: 'Reason',
+    description: 'Information'
   },
   holiday: {
     date: 'Holiday Date',

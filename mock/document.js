@@ -9,6 +9,7 @@ for (let i = 0; i < count; i++) {
     id: '@increment',
     name: '@title(5, 10)',
     code: '@word',
+    description: '@title(2, 4)',
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))
@@ -56,7 +57,7 @@ export default [
       const { q, page = 1, limit = 20 } = config.query
 
       const mockList = List.filter(item => {
-        if (q && (!item.name.includes(q) && !item.code.includes(q))) return false
+        if (q && (!item.name.includes(q) && !item.code.includes(q) && !item.description.includes(q))) return false
         return true
       })
 
