@@ -19,6 +19,7 @@ export default {
     feeType: 'Fee Type',
     productType: 'Product Type',
     bank: 'Bank',
+    investmentType: 'Investment Type',
     dplkBank: 'DPLK Bank',
     benefitType: 'Benefit Type',
     subBenefit: 'Sub Benefit Type',
@@ -26,7 +27,8 @@ export default {
     virtualAccount: 'Virtual Account',
     bca: 'BCA',
     cimb: 'CIMB',
-    withdrawalRule: 'Withdrawal Rule'
+    withdrawalRule: 'Withdrawal Rule',
+    fundAdministration: 'Fund Administration'
   },
   // GLOBAL
   validatorMessage: {
@@ -210,5 +212,14 @@ export default {
     name: 'Document Name',
     type: 'Document Type',
     transactionType: 'Transaction Type'
+  },
+  investmentType: {
+    fundName: 'Fund Name',
+    code: 'Code',
+    status: 'Status',
+    effectiveDate: 'Effective Date',
+    lastPrice: 'Last Price',
+    addMultipleFundPrice: 'Add Multiple Fund Price',
+    description: 'Description'
   }
 }

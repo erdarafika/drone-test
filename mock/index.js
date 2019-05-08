@@ -19,6 +19,8 @@ import benefitType from './benefit-type'
 import virtualAccount from './virtual-account'
 import withdrawalRule from './withdrawal-rule'
 import documentMatrix from  './document-matrix'
+import investmentType from  './investment-type/index'
+import unitPrice from './investment-type/unit-price'
 
 const mocks = [
   ...user,
@@ -38,7 +40,9 @@ const mocks = [
   ...benefitType,
   ...virtualAccount,
   ...withdrawalRule,
-  ...documentMatrix
+  ...documentMatrix,
+  ...investmentType,
+  ...unitPrice
 ]
 
 // for front mock

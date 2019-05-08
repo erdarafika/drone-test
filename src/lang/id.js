@@ -20,6 +20,7 @@ export default {
     feeType: 'Jenis Biaya',
     productType: 'Jenis Produk',
     bank: 'Bank',
+    investmentType: 'Jenis Investasi',
     dplkBank: 'Bank DPLK',
     benefitType: 'Jenis Manfaat',
     subBenefit: 'Sub Jenis Manfaat',
@@ -27,7 +28,8 @@ export default {
     virtualAccount: 'Rekening Virtual',
     bca: 'BCA',
     cimb: 'CIMB',
-    withdrawalRule: 'Aturan Penarikan'
+    withdrawalRule: 'Aturan Penarikan',
+    fundAdministration: 'Administrasi Dana'
   },
   // GLOBAL
   validatorMessage: {
@@ -210,5 +212,14 @@ export default {
     name: 'Nama Dokumen',
     type: 'Tipe Dokumen',
     transactionType: 'Jenis Transaksi'
+  },
+  investmentType: {
+    fundName: 'Nama Dana',
+    code: 'Kode',
+    status: 'Status',
+    effectiveDate: 'Tanggal Efektif',
+    lastPrice: 'Harga Terakhir',
+    addMultipleFundPrice: 'Tambah Semua Harga Dana',
+    description: 'Deskripri'
   }
 }
