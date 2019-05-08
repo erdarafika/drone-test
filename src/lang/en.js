@@ -220,6 +220,8 @@ export default {
     effectiveDate: 'Effective Date',
     lastPrice: 'Last Price',
     addMultipleFundPrice: 'Add Multiple Fund Price',
-    description: 'Description'
+    description: 'Description',
+    pricing: 'Pricing',
+    price: 'Price'
   }
 }

@@ -220,6 +220,8 @@ export default {
     effectiveDate: 'Tanggal Efektif',
     lastPrice: 'Harga Terakhir',
     addMultipleFundPrice: 'Tambah Semua Harga Dana',
-    description: 'Deskripri'
+    description: 'Deskripri',
+    pricing: 'Harga',
+    price: 'Harga'
   }
 }
