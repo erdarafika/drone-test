@@ -19,6 +19,24 @@ export default {
     }
   },
   {
+    path: 'location',
+    name: 'Location',
+    component: () => import('@/views/master/location/index'),
+    meta: {
+      title: 'location',
+      roles: ['admin'] // or you can only set roles in sub nav
+    }
+  },
+  {
+    path: 'bank',
+    name: 'Bank',
+    component: () => import('@/views/master/bank/index'),
+    meta: {
+      title: 'bank',
+      roles: ['admin'] // or you can only set roles in sub nav
+    }
+  },
+  {
     path: 'business-line',
     name: 'BusinessLine',
     component: () => import('@/views/master/business-line/index'),
@@ -28,20 +46,11 @@ export default {
     }
   },
   {
-    path: 'document',
-    name: 'Document',
-    component: () => import('@/views/master/document/index'),
+    path: 'role',
+    component: () => import('@/views/master/role/index'),
+    name: 'Role',
     meta: {
-      title: 'document',
-      roles: ['admin'] // or you can only set roles in sub nav
-    }
-  },
-  {
-    path: 'document-matrix',
-    component: () => import('@/views/master/document-matrix/index'),
-    name: 'DocumentMatrix',
-    meta: {
-      title: 'documentMatrix',
+      title: 'role',
       roles: ['admin']
     }
   },
@@ -55,11 +64,11 @@ export default {
     }
   },
   {
-    path: 'location',
-    name: 'Location',
-    component: () => import('@/views/master/location/index'),
+    path: 'document',
+    name: 'Document',
+    component: () => import('@/views/master/document/index'),
     meta: {
-      title: 'location',
+      title: 'document',
       roles: ['admin'] // or you can only set roles in sub nav
     }
   },
@@ -72,6 +81,9 @@ export default {
       roles: ['admin'] // or you can only set roles in sub nav
     }
   },
+
+  // TODO: Aturan Manfaat
+
   {
     path: 'email-config',
     name: 'EmailConfig',
@@ -91,6 +103,15 @@ export default {
     }
   },
   {
+    path: 'benefit-type',
+    name: 'BenefitType',
+    component: () => import('@/views/master/benefit-type/index'),
+    meta: {
+      title: 'benefitType',
+      roles: ['admin'] // or you can only set roles in sub nav
+    }
+  },
+  {
     path: 'product-type',
     name: 'ProductType',
     component: () => import('@/views/master/product-type/index'),
@@ -100,12 +121,13 @@ export default {
     }
   },
   {
-    path: 'bank',
-    name: 'Bank',
-    component: () => import('@/views/master/bank/index'),
+    path: 'document-matrix',
+    component: () => import('@/views/master/document-matrix/index'),
+    name: 'DocumentMatrix',
+    hidden: true,
     meta: {
-      title: 'bank',
-      roles: ['admin'] // or you can only set roles in sub nav
+      title: 'documentMatrix',
+      roles: ['admin']
     }
   },
   {
@@ -118,37 +140,29 @@ export default {
     }
   },
   {
-    path: 'benefit-type',
-    name: 'BenefitType',
-    component: () => import('@/views/master/benefit-type/index'),
-    meta: {
-      title: 'benefitType',
-      roles: ['admin'] // or you can only set roles in sub nav
-    }
-  },
-  {
     path: 'sub-benefit',
     component: () => import('@/views/master/benefit-type/sub-benefit/index'),
     name: 'SubBenefit',
+    hidden: true,
     meta: {
       title: 'subBenefit',
       roles: ['admin']
-    },
-    hidden: true
+    }
   },
   {
     path: 'sub-benefit-document',
     component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
     name: 'SubBenefitDocument',
+    hidden: true,
     meta: {
       title: 'subBenefitDocument',
       roles: ['admin']
-    },
-    hidden: true
+    }
   },
   {
     path: 'virtual-account',
     name: 'VirtualAccount',
+    hidden: true,
     component: () => import('@/views/master/virtual-account/index'),
     meta: {
       title: 'virtualAccount',
@@ -179,17 +193,9 @@ export default {
     path: 'withdrawal-rule',
     component: () => import('@/views/master/withdrawal-rule/index'),
     name: 'WithdrawalRule',
+    hidden: true,
     meta: {
       title: 'withdrawalRule',
-      roles: ['admin']
-    }
-  },
-  {
-    path: 'role',
-    component: () => import('@/views/master/role/index'),
-    name: 'Role',
-    meta: {
-      title: 'role',
       roles: ['admin']
     }
   }
