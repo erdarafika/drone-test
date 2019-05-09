@@ -18,7 +18,7 @@
           span {{ scope.row.code }}
       el-table-column(:label="$t('investmentType.status')", align='left', width='120')
         template(slot-scope='scope')
-          span {{ scope.row.status }}
+          span {{ getUnitPriceData(scope.row,'status')  }}
       el-table-column(:label="$t('investmentType.lastPrice')", align='left', width='120')
         template(slot-scope='scope')
           span {{ getUnitPriceData(scope.row,'last-price')  }}
@@ -129,8 +129,10 @@ export default {
     this.getList()
   },
   methods: {
-    handleViewUnitPrice() {
-      console.log('Unit Price')
+    handleViewUnitPrice(row) {
+      this.$router.push({ path: '/fund-administration/unit-price', query: {
+        id: row.unitId
+      }})
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
@@ -143,10 +145,9 @@ export default {
     },
     getUnitPriceData(row, type) {
       const searchUnitPrice = this.unitPriceList.filter(i => i.investmentTypeId === row.unitId)
-      console.log(searchUnitPrice)
 
       if (searchUnitPrice.length) {
-        if (type === 'last-price') { return searchUnitPrice[searchUnitPrice.length - 1].price } else if (type === 'effective-date') { return searchUnitPrice[searchUnitPrice.length - 1].effectiveDate }
+        if (type === 'last-price') { return searchUnitPrice[searchUnitPrice.length - 1].price } else if (type === 'effective-date') { return searchUnitPrice[searchUnitPrice.length - 1].effectiveDate } else return searchUnitPrice[searchUnitPrice.length - 1].status
       }
 
       return ''
@@ -218,7 +219,6 @@ export default {
       }))
 
       this.unitPriceList.push(...tempMultipleFundPrice)
-      console.log(this.unitPriceList)
 
       this.dialogFundPriceFormVisible = false
       this.$notify({
@@ -232,7 +232,6 @@ export default {
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
-        console.log('valid', valid)
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.isActive = true

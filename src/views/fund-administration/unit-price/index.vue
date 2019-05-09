@@ -40,12 +40,15 @@ export default {
         page: 1,
         limit: 20,
         q: undefined,
-        date: undefined
+        date: undefined,
+        investmentTypeId: undefined
       },
       investmentTypeList: []
     }
   },
   created() {
+    if ('id' in this.$route.query) { this.listQuery.investmentTypeId = this.$route.query.id }
+
     fetchInvestmentTypeList().then(response => {
       this.investmentTypeList = response.data.items.map(i => i.fundName)
     })

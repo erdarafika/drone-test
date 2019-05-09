@@ -22,13 +22,14 @@ export default [
     url: '/unit-price/list',
     type: 'get',
     response: config => {
-      const { q, date, page = 1, limit = 20 } = config.query
+      const { q, date, investmentTypeId, page = 1, limit = 20 } = config.query
       
       
       
       let mockList = List.filter(item => {
         if (q && (!`${item.price}`.includes(q) && !item.status.toLowerCase().includes(q.toLowerCase()))) return false
         if(date && item.effectiveDate!=date) return false
+        if(investmentTypeId && item.investmentTypeId!=investmentTypeId) return false
         return true
       })
 
