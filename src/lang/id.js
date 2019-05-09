@@ -20,6 +20,7 @@ export default {
     feeType: 'Jenis Biaya',
     productType: 'Jenis Produk',
     bank: 'Bank',
+    unitPrice: 'Harga Unit',
     investmentType: 'Jenis Investasi',
     dplkBank: 'Bank DPLK',
     benefitType: 'Jenis Manfaat',
@@ -223,5 +224,11 @@ export default {
     description: 'Deskripri',
     pricing: 'Harga',
     price: 'Harga'
+  },
+  unitPrice: {
+    fundName: 'Nama Dana',
+    effectiveDate: 'Tanggal Efektif',
+    price: 'Harga',
+    status: 'Status'
   }
 }

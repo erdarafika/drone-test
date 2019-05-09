@@ -19,6 +19,7 @@ export default {
     feeType: 'Fee Type',
     productType: 'Product Type',
     bank: 'Bank',
+    unitPrice: 'Unit Price',
     investmentType: 'Investment Type',
     dplkBank: 'DPLK Bank',
     benefitType: 'Benefit Type',
@@ -223,5 +224,11 @@ export default {
     description: 'Description',
     pricing: 'Pricing',
     price: 'Price'
+  },
+  unitPrice: {
+    fundName: 'Fund Name',
+    effectiveDate: 'Effective Date',
+    price: 'Price',
+    status: 'Status'
   }
 }

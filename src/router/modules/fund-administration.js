@@ -10,14 +10,24 @@ export default {
     // icon: 'component',
     roles: ['admin'] // you can set roles in root nav
   },
-  children: [{
-    path: 'investment-type',
-    name: 'InvestmentType',
-    component: () => import('@/views/fund-administration/investment-type/index'),
-    meta: {
-      title: 'investmentType',
-      roles: ['admin'] // or you can only set roles in sub nav
+  children: [
+    {
+      path: 'investment-type',
+      name: 'InvestmentType',
+      component: () => import('@/views/fund-administration/investment-type/index'),
+      meta: {
+        title: 'investmentType',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'unit-price',
+      name: 'UnitPrice',
+      component: () => import('@/views/fund-administration/unit-price/index'),
+      meta: {
+        title: 'unitPrice',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
     }
-  }
   ]
 }
