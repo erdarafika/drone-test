@@ -21,6 +21,7 @@ import withdrawalRule from './withdrawal-rule'
 import documentMatrix from  './document-matrix'
 import investmentType from  './investment-type/index'
 import unitPrice from './investment-type/unit-price'
+import dplkInformation from './dplk-information'
 
 const mocks = [
   ...user,
@@ -42,7 +43,8 @@ const mocks = [
   ...withdrawalRule,
   ...documentMatrix,
   ...investmentType,
-  ...unitPrice
+  ...unitPrice,
+  ...dplkInformation
 ]
 
 // for front mock

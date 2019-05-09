@@ -29,7 +29,9 @@ export default {
     bca: 'BCA',
     cimb: 'CIMB',
     withdrawalRule: 'Withdrawal Rule',
-    fundAdministration: 'Fund Administration'
+    fundAdministration: 'Fund Administration',
+    dplkConfiguration: 'DPLK Configuration',
+    dplkInformation: 'DPLK Information'
   },
   // GLOBAL
   validatorMessage: {
@@ -230,5 +232,12 @@ export default {
     effectiveDate: 'Effective Date',
     price: 'Price',
     status: 'Status'
+  },
+  dplkInformation: {
+    name: 'DPLK Name',
+    website: 'Website',
+    email: 'Email',
+    telpNumber: 'Telephones Number',
+    fax: 'Fax'
   }
 }

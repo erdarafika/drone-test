@@ -30,7 +30,9 @@ export default {
     bca: 'BCA',
     cimb: 'CIMB',
     withdrawalRule: 'Aturan Penarikan',
-    fundAdministration: 'Administrasi Dana'
+    fundAdministration: 'Administrasi Dana',
+    dplkConfiguration: 'Konfigurasi DPLK',
+    dplkInformation: 'Informasi DPLK'
   },
   // GLOBAL
   validatorMessage: {
@@ -230,5 +232,12 @@ export default {
     effectiveDate: 'Tanggal Efektif',
     price: 'Harga',
     status: 'Status'
+  },
+  dplkInformation: {
+    name: 'Nama DPLK',
+    website: 'Situs',
+    email: 'Email',
+    telpNumber: 'Nomor Telepon',
+    fax: 'Fax'
   }
 }
