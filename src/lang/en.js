@@ -33,7 +33,8 @@ export default {
     dplkConfiguration: 'DPLK Configuration',
     dplkInformation: 'DPLK Information',
     dplkAddress: 'DPLK Address',
-    dplkBankAccount: 'DPLK Bank Account'
+    dplkBankAccount: 'DPLK Bank Account',
+    dplkStaff: 'DPLK Staff'
   },
   // GLOBAL
   validatorMessage: {
@@ -257,5 +258,11 @@ export default {
     bankAddress: 'Bank Address',
     bankBranch: 'Bank Branch',
     bankCountry: 'Country'
+  },
+  dplkStaff: {
+    nip: 'NIP',
+    name: 'Name',
+    email: 'Email',
+    role: 'Role'
   }
 }

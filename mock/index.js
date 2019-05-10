@@ -24,6 +24,7 @@ import unitPrice from './investment-type/unit-price'
 import dplkInformation from './dplk-information'
 import dplkAddress from './dplk-address';
 import dplkBankAccount from './dplk-bank-account';
+import dplkStaff from './dplk-staff';
 
 const mocks = [
   ...user,
@@ -48,7 +49,8 @@ const mocks = [
   ...unitPrice,
   ...dplkInformation,
   ...dplkAddress,
-  ...dplkBankAccount
+  ...dplkBankAccount,
+  ...dplkStaff
 ]
 
 // for front mock

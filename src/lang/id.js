@@ -34,7 +34,8 @@ export default {
     dplkConfiguration: 'DPLK Konfigurasi',
     dplkInformation: 'DPLK Informasi',
     dplkAddress: 'DPLK Alamat',
-    dplkBankAccount: 'DPLK Bank Akun'
+    dplkBankAccount: 'DPLK Bank Akun',
+    dplkStaff: 'DPLK Staff'
   },
   // GLOBAL
   validatorMessage: {
@@ -257,5 +258,11 @@ export default {
     bankAddress: 'Alamat Bank',
     bankBranch: 'Cabang Bank',
     bankCountry: 'Negara'
+  },
+  dplkStaff: {
+    nip: 'NIP',
+    name: 'Nama',
+    email: 'Email',
+    role: 'Jabatan'
   }
 }

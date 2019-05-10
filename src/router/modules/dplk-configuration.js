@@ -37,6 +37,15 @@ export default {
         title: 'dplkBankAccount',
         roles: ['admin'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: 'dplk-staff',
+      name: 'DplkStaff',
+      component: () => import('@/views/dplk-configuration/dplk-staff/index'),
+      meta: {
+        title: 'dplkStaff',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
     }
   ]
 }
