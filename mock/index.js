@@ -22,6 +22,8 @@ import documentMatrix from  './document-matrix'
 import investmentType from  './investment-type/index'
 import unitPrice from './investment-type/unit-price'
 import dplkInformation from './dplk-information'
+import dplkAddress from './dplk-address';
+import dplkBankAccount from './dplk-bank-account';
 
 const mocks = [
   ...user,
@@ -44,7 +46,9 @@ const mocks = [
   ...documentMatrix,
   ...investmentType,
   ...unitPrice,
-  ...dplkInformation
+  ...dplkInformation,
+  ...dplkAddress,
+  ...dplkBankAccount
 ]
 
 // for front mock

@@ -31,8 +31,10 @@ export default {
     cimb: 'CIMB',
     withdrawalRule: 'Aturan Penarikan',
     fundAdministration: 'Administrasi Dana',
-    dplkConfiguration: 'Konfigurasi DPLK',
-    dplkInformation: 'Informasi DPLK'
+    dplkConfiguration: 'DPLK Konfigurasi',
+    dplkInformation: 'DPLK Informasi',
+    dplkAddress: 'DPLK Alamat',
+    dplkBankAccount: 'DPLK Bank Akun'
   },
   // GLOBAL
   validatorMessage: {
@@ -239,5 +241,21 @@ export default {
     email: 'Email',
     telpNumber: 'Nomor Telepon',
     fax: 'Fax'
+  },
+  dplkAddress: {
+    addressType: 'Address Type',
+    country: 'Country',
+    city: 'City',
+    postalCode: 'Postal Code',
+    status: 'Status',
+    setDefault: 'Atur sebagai Default'
+  },
+  dplkBankAccount: {
+    name: 'Nama Akun',
+    number: 'Nomor Akun',
+    bank: 'Bank',
+    bankAddress: 'Alamat Bank',
+    bankBranch: 'Cabang Bank',
+    bankCountry: 'Negara'
   }
 }

@@ -115,7 +115,7 @@ export default {
   },
   created() {
     this.getBranches()
-    fetchCountryList().then(response => {
+    fetchCountryList({ page: 1, limit: 50 }).then(response => {
       this.countryList = response.data.items.map(i => i.name)
       this.countryOptions = this.countryList.map((i, index) => ({ label: i, key: index }))
       console.log(this.countryOptions)

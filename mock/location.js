@@ -17,7 +17,7 @@ for (let i = 0; i < provinceCount; i++) {
   provinceList.push(Mock.mock({
     id: '@increment',
     name: faker.address.state(),
-    'countryId|1-32': 100,
+    'countryId|0-32': 100,
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))

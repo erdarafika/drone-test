@@ -8,7 +8,7 @@ const count = 8
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
-    name: '@title(5, 10)',
+    name: '@title(1, 3)',
     'swiftCode|1-99999': 100,
     'transferCode|1-99999': 100,
     codeName:'@word',
@@ -20,9 +20,9 @@ for (let i = 0; i < count; i++) {
 for (let i = 0; i < branchCount; i++) {
   BranchList.push(Mock.mock({
     id: '@increment',
-    name: '@title(5, 10)',
+    name: '@title(1, 3)',
     address: faker.address.streetAddress(),
-    'countryId|1-32': 100,
+    'countryId|0-30': 100,
     'isActive|1-10': true,
     createdDate: '@date("yyyy-MM-dd")'
   }))

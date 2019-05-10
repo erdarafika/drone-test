@@ -31,7 +31,9 @@ export default {
     withdrawalRule: 'Withdrawal Rule',
     fundAdministration: 'Fund Administration',
     dplkConfiguration: 'DPLK Configuration',
-    dplkInformation: 'DPLK Information'
+    dplkInformation: 'DPLK Information',
+    dplkAddress: 'DPLK Address',
+    dplkBankAccount: 'DPLK Bank Account'
   },
   // GLOBAL
   validatorMessage: {
@@ -239,5 +241,21 @@ export default {
     email: 'Email',
     telpNumber: 'Telephones Number',
     fax: 'Fax'
+  },
+  dplkAddress: {
+    addressType: 'Address Type',
+    country: 'Country',
+    city: 'City',
+    postalCode: 'Postal Code',
+    status: 'Status',
+    setDefault: 'Set as Default'
+  },
+  dplkBankAccount: {
+    name: 'Account Name',
+    number: 'Account Number',
+    bank: 'Bank',
+    bankAddress: 'Bank Address',
+    bankBranch: 'Bank Branch',
+    bankCountry: 'Country'
   }
 }
