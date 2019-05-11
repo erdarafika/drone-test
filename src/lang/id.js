@@ -29,7 +29,7 @@ export default {
     virtualAccount: 'Rekening Virtual',
     bca: 'BCA',
     cimb: 'CIMB',
-    withdrawalRule: 'Aturan Penarikan',
+    withdrawalRule: 'Aturan Manfaat',
     fundAdministration: 'Administrasi Dana',
     dplkConfiguration: 'DPLK Konfigurasi',
     dplkInformation: 'DPLK Informasi',

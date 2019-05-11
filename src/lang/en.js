@@ -28,7 +28,7 @@ export default {
     virtualAccount: 'Virtual Account',
     bca: 'BCA',
     cimb: 'CIMB',
-    withdrawalRule: 'Withdrawal Rule',
+    withdrawalRule: 'Benefit Rule',
     fundAdministration: 'Fund Administration',
     dplkConfiguration: 'DPLK Configuration',
     dplkInformation: 'DPLK Information',

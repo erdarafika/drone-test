@@ -81,9 +81,15 @@ export default {
       roles: ['admin'] // or you can only set roles in sub nav
     }
   },
-
-  // TODO: Aturan Manfaat
-
+  {
+    path: 'withdrawal-rule',
+    component: () => import('@/views/master/withdrawal-rule/index'),
+    name: 'WithdrawalRule',
+    meta: {
+      title: 'withdrawalRule',
+      roles: ['admin']
+    }
+  },
   {
     path: 'email-config',
     name: 'EmailConfig',
@@ -188,16 +194,6 @@ export default {
       }
     }
     ]
-  },
-  {
-    path: 'withdrawal-rule',
-    component: () => import('@/views/master/withdrawal-rule/index'),
-    name: 'WithdrawalRule',
-    hidden: true,
-    meta: {
-      title: 'withdrawalRule',
-      roles: ['admin']
-    }
   }
   ]
 }
