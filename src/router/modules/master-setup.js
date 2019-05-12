@@ -49,8 +49,18 @@ export default {
     path: 'role',
     component: () => import('@/views/master/role/index'),
     name: 'Role',
+    hidden: true,
     meta: {
       title: 'role',
+      roles: ['admin']
+    }
+  },
+  {
+    path: 'position',
+    component: () => import('@/views/master/position/index'),
+    name: 'Position',
+    meta: {
+      title: 'position',
       roles: ['admin']
     }
   },
@@ -193,6 +203,7 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     }
+
     ]
   }
   ]

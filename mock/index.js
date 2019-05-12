@@ -25,6 +25,7 @@ import dplkInformation from './dplk-information'
 import dplkAddress from './dplk-address';
 import dplkBankAccount from './dplk-bank-account';
 import dplkStaff from './dplk-staff';
+import position from './position';
 
 const mocks = [
   ...user,
@@ -50,7 +51,8 @@ const mocks = [
   ...dplkInformation,
   ...dplkAddress,
   ...dplkBankAccount,
-  ...dplkStaff
+  ...dplkStaff,
+  ...position
 ]
 
 // for front mock
