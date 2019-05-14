@@ -50,6 +50,8 @@
 
       <div style="position:relative">
         <div class="tips">
+          <p>Catatan : Uji coba Role Approval, sementara hanya di page DPLK Address, klw udah fix yang page DPLK Address akan diterapkan ke page lain</p>
+          <br>
           <span>{{ $t('login.username') }} : admin</span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
           <br>
