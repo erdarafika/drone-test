@@ -27,15 +27,19 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='150')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-
     el-table-column(label='', align='right',  width='280')
       template(slot-scope='{row}')
-        el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id")
+        el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" v-if="checkCrudPermission(['maker'])")
           | {{ $t('dplkAddress.setDefault')  }}
-        el-button(type='primary', size='mini', @click='handleUpdate(row)')
+        el-button(type='primary', size='mini', @click='handleUpdate(row)' v-if="checkCrudPermission(['maker'])")
           | {{ $t('table.edit') }}
-        el-button(type='danger', size='mini', @click='handleDelete(row)')
+        el-button(type='danger', size='mini', @click='handleDelete(row)' v-if="checkCrudPermission(['maker'])")
           | {{ $t('table.delete') }}
+        el-button(type='success', size='mini' v-if="checkCrudPermission(['approver'])")
+          | {{ $t('table.approve') }}
+        el-button(type='warning', size='mini' v-if="checkCrudPermission(['approver'])")
+          | {{ $t('table.reject') }}
+
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
@@ -68,6 +72,7 @@ import { fetchCountryList, fetchCityList } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
 import crudPermission from '@/directive/crud-permission/index.js'
+import checkCrudPermission from '@/utils/crud-permission'
 
 export default {
   name: 'Document',
@@ -136,6 +141,7 @@ export default {
     })
   },
   methods: {
+    checkCrudPermission,
     setDefault(row) {
       this.defaultId = row.id
     },

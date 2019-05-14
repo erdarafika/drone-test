@@ -57,6 +57,8 @@ export default {
   },
 
   table: {
+    approve: 'Approve',
+    reject: 'Reject',
     type: 'Type',
     save: 'Save',
     search: 'Search',

@@ -22,7 +22,7 @@ const users = {
     introduction: 'I am a super administrator',
     avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
     name: 'Super Admin',
-    crudPermissions: ['maker','checkher','approver'] 
+    crudPermissions: ['maker','checkher'] 
   },
   'approver-token': {
     roles: ['admin'],
