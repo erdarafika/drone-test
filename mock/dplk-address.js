@@ -2,6 +2,16 @@ import Mock from 'mockjs'
 
 const List = []
 const count = 15
+
+const isActive = [false,true]
+
+/*
+@status
+  0 : pending
+  1 : active
+  2 : rejected
+*/
+
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
@@ -10,7 +20,8 @@ for (let i = 0; i < count; i++) {
     'cityId|0-399':100,
     'postalCode|1-99999':100,
     'isDefault': false,
-    'isActive|1-10': true,
+    isActive:isActive[Math.floor(Math.random() * isActive.length)],
+    'status|0-2':100,
     createdDate: '@date("yyyy-MM-dd")'
 
   }))

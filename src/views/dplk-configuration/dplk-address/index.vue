@@ -27,17 +27,20 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='150')
       template(slot-scope='scope')
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+    el-table-column(:label="$t('table.status')", align='left', width='190')
+      template(slot-scope='scope')
+        RecordStatus(:status="scope.row.status")
     el-table-column(label='', align='right',  width='280')
       template(slot-scope='{row}')
-        el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" v-if="checkCrudPermission(['maker'])")
+        el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" v-if="checkCrudPermission(['maker'])  && row.status===1")
           | {{ $t('dplkAddress.setDefault')  }}
-        el-button(type='primary', size='mini', @click='handleUpdate(row)' v-if="checkCrudPermission(['maker'])")
+        el-button(type='primary', size='mini', @click='handleUpdate(row)' v-if="checkCrudPermission(['maker']) && row.status!=1")
           | {{ $t('table.edit') }}
-        el-button(type='danger', size='mini', @click='handleDelete(row)' v-if="checkCrudPermission(['maker'])")
+        el-button(type='danger', size='mini', @click='handleDelete(row)' v-if="checkCrudPermission(['maker'])  && row.status!=1")
           | {{ $t('table.delete') }}
-        el-button(type='success', size='mini' v-if="checkCrudPermission(['approver'])")
+        el-button(type='success', size='mini' v-if="checkCrudPermission(['approver'])  && row.status===0" @click="handleApprove(row)" )
           | {{ $t('table.approve') }}
-        el-button(type='warning', size='mini' v-if="checkCrudPermission(['approver'])")
+        el-button(type='danger', size='mini' v-if="checkCrudPermission(['approver'])  && row.status===0" @click="handleReject(row)")
           | {{ $t('table.reject') }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
@@ -73,11 +76,12 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import { generateDate } from '@/utils/pensiunku'
 import crudPermission from '@/directive/crud-permission/index.js'
 import checkCrudPermission from '@/utils/crud-permission'
+import RecordStatus from '@/components/RecordStatus'
 
 export default {
   name: 'Document',
   directives: { crudPermission },
-  components: { Pagination },
+  components: { Pagination, RecordStatus },
   data() {
     return {
       tableKey: 0,
@@ -103,6 +107,7 @@ export default {
         postalCode: undefined,
         isDefault: false,
         isActive: undefined,
+        status: 0,
         createdDate: undefined
       },
       dialogFormVisible: false,
@@ -141,9 +146,49 @@ export default {
     })
   },
   methods: {
+    handleApprove(row) {
+      row.status = 1
+      for (const v of this.list) {
+        if (v.id === row.id) {
+          const index = this.list.indexOf(v)
+          this.list.splice(index, 1, row)
+          break
+        }
+      }
+      this.dialogFormVisible = false
+      this.$notify({
+        title: this.$t('table.successTitle'),
+        message: this.$t('table.successCaption'),
+        type: 'success',
+        duration: 2000
+      })
+    },
+    handleReject(row) {
+      row.status = 2
+      for (const v of this.list) {
+        if (v.id === row.id) {
+          const index = this.list.indexOf(v)
+          this.list.splice(index, 1, row)
+          break
+        }
+      }
+      this.dialogFormVisible = false
+      this.$notify({
+        title: this.$t('table.successTitle'),
+        message: this.$t('table.successCaption'),
+        type: 'success',
+        duration: 2000
+      })
+    },
     checkCrudPermission,
     setDefault(row) {
       this.defaultId = row.id
+      this.$notify({
+        title: this.$t('table.successTitle'),
+        message: this.$t('table.successCaption'),
+        type: 'success',
+        duration: 2000
+      })
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
@@ -178,6 +223,7 @@ export default {
         postalCode: undefined,
         isDefault: false,
         isActive: undefined,
+        status: 0,
         createdDate: undefined
       }
     },
@@ -221,6 +267,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          this.temp.status = 0
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateDplkAddress(tempData).then(() => {
