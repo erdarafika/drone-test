@@ -1,0 +1,25 @@
+
+
+STATUS
+  Draft : Bisa Nyimpan Data Meskipus Belum Selesai
+  Pending : Mengtrigger Request for Approval (Menunggu Approval dari Role Approval)
+  Active : Accept by Role Approval
+  Rejected : Decline by Role Approval, (Bisa diedit lagi untuk di Request lagi)
+  Terminated : -
+
+ROLE 
+  Checker : Read Only
+  Maker : CRUD, exclude Approval
+  Approval : Menentukan Flag Data, Active atau Not Active
+
+JABATAN : posisi struktural perusahaan bukan ROLE
+ROLE dihubungkan ke JABATAN
+
+
+SERVER
+  Spring
+
+FRONTEND
+  NODE JS
+
+  

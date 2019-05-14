@@ -52,6 +52,15 @@
         <div class="tips">
           <span>{{ $t('login.username') }} : admin</span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
+          <br>
+          <span style="font-size:12px">CRUD Permissions : Maker, Checker, Approver</span>
+        </div>
+        <br>
+        <div class="tips">
+          <span>{{ $t('login.username') }} : approver</span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
+          <br>
+          <span style="font-size:12px">CRUD Permissions : Approver</span>
         </div>
       </div>
     </el-form>

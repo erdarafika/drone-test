@@ -60,7 +60,8 @@
               span {{ scope.row.fundName }}
           el-table-column(:label="$t('investmentType.price')", align='left')
             template(slot-scope='scope')
-              el-input(type="input" v-model.number="tempMultipleFundPrice.price[scope.row.unitId]")
+              .el-input(data-children-count='1')
+                money.el-input__inner(v-model='tempMultipleFundPrice.price[scope.row.unitId]', v-bind='moneyConfig')
           el-table-column(:label="$t('investmentType.status')", align='left', width='120')
             template(slot-scope='scope')
               | UNAVAILABLE
@@ -86,6 +87,14 @@ export default {
       list: null,
       total: 0,
       listLoading: true,
+      moneyConfig: {
+        decimal: ',',
+        thousands: '.',
+        prefix: 'Rp ',
+        suffix: '',
+        precision: 0,
+        masked: false /* doesn't work with directive */
+      },
       listQuery: {
         page: 1,
         limit: 20,

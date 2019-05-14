@@ -11,12 +11,12 @@ const roles = [
     description: 'Super Administrator. Have access to view all pages.',
     routes: routes
   },
-  // {
-  //   key: 'editor',
-  //   name: 'editor',
-  //   description: 'Normal Editor. Can see all pages except permission page',
-  //   routes: routes.filter(i => i.path !== '/permission')// just a mock
-  // },
+  {
+    key: 'approver',
+    name: 'contoh-approver',
+    description: 'Normal Editor. Can see all pages except permission page',
+    routes: routes.filter(i => i.path !== '/permission')// just a mock
+  },
   // {
   //   key: 'visitor',
   //   name: 'visitor',

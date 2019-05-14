@@ -3,7 +3,7 @@
 .app-container
   .filter-container
     //- el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
@@ -67,9 +67,11 @@ import { fetchCountryList, fetchCityList } from '@/api/location'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { generateDate } from '@/utils/pensiunku'
+import crudPermission from '@/directive/crud-permission/index.js'
 
 export default {
   name: 'Document',
+  directives: { crudPermission },
   components: { Pagination },
   data() {
     return {

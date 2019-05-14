@@ -3,24 +3,34 @@ const tokens = {
   admin: {
     token: 'admin-token'
   },
-  // editor: {
-  //   token: 'editor-token'
-  // }
+  approver: {
+    token: 'approver-token'
+  }
 }
+
+/* CRUD PERMISSIONS
+  0 : Approver,
+  1 : Maker.
+  2 : Checker
+
+
+*/
 
 const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
-    name: 'Super Admin'
+    name: 'Super Admin',
+    crudPermissions: ['maker','checkher','approver'] 
   },
-  // 'editor-token': {
-  //   roles: ['editor'],
-  //   introduction: 'I am an editor',
-  //   avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
-  //   name: 'Normal Editor'
-  // }
+  'approver-token': {
+    roles: ['admin'],
+    introduction: 'I am an approver',
+    avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
+    name: 'Normal Approver',
+    crudPermissions: ['approver']
+  }
 }
 
 export default [

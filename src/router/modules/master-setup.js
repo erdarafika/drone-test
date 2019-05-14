@@ -49,7 +49,7 @@ export default {
     path: 'role',
     component: () => import('@/views/master/role/index'),
     name: 'Role',
-    hidden: true,
+    hidden: false,
     meta: {
       title: 'role',
       roles: ['admin']
