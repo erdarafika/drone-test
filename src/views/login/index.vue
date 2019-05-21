@@ -73,6 +73,7 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
+import { loginOauth2 } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -119,6 +120,7 @@ export default {
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
+    loginOauth2()
   },
   mounted() {
     if (this.loginForm.username === '') {
