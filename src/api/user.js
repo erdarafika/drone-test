@@ -10,12 +10,17 @@ export function login(data) {
   })
 }
 
-export function loginOauth2() {
+export function loginOauth2({ username, password }) {
   const data = qs.stringify({
-    username: 'admin',
-    password: 'password',
+    username,
+    password,
     grant_type: 'password'
   })
+
+  const clientData = {
+    secret: 'secret',
+    id: 'razor'
+  }
 
   axios.post(
     'http://localhost:8080/oauth/token',
@@ -23,21 +28,11 @@ export function loginOauth2() {
     {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        // "Accept": "application/json",
-        'Authorization': 'Basic ' + btoa('razor:secret')
+        'Authorization': 'Basic ' + btoa(`${clientData.id}:${clientData.secret}`)
       }
     }).then(result => {
     console.log(result)
   })
-  // return request({
-  //   url: 'http://razor:secret@localhost:8080/oauth/token',
-  //   method: 'post',
-  //   data: {
-  //     username: 'admin',
-  //     password: 'password',
-  //     grant_type: 'password'
-  //   }
-  // })
 }
 
 export function getInfo(token) {

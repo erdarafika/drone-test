@@ -120,7 +120,7 @@ export default {
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
-    loginOauth2()
+    loginOauth2({ username: 'admin', password: 'password' })
   },
   mounted() {
     if (this.loginForm.username === '') {
