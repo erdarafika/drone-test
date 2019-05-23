@@ -4,6 +4,7 @@
 
 git pull origin master
 
+yarn install
 yarn build:stage
 
 ./run.sh
