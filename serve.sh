@@ -1,0 +1,1 @@
+nohup serve -l 9527 dist &
