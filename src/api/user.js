@@ -23,7 +23,7 @@ export function loginOauth2({ username, password }) {
   }
 
   return axios.post(
-    'http://localhost:8080/oauth/token',
+    'http://api.pensioncore.com/oauth/token',
     data,
     {
       headers: {
