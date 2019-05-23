@@ -4,4 +4,6 @@
 
 git pull origin master
 
+yarn build:stage
+
 ./run.sh
