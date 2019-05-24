@@ -18,11 +18,13 @@
           | {{ scope.row.isCompanyAddress? 'Enable': 'Disable' }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
+        el-button(type='danger', size='mini', @click='handleDelete(row)')
+          | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -43,9 +45,8 @@
 </template>
 
 <script>
-import { fetchList, createAddressType, updateAddressType } from '@/api/address-type'
+import { fetchList, createAddressType, updateAddressType, deleteAddressType } from '@/api/address-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'AddressType',
@@ -65,12 +66,9 @@ export default {
       },
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
-        id: undefined,
         type: '',
         isMemberAddress: true,
-        isCompanyAddress: true,
-        isActive: undefined,
-        createdDate: undefined
+        isCompanyAddress: true
       },
       dialogFormVisible: false,
       dialogStatus: ''
@@ -99,8 +97,8 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
@@ -113,7 +111,6 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        id: undefined,
         type: '',
         isMemberAddress: true,
         isCompanyAddress: true,
@@ -132,9 +129,6 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
           createAddressType(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
@@ -162,34 +156,34 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateAddressType(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateAddressType(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status >= 200 && response.status <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteAddressType(row).then((response) => {
+        console.log(response)
+
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }

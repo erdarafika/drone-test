@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/address-type/list',
+    url: '/master/address-type',
     method: 'get',
     params: query
   })
@@ -18,7 +18,7 @@ export function fetchAddressType(id) {
 
 export function createAddressType(data) {
   return request({
-    url: '/address-type/create',
+    url: '/master/address-type',
     method: 'post',
     data
   })
@@ -26,8 +26,15 @@ export function createAddressType(data) {
 
 export function updateAddressType(data) {
   return request({
-    url: '/address-type/update',
+    url: `/master/address-type/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteAddressType(data) {
+  return request({
+    url: `/master/address-type/${data.id}`,
+    method: 'delete'
   })
 }

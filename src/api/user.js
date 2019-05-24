@@ -31,6 +31,16 @@ export function loginOauth2({ username, password }) {
         'Authorization': 'Basic ' + btoa(`${clientData.id}:${clientData.secret}`)
       }
     })
+
+  // return request({
+  //   url: 'http://api.pensioncore.com/oauth/token',
+  //   method: 'post',
+  //   data,
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+  //     'Authorization': 'Basic ' + btoa(`${clientData.id}:${clientData.secret}`)
+  //   }
+  // })
 }
 
 export function getInfo(token) {
