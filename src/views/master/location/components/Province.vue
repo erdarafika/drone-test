@@ -15,7 +15,7 @@
         span {{ countryList[scope.row.countryId] }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
@@ -27,8 +27,8 @@
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('location.name')", prop='name')
         el-input(v-model='temp.name')
-      el-form-item(:label="$t('location.country')", prop='countryId')
-        el-select(v-model='temp.countryId', placeholder='Select', filterable, default-first-option)
+      el-form-item(:label="$t('location.country')", prop='countryId' )
+        el-select(v-model='temp.countryId', placeholder='Select', filterable, default-first-option :disabled="dialogStatus==='update'")
           el-option(v-for='item in countryOptions', :key='item.value', :label='item.label', :value='item.value')
 
     .dialog-footer(slot='footer')
@@ -40,9 +40,8 @@
 </template>
 
 <script>
-import { fetchProvinceList, fetchCountryList, createProvince, updateProvince } from '@/api/location'
+import { fetchProvinceList, fetchCountryList, createProvince, updateProvince, deleteProvince } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'Country',
@@ -62,11 +61,8 @@ export default {
       },
       countryIdList: null,
       temp: {
-        id: undefined,
         countryId: undefined,
-        name: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        name: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -96,16 +92,16 @@ export default {
       }
     },
     getList() {
-      fetchProvinceList()
-      // this.listLoading = true
-      // fetchProvinceList(this.countryIdList).then(response => {
-      //   this.list = response
-      //   this.total = response.length
-      //   // Just to simulate the time of the request
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 1.5 * 1000)
-      // })
+      this.listLoading = true
+      fetchProvinceList(this.countryIdList).then(response => {
+        this.list = [].concat.apply([], response)
+        console.log(this.list)
+        // this.total = response.length
+        // // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
     },
     handleFilter() {
       this.listQuery.page = 1
@@ -113,11 +109,8 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        id: undefined,
         name: undefined,
-        countryId: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        countryId: undefined
       }
     },
     handleCreate() {
@@ -132,18 +125,17 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createProvince(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createProvince(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
@@ -162,35 +154,32 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateProvince(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateProvince(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteProvince(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }

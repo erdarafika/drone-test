@@ -7,29 +7,20 @@ export function fetchCountryList() {
   })
 }
 export function fetchProvinceList(countryIdList) {
-  // const provinceRequestList = []
-
-  // countryIdList.forEach(countryId => {
-  //   provinceRequestList.push(
-  //     request({
-  //       url: `/master/country/${countryId}/province`,
-  //       method: 'get'
-  //     }).then((res) => {
-  //       return res
-  //     }).catch(err => {
-  //       console.log(`fail to fetch on country id : ${countryId}`)
-  //     })
-  //   )
-  // })
-
-  // Promise.all(provinceRequestList).then(res => {
-  //   console.log(res)
-  // })
-
-  return request({
-    url: '/province/list',
-    method: 'get'
-  })
+  return Promise.all(countryIdList.map(countryId => {
+    return request({
+      url: `/master/country/${countryId}/province`,
+      method: 'get'
+    }).then((res) => {
+      res = res.map(i => {
+        i['countryId'] = countryId
+        return i
+      })
+      return res
+    }).catch(err => {
+      console.log(`fail to fetch on country id : ${countryId}`, err)
+    })
+  }))
 }
 export function fetchCityList(query) {
   return request({
@@ -45,11 +36,13 @@ export function createCountry(data) {
     data
   })
 }
-export function createProvince(data) {
+export function createProvince({ name, countryId }) {
   return request({
-    url: '/province/create',
+    url: `/master/country/${countryId}/province`,
     method: 'post',
-    data
+    data: {
+      name
+    }
   })
 }
 export function createCity(data) {
@@ -67,11 +60,13 @@ export function updateCountry(data) {
     data
   })
 }
-export function updateProvince(data) {
+export function updateProvince({ id, name, countryId }) {
   return request({
-    url: '/province/update',
+    url: `/master/country/${countryId}/province/${id}`,
     method: 'post',
-    data
+    data: {
+      name
+    }
   })
 }
 export function updateCity(data) {
@@ -82,9 +77,16 @@ export function updateCity(data) {
   })
 }
 
-export function deleteCountry(data) {
+export function deleteCountry({ id }) {
   return request({
-    url: `/master/country/${data.id}`,
+    url: `/master/country/${id}`,
+    method: 'delete'
+  })
+}
+
+export function deleteProvince({ countryId, id }) {
+  return request({
+    url: `/master/country/${countryId}/province/${id}`,
     method: 'delete'
   })
 }
