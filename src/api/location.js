@@ -6,11 +6,29 @@ export function fetchCountryList() {
     method: 'get'
   })
 }
-export function fetchProvinceList(query) {
+export function fetchProvinceList(countryIdList) {
+  // const provinceRequestList = []
+
+  // countryIdList.forEach(countryId => {
+  //   provinceRequestList.push(
+  //     request({
+  //       url: `/master/country/${countryId}/province`,
+  //       method: 'get'
+  //     }).then((res) => {
+  //       return res
+  //     }).catch(err => {
+  //       console.log(`fail to fetch on country id : ${countryId}`)
+  //     })
+  //   )
+  // })
+
+  // Promise.all(provinceRequestList).then(res => {
+  //   console.log(res)
+  // })
+
   return request({
     url: '/province/list',
-    method: 'get',
-    params: query
+    method: 'get'
   })
 }
 export function fetchCityList(query) {

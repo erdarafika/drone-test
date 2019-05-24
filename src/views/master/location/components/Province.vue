@@ -60,6 +60,7 @@ export default {
         limit: 20,
         q: undefined
       },
+      countryIdList: null,
       temp: {
         id: undefined,
         countryId: undefined,
@@ -79,8 +80,9 @@ export default {
   },
   created() {
     this.listLoading = true
-    fetchCountryList({ limit: 100 }).then(response => {
-      this.countryList = response.data.items.map(i => i.name)
+    fetchCountryList().then(response => {
+      this.countryIdList = response.map(i => i.id)
+      this.countryList = response.map(i => i.name)
       this.countryOptions = this.countryList.map((i, index) => ({ label: i, value: index }))
       this.getList()
     })
@@ -94,15 +96,16 @@ export default {
       }
     },
     getList() {
-      this.listLoading = true
-      fetchProvinceList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
-      })
+      fetchProvinceList()
+      // this.listLoading = true
+      // fetchProvinceList(this.countryIdList).then(response => {
+      //   this.list = response
+      //   this.total = response.length
+      //   // Just to simulate the time of the request
+      //   setTimeout(() => {
+      //     this.listLoading = false
+      //   }, 1.5 * 1000)
+      // })
     },
     handleFilter() {
       this.listQuery.page = 1

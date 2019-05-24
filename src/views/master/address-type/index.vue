@@ -113,8 +113,7 @@ export default {
       this.temp = {
         type: '',
         isMemberAddress: true,
-        isCompanyAddress: true,
-        isActive: undefined
+        isCompanyAddress: true
       }
     },
     handleCreate() {

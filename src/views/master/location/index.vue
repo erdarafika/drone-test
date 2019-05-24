@@ -16,7 +16,8 @@ import Country from './components/Country'
 
 export default {
   name: 'Location',
-  components: { Country
+  components: {
+    Country
     // Province,
     // City
   },

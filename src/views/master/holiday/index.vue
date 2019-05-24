@@ -9,23 +9,25 @@
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('holiday.date')", align='left', width="200")
       template(slot-scope='scope')
-        span {{ scope.row.holidayDate | moment("Do MMMM, YYYY") }}
+        span {{ scope.row.date | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('holiday.description')", align='left')
       template(slot-scope='scope')
         | {{ scope.row.description }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
+        el-button(type='danger', size='mini', @click='handleDelete(row)')
+          | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('holiday.date')", prop='holidayDate')
+      el-form-item(:label="$t('holiday.date')", prop='date')
         //- el-input(v-model='temp.holidayDate', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-        el-date-picker(v-model='temp.holidayDate', type='date', placeholder='Pick a day')
+        el-date-picker(v-model='temp.date', type='date', placeholder='Pick a day')
       el-form-item(:label="$t('holiday.description')", prop='description')
         el-input(v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
 
@@ -38,9 +40,8 @@
 </template>
 
 <script>
-import { fetchList, createHoliday, updateHoliday } from '@/api/holiday'
+import { fetchList, createHoliday, updateHoliday, deleteHoliday } from '@/api/holiday'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'Document',
@@ -57,16 +58,13 @@ export default {
         // q: undefined
       },
       temp: {
-        id: undefined,
-        holidayDate: undefined,
-        description: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        date: undefined,
+        description: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        holidayDate: [{ required: true, message: 'Holiday date is required', trigger: 'change' }],
+        date: [{ required: true, message: 'Holiday date is required', trigger: 'change' }],
         description: [{ required: true, message: 'Holiday description is required', trigger: 'change' }]
       }
     }
@@ -85,8 +83,8 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
@@ -99,11 +97,8 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        id: undefined,
-        holidayDate: undefined,
-        description: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        date: undefined,
+        description: undefined
       }
     },
     handleCreate() {
@@ -118,25 +113,24 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createHoliday(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          this.temp.date = this.$moment(this.temp.date).format('DD-MM-YYYY')
+          createHoliday(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -147,35 +141,33 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateHoliday(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          tempData.date = this.$moment(tempData.date).format('DD-MM-YYYY')
+          updateHoliday(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteHoliday(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }

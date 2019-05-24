@@ -65,15 +65,15 @@ export default {
     //     roles: ['admin']
     //   }
     // },
-    // {
-    //   path: 'holiday',
-    //   name: 'Holiday',
-    //   component: () => import('@/views/master/holiday/index'),
-    //   meta: {
-    //     title: 'holiday',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'holiday',
+      name: 'Holiday',
+      component: () => import('@/views/master/holiday/index'),
+      meta: {
+        title: 'holiday',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     // {
     //   path: 'document',
     //   name: 'Document',
