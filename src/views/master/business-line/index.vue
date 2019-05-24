@@ -24,7 +24,7 @@
           | {{ $t('table.edit') }}
         el-button(type='danger', size='mini', @click='handleDelete(row)')
           | {{ $t('table.delete') }}
-  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
+  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('businessLine.name')", prop='name')
@@ -69,6 +69,14 @@ export default {
         code: [{ required: true, message: 'Business code is required', trigger: 'change' }, { type: 'number', message: 'Business code must be a number' }]
       },
       downloadLoading: false
+    }
+  },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
     }
   },
   created() {

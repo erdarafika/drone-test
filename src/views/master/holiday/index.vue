@@ -6,7 +6,7 @@
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list.filter(data => !listQuery.q || data.description.toLowerCase().includes(listQuery.q.toLowerCase()))', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -22,7 +22,7 @@
           | {{ $t('table.edit') }}
         el-button(type='danger', size='mini', @click='handleDelete(row)')
           | {{ $t('table.delete') }}
-  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
+  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('holiday.date')", prop='date')
@@ -69,6 +69,14 @@ export default {
       }
     }
   },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.description.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
+    }
+  },
   created() {
     this.getList()
   },
@@ -106,10 +114,10 @@ export default {
       })
     },
     createData() {
+      this.temp.date = this.$moment(this.temp.date).format('DD-MM-YYYY')
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.date = this.$moment(this.temp.date).format('DD-MM-YYYY')
           createHoliday(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
@@ -134,10 +142,10 @@ export default {
       })
     },
     updateData() {
+      this.temp.date = this.$moment(this.temp.date).format('DD-MM-YYYY')
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.date = this.$moment(tempData.date).format('DD-MM-YYYY')
           updateHoliday(tempData).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {

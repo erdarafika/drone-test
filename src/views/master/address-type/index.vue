@@ -4,7 +4,7 @@
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
-  el-table(:key='tableKey', v-loading='listLoading', :data='list.filter(data => !listQuery.q || data.type.toLowerCase().includes(listQuery.q.toLowerCase()))', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('addressType.type')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.type }}
@@ -25,7 +25,7 @@
           | {{ $t('table.edit') }}
         el-button(type='danger', size='mini', @click='handleDelete(row)')
           | {{ $t('table.delete') }}
-  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
+  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('addressType.type')", prop='type')
@@ -60,9 +60,7 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        q: undefined,
-        isMemberAddress: undefined,
-        isCompanyAddress: undefined
+        q: undefined
       },
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
@@ -81,6 +79,12 @@ export default {
         isMemberAddress: [{ required: true, message: `${this.$t('addressType.displayOnMember')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
         isCompanyAddress: [{ required: true, message: `${this.$t('addressType.displayOnCompany')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }]
       }
+    },
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.type.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
     }
   },
   created() {

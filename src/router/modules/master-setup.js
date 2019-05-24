@@ -118,16 +118,36 @@ export default {
         title: 'feeType',
         roles: ['admin'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: 'benefit-type',
+      name: 'BenefitType',
+      component: () => import('@/views/master/benefit-type/index'),
+      meta: {
+        title: 'benefitType',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'sub-benefit',
+      component: () => import('@/views/master/benefit-type/sub-benefit/index'),
+      name: 'SubBenefit',
+      hidden: true,
+      meta: {
+        title: 'subBenefit',
+        roles: ['admin']
+      }
+    },
+    {
+      path: 'sub-benefit-document',
+      component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
+      name: 'SubBenefitDocument',
+      hidden: true,
+      meta: {
+        title: 'subBenefitDocument',
+        roles: ['admin']
+      }
     }
-    // {
-    //   path: 'benefit-type',
-    //   name: 'BenefitType',
-    //   component: () => import('@/views/master/benefit-type/index'),
-    //   meta: {
-    //     title: 'benefitType',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
     // {
     //   path: 'product-type',
     //   name: 'ProductType',
@@ -154,26 +174,6 @@ export default {
     //   meta: {
     //     title: 'dplkBank',
     //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
-    // {
-    //   path: 'sub-benefit',
-    //   component: () => import('@/views/master/benefit-type/sub-benefit/index'),
-    //   name: 'SubBenefit',
-    //   hidden: true,
-    //   meta: {
-    //     title: 'subBenefit',
-    //     roles: ['admin']
-    //   }
-    // },
-    // {
-    //   path: 'sub-benefit-document',
-    //   component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
-    //   name: 'SubBenefitDocument',
-    //   hidden: true,
-    //   meta: {
-    //     title: 'subBenefitDocument',
-    //     roles: ['admin']
     //   }
     // },
     // {

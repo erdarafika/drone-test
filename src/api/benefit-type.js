@@ -1,18 +1,16 @@
 import request from '@/utils/request'
 
-export function fetchBenefitTypeList(query) {
+export function fetchBenefitTypeList() {
   return request({
-    url: '/benefit-type/list',
-    method: 'get',
-    params: query
+    url: '/master/benefit-type',
+    method: 'get'
   })
 }
 
-export function fetchSubBenefitTypeList(query) {
+export function fetchSubBenefitTypeList(id) {
   return request({
-    url: '/benefit-type/sub-benefit/list',
-    method: 'get',
-    params: query
+    url: `/master/benefit/type/${id}/sub-benefit-type    `,
+    method: 'get'
   })
 }
 

@@ -46,7 +46,7 @@ service.interceptors.response.use(
     res = Object.assign(res, { status_code: response.status })
     if (response.status < 200 || response.status >= 300) {
       Message({
-        message: res.message || 'Something went wrong',
+        message: response.message || res.message || 'Something went wrong',
         type: 'error',
         duration: 5 * 1000
       })
@@ -81,9 +81,11 @@ service.interceptors.response.use(
     // }
   },
   error => {
+    const res = error.response.data
+
     console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      message: res.message ? res.message : error.message,
       type: 'error',
       duration: 5 * 1000
     })
