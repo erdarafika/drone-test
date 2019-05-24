@@ -19,15 +19,15 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
-    // {
-    //   path: 'location',
-    //   name: 'Location',
-    //   component: () => import('@/views/master/location/index'),
-    //   meta: {
-    //     title: 'location',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'location',
+      name: 'Location',
+      component: () => import('@/views/master/location/index'),
+      meta: {
+        title: 'location',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     // {
     //   path: 'bank',
     //   name: 'Bank',
@@ -37,15 +37,15 @@ export default {
     //     roles: ['admin'] // or you can only set roles in sub nav
     //   }
     // },
-    // {
-    //   path: 'business-line',
-    //   name: 'BusinessLine',
-    //   component: () => import('@/views/master/business-line/index'),
-    //   meta: {
-    //     title: 'businessLine',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'business-line',
+      name: 'BusinessLine',
+      component: () => import('@/views/master/business-line/index'),
+      meta: {
+        title: 'businessLine',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     // {
     //   path: 'role',
     //   component: () => import('@/views/master/role/index'),

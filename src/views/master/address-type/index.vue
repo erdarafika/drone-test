@@ -129,15 +129,17 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          createAddressType(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createAddressType(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
@@ -155,10 +157,9 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateAddressType(tempData).then((response) => {
             this.dialogFormVisible = false
-            if (response.status >= 200 && response.status <= 300) {
+            if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
                 title: this.$t('table.successTitle'),
                 message: this.$t('table.successCaption'),

@@ -1,24 +1,22 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/business-line/list',
-    method: 'get',
-    params: query
+    url: '/master/business-line',
+    method: 'get'
   })
 }
 
 export function fetchBusinessLine(id) {
   return request({
-    url: '/business-line/detail',
-    method: 'get',
-    params: { id }
+    url: `/master/business-line/${id}`,
+    method: 'get'
   })
 }
 
 export function createBusinessLine(data) {
   return request({
-    url: '/business-line/create',
+    url: '/master/business-line',
     method: 'post',
     data
   })
@@ -26,8 +24,16 @@ export function createBusinessLine(data) {
 
 export function updateBusinessLine(data) {
   return request({
-    url: '/business-line/update',
+    url: `/master/business-line/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteBusinessLine(data) {
+  return request({
+    url: `/master/business-line/${data.id}`,
+    method: 'delete'
+
   })
 }

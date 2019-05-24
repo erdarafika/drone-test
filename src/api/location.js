@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchCountryList(query) {
+export function fetchCountryList() {
   return request({
-    url: '/country/list',
-    method: 'get',
-    params: query
+    url: 'master/country',
+    method: 'get'
   })
 }
 export function fetchProvinceList(query) {
@@ -23,7 +22,7 @@ export function fetchCityList(query) {
 }
 export function createCountry(data) {
   return request({
-    url: '/country/create',
+    url: '/master/country',
     method: 'post',
     data
   })
@@ -45,7 +44,7 @@ export function createCity(data) {
 
 export function updateCountry(data) {
   return request({
-    url: '/country/update',
+    url: `/master/country/${data.id}`,
     method: 'post',
     data
   })
@@ -64,6 +63,14 @@ export function updateCity(data) {
     data
   })
 }
+
+export function deleteCountry(data) {
+  return request({
+    url: `/master/country/${data.id}`,
+    method: 'delete'
+  })
+}
+
 export function fetchProvince(id) {
   return request({
     url: '/province/detail',

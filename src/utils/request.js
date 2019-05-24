@@ -43,7 +43,7 @@ service.interceptors.response.use(
    */
   response => {
     let res = response.data
-    res = Object.assign(res, { status: response.status })
+    res = Object.assign(res, { status_code: response.status })
     if (response.status < 200 || response.status >= 300) {
       Message({
         message: res.message || 'Something went wrong',

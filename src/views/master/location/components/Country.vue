@@ -12,7 +12,7 @@
         span {{ scope.row.name | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
@@ -34,9 +34,8 @@
 </template>
 
 <script>
-import { fetchCountryList, createCountry, updateCountry } from '@/api/location'
+import { fetchCountryList, createCountry, updateCountry, deleteCountry } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'Country',
@@ -53,10 +52,7 @@ export default {
         q: undefined
       },
       temp: {
-        id: undefined,
-        name: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        name: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -79,8 +75,8 @@ export default {
     getList() {
       this.listLoading = true
       fetchCountryList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
@@ -109,20 +105,18 @@ export default {
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
-        console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createCountry(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createCountry(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
@@ -140,35 +134,32 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateCountry(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateCountry(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteCountry(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }
