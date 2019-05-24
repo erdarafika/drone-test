@@ -12,7 +12,7 @@
         span {{ scope.row.name | moment("Do MMMM, YYYY") }}
     el-table-column(:label="$t('location.country')", align='left')
       template(slot-scope='scope')
-        span {{ countryList[scope.row.countryId] }}
+        span {{ countryOptions.filter(i => i.value === scope.row.countryId )[0].label }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -50,7 +50,6 @@ export default {
     return {
       tableKey: 0,
       list: null,
-      countryList: null,
       countryOptions: null,
       total: 0,
       listLoading: true,
@@ -78,8 +77,7 @@ export default {
     this.listLoading = true
     fetchCountryList().then(response => {
       this.countryIdList = response.map(i => i.id)
-      this.countryList = response.map(i => i.name)
-      this.countryOptions = this.countryList.map((i, index) => ({ label: i, value: index }))
+      this.countryOptions = response.map(({ id, name }) => ({ label: name, value: id }))
       this.getList()
     })
   },
@@ -94,9 +92,9 @@ export default {
     getList() {
       this.listLoading = true
       fetchProvinceList(this.countryIdList).then(response => {
-        this.list = [].concat.apply([], response)
-        console.log(this.list)
-        // this.total = response.length
+        response = [].concat.apply([], response)
+        this.list = response
+        this.total = response.length
         // // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
