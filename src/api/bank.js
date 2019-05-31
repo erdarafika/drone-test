@@ -1,24 +1,22 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/bank/list',
-    method: 'get',
-    params: query
+    url: '/master/bank',
+    method: 'get'
   })
 }
 
-export function fetchBranch(query) {
+export function fetchBranch(bank_id) {
   return request({
-    url: '/bank/branch/list',
-    method: 'get',
-    params: query
+    url: `/master/bank/${bank_id}/branch`,
+    method: 'get'
   })
 }
 
-export function createBranch(data) {
+export function createBranch(data, bank_id) {
   return request({
-    url: '/bank/branch/create',
+    url: `/master/bank/${bank_id}/branch`,
     method: 'post',
     data
   })
@@ -34,7 +32,7 @@ export function fetchBank(id) {
 
 export function createBank(data) {
   return request({
-    url: '/bank/create',
+    url: '/master/bank',
     method: 'post',
     data
   })
@@ -42,8 +40,22 @@ export function createBank(data) {
 
 export function updateBank(data) {
   return request({
-    url: '/bank/update',
+    url: `/master/bank/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteBank(data) {
+  return request({
+    url: `/master/bank/${data.id}`,
+    method: 'delete'
+  })
+}
+
+export function deleteBranch(data) {
+  return request({
+    url: `master/bank/${data.bank.id}/branch/${data.id}`,
+    method: 'delete'
   })
 }

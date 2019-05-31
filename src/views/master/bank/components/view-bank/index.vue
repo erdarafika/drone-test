@@ -1,6 +1,6 @@
 <template lang="pug">
   .bank-detail
-    el-button.pull-right(type='danger', size='mini' @click="handleDocumentDelete(data)")
+    el-button(type='danger', size='mini' @click="documentDelete(data)")
       | {{ $t('table.delete') }} {{$t('route.bank')}}
     el-row
       el-col(:span='14')
@@ -10,7 +10,7 @@
               td(colspan="2")
             tr
               th(width="150") {{ $t('bank.name') }}
-              td {{ data.name }}
+              td {{ data.bankName }}
             tr
               th {{ $t('bank.swiftCode') }}
               td {{ data.swiftCode }}
@@ -19,29 +19,29 @@
               td {{ data.transferCode }}
             tr
               th {{ $t('table.createdDate') }}
-              td {{ data.createdDate | moment("Do MMMM, YYYY") }}
+              td {{ data.created_at | moment("Do MMMM, YYYY") }}
       el-col.branch-block(:span='10')
         h3 {{$t('bank.branch')}}
         el-form(:model='temp',  :rules='rules', ref='dataForm', label-width='100px')
-          el-form-item(:label='$t("bank.branchName")', prop='name')
-            el-input(v-model='temp.name', autocomplete='off')
-          el-form-item(:label='$t("bank.branchAddress")', prop='address')
-            el-input(v-model='temp.address', autocomplete='off')
-          el-form-item(:label='$t("bank.branchCountry")', prop='countryId')
-            el-select(v-model='temp.countryId', placeholder='Select', filterable, default-first-option)
-              el-option(v-for='item in countryOptions', :key='item.key', :label='item.label', :value='item.key')
+          el-form-item(:label='$t("bank.branchName")', prop='bankBranch')
+            el-input(v-model='temp.bankBranch', autocomplete='off')
+          el-form-item(:label='$t("bank.branchAddress")', prop='bankAddress')
+            el-input(v-model='temp.bankAddress', autocomplete='off')
+          el-form-item(:label='$t("bank.branchCountry")', prop='country')
+            el-select(v-model='temp.country', placeholder='Select', filterable, default-first-option)
+              el-option(v-for='item in countryList', :key='item' :label='item', :value='item')
           el-form-item
             el-button(type='primary' @click="createData()") {{$t('table.save')}}
 
     el-table(:data='branches' v-loading='listLoading')
-      el-table-column(property='name', :label='$t("bank.branchName")')
-      el-table-column(property='address', :label='$t("bank.branchAddress")')
+      el-table-column(property='bankBranch', :label='$t("bank.branchName")')
+      el-table-column(property='bankAddress', :label='$t("bank.branchAddress")')
       el-table-column(:label='$t("bank.branchCountry")')
         template(slot-scope='scope')
-          span {{ countryList[scope.row.countryId]}}
+          span {{ scope.row.country }}
       el-table-column(label='Created Date', width='150')
         template(slot-scope='scope')
-          span {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+          span {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', width="90")
         template(slot-scope="scope")
           el-button(type='danger', size='mini' @click="handleDelete(scope.row)")
@@ -75,9 +75,8 @@ tr.top-bar {
 </style>
 
 <script>
-import { fetchBranch, createBranch } from '@/api/bank'
+import { fetchBranch, createBranch, deleteBranch } from '@/api/bank'
 import { fetchCountryList } from '@/api/location'
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'ViewDocument',
@@ -88,65 +87,61 @@ export default {
   data() {
     return {
       temp: {
-        id: null,
-        createdDate: null,
-        name: undefined,
-        address: undefined,
-        countryId: undefined,
-        isActive: true
+        bankBranch: undefined,
+        bankAddress: undefined,
+        country: undefined
       },
       countryList: [],
-      countryOptions: [],
       branches: null,
       total: null,
       listLoading: false,
       rules: {
-        name: [
+        bankBranch: [
           { required: true, message: 'Branch name is required' }
         ],
-        address: [
+        bankAddress: [
           { required: true, message: 'Branch address is required' }
         ],
-        countryId: [
+        country: [
           { required: true, message: 'Branch country is required' }
         ]
       }
     }
   },
   created() {
-    this.getBranches()
-    fetchCountryList({ page: 1, limit: 50 }).then(response => {
-      this.countryList = response.data.items.map(i => i.name)
-      this.countryOptions = this.countryList.map((i, index) => ({ label: i, key: index }))
-      console.log(this.countryOptions)
+    this.getList()
+    fetchCountryList().then(response => {
+      this.countryList = response.map(i => i.name)
     })
   },
   methods: {
+    documentDelete(row) {
+      this.handleDocumentDelete(row)
+    },
     resetForm() {
       this.temp = {
-        id: null,
-        createdDate: null,
-        name: undefined,
-        address: undefined,
-        countryId: undefined,
-        isActive: true
+        bankBranch: undefined,
+        bankAddress: undefined,
+        country: undefined
       }
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteBranch(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.branches.indexOf(row)
-      this.branches.splice(index, 1)
     },
-    getBranches() {
+    getList() {
       this.listLoading = true
-      fetchBranch().then(response => {
-        this.branches = response.data.items
-        this.total = response.data.total
+      fetchBranch(this.data.id).then(response => {
+        this.branches = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
@@ -156,23 +151,17 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createBranch(this.temp).then(() => {
-            this.branches.unshift(this.temp)
+          createBranch(this.temp, this.data.id).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
-
-            this.resetForm()
-            this.$nextTick(() => {
-              this.$refs['dataForm'].clearValidate()
-            })
           })
         }
       })

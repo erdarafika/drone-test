@@ -28,15 +28,15 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
-    // {
-    //   path: 'bank',
-    //   name: 'Bank',
-    //   component: () => import('@/views/master/bank/index'),
-    //   meta: {
-    //     title: 'bank',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'bank',
+      name: 'Bank',
+      component: () => import('@/views/master/bank/index'),
+      meta: {
+        title: 'bank',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     {
       path: 'business-line',
       name: 'BusinessLine',
