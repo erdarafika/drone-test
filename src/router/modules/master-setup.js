@@ -83,15 +83,15 @@ export default {
     //     roles: ['admin'] // or you can only set roles in sub nav
     //   }
     // },
-    // {
-    //   path: 'tolerance',
-    //   name: 'Tolerance',
-    //   component: () => import('@/views/master/tolerance/index'),
-    //   meta: {
-    //     title: 'tolerance',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'tolerance',
+      name: 'Tolerance',
+      component: () => import('@/views/master/tolerance/index'),
+      meta: {
+        title: 'tolerance',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     // {
     //   path: 'withdrawal-rule',
     //   component: () => import('@/views/master/withdrawal-rule/index'),

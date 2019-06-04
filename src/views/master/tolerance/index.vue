@@ -49,7 +49,8 @@ export default {
     getTolerance() {
       this.isLoading = true
       fetchTolerance().then(response => {
-        this.tolerance = response.data.items
+        if ('response_data' in response) { this.tolerance.amount = response.data } else { this.tolerance.amount = response.amount }
+
         setTimeout(() => {
           this.isLoading = false
         }, 1.5 * 1000)
@@ -58,13 +59,15 @@ export default {
     submitForm() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          updateTolerance().then(() => {
+          updateTolerance(this.tolerance).then(() => {
             this.$notify({
               title: this.$t('table.successTitle'),
               message: this.$t('table.successCaption'),
               type: 'success',
               duration: 2000
             })
+
+            this.getTolerance()
           })
         }
       })
