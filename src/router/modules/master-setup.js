@@ -74,15 +74,15 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
-    // {
-    //   path: 'document',
-    //   name: 'Document',
-    //   component: () => import('@/views/master/document/index'),
-    //   meta: {
-    //     title: 'document',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'document',
+      name: 'Document',
+      component: () => import('@/views/master/document/index'),
+      meta: {
+        title: 'document',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     {
       path: 'tolerance',
       name: 'Tolerance',
@@ -137,17 +137,17 @@ export default {
         title: 'subBenefit',
         roles: ['admin']
       }
-    },
-    {
-      path: 'sub-benefit-document',
-      component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
-      name: 'SubBenefitDocument',
-      hidden: true,
-      meta: {
-        title: 'subBenefitDocument',
-        roles: ['admin']
-      }
     }
+    // {
+    //   path: 'sub-benefit-document',
+    //   component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
+    //   name: 'SubBenefitDocument',
+    //   hidden: true,
+    //   meta: {
+    //     title: 'subBenefitDocument',
+    //     roles: ['admin']
+    //   }
+    // }
     // {
     //   path: 'product-type',
     //   name: 'ProductType',

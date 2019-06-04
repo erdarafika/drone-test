@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/document/list',
-    method: 'get',
-    params: query
+    url: '/master/document-type',
+    method: 'get'
   })
 }
 
@@ -34,7 +33,7 @@ export function fetchDocument(id) {
 
 export function createDocument(data) {
   return request({
-    url: '/document/create',
+    url: '/master/document-type',
     method: 'post',
     data
   })
@@ -42,8 +41,15 @@ export function createDocument(data) {
 
 export function updateDocument(data) {
   return request({
-    url: '/document/update',
+    url: `/master/document-type/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteDocument({ id }) {
+  return request({
+    url: `/master/document-type/${id}`,
+    method: 'delete'
   })
 }

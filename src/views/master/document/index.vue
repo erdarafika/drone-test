@@ -6,25 +6,27 @@
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('document.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name }}
     el-table-column(:label="$t('document.code')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.code }}
-    el-table-column(:label="$t('document.description')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.description }}
+    //- el-table-column(:label="$t('document.description')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.description }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+        | {{ scope.row.created_at  | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='140')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
-        el-button(type='success', size='mini', @click='handleView(row)')
-          | {{ $t('table.view') }}
+        el-button(type='danger', size='mini', @click='handleDelete(row)')
+          | {{ $t('table.delete') }}
+        //- el-button(type='success', size='mini', @click='handleView(row)')
+        //-   | {{ $t('table.view') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -32,22 +34,21 @@
         el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
       el-form-item(:label="$t('document.code')", prop='code')
         el-input(v-model.number='temp.code', type='input')
-      el-form-item(:label="$t('document.description')")
-        el-input(v-model.number='temp.description', type='textarea' :autosize='{ minRows: 2, maxRows: 4}')
+      //- el-form-item(:label="$t('document.description')")
+      //-   el-input(v-model.number='temp.description', type='textarea' :autosize='{ minRows: 2, maxRows: 4}')
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
 
-  el-dialog(:title="$t('table.view')", :visible.sync='viewRecordVisible')
-    ViewDocument(:data="viewData" :handleDocumentDelete="handleDelete")
+  //- el-dialog(:title="$t('table.view')", :visible.sync='viewRecordVisible')
+  //-   ViewDocument(:data="viewData" :handleDocumentDelete="handleDelete")
 </template>
 
 <script>
-import { fetchList, createDocument, updateDocument } from '@/api/document'
+import { fetchList, createDocument, updateDocument, deleteDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
 import ViewDocument from './components/view-document/index'
 
 export default {
@@ -56,7 +57,7 @@ export default {
   data() {
     return {
       tableKey: 0,
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       listQuery: {
@@ -65,12 +66,10 @@ export default {
         q: undefined
       },
       temp: {
-        id: undefined,
+        // id: undefined,
         name: undefined,
-        code: undefined,
-        description: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        code: undefined
+        // description: undefined,
       },
       viewData: null,
       dialogFormVisible: false,
@@ -80,6 +79,14 @@ export default {
         name: [{ required: true, message: 'Document name is required', trigger: 'change' }],
         code: [{ required: true, message: 'Document code is required', trigger: 'change' }]
       }
+    }
+  },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
     }
   },
   created() {
@@ -96,26 +103,19 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
       })
     },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
-    },
     resetTemp() {
       this.temp = {
-        id: undefined,
         name: undefined,
-        code: undefined,
-        description: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        code: undefined
+        // description: undefined
       }
     },
     handleCreate() {
@@ -134,18 +134,17 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createDocument(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createDocument(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
@@ -163,36 +162,34 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateDocument(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateDocument(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.viewRecordVisible = false
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteDocument(row).then((response) => {
+        this.dialogFormVisible = false
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }
