@@ -54,10 +54,12 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 
-Sentry.init({
-  dsn: 'https://8f15532b03aa48edb161edc5627984ad@sentry.io/1480169',
-  integrations: [new Integrations.Vue({ Vue, attachProps: true })]
-})
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: 'https://8f15532b03aa48edb161edc5627984ad@sentry.io/1480169',
+    integrations: [new Integrations.Vue({ Vue, attachProps: true })]
+  })
+}
 
 new Vue({
   el: '#app',
