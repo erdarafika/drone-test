@@ -21,7 +21,7 @@
         span {{ roleList[scope.row.roleId] }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='150')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
 
     el-table-column(label='', align='right',  width='280')
       template(slot-scope='{row}')

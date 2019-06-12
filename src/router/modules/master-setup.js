@@ -20,6 +20,15 @@ export default {
       }
     },
     {
+      path: 'department',
+      name: 'Department',
+      component: () => import('@/views/master/department/index'),
+      meta: {
+        title: 'department',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
       path: 'location',
       name: 'Location',
       component: () => import('@/views/master/location/index'),

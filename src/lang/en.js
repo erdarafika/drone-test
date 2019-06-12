@@ -35,7 +35,8 @@ export default {
     dplkAddress: 'DPLK Address',
     dplkBankAccount: 'DPLK Bank Account',
     dplkStaff: 'DPLK Staff',
-    position: 'Position'
+    position: 'Position',
+    department: 'Department'
   },
   // GLOBAL
   validatorMessage: {
@@ -273,6 +274,11 @@ export default {
   position: {
     code: 'Position Code',
     name: 'Position Name',
+    description: 'Description'
+  },
+  department: {
+    code: 'Code',
+    name: 'Name',
     description: 'Description'
   }
 }

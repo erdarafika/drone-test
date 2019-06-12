@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
     url: '/master/address-type',
-    method: 'get',
-    params: query
+    method: 'get'
   })
 }
 

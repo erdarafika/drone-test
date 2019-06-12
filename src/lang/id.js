@@ -36,7 +36,8 @@ export default {
     dplkAddress: 'DPLK Alamat',
     dplkBankAccount: 'DPLK Bank Akun',
     dplkStaff: 'DPLK Staff',
-    position: 'Jabatan'
+    position: 'Jabatan',
+    department: 'Departemen'
   },
   // GLOBAL
   validatorMessage: {
@@ -271,6 +272,11 @@ export default {
   position: {
     code: 'Kode Jabatan',
     name: 'Nama Jabatan',
+    description: 'Deskripsi'
+  },
+  department: {
+    code: 'Kode',
+    name: 'Nama',
     description: 'Deskripsi'
   }
 }
