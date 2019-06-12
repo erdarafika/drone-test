@@ -245,10 +245,12 @@ export default {
     fax: 'Fax'
   },
   dplkAddress: {
+    name: 'Nama',
     addressType: 'Address Type',
-    country: 'Country',
-    city: 'City',
-    postalCode: 'Postal Code',
+    country: 'Negara',
+    city: 'Kota',
+    province: 'Provinsi',
+    postalCode: 'Kode Pos',
     status: 'Status',
     setDefault: 'Atur sebagai Default'
   },

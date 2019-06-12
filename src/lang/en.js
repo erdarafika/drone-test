@@ -247,9 +247,11 @@ export default {
     fax: 'Fax'
   },
   dplkAddress: {
+    name: 'Name',
     addressType: 'Address Type',
     country: 'Country',
     city: 'City',
+    province: 'Province',
     postalCode: 'Postal Code',
     status: 'Status',
     setDefault: 'Set as Default'

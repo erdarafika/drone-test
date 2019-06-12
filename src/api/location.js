@@ -2,10 +2,25 @@ import request from '@/utils/request'
 
 export function fetchCountryList() {
   return request({
-    url: 'master/country',
+    url: '/master/country',
     method: 'get'
   })
 }
+
+export function fetchProvinceListById(countryId) {
+  return request({
+    url: `/master/country/${countryId}/province`,
+    method: 'get'
+  })
+}
+
+export function fetchCityListById({ countryId, provinceId }) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city`,
+    method: 'get'
+  })
+}
+
 export function fetchProvinceList(countryIdList) {
   return Promise.all(countryIdList.map(countryId => {
     return request({

@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 
-export function fetchDplkInformation(query) {
+export function fetchDplkInformation() {
   return request({
-    url: '/master/dplk',
-    method: 'get',
-    params: query
+    url: '/master/dplk/1',
+    method: 'get'
   })
 }
 
 export function updateDplkInformation(data) {
   return request({
-    url: '/dplk-information/update',
+    url: '/master/dplk',
     method: 'post',
     data
   })

@@ -88,12 +88,12 @@ export const constantRoutes = [
 
 import masterSetup from './modules/master-setup'
 // import fundAdministration from './modules/fund-administration'
-// import dplkConfiguration from './modules/dplk-configuration'
+import dplkConfiguration from './modules/dplk-configuration'
 
 export const asyncRoutes = [
   masterSetup,
   // fundAdministration,
-  // dplkConfiguration,
+  dplkConfiguration,
   {
     path: '/permission',
     component: Layout,

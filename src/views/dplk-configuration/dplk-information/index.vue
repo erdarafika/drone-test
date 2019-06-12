@@ -8,8 +8,8 @@
         el-input(v-model='dplkInformation.website' )
     el-form-item(:label="$t('dplkInformation.email')" prop="email")
         el-input(v-model='dplkInformation.email' )
-    el-form-item(:label="$t('dplkInformation.telpNumber')" prop="telpNumber")
-        el-input(v-model.number='dplkInformation.telpNumber' )
+    el-form-item(:label="$t('dplkInformation.telpNumber')" prop="telp")
+        el-input(v-model.number='dplkInformation.telp' )
     el-form-item(:label="$t('dplkInformation.fax')" prop="fax")
         el-input(v-model.number='dplkInformation.fax' )
     el-form-item
@@ -31,10 +31,11 @@ export default {
   data() {
     return {
       dplkInformation: {
+        id: 1,
         name: undefined,
         website: undefined,
         email: undefined,
-        telpNumber: undefined,
+        telp: undefined,
         fax: undefined
       },
       rules: {
@@ -47,11 +48,11 @@ export default {
         email: [
           { required: true, message: 'This field is required' }, { type: 'email', message: 'Invalid Email Address' }
         ],
-        telpNumber: [
-          { required: true, message: 'This field is required' }, { type: 'number', message: 'This field must be number' }
+        telp: [
+          { required: true, message: 'This field is required' }
         ],
         fax: [
-          { required: true, message: 'This field is required' }, { type: 'number', message: 'This field must be number' }
+          { required: true, message: 'This field is required' }
         ]
       },
       isLoading: false
@@ -64,7 +65,7 @@ export default {
     getDplkInformation() {
       this.isLoading = true
       fetchDplkInformation().then(response => {
-        this.dplkInformation = response.data.items
+        this.dplkInformation = response
         setTimeout(() => {
           this.isLoading = false
         }, 1.5 * 1000)
@@ -73,7 +74,8 @@ export default {
     submitForm() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          updateDplkInformation().then(() => {
+          const { id, name, website, email, telp, fax } = this.dplkInformation
+          updateDplkInformation({ id, name, website, email, telp, fax }).then(() => {
             this.$notify({
               title: this.$t('table.successTitle'),
               message: this.$t('table.successCaption'),
