@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchInvestmentTypeList(query) {
   return request({
-    url: '/investment-type/list',
+    url: '/fund/investment-type',
     method: 'get',
     params: query
   })

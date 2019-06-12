@@ -84,7 +84,7 @@ export default {
     return {
       tableKey: 0,
       tableMultipleFundKey: 0,
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       moneyConfig: {
@@ -164,6 +164,8 @@ export default {
     getList() {
       this.listLoading = true
       fetchInvestmentTypeList(this.listQuery).then(response => {
+        console.log(response)
+
         this.list = response.data.items.map((i, index) => ({ ...i, unitId: index })) // TODO: Use Better Code., unitId used to fix random id of investment type
         this.total = response.data.total
 
