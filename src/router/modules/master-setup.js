@@ -55,6 +55,15 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
+    {
+      path: 'money-source',
+      name: 'MoneySource',
+      component: () => import('@/views/master/money-source/index'),
+      meta: {
+        title: 'moneySource',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     // {
     //   path: 'role',
     //   component: () => import('@/views/master/role/index'),

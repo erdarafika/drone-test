@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList() {
   return request({
-    url: '/fee/type',
+    url: '/master/money-source',
     method: 'get'
   })
 }

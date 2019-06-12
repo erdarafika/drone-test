@@ -37,7 +37,8 @@ export default {
     dplkBankAccount: 'DPLK Bank Akun',
     dplkStaff: 'DPLK Staff',
     position: 'Jabatan',
-    department: 'Departemen'
+    department: 'Departemen',
+    moneySource: 'Sumber Dana'
   },
   // GLOBAL
   validatorMessage: {
@@ -278,5 +279,9 @@ export default {
     code: 'Kode',
     name: 'Nama',
     description: 'Deskripsi'
+  },
+  moneySource: {
+    code: 'Kode',
+    name: 'Nama'
   }
 }
