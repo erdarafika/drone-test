@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/dplk-bank-account/list',
-    method: 'get',
-    params: query
+    url: '/master/dplk/1/bank',
+    method: 'get'
   })
 }
 
 export function createDplkBankAccount(data) {
   return request({
-    url: '/dplk-bank-account/create',
+    url: '/master/dplk/1/bank',
     method: 'post',
     data
   })
@@ -18,8 +17,15 @@ export function createDplkBankAccount(data) {
 
 export function updateDplkBankAccount(data) {
   return request({
-    url: '/dplk-bank-account/update',
+    url: `/master/dplk/1/bank/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteDplkBankAccount(data) {
+  return request({
+    url: `/master/dplk/1/bank/${data.id}`,
+    method: 'delete'
   })
 }

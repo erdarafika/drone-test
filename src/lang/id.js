@@ -75,7 +75,8 @@ export default {
     successCaption: 'Operasi Berhasil',
     successTitle: 'Berhasil',
     searchPlaceholder: 'Cari Sesuatu',
-    createdDate: 'Tanggal dibuat'
+    createdDate: 'Tanggal dibuat',
+    setDefault: 'Atur sebagai Default'
   },
   settings: {
     title: 'Pengaturan Tampilan',

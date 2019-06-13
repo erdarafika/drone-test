@@ -2,32 +2,35 @@
 <template lang="pug">
 .app-container
   .filter-container
-    //- el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
 
     el-table-column(:label="$t('dplkBankAccount.name')", align='left',)
       template(slot-scope='scope')
-        span {{ scope.row.name }}
-    el-table-column(:label="$t('dplkBankAccount.number')", align='left', width="180")
+        span {{ scope.row.accountName }}
+    el-table-column(:label="$t('dplkBankAccount.number')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.number }}
+        span {{ scope.row.accountNumber }}
     el-table-column(:label="$t('dplkBankAccount.bank')", align='left',)
       template(slot-scope='scope')
-        span {{ getBankName(scope.row.bankId) }}
+        span {{ scope.row.bank.bankName }}
     el-table-column(:label="$t('dplkBankAccount.bankBranch')", align='left')
       template(slot-scope='scope')
-        span {{ getBankName(scope.row.bankBranchId) }}
+        span {{ scope.row.branch.bankBranch  }}
     el-table-column(:label="$t('dplkBankAccount.bankCountry')", align='left')
       template(slot-scope='scope')
-        span {{ getCountryName(scope.row.bankBranchId) }}
-    el-table-column(:label="$t('table.createdDate')", align='left', width='150')
+        span {{ scope.row.branch.country }}
+    el-table-column(:label="$t('table.createdDate')", align='left')
       template(slot-scope='scope')
-        | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-
-    el-table-column(label='', align='right',  width='160')
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    el-table-column(:label="$t('table.status')", align='left', width='190')
+      template(slot-scope='scope')
+        span(:class="scope.row.defaultBank?'label-enable':''")
+          | {{ scope.row.defaultBank? 'Default': '' }}
+    el-table-column(label='', align='right' width='150')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
@@ -37,17 +40,19 @@
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('dplkBankAccount.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input')
-      el-form-item(:label="$t('dplkBankAccount.number')", prop='number')
-        el-input(v-model.number='temp.number', type='input')
+      el-form-item(:label="$t('dplkBankAccount.name')", prop='accountName')
+        el-input(v-model.number='temp.accountName', type='input')
+      el-form-item(:label="$t('dplkBankAccount.number')", prop='accountNumber')
+        el-input(v-model.number='temp.accountNumber', type='input')
       el-form-item(:label="$t('dplkBankAccount.bank')", prop='bankId')
-        el-select(v-model='temp.bankId', placeholder='Select', filterable, default-first-option)
+        el-select(v-model='temp.bankId', placeholder='Select', filterable, default-first-option @change='getBranchOptions')
           el-option(v-for='item in bankOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('dplkBankAccount.bankBranch')", prop='bankBranchId')
-        el-select(v-model='temp.bankBranchId', placeholder='Select', filterable, default-first-option :disabled="!temp.bankId")
+      el-form-item(:label="$t('dplkBankAccount.bankBranch')", prop='branchId')
+        el-select(v-model='temp.branchId', placeholder='Select', filterable, default-first-option :disabled="temp.bankId === undefined")
           el-option(v-for='item in bankBranchOptions', :key='item.value', :label='item.label', :value='item.value')
-
+      el-form-item(:label="$t('table.setDefault')" prop="isCompanyAddress")
+        el-switch(v-model='temp.defaultBank')
+        span.switch-status {{ temp.defaultBank?'Default':'not Default' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -57,78 +62,63 @@
 </template>
 
 <script>
-import { fetchList, createDplkBankAccount, updateDplkBankAccount } from '@/api/dplk-bank-account'
+import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBankAccount } from '@/api/dplk-bank-account'
 import { fetchList as fetchBankList, fetchBranch } from '@/api/bank'
-import { fetchCountryList } from '@/api/location'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
-import crudPermission from '@/directive/crud-permission/index.js'
 
 export default {
   name: 'Document',
-  directives: { crudPermission },
   components: { Pagination },
   data() {
     return {
       tableKey: 0,
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       listQuery: {
         page: 1,
         limit: 20
       },
-      countryList: [],
-      bankList: [],
       bankOptions: [],
-      bankBranchList: [],
       bankBranchOptions: [],
       temp: {
-        id: undefined,
-        name: undefined,
-        number: undefined,
+        accountName: undefined,
+        accountNumber: undefined,
         bankId: undefined,
-        bankBranchId: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        branchId: undefined,
+        defaultBank: false
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        number: [{ required: true, message: 'This field is required' }, { type: 'number', message: 'This field must be number' }],
+        accountName: [{ required: true, message: 'This field is required' }],
+        accountNumber: [{ required: true, message: 'This field is required' }],
         bankId: [{ required: true, message: 'This field is required' }],
-        bankBranchId: [{ required: true, message: 'This field is required' }]
+        branchId: [{ required: true, message: 'This field is required' }]
       }
     }
   },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.accountName.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
+    }
+  },
   created() {
-    fetchBankList().then(response => {
-      this.bankList = response.data.items
-      this.bankOptions = this.bankList.map((i, index) => ({ label: i.name, value: index }))
-      fetchBranch().then(responseBranch => {
-        this.bankBranchList = responseBranch.data.items
-        this.bankBranchOptions = this.bankBranchList.map((i, index) => ({ label: i.name, value: index }))
-
-        fetchCountryList({ page: 1, limit: 50 }).then(responseCountry => {
-          this.countryList = responseCountry.data.items
-          this.getList()
-        })
-      })
+    this.getList()
+    fetchBankList().then(res => {
+      this.bankOptions = res.map(bank => ({ value: bank.id, label: bank.bankName }))
     })
   },
   methods: {
-    getCountryName(branchId) {
-      const branch = this.bankBranchList[branchId]
-
-      return this.countryList[branch.countryId].name
-    },
-    getBankName(bankId) {
-      return this.bankList[bankId].name
-    },
-    getBankBranchName(branchId) {
-      return this.bankBranchList[branchId].name
+    getBranchOptions() {
+      const bankId = this.temp.bankId
+      fetchBranch(bankId).then(res => {
+        this.bankBranchOptions = res.map(branch => ({ value: branch.id, label: branch.bankBranch }))
+      })
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
@@ -139,28 +129,22 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      fetchList().then(response => {
+        this.list = response
+        this.total = response.length
 
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
       })
     },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
-    },
     resetTemp() {
       this.temp = {
-        id: undefined,
-        name: undefined,
-        number: undefined,
+        accountName: undefined,
+        accountNumber: undefined,
         bankId: undefined,
-        bankBranchId: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        branchId: undefined,
+        defaultBank: false
       }
     },
     handleCreate() {
@@ -175,24 +159,30 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createDplkBankAccount(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createDplkBankAccount(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
+      this.temp = {
+        id: row.id,
+        accountName: row.accountName,
+        accountNumber: row.accountNumber,
+        bankId: row.bank.id,
+        branchId: row.branch.id,
+        defaultBank: row.defaultBank
+      } // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
@@ -203,36 +193,32 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateDplkBankAccount(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateDplkBankAccount(this.temp).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteDplkBankAccount(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }

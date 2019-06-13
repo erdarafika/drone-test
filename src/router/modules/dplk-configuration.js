@@ -29,15 +29,15 @@ export default {
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
-    // {
-    //   path: 'dplk-bank-account',
-    //   name: 'DplkBankAccount',
-    //   component: () => import('@/views/dplk-configuration/dplk-bank-account/index'),
-    //   meta: {
-    //     title: 'dplkBankAccount',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'dplk-bank-account',
+      name: 'DplkBankAccount',
+      component: () => import('@/views/dplk-configuration/dplk-bank-account/index'),
+      meta: {
+        title: 'dplkBankAccount',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     {
       path: 'dplk-staff',
       name: 'DplkStaff',

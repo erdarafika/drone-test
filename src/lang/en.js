@@ -77,7 +77,8 @@ export default {
     successCaption: 'Success',
     successTitle: 'Operation Success',
     searchPlaceholder: 'Find something',
-    createdDate: 'Created Date'
+    createdDate: 'Created Date',
+    setDefault: 'Set as Default'
   },
   settings: {
     title: 'Page style setting',
