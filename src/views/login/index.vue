@@ -48,7 +48,7 @@
         {{ $t('login.logIn') }}
       </el-button>
 
-      <div style="position:relative">
+      <!-- <div style="position:relative">
         <div class="tips">
           <p>Ujicoba Sync Backend & Front, Page akan bertambah jika telah tersinkronasi</p>
           <br>
@@ -61,7 +61,7 @@
           <span>{{ $t('login.password') }} : password</span>
 
         </div>
-      </div>
+      </div> -->
     </el-form>
 
   </div>
