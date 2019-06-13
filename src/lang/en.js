@@ -270,7 +270,7 @@ export default {
     nip: 'NIP',
     name: 'Name',
     email: 'Email',
-    role: 'Role'
+    department: 'Department'
   },
   position: {
     code: 'Position Code',

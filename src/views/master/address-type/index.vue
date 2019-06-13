@@ -145,7 +145,6 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -173,8 +172,6 @@ export default {
     },
     handleDelete(row) {
       deleteAddressType(row).then((response) => {
-        console.log(response)
-
         this.dialogFormVisible = false
         this.$notify({
           title: this.$t('table.successTitle'),

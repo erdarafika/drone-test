@@ -2,23 +2,23 @@
 <template lang="pug">
 .app-container
   .filter-container
-    //- el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('dplkStaff.name')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.name }}
     el-table-column(:label="$t('dplkStaff.nip')", align='left', width="180")
       template(slot-scope='scope')
-        span {{ scope.row.nip }}
+        span {{ scope.row.identityNumber }}
     el-table-column(:label="$t('dplkStaff.email')", align='left', width="180")
       template(slot-scope='scope')
         span {{ scope.row.email }}
-    el-table-column(:label="$t('dplkStaff.role')", align='left', width="120")
+    el-table-column(:label="$t('dplkStaff.department')", align='left', width="120")
       template(slot-scope='scope')
-        span {{ roleList[scope.row.roleId] }}
+        span {{ scope.row.department.name }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='150')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -35,13 +35,13 @@
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('dplkStaff.name')", prop='name')
         el-input(v-model.number='temp.name', type='input')
-      el-form-item(:label="$t('dplkStaff.nip')", prop='nip')
-        el-input(v-model.number='temp.nip', type='input')
+      el-form-item(:label="$t('dplkStaff.nip')", prop='identityNumber')
+        el-input(v-model.number='temp.identityNumber', type='input')
       el-form-item(:label="$t('dplkStaff.email')", prop='email')
         el-input(v-model.number='temp.email', type='input')
-      el-form-item(:label="$t('dplkStaff.role')", prop='roleId')
-        el-select(v-model='temp.roleId', placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in roleOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('dplkStaff.department')", prop='departmentId')
+        el-select(v-model='temp.departmentId', placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in departmentOptions', :key='item.value', :label='item.label', :value='item.value')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
@@ -52,21 +52,17 @@
 </template>
 
 <script>
-import { fetchList, createDplkStaff, updateDplkStaff } from '@/api/dplk-staff'
-import { getRoles } from '@/api/role'
+import { fetchList, createDplkStaff, updateDplkStaff, deleteDplkStaff } from '@/api/dplk-staff'
+import { fetchList as fetchDepartmentList } from '@/api/department'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { generateDate } from '@/utils/pensiunku'
-import crudPermission from '@/directive/crud-permission/index.js'
-
 export default {
   name: 'Document',
-  directives: { crudPermission },
   components: { Pagination },
   data() {
     return {
       tableKey: 0,
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       listQuery: {
@@ -74,32 +70,36 @@ export default {
         limit: 20
       },
       roleList: [],
-      roleOptions: [],
+      departmentOptions: [],
       temp: {
-        id: undefined,
         name: undefined,
-        nip: undefined,
+        identityNumber: undefined,
         email: undefined,
-        roleId: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        departmentId: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
         name: [{ required: true, message: 'This field is required' }],
         email: [{ required: true, message: 'This field is required' }, { type: 'email', message: 'This field must be email' }],
-        roleId: [{ required: true, message: 'This field is required' }],
-        nip: [{ required: true, message: 'This field is required' }, { type: 'number', message: 'This field must be number' }]
+        departmentId: [{ required: true, message: 'This field is required' }],
+        identityNumber: [{ required: true, message: 'This field is required' }]
       }
     }
   },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
+    }
+  },
   created() {
-    getRoles().then(response => {
-      this.roleList = response.data.map(i => i.name)
-      this.roleOptions = this.roleList.map((i, index) => ({ label: i, value: index }))
-      this.getList()
+    fetchDepartmentList().then(res => {
+      this.departmentOptions = res.map(department => ({ value: department.id, label: department.name }))
     })
+    this.getList()
   },
   methods: {
     getDialogHeader(dialogStatus) {
@@ -112,31 +112,20 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.list.forEach((i, index) => {
-          this.list[index].email = `${this.list[index].email}@gmail.com`
-        })
-        this.total = response.data.total
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
       })
     },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
-    },
     resetTemp() {
       this.temp = {
-        id: undefined,
-        addressTypeId: undefined,
-        countryId: undefined,
-        cityId: undefined,
-        postalCode: undefined,
-        isDefault: false,
-        isActive: undefined,
-        createdDate: undefined
+        name: undefined,
+        identityNumber: undefined,
+        email: undefined,
+        departmentId: undefined
       }
     },
     handleCreate() {
@@ -151,25 +140,29 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createDplkStaff(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createDplkStaff(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      this.temp = {
+        id: row.id,
+        name: row.name,
+        identityNumber: row.identityNumber,
+        email: row.email,
+        departmentId: row.department.id
+      } // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -180,35 +173,32 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateDplkStaff(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateDplkStaff(tempData).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
+      deleteDplkStaff(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     }
   }
 }

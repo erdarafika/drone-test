@@ -268,7 +268,7 @@ export default {
     nip: 'NIP',
     name: 'Nama',
     email: 'Email',
-    role: 'Jabatan'
+    department: 'Departemen'
   },
   position: {
     code: 'Kode Jabatan',

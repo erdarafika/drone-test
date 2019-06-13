@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/dplk-staff/list',
-    method: 'get',
-    params: query
+    url: '/master/dplk/1/staff',
+    method: 'get'
   })
 }
 
 export function createDplkStaff(data) {
   return request({
-    url: '/dplk-staff/create',
+    url: '/master/dplk/1/staff',
     method: 'post',
     data
   })
@@ -18,8 +17,15 @@ export function createDplkStaff(data) {
 
 export function updateDplkStaff(data) {
   return request({
-    url: '/dplk-staff/update',
+    url: `/master/dplk/1/staff/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteDplkStaff(data) {
+  return request({
+    url: `/master/dplk/1/staff/${data.id}`,
+    method: 'delete'
   })
 }
