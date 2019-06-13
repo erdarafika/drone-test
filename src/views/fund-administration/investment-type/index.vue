@@ -2,43 +2,42 @@
   <template lang="pug">
   .app-container
     .filter-container
-      el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-
+      el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
       el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
         | {{ $t('table.add') }}
-      el-button.filter-item(style='margin-left:10px;float:right', type='primary', @click='handleCreateMultipleFundPrice' size="mini")
-        | {{ $t('investmentType.addMultipleFundPrice') }}
 
-    el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+    el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
       el-table-column(:label="$t('investmentType.fundName')", align='left')
         template(slot-scope='scope')
-          span {{ scope.row.fundName }}
+          span {{ scope.row.name }}
       el-table-column(:label="$t('investmentType.code')", align='left', width='120')
         template(slot-scope='scope')
           span {{ scope.row.code }}
       el-table-column(:label="$t('investmentType.status')", align='left', width='120')
         template(slot-scope='scope')
-          span {{ getUnitPriceData(scope.row,'status')  }}
+          span {{ scope.row.status  }}
       el-table-column(:label="$t('investmentType.lastPrice')", align='left', width='120')
         template(slot-scope='scope')
-          span {{ getUnitPriceData(scope.row,'last-price')  }}
+          span {{ scope.row.lastPrice  }}
       el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
         template(slot-scope='scope')
-          span {{ getUnitPriceData(scope.row,'effective-date')   | moment("Do MMMM, YYYY") }}
-      el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+          span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
+      el-table-column(:label="$t('table.createdDate')", align='left')
         template(slot-scope='scope')
-          | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
-      el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
+          | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+      el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
           el-button(type='primary', size='mini', @click='handleUpdate(row)')
             | {{ $t('table.edit') }}
-          el-button(type='success', size='mini', @click='handleViewUnitPrice(row)')
-            | {{ $t('investmentType.pricing') }}
+          //- el-button(type='success', size='mini', @click='handleViewUnitPrice(row)')
+          //-   | {{ $t('investmentType.pricing') }}
+          el-button(type='danger', size='mini', @click='handleDelete(row)')
+            | {{ $t('table.delete') }}
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-        el-form-item(:label="$t('investmentType.fundName')", prop='fundName')
-          el-input(v-model='temp.fundName', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-form-item(:label="$t('investmentType.fundName')", prop='name')
+          el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-form-item(:label="$t('investmentType.code')", prop='code')
           el-input(v-model.number='temp.code', type='input')
         el-form-item(:label="$t('investmentType.description')")
@@ -50,32 +49,31 @@
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
           | {{ $t('table.confirm') }}
 
-    el-dialog(:title='getDialogHeader(dialogStatus)' , :visible.sync='dialogFundPriceFormVisible')
-      el-form(ref='dataFormMultiplePrice', :model='tempMultipleFundPrice', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate')
-          el-date-picker(v-model='tempMultipleFundPrice.effectiveDate', type='date', placeholder='Pick a day')
-        el-table(:key='tableMultipleFundKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-          el-table-column(:label="$t('investmentType.fundName')", align='left')
-            template(slot-scope='scope')
-              span {{ scope.row.fundName }}
-          el-table-column(:label="$t('investmentType.price')", align='left')
-            template(slot-scope='scope')
-              .el-input(data-children-count='1')
-                money.el-input__inner(v-model='tempMultipleFundPrice.price[scope.row.unitId]', v-bind='moneyConfig')
-          el-table-column(:label="$t('investmentType.status')", align='left', width='120')
-            template(slot-scope='scope')
-              | UNAVAILABLE
-      .dialog-footer(slot='footer')
-        el-button(@click='dialogFundPriceFormVisible = false')
-          | {{ $t('table.cancel') }}
-        el-button(type='primary' @click="createMultipleFundPrice()")
-          | {{ $t('table.confirm') }}
+    //- el-dialog(:title='getDialogHeader(dialogStatus)' , :visible.sync='dialogFundPriceFormVisible')
+    //-   el-form(ref='dataFormMultiplePrice', :model='tempMultipleFundPrice', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+    //-     el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate')
+    //-       el-date-picker(v-model='tempMultipleFundPrice.effectiveDate', type='date', placeholder='Pick a day')
+    //-     el-table(:key='tableMultipleFundKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
+    //-       el-table-column(:label="$t('investmentType.fundName')", align='left')
+    //-         template(slot-scope='scope')
+    //-           span {{ scope.row.fundName }}
+    //-       el-table-column(:label="$t('investmentType.price')", align='left')
+    //-         template(slot-scope='scope')
+    //-           .el-input(data-children-count='1')
+    //-             money.el-input__inner(v-model='tempMultipleFundPrice.price[scope.row.unitId]', v-bind='moneyConfig')
+    //-       el-table-column(:label="$t('investmentType.status')", align='left', width='120')
+    //-         template(slot-scope='scope')
+    //-           | UNAVAILABLE
+    //-   .dialog-footer(slot='footer')
+    //-     el-button(@click='dialogFundPriceFormVisible = false')
+    //-       | {{ $t('table.cancel') }}
+    //-     el-button(type='primary' @click="createMultipleFundPrice()")
+    //-       | {{ $t('table.confirm') }}
   </template>
 
 <script>
-import { fetchInvestmentTypeList, fetchUnitPriceList, createInvestmentType, updateInvestmentType } from '@/api/investment-type'
+import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType } from '@/api/investment-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
-import { generateDate } from '@/utils/pensiunku'
 
 export default {
   name: 'InvestmentType',
@@ -83,7 +81,6 @@ export default {
   data() {
     return {
       tableKey: 0,
-      tableMultipleFundKey: 0,
       list: [],
       total: 0,
       listLoading: true,
@@ -100,49 +97,37 @@ export default {
         limit: 20,
         q: undefined
       },
-      unitPriceList: [],
       temp: {
-        id: undefined,
-        fundName: undefined,
+        name: undefined,
         code: undefined,
-        description: undefined,
-        status: 'UNVERIFIED',
-        isActive: undefined,
-        createdDate: undefined
-      },
-      tempMultipleFundPrice: {
-        // id: undefined,
-        effectiveDate: undefined,
-        investmentTypeId: undefined,
-        price: undefined,
-        isActive: undefined,
-        createdDate: undefined
+        description: undefined
       },
       rules: {
-        fundName: [{ required: true, message: 'Business name is required', trigger: 'change' }],
+        name: [{ required: true, message: 'Business name is required', trigger: 'change' }],
         code: [{ required: true, message: 'Business code is required', trigger: 'change' }]
       },
-      rulesMultipleFundPrice: {
-        effectiveDate: [{ required: true, message: 'Effective date is required', trigger: 'change' }]
-      },
       dialogFormVisible: false,
-      dialogFundPriceFormVisible: false,
       dialogStatus: ''
+    }
+  },
+  computed: {
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
     }
   },
 
   created() {
-    fetchUnitPriceList().then(response => {
-      this.unitPriceList = response.data.items
-    })
     this.getList()
   },
   methods: {
-    handleViewUnitPrice(row) {
-      this.$router.push({ path: '/fund-administration/unit-price', query: {
-        id: row.unitId
-      }})
-    },
+    // handleViewUnitPrice(row) {
+    //   this.$router.push({ path: '/fund-administration/unit-price', query: {
+    //     id: row.unitId
+    //   }})
+    // },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -152,35 +137,16 @@ export default {
         return this.$t('modal.addModalHeader')
       }
     },
-    getUnitPriceData(row, type) {
-      const searchUnitPrice = this.unitPriceList.filter(i => i.investmentTypeId === row.unitId)
-
-      if (searchUnitPrice.length) {
-        if (type === 'last-price') { return searchUnitPrice[searchUnitPrice.length - 1].price } else if (type === 'effective-date') { return searchUnitPrice[searchUnitPrice.length - 1].effectiveDate } else return searchUnitPrice[searchUnitPrice.length - 1].status
-      }
-
-      return ''
-    },
     getList() {
       this.listLoading = true
-      fetchInvestmentTypeList(this.listQuery).then(response => {
-        console.log(response)
-
-        this.list = response.data.items.map((i, index) => ({ ...i, unitId: index })) // TODO: Use Better Code., unitId used to fix random id of investment type
-        this.total = response.data.total
-
-        this.tempMultipleFundPrice.investmentTypeId = this.list.map(i => i.unitId)
-        this.tempMultipleFundPrice.price = Array.apply(null, Array(this.list.length)).map(i => null)
-
+      fetchList().then(response => {
+        this.list = response
+        this.total = response.length
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-    },
-    handleFilter() {
-      this.listQuery.page = 1
-      this.getList()
     },
     resetTemp() {
       this.temp = {
@@ -209,60 +175,27 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    handleCreateMultipleFundPrice() {
-      this.resetMultiplePriceFundTemp()
-      // this.resetTemp()
-      this.dialogStatus = 'add-multiple-fund'
-      this.dialogFundPriceFormVisible = true
-      // this.$nextTick(() => {
-      //   this.$refs['dataFormMultiplePrice'].clearValidate()
-      // })
-    },
-    createMultipleFundPrice() {
-      const tempMultipleFundPrice = this.tempMultipleFundPrice.price.map((i, index) => ({
-        id: (parseInt(Math.random() * 100) + 1024),
-        isActive: true,
-        createDate: generateDate(),
-        effectiveDate: this.tempMultipleFundPrice.effectiveDate,
-        price: i,
-        investmentTypeId: this.tempMultipleFundPrice.investmentTypeId[index],
-        status: 'UNAVAILABLE'
-      }))
-
-      this.unitPriceList.push(...tempMultipleFundPrice)
-
-      this.dialogFundPriceFormVisible = false
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
-      })
-
-      this.getList()
-    },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
+        console.log('valid', valid)
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.isActive = true
-          this.temp.createdDate = generateDate()
-          createInvestmentType(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createInvestmentType(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
           })
         }
       })
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -272,25 +205,31 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateInvestmentType(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+          updateInvestmentType(this.temp).then((response) => {
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
           })
         }
+      })
+    },
+    handleDelete(row) {
+      deleteInvestmentType(row).then((response) => {
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
       })
     }
   }
