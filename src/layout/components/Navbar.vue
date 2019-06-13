@@ -6,7 +6,9 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <search id="header-search" class="right-menu-item" />
+        <!-- <search id="header-search" class="right-menu-item" /> -->
+
+        <clock class="right-menu-item" />
 
         <error-log class="errLog-container right-menu-item hover-effect" />
 
@@ -51,17 +53,19 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
-import Search from '@/components/HeaderSearch'
+// import Search from '@/components/HeaderSearch'
+import Clock from '@/components/Clock'
 
 export default {
   components: {
+    Clock,
     Breadcrumb,
     Hamburger,
     ErrorLog,
     Screenfull,
     SizeSelect,
-    LangSelect,
-    Search
+    LangSelect
+    // Search
   },
   computed: {
     ...mapGetters([
