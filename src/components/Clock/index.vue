@@ -5,8 +5,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'Clock',
   data() {
@@ -16,20 +14,14 @@ export default {
     }
   },
   created() {
-    // this.currentTime = this.$moment(this.srvTime()).format(this.format)
-    // setInterval(() => this.updateCurrentTime(), 1 * 1000)
-    // this.srvTime()
-    setInterval(() => this.srvTime(), 1 * 1000)
+    this.currentTime = this.$moment().format(this.format)
+    setInterval(() => this.updateCurrentTime(), 1 * 1000)
   },
   methods: {
-    // async updateCurrentTime() {
-    //   this.currentTime = await this.$moment(this.srvTime()).format(this.format)
-    // },
-    srvTime() {
-      axios.get(window.location.href).then(res => {
-        this.currentTime = res.headers.date
-      })
+    async updateCurrentTime() {
+      this.currentTime = await this.$moment().format(this.format)
     }
+
   }
 }
 </script>

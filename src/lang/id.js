@@ -292,7 +292,10 @@ export default {
     name: 'Nama'
   },
   user: {
+    staff: 'Staff',
     username: 'Username',
+    password: 'Sandi',
+    confirmPassword: 'Konfirmasi Sandi',
     name: 'Nama',
     role: 'Jabatan',
     email: 'Email',

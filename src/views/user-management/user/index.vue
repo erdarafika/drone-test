@@ -2,8 +2,8 @@
 .app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    //- el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
-    //-   | {{ $t('table.add') }}
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('user.username')", align='left')
       template(slot-scope='scope')
@@ -35,10 +35,6 @@
     el-form(:model='viewTemp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('user.username')")
         | {{ viewTemp.username }}
-      //- el-form-item(:label="$t('user.name')")
-      //-   | {{ viewTemp.name }}
-      el-form-item(:label="$t('user.username')")
-        | {{ viewTemp.username }}
       el-form-item(:label="$t('user.role')")
         | {{ viewTemp.role }}
       el-form-item(:label="$t('user.email')")
@@ -48,32 +44,48 @@
           | {{ viewTemp.status? 'Enable': 'Disable' }}
       el-form-item(:label="$t('user.authorities')")
         span(v-for="authority in authoritiesList"  :class="viewTemp.authorities.includes(authority)?'label-enable':'label-disable'" v-if='viewTemp.authorities')
-          | {{ authority }}
+          | {{ authority }} &nbsp;
+          br
       el-form-item(:label="$t('user.menu')")
         span(v-for="menu in menuList"  :class="viewTemp.menu.includes(menu.toLowerCase())?'label-enable':'label-disable'" v-if='viewTemp.menu')
-          | {{ menu }}
+          | {{ menu }} &nbsp;
+          br
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-    //-   el-form-item(:label="$t('user.type')", prop='type')
-    //-     el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' )
-    //-   el-form-item(:label="$t('user.displayOnMember')" prop="isMemberAddress")
-    //-     el-switch(v-model='temp.isMemberAddress')
-    //-     span.switch-status {{ temp.isMemberAddress?'Enabled':'Disabled' }}
-    //-   el-form-item(:label="$t('user.displayOnCompany')" prop="isCompanyAddress")
-    //-     el-switch(v-model='temp.isCompanyAddress')
-    //-     span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
-    //- .dialog-footer(slot='footer')
-    //-   el-button(@click='dialogFormVisible = false')
-    //-     | {{ $t('table.cancel') }}
-    //-   el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-    //-     | {{ $t('table.confirm') }}
+      el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
+        el-select(v-model='temp.dplkStaffId', placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('user.password')" prop='password')
+        el-input(v-model.number='temp.password', type='password')
+      el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
+        el-input(v-model.number='temp.confirmPassword', type='password')
+      el-form-item(:label="$t('user.status')")
+        el-switch(v-model='temp.enabled')
+        span.switch-status {{ temp.enabled?'Active':'Not Active' }}
+      el-form-item(:label="$t('user.authorities')" prop='roles')
+        el-checkbox(:indeterminate='authoritiesIsIndeterminate', v-model='authoritiesCheckAll', @change='handleCheckAllAuthoritiesChange') Check all
+        div(style='margin: 15px 0;')
+        el-checkbox-group(v-model='temp.roles', @change='handleCheckedAuthoritiesChange')
+          el-checkbox(v-for='authority in authoritiesList', :label='authority', :key='authority') {{authority}}
+
+      el-form-item(:label="$t('user.menu')" prop='menus')
+        el-checkbox(:indeterminate='menuIsIndeterminate', v-model='menuCheckAll', @change='handleCheckAllMenusChange') Check all
+        div(style='margin: 15px 0;')
+        el-checkbox-group(v-model='temp.menus', @change='handleCheckedMenusChange')
+          el-checkbox(v-for='menu in menuList', :label='menu', :key='menu') {{menu}}
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+        | {{ $t('table.confirm') }}
 
 </template>
 
 <script>
-import { fetchList } from '@/api/user-management'
+import { fetchList, createUser } from '@/api/user-management'
 import { fetchAuthorities, fetchMenus } from '@/api/app-const'
+import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -81,6 +93,10 @@ export default {
   components: { Pagination },
   data() {
     return {
+      authoritiesCheckAll: false,
+      authoritiesIsIndeterminate: false,
+      menuCheckAll: false,
+      menuIsIndeterminate: false,
       tableKey: 0,
       list: [],
       total: 0,
@@ -92,9 +108,12 @@ export default {
       },
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
-        type: '',
-        isMemberAddress: true,
-        isCompanyAddress: true
+        dplkStaffId: undefined,
+        password: undefined,
+        confirmPassword: undefined,
+        enabled: true,
+        menus: [],
+        roles: []
       },
       viewTemp: {
         username: undefined,
@@ -107,6 +126,7 @@ export default {
       },
       authoritiesList: [],
       menuList: [],
+      staffOptions: [],
       dialogFormVisible: false,
       dialogDetailVisible: false,
       dialogStatus: ''
@@ -114,10 +134,13 @@ export default {
   },
   computed: {
     rules() {
+      const message = 'this field is required'
       return {
-        type: [{ required: true, message: `${this.$t('user.type')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
-        isMemberAddress: [{ required: true, message: `${this.$t('user.displayOnMember')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
-        isCompanyAddress: [{ required: true, message: `${this.$t('user.displayOnCompany')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }]
+        dplkStaffId: [{ required: true, message }],
+        password: [{ required: true, message }],
+        confirmPassword: [{ required: true, message }],
+        menus: [{ required: true, message }],
+        roles: [{ required: true, message }]
       }
     },
     filterredList() {
@@ -131,8 +154,29 @@ export default {
     this.getList()
     this.authoritiesList = fetchAuthorities()
     this.menuList = fetchMenus()
+    fetchStaffList().then(res => {
+      this.staffOptions = res.map(staff => ({ value: staff.id, label: staff.name }))
+    })
   },
   methods: {
+    handleCheckAllAuthoritiesChange(val) {
+      this.temp.roles = val ? this.authoritiesList : []
+      this.authoritiesIsIndeterminate = false
+    },
+    handleCheckedAuthoritiesChange(value) {
+      const checkedCount = value.length
+      this.authoritiesCheckAll = checkedCount === this.authoritiesList.length
+      this.authoritiesIsIndeterminate = checkedCount > 0 && checkedCount < this.authoritiesList.length
+    },
+    handleCheckAllMenusChange(val) {
+      this.temp.menus = val ? this.menuList : []
+      this.menuIsIndeterminate = false
+    },
+    handleCheckedMenusChange(value) {
+      const checkedCount = value.length
+      this.menuCheckAll = checkedCount === this.menuList.length
+      this.menuIsIndeterminate = checkedCount > 0 && checkedCount < this.menuList.length
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -151,7 +195,6 @@ export default {
         authorities: row.authorities ? row.authorities.map(authority => authority.role) : [],
         menu: row.menus ? row.menus.map(menu => menu.menu.toLowerCase()) : []
       }
-      console.log(this.viewTemp, this.authoritiesList)
     },
     getList() {
       this.listLoading = true
@@ -163,41 +206,45 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
+    },
+    resetTemp() {
+      this.temp = {
+        dplkStaffId: undefined,
+        password: undefined,
+        confirmPassword: undefined,
+        enabled: true,
+        menus: [],
+        roles: []
+      }
+    },
+    handleCreate() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    createData() {
+      this.$refs['dataForm'].validate((valid) => {
+        console.log('valid', valid)
+        if (valid) {
+          // console.log(this.temp);
+          createUser(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            }
+            this.dialogFormVisible = false
+          })
+        }
+      })
     }
-    // resetTemp() {
-    //   this.temp = {
-    //     type: '',
-    //     isMemberAddress: true,
-    //     isCompanyAddress: true
-    //   }
-    // },
-    // handleCreate() {
-    //   this.resetTemp()
-    //   this.dialogStatus = 'create'
-    //   this.dialogFormVisible = true
-    //   this.$nextTick(() => {
-    //     this.$refs['dataForm'].clearValidate()
-    //   })
-    // },
-    // createData() {
-    //   this.$refs['dataForm'].validate((valid) => {
-    //     console.log('valid', valid)
-    //     if (valid) {
-    //       createAddressType(this.temp).then((response) => {
-    //         if (response.status_code >= 200 && response.status_code <= 300) {
-    //           this.$notify({
-    //             title: this.$t('table.successTitle'),
-    //             message: this.$t('table.successCaption'),
-    //             type: 'success',
-    //             duration: 2000
-    //           })
-    //           this.getList()
-    //         }
-    //         this.dialogFormVisible = false
-    //       })
-    //     }
-    //   })
-    // },
     // handleUpdate(row) {
     //   this.temp = Object.assign({}, row) // copy obj
     //   this.dialogStatus = 'update'

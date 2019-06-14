@@ -294,6 +294,9 @@ export default {
     name: 'Name'
   },
   user: {
+    staff: 'Staff',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
     username: 'Username',
     name: 'Name',
     role: 'Role',
