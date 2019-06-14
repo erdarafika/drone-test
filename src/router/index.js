@@ -90,12 +90,14 @@ import masterSetup from './modules/master-setup'
 import fundAdministration from './modules/fund-administration'
 import dplkConfiguration from './modules/dplk-configuration'
 import clientAdministration from './modules/client-administration'
+import userManagement from './modules/user-management'
 
 export const asyncRoutes = [
   masterSetup,
   fundAdministration,
   dplkConfiguration,
   clientAdministration,
+  userManagement,
   {
     path: '/permission',
     component: Layout,

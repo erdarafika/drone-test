@@ -38,7 +38,8 @@ export default {
     dplkStaff: 'DPLK Staff',
     position: 'Jabatan',
     department: 'Departemen',
-    moneySource: 'Sumber Dana'
+    moneySource: 'Sumber Dana',
+    userManagement: 'Manajamen Pengguna'
   },
   // GLOBAL
   validatorMessage: {
@@ -289,5 +290,14 @@ export default {
   },
   companyInformation: {
     name: 'Nama'
+  },
+  user: {
+    username: 'Username',
+    name: 'Nama',
+    role: 'Jabatan',
+    email: 'Email',
+    status: 'Status',
+    authorities: 'Otoritas',
+    menu: 'Menu'
   }
 }

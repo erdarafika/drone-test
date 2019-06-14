@@ -39,7 +39,8 @@ export default {
     department: 'Department',
     moneySource: 'Money Source',
     clientAdministration: 'Client Administration',
-    company: 'Company'
+    company: 'Company',
+    userManagement: 'User Management'
   },
   // GLOBAL
   validatorMessage: {
@@ -291,5 +292,14 @@ export default {
   },
   companyInformation: {
     name: 'Name'
+  },
+  user: {
+    username: 'Username',
+    name: 'Name',
+    role: 'Role',
+    email: 'Email',
+    status: 'Status',
+    authorities: 'Authorities',
+    menu: 'Menu'
   }
 }
