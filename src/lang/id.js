@@ -76,7 +76,9 @@ export default {
     successTitle: 'Berhasil',
     searchPlaceholder: 'Cari Sesuatu',
     createdDate: 'Tanggal dibuat',
-    setDefault: 'Atur sebagai Default'
+    setDefault: 'Atur sebagai Default',
+    clientAdministration: 'Client Administration',
+    company: 'Company'
   },
   settings: {
     title: 'Pengaturan Tampilan',
@@ -283,6 +285,9 @@ export default {
   },
   moneySource: {
     code: 'Kode',
+    name: 'Nama'
+  },
+  companyInformation: {
     name: 'Nama'
   }
 }

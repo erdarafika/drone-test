@@ -37,7 +37,9 @@ export default {
     dplkStaff: 'DPLK Staff',
     position: 'Position',
     department: 'Department',
-    moneySource: 'Money Source'
+    moneySource: 'Money Source',
+    clientAdministration: 'Client Administration',
+    company: 'Company'
   },
   // GLOBAL
   validatorMessage: {
@@ -285,6 +287,9 @@ export default {
   },
   moneySource: {
     code: 'Code',
+    name: 'Name'
+  },
+  companyInformation: {
     name: 'Name'
   }
 }
