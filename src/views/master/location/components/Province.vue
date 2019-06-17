@@ -174,16 +174,27 @@ export default {
       })
     },
     handleDelete(row) {
-      deleteProvince(row).then((response) => {
-        this.dialogFormVisible = false
-        this.$notify({
-          title: this.$t('table.successTitle'),
-          message: this.$t('table.successCaption'),
-          type: 'success',
-          duration: 2000
-        })
-        this.getList()
+      const cancelCallback = () => this.$notify({
+        title: this.$t('table.cancelTitle'),
+        message: this.$t('table.cancelCaption'),
+        type: 'warning',
+        duration: 2000
       })
+
+      const deleteCallback = () => {
+        deleteProvince(row).then((response) => {
+          this.dialogFormVisible = false
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        })
+      }
+
+      this.confirmDelete(deleteCallback, cancelCallback)
     }
   }
 }

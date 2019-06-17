@@ -75,6 +75,8 @@ export default {
     confirm: 'Konfirmasi',
     successCaption: 'Operasi Berhasil',
     successTitle: 'Berhasil',
+    cancelCaption: 'Batal',
+    cancelTitle: 'Operasi di Batalkan',
     searchPlaceholder: 'Cari Sesuatu',
     createdDate: 'Tanggal dibuat',
     setDefault: 'Atur sebagai Default',

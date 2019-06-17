@@ -79,6 +79,8 @@ export default {
     confirm: 'Confirm',
     successCaption: 'Success',
     successTitle: 'Operation Success',
+    cancelCaption: 'Cancelled',
+    cancelTitle: 'Operation Cancelled',
     searchPlaceholder: 'Find something',
     createdDate: 'Created Date',
     setDefault: 'Set as Default'

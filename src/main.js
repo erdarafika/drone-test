@@ -22,6 +22,7 @@ import * as filters from './filters' // global filters
 
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
+import confirmDelete from './global-function/deleteConfirm'
 
 const moment = require('moment')
 require('moment/locale/id')
@@ -50,6 +51,12 @@ Vue.use(Element, {
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
+})
+
+Vue.mixin({
+  methods: {
+    confirmDelete
+  }
 })
 
 Vue.config.productionTip = false

@@ -178,9 +178,16 @@ export default {
       })
     },
     handleDelete(row) {
-      deleteDocument(row).then((response) => {
-        this.dialogFormVisible = false
-        if (response.status_code >= 200 && response.status_code <= 300) {
+      const cancelCallback = () => this.$notify({
+        title: this.$t('table.cancelTitle'),
+        message: this.$t('table.cancelCaption'),
+        type: 'warning',
+        duration: 2000
+      })
+
+      const deleteCallback = () => {
+        deleteDocument(row).then((response) => {
+          this.dialogFormVisible = false
           this.$notify({
             title: this.$t('table.successTitle'),
             message: this.$t('table.successCaption'),
@@ -188,8 +195,10 @@ export default {
             duration: 2000
           })
           this.getList()
-        }
-      })
+        })
+      }
+
+      this.confirmDelete(deleteCallback, cancelCallback)
     }
   }
 }
