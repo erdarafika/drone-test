@@ -305,6 +305,7 @@ export default {
     status: 'Status',
     authorities: 'Otoritas',
     menu: 'Menu',
-    updateMenu: 'Ubah Menu'
+    updateMenu: 'Menu',
+    updateRole: 'Jabatan'
   }
 }

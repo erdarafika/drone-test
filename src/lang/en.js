@@ -307,6 +307,7 @@ export default {
     status: 'Status',
     authorities: 'Authorities',
     menu: 'Menu',
-    updateMenu: 'Update Menu'
+    updateMenu: 'Menu',
+    updateRole: 'Role'
   }
 }

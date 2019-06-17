@@ -2,7 +2,7 @@ const authorities = [{ 'role': 'SUPERUSER', 'authority': 'SUPERUSER' }, { 'role'
 const menus = ['dashboard', 'investment type', 'company information', 'dplk information', 'dplk address', 'dplk bank account']
 
 export function fetchAuthorities() {
-  return authorities.map(item => item.role)
+  return authorities.map(item => item.role.toLowerCase()) // FIXME: shound not use tolowercase
 }
 
 export function fetchMenus() {

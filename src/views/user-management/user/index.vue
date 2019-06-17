@@ -27,6 +27,8 @@
           | {{ $t('table.detail') }}
         el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
           | {{ $t('user.updateMenu') }}
+        el-button(type='warning', size='mini', @click='handleUpdateRole(row)')
+          | {{ $t('user.updateRole') }}
         el-button(type='danger', size='mini', @click='handleDisable(row)' :disabled='!row.enabled')
           | {{ $t('table.disable') }}
 
@@ -53,6 +55,8 @@
           br
 
   updateMenuDialog(:visible='dialogUpdateMenuVisible' :closeDialog='closeUpdateMenuDialog' :menuData='tempUpdateMenu' :submitData='handleSubmitUpdateMenu')
+
+  updateRoleDialog(:visible='dialogUpdateRoleVisible' :closeDialog='closeUpdateRoleDialog' :roleData='tempUpdateRole' :submitData='handleSubmitUpdateRole')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -86,15 +90,16 @@
 </template>
 
 <script>
-import { fetchList, createUser, updateUserMenu, disableUser } from '@/api/user-management'
+import { fetchList, createUser, updateUserMenu, disableUser, updateUserRole } from '@/api/user-management'
 import { fetchAuthorities, fetchMenus } from '@/api/app-const'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import updateMenuDialog from './component/updateMenuDialog'
+import updateRoleDialog from './component/updateRoleDialog'
 
 export default {
   name: 'AddressType',
-  components: { Pagination, updateMenuDialog },
+  components: { Pagination, updateMenuDialog, updateRoleDialog },
   data() {
     return {
       authoritiesCheckAll: false,
@@ -132,12 +137,17 @@ export default {
         menus: [],
         id: undefined
       },
+      tempUpdateRole: {
+        roles: [],
+        id: undefined
+      },
       authoritiesList: [],
       menuList: [],
       staffOptions: [],
       dialogFormVisible: false,
       dialogDetailVisible: false,
       dialogUpdateMenuVisible: false,
+      dialogUpdateRoleVisible: false,
       dialogStatus: ''
     }
   },
@@ -203,6 +213,28 @@ export default {
     },
     closeUpdateMenuDialog() {
       this.dialogUpdateMenuVisible = false
+    },
+    closeUpdateRoleDialog() {
+      this.dialogUpdateRoleVisible = false
+    },
+    handleSubmitUpdateRole(data) {
+      updateUserRole(data).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogUpdateRoleVisible = false
+      })
+    },
+    handleUpdateRole(row) {
+      this.dialogUpdateRoleVisible = true
+      this.tempUpdateRole.roles = row.authorities ? row.authorities.map(role => role.role.toLowerCase()) : [] // FIXME: lowerCase should not been used
+      this.tempUpdateRole.id = row.id
     },
     handleCheckAllAuthoritiesChange(val) {
       this.temp.roles = val ? this.authoritiesList : []
