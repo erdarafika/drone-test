@@ -39,6 +39,7 @@ export default {
     position: 'Jabatan',
     department: 'Departemen',
     moneySource: 'Sumber Dana',
+    company: 'Perusahaan',
     userManagement: 'Manajamen Pengguna'
   },
   // GLOBAL
