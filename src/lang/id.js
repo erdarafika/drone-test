@@ -71,6 +71,7 @@ export default {
     actions: 'Aksi',
     edit: 'Ubah',
     delete: 'Hapus',
+    disable: 'Nonaktifkan',
     cancel: 'Batal',
     confirm: 'Konfirmasi',
     successCaption: 'Operasi Berhasil',

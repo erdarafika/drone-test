@@ -30,6 +30,13 @@ export function updateUserMenu(data) {
   })
 }
 
+export function disableUser(data) {
+  return request({
+    url: `/user/${data.id}/disable-user/`,
+    method: 'post'
+  })
+}
+
 export function updateUserRole(data) {
   return request({
     url: `/user/${data.id}/update-role/`,

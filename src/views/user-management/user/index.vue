@@ -17,7 +17,7 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+    el-table-column(:label="$t('table.status')", align='left', width='200')
       template(slot-scope='scope')
         span(:class="scope.row.enabled?'label-enable':'label-disable'")
           | {{ scope.row.enabled? 'Enable': 'Disable' }}
@@ -27,8 +27,8 @@
           | {{ $t('table.detail') }}
         el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
           | {{ $t('user.updateMenu') }}
-        //- el-button(type='danger', size='mini', @click='handleDisable(row)')
-        //-   | {{ `Disabled` }}
+        el-button(type='danger', size='mini', @click='handleDisable(row)' :disabled='!row.enabled')
+          | {{ $t('table.disable') }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { fetchList, createUser, updateUserMenu } from '@/api/user-management'
+import { fetchList, createUser, updateUserMenu, disableUser } from '@/api/user-management'
 import { fetchAuthorities, fetchMenus } from '@/api/app-const'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -169,7 +169,18 @@ export default {
   },
   methods: {
     handleDisable(row) {
-      console.log('handle disable')
+      disableUser(row).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogUpdateMenuVisible = false
+      })
     },
     handleSubmitUpdateMenu(data) {
       updateUserMenu(data).then((response) => {

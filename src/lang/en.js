@@ -75,6 +75,7 @@ export default {
     actions: 'Actions',
     edit: 'Edit',
     delete: 'Delete',
+    disable: 'Disable',
     cancel: 'Cancel',
     confirm: 'Confirm',
     successCaption: 'Success',
