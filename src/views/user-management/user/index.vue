@@ -27,6 +27,8 @@
           | {{ $t('table.detail') }}
         el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
           | {{ $t('user.updateMenu') }}
+        //- el-button(type='danger', size='mini', @click='handleDisable(row)')
+        //-   | {{ `Disabled` }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
@@ -166,6 +168,9 @@ export default {
     })
   },
   methods: {
+    handleDisable(row) {
+      console.log('handle disable')
+    },
     handleSubmitUpdateMenu(data) {
       updateUserMenu(data).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
@@ -182,7 +187,7 @@ export default {
     },
     handleUpdateMenu(row) {
       this.dialogUpdateMenuVisible = true
-      this.tempUpdateMenu.menus = row.menus ? row.menus.map(menu => menu.menu) : []
+      this.tempUpdateMenu.menus = row.menus ? row.menus.map(menu => menu.menu.toLowerCase()) : [] // FIXME: lowerCase should not been used
       this.tempUpdateMenu.id = row.id
     },
     closeUpdateMenuDialog() {
