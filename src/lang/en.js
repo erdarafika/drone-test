@@ -303,6 +303,7 @@ export default {
     email: 'Email',
     status: 'Status',
     authorities: 'Authorities',
-    menu: 'Menu'
+    menu: 'Menu',
+    updateMenu: 'Update Menu'
   }
 }

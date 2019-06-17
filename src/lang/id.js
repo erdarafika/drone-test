@@ -301,6 +301,7 @@ export default {
     email: 'Email',
     status: 'Status',
     authorities: 'Otoritas',
-    menu: 'Menu'
+    menu: 'Menu',
+    updateMenu: 'Ubah Menu'
   }
 }

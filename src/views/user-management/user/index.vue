@@ -8,9 +8,6 @@
     el-table-column(:label="$t('user.username')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.username }}
-    //- el-table-column(:label="$t('user.name')", align='left')
-    //-   template(slot-scope='scope')
-    //-     span {{ scope.row.dplkStaff.name }}
     el-table-column(:label="$t('user.role')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.role }}
@@ -24,10 +21,12 @@
       template(slot-scope='scope')
         span(:class="scope.row.enabled?'label-enable':'label-disable'")
           | {{ scope.row.enabled? 'Enable': 'Disable' }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
+    el-table-column(label='', align='right', class-name='small-padding')
       template(slot-scope='{row}')
         el-button(type='success', size='mini', @click='handleDetail(row)')
           | {{ $t('table.detail') }}
+        el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
+          | {{ $t('user.updateMenu') }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
@@ -50,6 +49,8 @@
         span(v-for="menu in menuList"  :class="viewTemp.menu.includes(menu.toLowerCase())?'label-enable':'label-disable'" v-if='viewTemp.menu')
           | {{ menu }} &nbsp;
           br
+
+  updateMenuDialog(:visible='dialogUpdateMenuVisible' :closeDialog='closeUpdateMenuDialog' :menuData='tempUpdateMenu' :submitData='handleSubmitUpdateMenu')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -83,14 +84,15 @@
 </template>
 
 <script>
-import { fetchList, createUser } from '@/api/user-management'
+import { fetchList, createUser, updateUserMenu } from '@/api/user-management'
 import { fetchAuthorities, fetchMenus } from '@/api/app-const'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import updateMenuDialog from './component/updateMenuDialog'
 
 export default {
   name: 'AddressType',
-  components: { Pagination },
+  components: { Pagination, updateMenuDialog },
   data() {
     return {
       authoritiesCheckAll: false,
@@ -124,11 +126,16 @@ export default {
         authorities: undefined,
         menu: undefined
       },
+      tempUpdateMenu: {
+        menus: [],
+        id: undefined
+      },
       authoritiesList: [],
       menuList: [],
       staffOptions: [],
       dialogFormVisible: false,
       dialogDetailVisible: false,
+      dialogUpdateMenuVisible: false,
       dialogStatus: ''
     }
   },
@@ -159,6 +166,28 @@ export default {
     })
   },
   methods: {
+    handleSubmitUpdateMenu(data) {
+      updateUserMenu(data).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogUpdateMenuVisible = false
+      })
+    },
+    handleUpdateMenu(row) {
+      this.dialogUpdateMenuVisible = true
+      this.tempUpdateMenu.menus = row.menus ? row.menus.map(menu => menu.menu) : []
+      this.tempUpdateMenu.id = row.id
+    },
+    closeUpdateMenuDialog() {
+      this.dialogUpdateMenuVisible = false
+    },
     handleCheckAllAuthoritiesChange(val) {
       this.temp.roles = val ? this.authoritiesList : []
       this.authoritiesIsIndeterminate = false
