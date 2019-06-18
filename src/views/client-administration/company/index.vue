@@ -1,60 +1,170 @@
-
 <template lang="pug">
 .app-container
-  el-form.company-form(:model='company', :rules='rules', ref='dataForm', label-width='120px')
-    el-form-item()
-      el-alert(effect="dark" show-icon title='On Progress Wait For Backend API', type='warning')
-    el-form-item(:label='$t("companyInformation.name")' prop="name")
-      el-input(v-model='company.name', type='textarea', :autosize='{ minRows: 1, maxRows: 1}')
-    el-form-item
-      el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
+  .filter-container
+    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
+    //- el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    //-   | {{ $t('table.add') }}
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
+    el-table-column(:label="$t('companyInformation.name')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.name }}
+    el-table-column(:label="$t('companyInformation.code')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.code }}
+    el-table-column(:label="$t('companyInformation.email')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.email }}
+    el-table-column(:label="$t('companyInformation.website')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.website }}
+    el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+      template(slot-scope='scope')
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    //- el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
+    //-   template(slot-scope='{row}')
+    //-     el-button(type='primary', size='mini', @click='handleUpdate(row)')
+    //-       | {{ $t('table.edit') }}
+    //-     el-button(type='danger', size='mini', @click='handleDelete(row)')
+    //-       | {{ $t('table.delete') }}
+  pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
+  //- el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
+  //-   el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+  //-     el-form-item(:label="$t('companyInformation.type')", prop='type')
+  //-       el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' )
+
+  //-   .dialog-footer(slot='footer')
+  //-     el-button(@click='dialogFormVisible = false')
+  //-       | {{ $t('table.cancel') }}
+  //-     el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+  //-       | {{ $t('table.confirm') }}
 
 </template>
-<style>
-.company-form {
-  display: block;
-  max-width: 400px;
-}
-</style>
 
 <script>
-import { fetchCompany, updateCompany } from '@/api/company'
+import { fetchList, createCompany, updateCompany, deleteCompany } from '@/api/company'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   name: 'Company',
+  components: { Pagination },
   data() {
     return {
-      company: {
-        name: 0
+      tableKey: 0,
+      list: [],
+      total: 0,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        q: undefined
       },
-      rules: {
-        name: [
-          { required: true, message: 'this field is required' }
-        ]
+      temp: {
+        name: undefined,
+        code: undefined,
+        email: undefined,
+        website: undefined,
+        businessLine: undefined,
+        businessEntity: undefined,
+        npwp: undefined,
+        deedEstablishmentNumber: undefined,
+        deedEstablishmentDate: undefined,
+        articleAssociationNumber: undefined,
+        articleAssociationDate: undefined,
+        latestAmendmentArticleAssociationNumber: undefined,
+        latestAmendmentArticleAssociationDate: undefined,
+        companyNumberRegistrationNumber: undefined,
+        companyNumberRegistrationExpiredDate: undefined,
+        domicilieCertificateNumber: undefined,
+        domicilieCertificateNumberExpiredDate: undefined,
+        asset: undefined,
+        grossIncomePerYear: undefined,
+        pensionProgramSubmissionPurpose: undefined,
+        moneySource: undefined,
+        office: undefined,
+        office2: undefined,
+        fax: undefined,
+        home: undefined
       },
-      isLoading: false
+      dialogFormVisible: false,
+      dialogStatus: ''
+    }
+  },
+  computed: {
+    rules() {
+      return {
+      }
+    },
+    filterredList() {
+      const { q, limit, page } = this.listQuery
+      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
+      return listAfterPagination
     }
   },
   created() {
-    this.getCompany()
+    this.getList()
   },
   methods: {
-    getCompany() {
-      this.isLoading = true
-      fetchCompany().then(res => {
-        console.log(res)
-
-        this.company = res
-
+    getDialogHeader(dialogStatus) {
+      if (dialogStatus === 'update') {
+        return this.$t('modal.editModalHeader')
+      } else {
+        return this.$t('modal.addModalHeader')
+      }
+    },
+    getList() {
+      this.listLoading = true
+      fetchList().then(response => {
+        this.list = response
+        this.total = response.length
+        // Just to simulate the time of the request
         setTimeout(() => {
-          this.isLoading = false
+          this.listLoading = false
         }, 1.5 * 1000)
       })
     },
-    submitForm() {
+    resetTemp() {
+      this.temp = {
+        name: undefined,
+        code: undefined,
+        email: undefined,
+        website: undefined,
+        businessLine: undefined,
+        businessEntity: undefined,
+        npwp: undefined,
+        deedEstablishmentNumber: undefined,
+        deedEstablishmentDate: undefined,
+        articleAssociationNumber: undefined,
+        articleAssociationDate: undefined,
+        latestAmendmentArticleAssociationNumber: undefined,
+        latestAmendmentArticleAssociationDate: undefined,
+        companyNumberRegistrationNumber: undefined,
+        companyNumberRegistrationExpiredDate: undefined,
+        domicilieCertificateNumber: undefined,
+        domicilieCertificateNumberExpiredDate: undefined,
+        asset: undefined,
+        grossIncomePerYear: undefined,
+        pensionProgramSubmissionPurpose: undefined,
+        moneySource: undefined,
+        office: undefined,
+        office2: undefined,
+        fax: undefined,
+        home: undefined
+      }
+    },
+    handleCreate() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    createData() {
       this.$refs['dataForm'].validate((valid) => {
+        console.log('valid', valid)
         if (valid) {
-          updateCompany(this.company).then((response) => {
+          createCompany(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
                 title: this.$t('table.successTitle'),
@@ -62,11 +172,61 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getCompany()
+              this.getList()
+            }
+            this.dialogFormVisible = false
+          })
+        }
+      })
+    },
+    handleUpdate(row) {
+      this.temp = Object.assign({}, row) // copy obj
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    updateData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          updateCompany(this.temp).then((response) => {
+            this.dialogFormVisible = false
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
             }
           })
         }
       })
+    },
+    handleDelete(row) {
+      const cancelCallback = () => this.$notify({
+        title: this.$t('table.cancelTitle'),
+        message: this.$t('table.cancelCaption'),
+        type: 'warning',
+        duration: 2000
+      })
+
+      const deleteCallback = () => {
+        deleteCompany(row).then((response) => {
+          this.dialogFormVisible = false
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        })
+      }
+
+      this.confirmDelete(deleteCallback, cancelCallback)
     }
   }
 }

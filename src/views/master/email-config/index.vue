@@ -17,8 +17,8 @@
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('emailConfig.editTemplate') }}
-        //- el-button(type='success', size='mini', @click='handleAttachments(row)')
-        //-   | {{ $t('emailConfig.attachments') }}
+        el-button(type='success', size='mini', @click='handleAttachments(row)')
+          | {{ $t('emailConfig.attachments') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog.emailconfig-form(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 90%; margin-left:50px;')

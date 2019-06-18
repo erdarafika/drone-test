@@ -7,7 +7,7 @@
         el-upload.upload-demo(ref='upload', action='https://jsonplaceholder.typicode.com/posts/', :auto-upload='false')
           el-button(slot='trigger', type='primary') {{$t('emailConfig.selectFile')}}
           el-button(style='margin-left: 10px;', type='success',   @click="createData()") {{$t('table.add')}}
-          //- .el-upload__tip(slot='tip') jpg/png files with a size less than 500kb
+          .el-upload__tip(slot='tip') files with a size less than 10 MB
 
     el-table(:data='attachments' v-loading='listLoading')
       el-table-column(property='name', label='Name' width="100px")
@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers'
+
+import { fetchAttachment } from '@/api/email-config'
 
 export default {
   name: 'Attachments',
@@ -41,28 +42,25 @@ export default {
       }
     }
   },
-  created() {
+  updated() {
     this.getAttachments()
   },
   methods: {
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
-      })
-      const index = this.attachments.indexOf(row)
-      this.attachments.splice(index, 1)
+
     },
     getAttachments() {
       this.listLoading = true
-      setTimeout(() => {
-        this.attachments = this.data.attachments
+      const emailConfigId = this.data.id
+      fetchAttachment(emailConfigId).then(response => {
+        this.attachments = response
+        console.log(response)
+
+        // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
-      }, 1000)
+      })
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {

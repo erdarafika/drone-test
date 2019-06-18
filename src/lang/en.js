@@ -295,7 +295,10 @@ export default {
     name: 'Name'
   },
   companyInformation: {
-    name: 'Name'
+    name: 'Company Name',
+    code: 'Company Code',
+    email: 'Company Email',
+    website: 'Company Website'
   },
   user: {
     staff: 'Staff',

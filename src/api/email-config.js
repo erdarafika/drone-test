@@ -36,3 +36,10 @@ export function deleteEmailConfig(data) {
     method: 'delete'
   })
 }
+
+export function fetchAttachment(id) {
+  return request({
+    url: `/master/email/${id}/attachment`,
+    method: 'get'
+  })
+}
