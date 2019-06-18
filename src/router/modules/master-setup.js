@@ -155,7 +155,7 @@ export default {
         title: 'subBenefit',
         roles: ['admin']
       }
-    }
+    },
     // {
     //   path: 'sub-benefit-document',
     //   component: () => import('@/views/master/benefit-type/sub-benefit-document/index'),
@@ -166,15 +166,15 @@ export default {
     //     roles: ['admin']
     //   }
     // }
-    // {
-    //   path: 'product-type',
-    //   name: 'ProductType',
-    //   component: () => import('@/views/master/product-type/index'),
-    //   meta: {
-    //     title: 'productType',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'product-type',
+      name: 'ProductType',
+      component: () => import('@/views/master/product-type/index'),
+      meta: {
+        title: 'productType',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    }
     // {
     //   path: 'document-matrix',
     //   component: () => import('@/views/master/document-matrix/index'),

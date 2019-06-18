@@ -177,7 +177,8 @@ export default {
   },
   productType: {
     name: 'Name',
-    code: 'Code'
+    code: 'Code',
+    description: 'Description'
   },
   bank: {
     name: 'Name',

@@ -176,7 +176,8 @@ export default {
   },
   productType: {
     name: 'Nama',
-    code: 'Kode'
+    code: 'Kode',
+    description: 'Deskripsi'
   },
   bank: {
     name: 'Nama',
