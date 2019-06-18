@@ -119,15 +119,15 @@ export default {
     //     roles: ['admin']
     //   }
     // },
-    // {
-    //   path: 'email-config',
-    //   name: 'EmailConfig',
-    //   component: () => import('@/views/master/email-config/index'),
-    //   meta: {
-    //     title: 'emailConfig',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // },
+    {
+      path: 'email-config',
+      name: 'EmailConfig',
+      component: () => import('@/views/master/email-config/index'),
+      meta: {
+        title: 'emailConfig',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
     {
       path: 'fee-type',
       name: 'FeeType',

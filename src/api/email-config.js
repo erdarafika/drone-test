@@ -1,24 +1,22 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchList() {
   return request({
-    url: '/email-config/list',
-    method: 'get',
-    params: query
+    url: '/master/email',
+    method: 'get'
   })
 }
 
-export function fetchEmailConfig(id) {
+export function fetchEmailConfig(data) {
   return request({
-    url: '/email-config/detail',
-    method: 'get',
-    params: { id }
+    url: `/master/email/${data.id}`,
+    method: 'get'
   })
 }
 
 export function createEmailConfig(data) {
   return request({
-    url: '/email-config/create',
+    url: '/master/email',
     method: 'post',
     data
   })
@@ -26,8 +24,15 @@ export function createEmailConfig(data) {
 
 export function updateEmailConfig(data) {
   return request({
-    url: '/email-config/update',
+    url: `/master/email/${data.id}`,
     method: 'post',
     data
+  })
+}
+
+export function deleteEmailConfig(data) {
+  return request({
+    url: `/master/email/${data.id}`,
+    method: 'delete'
   })
 }
