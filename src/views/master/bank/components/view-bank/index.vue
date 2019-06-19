@@ -109,12 +109,18 @@ export default {
     }
   },
   created() {
-    this.getList()
-    fetchCountryList().then(response => {
-      this.countryList = response.map(i => i.name)
+    this.$eventBus.$on('update-location', (data) => {
+      this.getCountryOptions()
     })
+    this.getList()
+    this.getCountryOptions()
   },
   methods: {
+    getCountryOptions() {
+      fetchCountryList().then(response => {
+        this.countryList = response.map(i => i.name)
+      })
+    },
     documentDelete(row) {
       this.handleDocumentDelete(row)
     },
