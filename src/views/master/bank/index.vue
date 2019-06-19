@@ -21,12 +21,14 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='140')
+    el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)')
           | {{ $t('table.edit') }}
         el-button(type='success', size='mini', @click='handleView(row)')
           | {{ $t('table.view') }}
+        el-button(type='danger', size='mini', @click='handleDelete(row)')
+          | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
