@@ -26,7 +26,6 @@
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('holiday.date')", prop='date')
-        //- el-input(v-model='temp.holidayDate', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-date-picker(v-model='temp.date', type='date', placeholder='Pick a day')
       el-form-item(:label="$t('holiday.description')", prop='description')
         el-input(v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
