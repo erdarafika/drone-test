@@ -40,61 +40,58 @@
                 el-input(v-model='temp.email', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
               el-form-item(:label="$t('companyInformation.code')", prop='code')
                 el-input(v-model='temp.code', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='true' placeholder='Auto Generated When Approved')
-              el-form-item(:label="$t('companyInformation.website')")
+              el-form-item(:label="$t('companyInformation.website')" prop='website')
                 el-input(v-model='temp.website', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
             el-tab-pane(label='Legals')
               el-form-item(:label="$t('companyInformation.businessLine')", prop='businessLine')
-                el-select(placeholder='Select')
-                  el-option(v-for='item in dummyOptions', :key='item', :label='item', :value='item')
-              el-form-item(:label="$t('companyInformation.companyType')", prop='companyType')
-                el-select(placeholder='Select')
-                  el-option(v-for='item in dummyOptions', :key='item', :label='item', :value='item')
-              el-form-item(:label="$t('companyInformation.npwp')", prop='deadEstablishment')
+                el-select(placeholder='Select' v-model='temp.businessLine')
+                  el-option(v-for='item in businessLineOptions', :key='item.value', :label='item.label', :value='item.value')
+              el-form-item(:label="$t('companyInformation.npwp')", prop='npwp')
                 el-input(v-model='temp.npwp', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.deedEstablishmentNumber')", prop='deadEstablishment')
+              el-form-item(:label="$t('companyInformation.deedEstablishmentNumber')", prop='deedEstablishmentNumber')
                 el-input(v-model='temp.deedEstablishmentNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.articleAssociationNumber')")
+              el-form-item(:label="$t('companyInformation.articleAssociationNumber')" prop='articleAssociationNumber')
                 el-input(v-model='temp.articleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationNumber')")
+              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationNumber')" prop='latestAmendmentArticleAssociationNumber')
                 el-input(v-model='temp.latestAmendmentArticleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.companyNumberRegistrationNumber')")
+              el-form-item(:label="$t('companyInformation.companyNumberRegistrationNumber')" prop='companyNumberRegistrationNumber')
                 el-input(v-model='temp.companyNumberRegistrationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.domicilieCertificateNumber')")
+              el-form-item(:label="$t('companyInformation.domicilieCertificateNumber')" prop='domicilieCertificateNumber')
                 el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
             el-tab-pane(label='Legals Date')
-              el-form-item(:label="$t('companyInformation.deedEstablishmentDate')")
+              el-form-item(:label="$t('companyInformation.deedEstablishmentDate')" prop='deedEstablishmentDate')
                 el-date-picker(v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date')
-              el-form-item(:label="$t('companyInformation.articleAssociationDate')")
+              el-form-item(:label="$t('companyInformation.articleAssociationDate')" prop='articleAssociationDate')
                 el-date-picker(v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date')
-              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')")
+              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
                 el-date-picker(v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date')
-              el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')")
+              el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
                 el-date-picker(v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date')
-              el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')")
+              el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
                 el-date-picker(v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date')
             el-tab-pane(label='Assets Etc')
-              el-form-item(:label="$t('companyInformation.asset')")
-                el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.grossIncomePerYear')")
+              el-form-item(:label="$t('companyInformation.asset')" prop='asset')
+                el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop='')
+              el-form-item(:label="$t('companyInformation.grossIncomePerYear')" prop='grossIncomePerYear')
                 el-input(v-model='temp.grossIncomePerYear', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.moneySource')")
+              el-form-item(:label="$t('companyInformation.moneySource')" prop='moneySource')
                 el-input(v-model='temp.moneySource', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.pensionProgramSubmissionPurpose')")
+              el-form-item(:label="$t('companyInformation.pensionProgramSubmissionPurpose')" prop='pensionProgramSubmissionPurpose')
                 el-input(v-model='temp.pensionProgramSubmissionPurpose', type='textarea', :autosize='{ minRows: 4, maxRows: 4}' )
 
             el-tab-pane(label='Phone Number')
-              el-form-item(:label="$t('companyInformation.office')")
+              el-form-item(:label="$t('companyInformation.office')" prop='office')
                 el-input(v-model='temp.office', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.office2')")
+              el-form-item(:label="$t('companyInformation.office2')" prop='office2')
                 el-input(v-model='temp.office2', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.fax')")
+              el-form-item(:label="$t('companyInformation.fax')" prop='fax')
                 el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
-              el-form-item(:label="$t('companyInformation.home')")
+              el-form-item(:label="$t('companyInformation.home')" prop='home')
                 el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' )
         .dialog-footer.pull-right
           el-button(@click='dialogFormVisible = false')
             | {{ $t('table.cancel') }}
-          el-button(type='primary')
+          el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
             | {{ $t('table.confirm') }}
       el-tab-pane(label='Address')
       el-tab-pane(label='Contact Person')
@@ -123,6 +120,7 @@
 
 <script>
 import { fetchList, createCompany, updateCompany, deleteCompany } from '@/api/company'
+import { fetchList as fetchBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -139,6 +137,7 @@ export default {
         limit: 20,
         q: undefined
       },
+      businessLineOptions: [],
       dummyOptions: ['Option 1', 'Option 2'],
       temp: {
         name: undefined,
@@ -171,14 +170,40 @@ export default {
         home: undefined
       },
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      rules: {
+        name: [{ required: true, message: 'this field is required' }],
+        code: [],
+        email: [{ type: 'email', message: 'email invalid' }],
+        website: [],
+        businessLine: [],
+        businessEntity: [],
+        npwp: [],
+        deedEstablishmentNumber: [],
+        articleAssociationNumber: [],
+        latestAmendmentArticleAssociationNumber: [],
+        companyNumberRegistrationNumber: [],
+        domicilieCertificateNumber: [],
+
+        domicilieCertificateNumberExpiredDate: [],
+        deedEstablishmentDate: [],
+        articleAssociationDate: [],
+        latestAmendmentArticleAssociationDate: [],
+        companyNumberRegistrationExpiredDate: [],
+
+        asset: [],
+        grossIncomePerYear: [],
+        pensionProgramSubmissionPurpose: [],
+        moneySource: [],
+
+        office: [],
+        office2: [],
+        fax: [],
+        home: []
+      }
     }
   },
   computed: {
-    rules() {
-      return {
-      }
-    },
     filterredList() {
       const { q, limit, page } = this.listQuery
       const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
@@ -188,6 +213,9 @@ export default {
   },
   created() {
     this.getList()
+    fetchBusinessLine().then(res => {
+      this.businessLineOptions = res.map(businessLine => ({ value: businessLine.id, label: businessLine.name }))
+    })
   },
   methods: {
     getDialogHeader(dialogStatus) {
@@ -247,8 +275,9 @@ export default {
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
-        console.log('valid', valid)
         if (valid) {
+          // console.log(this.temp);
+
           createCompany(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({

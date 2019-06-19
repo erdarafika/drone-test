@@ -63,8 +63,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        date: [{ required: true, message: 'Holiday date is required', trigger: 'change' }],
-        description: [{ required: true, message: 'Holiday description is required', trigger: 'change' }]
+        date: [{ required: true, message: 'Holiday date is required' }],
+        description: [{ required: true, message: 'Holiday description is required' }]
       }
     }
   },
