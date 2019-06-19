@@ -20,15 +20,6 @@ export default {
       }
     },
     {
-      path: 'department',
-      name: 'Department',
-      component: () => import('@/views/master/department/index'),
-      meta: {
-        title: 'department',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    },
-    {
       path: 'location',
       name: 'Location',
       component: () => import('@/views/master/location/index'),
@@ -52,6 +43,42 @@ export default {
       component: () => import('@/views/master/business-line/index'),
       meta: {
         title: 'businessLine',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'department',
+      name: 'Department',
+      component: () => import('@/views/master/department/index'),
+      meta: {
+        title: 'department',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'holiday',
+      name: 'Holiday',
+      component: () => import('@/views/master/holiday/index'),
+      meta: {
+        title: 'holiday',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'document',
+      name: 'Document',
+      component: () => import('@/views/master/document/index'),
+      meta: {
+        title: 'document',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
+    },
+    {
+      path: 'tolerance',
+      name: 'Tolerance',
+      component: () => import('@/views/master/tolerance/index'),
+      meta: {
+        title: 'tolerance',
         roles: ['admin'] // or you can only set roles in sub nav
       }
     },
@@ -83,33 +110,6 @@ export default {
     //     roles: ['admin']
     //   }
     // },
-    {
-      path: 'holiday',
-      name: 'Holiday',
-      component: () => import('@/views/master/holiday/index'),
-      meta: {
-        title: 'holiday',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    },
-    {
-      path: 'document',
-      name: 'Document',
-      component: () => import('@/views/master/document/index'),
-      meta: {
-        title: 'document',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    },
-    {
-      path: 'tolerance',
-      name: 'Tolerance',
-      component: () => import('@/views/master/tolerance/index'),
-      meta: {
-        title: 'tolerance',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    },
     // {
     //   path: 'withdrawal-rule',
     //   component: () => import('@/views/master/withdrawal-rule/index'),
