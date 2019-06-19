@@ -229,7 +229,7 @@ export default {
         this.list = response
         this.total = response.length
 
-        if (this.defaultId === -1) { this.defaultId = this.list[Math.floor(Math.random() * this.list.length)].id }
+        // if (this.defaultId === -1) { this.defaultId = this.list[Math.floor(Math.random() * this.list.length)].id }
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
