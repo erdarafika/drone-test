@@ -82,19 +82,24 @@ export default {
     }
   },
   created() {
-    this.listLoading = true
-
-    fetchCountryList().then(response => {
-      this.countryIdList = response.map(i => i.id)
-      fetchProvinceList(this.countryIdList).then(response => {
-        response = [].concat.apply([], response)
-        this.provinceIdList = response.map(i => ({ provinceId: i.id, countryId: i.countryId }))
-        this.provinceOptions = response.map(({ id, name }) => ({ label: name, value: id }))
-        this.getList()
-      })
+    this.$eventBus.$on('update-location', (data) => {
+      this.getCountryProvinceOptions()
     })
+    this.listLoading = true
+    this.getCountryProvinceOptions()
   },
   methods: {
+    getCountryProvinceOptions() {
+      fetchCountryList().then(response => {
+        this.countryIdList = response.map(i => i.id)
+        fetchProvinceList(this.countryIdList).then(response => {
+          response = [].concat.apply([], response)
+          this.provinceIdList = response.map(i => ({ provinceId: i.id, countryId: i.countryId }))
+          this.provinceOptions = response.map(({ id, name }) => ({ label: name, value: id }))
+          this.getList()
+        })
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -116,7 +121,7 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getList()
+      this.$eventBus.$emit('update-location')
     },
     resetTemp() {
       this.temp = {
@@ -147,7 +152,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
             this.dialogFormVisible = false
           })
@@ -178,7 +183,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
           })
         }
@@ -201,7 +206,7 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.getList()
+          this.$eventBus.$emit('update-location')
         })
       }
 

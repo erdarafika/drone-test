@@ -70,6 +70,9 @@ export default {
     }
   },
   created() {
+    this.$eventBus.$on('update-location', (data) => {
+      this.getList()
+    })
     this.getList()
   },
   methods: {
@@ -116,7 +119,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
             this.dialogFormVisible = false
           })
@@ -144,7 +147,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
           })
         }
@@ -167,7 +170,7 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.getList()
+          this.$eventBus.$emit('update-location')
         })
       }
 

@@ -68,6 +68,8 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
+Vue.prototype.$eventBus = new Vue()
+
 new Vue({
   el: '#app',
   router,

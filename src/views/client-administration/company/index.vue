@@ -93,9 +93,9 @@
             | {{ $t('table.cancel') }}
           el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
             | {{ $t('table.confirm') }}
-      el-tab-pane(label='Address')
-      el-tab-pane(label='Contact Person')
-      el-tab-pane(label='Bank Account')
+      el-tab-pane(label='Address' :disabled='true')
+      el-tab-pane(label='Contact Person' :disabled='true')
+      el-tab-pane(label='Bank Account'  :disabled='true')
 
     //- .dialog-footer(slot='footer')
     //-   el-button(@click='dialogFormVisible = false')

@@ -80,14 +80,20 @@ export default {
     }
   },
   created() {
-    this.listLoading = true
-    fetchCountryList().then(response => {
-      this.countryIdList = response.map(i => i.id)
-      this.countryOptions = response.map(({ id, name }) => ({ label: name, value: id }))
-      this.getList()
+    this.$eventBus.$on('update-location', (data) => {
+      this.getCountryOptions()
     })
+    this.listLoading = true
+    this.getCountryOptions()
   },
   methods: {
+    getCountryOptions() {
+      fetchCountryList().then(response => {
+        this.countryIdList = response.map(i => i.id)
+        this.countryOptions = response.map(({ id, name }) => ({ label: name, value: id }))
+        this.getList()
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -109,7 +115,7 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getList()
+      this.$eventBus.$emit('update-location')
     },
     resetTemp() {
       this.temp = {
@@ -137,7 +143,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
             this.dialogFormVisible = false
           })
@@ -167,7 +173,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.$eventBus.$emit('update-location')
             }
           })
         }
@@ -190,7 +196,7 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.getList()
+          this.$eventBus.$emit('update-location')
         })
       }
 
