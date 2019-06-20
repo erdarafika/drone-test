@@ -16,19 +16,10 @@
     el-table-column(:label="$t('companyAddress.city')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.city.name }}
-    //- el-table-column(:label="$t('companyAddress.postalCode')", align='left', width="120")
-    //-   template(slot-scope='scope')
-    //-     span {{ scope.row.postalCode }}
     el-table-column(:label="$t('companyAddress.status')", align='left',)
       template(slot-scope='scope')
         span(:class="scope.row.defaultAddress ?'label-enable':''")
           | {{ scope.row.defaultAddress ? 'Default':'' }}
-    //- el-table-column(:label="$t('table.createdDate')", align='left', width='150')
-    //-   template(slot-scope='scope')
-    //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    //- el-table-column(:label="$t('table.status')", align='left', width='190')
-    //-   template(slot-scope='scope')
-    //-     RecordStatus(:status="scope.row.status")
     el-table-column(label='', align='right', width='150' )
       template(slot-scope='{row}')
         //- el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" )
@@ -160,14 +151,17 @@ export default {
     },
     location() {
       if (this.provinceOptions && this.countryOptions && this.cityOptions) { this.initialUpdate = false }
+    },
+    'data.id': function(value) {
+      if (value !== undefined) { this.getCountryAddress() }
     }
-
   },
   created() {
     this.$eventBus.$on('update-location', (data) => {
       this.getCountryAddress()
     })
-    this.getCountryAddress()
+
+    if (this.data.id !== undefined) { this.getCountryAddress() }
   },
   methods: {
     getCountryAddress() {

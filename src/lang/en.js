@@ -346,5 +346,17 @@ export default {
     address1: 'Address 1',
     address2: 'Address 2',
     district: 'District'
+  },
+  companyContactPerson: {
+    name: 'Name',
+    type: 'Contact Type',
+    title: 'Title',
+    identityType: 'Identity Type',
+    identityNumber: 'Identity Number',
+    gender: 'Gender',
+    email: 'Email',
+    phone: 'Phone',
+    defaultContact: 'Default Contact',
+    status: 'Status'
   }
 }

@@ -29,8 +29,8 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-    el-tabs(type='border-card')
-      el-tab-pane(label='Information')
+    el-tabs(type='border-card' v-model='activeTab')
+      el-tab-pane(label='Information' name='Information')
         el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
           el-tabs.pane(tab-position='left', style='height:100%;')
             el-tab-pane(label='General')
@@ -88,21 +88,17 @@
                 el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
               el-form-item(:label="$t('companyInformation.home')" prop='home')
                 el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-        .dialog-footer.pull-right
+        .dialog-footer.pull-right( v-show='!dialogIsUpdate')
           el-button(@click='dialogFormVisible = false')
             | {{ $t('table.cancel') }}
           el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
             | {{ $t('table.confirm') }}
-      el-tab-pane(label='Address' :disabled='!dialogIsUpdate')
+      el-tab-pane(label='Address' :disabled='!dialogIsUpdate' name='Address')
         Address(:data='temp')
-      el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate')
-      el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate')
+      el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
+        ContactPerson(:data='temp')
+      el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
 
-    //- .dialog-footer(slot='footer')
-    //-   el-button(@click='dialogFormVisible = false')
-    //-     | {{ $t('table.cancel') }}
-    //-   el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-    //-     | {{ $t('table.confirm') }}
 </template>
 
 <style>
@@ -124,12 +120,13 @@ import { fetchList, createCompany, updateCompany, deleteCompany } from '@/api/co
 import { fetchList as fetchBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Address from './components/address'
-
+import ContactPerson from './components/contactPerson'
 export default {
   name: 'Company',
-  components: { Pagination, Address },
+  components: { Pagination, Address, ContactPerson },
   data() {
     return {
+      activeTab: 'Information',
       tableKey: 0,
       list: [],
       total: 0,
@@ -280,6 +277,7 @@ export default {
       }
     },
     handleCreate() {
+      this.activeTab = 'Information'
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -308,6 +306,7 @@ export default {
       })
     },
     handleUpdate(row) {
+      this.activeTab = 'Information'
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
