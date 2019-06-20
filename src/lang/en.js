@@ -334,5 +334,17 @@ export default {
     menu: 'Menu',
     updateMenu: 'Menu',
     updateRole: 'Role'
+  },
+  companyAddress: {
+    addressType: 'Address Type',
+    country: 'Country',
+    city: 'City',
+    province: 'Province',
+    postalCode: 'Postal Code',
+    status: 'Status',
+    setDefault: 'Set as Default',
+    address1: 'Address 1',
+    address2: 'Address 2',
+    district: 'District'
   }
 }

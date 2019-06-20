@@ -257,7 +257,7 @@ export default {
   },
   dplkAddress: {
     name: 'Nama',
-    addressType: 'Address Type',
+    addressType: 'Jenis Alamat',
     country: 'Negara',
     city: 'Kota',
     province: 'Provinsi',
@@ -309,5 +309,17 @@ export default {
     menu: 'Menu',
     updateMenu: 'Menu',
     updateRole: 'Jabatan'
+  },
+  companyAddress: {
+    addressType: 'Address Type',
+    country: 'Negara',
+    city: 'Kota',
+    province: 'Provinsi',
+    postalCode: 'Kode Pos',
+    status: 'Status',
+    setDefault: 'Atur sebagai Default',
+    address1: 'Alamat 1',
+    address2: 'Alamat 2',
+    district: 'Distrik'
   }
 }
