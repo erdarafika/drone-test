@@ -19,15 +19,15 @@ export default {
         title: 'investmentType',
         roles: ['admin'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: 'unit-price',
+      name: 'UnitPrice',
+      component: () => import('@/views/fund-administration/unit-price/index'),
+      meta: {
+        title: 'unitPrice',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
     }
-    // {
-    //   path: 'unit-price',
-    //   name: 'UnitPrice',
-    //   component: () => import('@/views/fund-administration/unit-price/index'),
-    //   meta: {
-    //     title: 'unitPrice',
-    //     roles: ['admin'] // or you can only set roles in sub nav
-    //   }
-    // }
   ]
 }

@@ -47,10 +47,9 @@ export function deleteInvestmentType(data) {
 //   })
 // }
 
-// export function fetchUnitPriceList(query) {
-//   return request({
-//     url: '/unit-price/list',
-//     method: 'get',
-//     params: query
-//   })
-// }
+export function fetchUnitPriceList() {
+  return request({
+    url: '/portfolio/daily-unit-price',
+    method: 'get'
+  })
+}

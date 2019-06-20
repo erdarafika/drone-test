@@ -177,6 +177,9 @@ export default {
                 duration: 2000
               })
               this.getList()
+              this.$nextTick(() => {
+                this.$refs['dataForm'].clearValidate()
+              })
               this.resetForm()
             }
             this.dialogFormVisible = false

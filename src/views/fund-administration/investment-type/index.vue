@@ -49,26 +49,6 @@
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
           | {{ $t('table.confirm') }}
 
-    //- el-dialog(:title='getDialogHeader(dialogStatus)' , :visible.sync='dialogFundPriceFormVisible')
-    //-   el-form(ref='dataFormMultiplePrice', :model='tempMultipleFundPrice', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-    //-     el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate')
-    //-       el-date-picker(v-model='tempMultipleFundPrice.effectiveDate', type='date', placeholder='Pick a day')
-    //-     el-table(:key='tableMultipleFundKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-    //-       el-table-column(:label="$t('investmentType.fundName')", align='left')
-    //-         template(slot-scope='scope')
-    //-           span {{ scope.row.fundName }}
-    //-       el-table-column(:label="$t('investmentType.price')", align='left')
-    //-         template(slot-scope='scope')
-    //-           .el-input(data-children-count='1')
-    //-             money.el-input__inner(v-model='tempMultipleFundPrice.price[scope.row.unitId]', v-bind='moneyConfig')
-    //-       el-table-column(:label="$t('investmentType.status')", align='left', width='120')
-    //-         template(slot-scope='scope')
-    //-           | UNAVAILABLE
-    //-   .dialog-footer(slot='footer')
-    //-     el-button(@click='dialogFundPriceFormVisible = false')
-    //-       | {{ $t('table.cancel') }}
-    //-     el-button(type='primary' @click="createMultipleFundPrice()")
-    //-       | {{ $t('table.confirm') }}
   </template>
 
 <script>

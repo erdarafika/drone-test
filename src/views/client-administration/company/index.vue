@@ -98,6 +98,7 @@
       el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
         ContactPerson(:data='temp')
       el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
+        BankAccount(:data='temp')
 
 </template>
 
@@ -121,9 +122,11 @@ import { fetchList as fetchBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Address from './components/address'
 import ContactPerson from './components/contactPerson'
+import BankAccount from './components/bankAccount'
+
 export default {
   name: 'Company',
-  components: { Pagination, Address, ContactPerson },
+  components: { Pagination, Address, ContactPerson, BankAccount },
   data() {
     return {
       activeTab: 'Information',
