@@ -85,3 +85,20 @@ export function isArray(arg) {
   }
   return Array.isArray(arg)
 }
+
+/**
+ * @param {string} arg
+ * @returns {Boolean}
+ */
+export function isAlphabetic(str) {
+  return /^[a-zA-Z()]+$/.test(str)
+}
+
+/**
+ * @param {string} arg
+ * @returns {Boolean}
+ */
+export function isAlphanumeric(str) {
+  return /^[a-z0-9]+$/i.test(str)
+}
+

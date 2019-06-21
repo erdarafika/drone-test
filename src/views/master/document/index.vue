@@ -50,11 +50,30 @@
 import { fetchList, createDocument, updateDocument, deleteDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewDocument from './components/view-document/index'
+import { isAlphabetic, isAlphanumeric } from '@/utils/validate'
 
 export default {
   name: 'Document',
   components: { Pagination, ViewDocument },
   data() {
+    const documentNameValidator = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input document name again'))
+      } else if (!isAlphabetic(value)) {
+        callback(new Error('Document Name must be aplhapetic, no number etc'))
+      } else {
+        callback()
+      }
+    }
+    const documentCodeValidator = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input document code again'))
+      } else if (!isAlphanumeric(value)) {
+        callback(new Error('Document Name must aplhanumeric'))
+      } else {
+        callback()
+      }
+    }
     return {
       tableKey: 0,
       list: [],
@@ -76,8 +95,8 @@ export default {
       viewRecordVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'Document name is required', trigger: 'change' }],
-        code: [{ required: true, message: 'Document code is required', trigger: 'change' }]
+        name: [{ required: true, message: 'This field is required' }, { validator: documentNameValidator }],
+        code: [{ required: true, message: 'This field is required' }, { validator: documentCodeValidator }]
       }
     }
   },
