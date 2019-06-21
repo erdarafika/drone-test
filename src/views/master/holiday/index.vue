@@ -41,21 +41,12 @@
 <script>
 import { fetchList, createHoliday, updateHoliday, deleteHoliday } from '@/api/holiday'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { isAlphabetic } from '@/utils/validate'
+import { alphabeticValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
   components: { Pagination },
   data() {
-    const descriptionValidator = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input again'))
-      } else if (!isAlphabetic(value)) {
-        callback(new Error('This field must be aplhapetic, no number etc'))
-      } else {
-        callback()
-      }
-    }
     return {
       tableKey: 0,
       list: [],
@@ -74,7 +65,7 @@ export default {
       dialogStatus: '',
       rules: {
         date: [{ required: true, message: 'Holiday date is required' }],
-        description: [{ required: true, message: 'Holiday description is required' }, { validator: descriptionValidator }]
+        description: [{ required: true, message: 'Holiday description is required' }, { validator: alphabeticValidator }]
       }
     }
   },
@@ -87,6 +78,8 @@ export default {
     }
   },
   created() {
+    console.log(alphabeticValidator)
+
     this.getList()
   },
   methods: {
