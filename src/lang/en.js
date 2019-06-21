@@ -241,7 +241,8 @@ export default {
     addMultipleFundPrice: 'Add Multiple Fund Price',
     description: 'Description',
     pricing: 'Pricing',
-    price: 'Price'
+    price: 'Price',
+    unavailableMessage: 'All Status is UNAVAILABLE'
   },
   unitPrice: {
     fundName: 'Fund Name',

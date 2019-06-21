@@ -39,13 +39,25 @@ export function deleteInvestmentType(data) {
 
 // UNIT PRICE
 
-// export function createUnitPrice(data) {
-//   return request({
-//     url: '/unit-price/create',
-//     method: 'post',
-//     data
-//   })
-// }
+export function createUnitPrice({ effectiveDate, data }) {
+  console.log(data, effectiveDate)
+  return Promise.all(data.map(unitPrice => {
+    return request({
+      url: `/fund/investment-type/${unitPrice.key}/daily-unit-price`,
+      method: 'post',
+      data: {
+        effectiveDate: effectiveDate,
+        investmentTypeId: unitPrice.key,
+        price: unitPrice.value
+      }
+    }).then((res) => {
+      res['status_code'] = 200
+      return res
+    }).catch(err => {
+      console.log(err)
+    })
+  }))
+}
 
 export function fetchUnitPriceList() {
   return request({

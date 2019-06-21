@@ -245,3 +245,7 @@ span.label-disable {
 .big-dialog .el-dialog{
   width: 85% !important;
 }
+
+.el-form-item--medium .el-form-item__label {
+  line-height: 15px;
+}

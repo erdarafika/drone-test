@@ -4,6 +4,27 @@
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;',)
     el-date-picker.filter-item(v-model='listQuery.date', type='date', placeholder='Pick a day' style='margin-left:  30px;')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      | {{ $t('table.add') }}
+
+    el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
+      el-form(ref='dataForm', :model='temp', label-position='top', label-width='200px', style='width: 80%; margin-left:50px;')
+        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="{required: true, message: 'this field is required'}")
+          el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' )
+        el-form-item
+          hr
+          h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
+        el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
+          el-input(v-model='domain.value')
+            template(slot='prepend') {{$t('investmentType.price')}}
+        el-form-item
+          el-alert(:title="$t('investmentType.unavailableMessage')", type='info', show-icon)
+      .dialog-footer(slot='footer')
+        el-button(@click='dialogFormVisible = false')
+          | {{ $t('table.cancel') }}
+        el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+          | {{ $t('table.confirm') }}
+
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('unitPrice.fundName')", align='left')
       template(slot-scope='scope')
@@ -25,7 +46,7 @@
 
 <script>
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList } from '@/api/investment-type'
+import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
 export default {
   name: 'UnitPrice',
   components: { Pagination },
@@ -41,7 +62,16 @@ export default {
         q: undefined,
         date: undefined
       },
-      investmentTypeOptions: []
+      temp: {
+        effectiveDate: undefined,
+        data: []
+      },
+      rules: {
+
+      },
+      investmentTypePrice: [],
+      dialogFormVisible: false,
+      dialogStatus: ''
     }
   },
   computed: {
@@ -57,12 +87,65 @@ export default {
     }
   },
   created() {
-    fetchInvestmentTypeList().then(response => {
-      this.investmentTypeOptions = response.data.items.map(i => ({ label: i.name, value: i.id }))
-    })
+    this.getInvestmentTypePrice()
     this.getList()
   },
   methods: {
+    getInvestmentTypePrice() {
+      const DEFAULT_STATUS = 'UNAVAILABLE'
+      fetchInvestmentTypeList().then(response => {
+        this.investmentTypePrice = response.map(i => ({ label: i.name, key: i.id, value: 0, status: DEFAULT_STATUS }))
+      })
+    },
+    getDialogHeader(dialogStatus) {
+      if (dialogStatus === 'update') {
+        return this.$t('modal.editModalHeader')
+      } else if (dialogStatus === 'add-multiple-fund') {
+        return 'Add Multiple Fund Price'
+      } else {
+        return this.$t('modal.addModalHeader')
+      }
+    },
+    resetTemp() {
+      this.temp = {
+        effectiveDate: undefined,
+        data: []
+      }
+
+      this.getInvestmentTypePrice()
+    },
+    handleCreate() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+
+    createData() {
+      this.$refs['dataForm'].validate((valid) => {
+        console.log('valid', valid)
+        if (valid) {
+          this.temp.effectiveDate = this.$moment(this.temp.effectiveDate).format('DD-MM-YYYY')
+
+          createUnitPrice({ effectiveDate: this.temp.effectiveDate, data: this.investmentTypePrice }).then((response) => {
+            console.log(response)
+
+            // if (response[0].status_code >= 200 && response.status_code[0] <= 300) {
+            this.$notify({
+              title: this.$t('table.successTitle'),
+              message: this.$t('table.successCaption'),
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+            // }
+            this.dialogFormVisible = false
+          })
+        }
+      })
+    },
     getList() {
       this.listLoading = true
       fetchUnitPriceList().then(response => {

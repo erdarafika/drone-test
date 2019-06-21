@@ -240,7 +240,8 @@ export default {
     addMultipleFundPrice: 'Tambah Semua Harga Dana',
     description: 'Deskripri',
     pricing: 'Harga',
-    price: 'Harga'
+    price: 'Harga',
+    unavailableMessage: 'Semua Status adalah UNAVAILABLE'
   },
   unitPrice: {
     fundName: 'Nama Dana',
