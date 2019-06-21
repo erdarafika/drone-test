@@ -51,7 +51,7 @@ export function createUnitPrice({ effectiveDate, data }) {
         price: unitPrice.value
       }
     }).then((res) => {
-      res['status_code'] = 200
+      res['status_code'] = 200 // FIXME: doesnt have default status code
       return res
     }).catch(err => {
       console.log(err)

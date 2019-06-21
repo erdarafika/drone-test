@@ -43,3 +43,12 @@ export function fetchAttachment(id) {
     method: 'get'
   })
 }
+
+export function createAttachment(data, id) {
+  return request({
+    url: `/master/email/${id}/attachment`,
+    method: 'post',
+    data,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  })
+}

@@ -71,7 +71,7 @@ export default {
         textBody: undefined,
         type: 'welcome_kit_ppukp'
       },
-      attachments: [],
+      attachments: undefined,
       dialogFormVisible: false,
       attachmentsTableVisible: false,
       dialogStatus: '',
