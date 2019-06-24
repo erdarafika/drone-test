@@ -106,7 +106,7 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      fetchList().then(response => {
         this.list = response
         this.total = response.length
         // Just to simulate the time of the request

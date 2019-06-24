@@ -359,5 +359,12 @@ export default {
     phone: 'Phone',
     defaultContact: 'Default Contact',
     status: 'Status'
+  },
+  companyBankAccount: {
+    bankName: 'Bank',
+    accountName: 'Account Name',
+    accountNumber: 'Account Number',
+    currentBank: 'Default Bank',
+    status: 'Status'
   }
 }

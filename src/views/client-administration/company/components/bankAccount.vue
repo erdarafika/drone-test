@@ -6,19 +6,19 @@
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('companyContactPerson.name')", align='left', )
+    el-table-column(:label="$t('companyBankAccount.accountName')", align='left', )
       template(slot-scope='scope')
-        span {{ scope.row.name }}
-    el-table-column(:label="$t('companyContactPerson.type')", align='left')
+        span {{ scope.row.accountName }}
+    el-table-column(:label="$t('companyBankAccount.accountNumber')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.type }}
-    el-table-column(:label="$t('companyContactPerson.title')", align='left')
+        span {{ scope.row.accountNumber }}
+    el-table-column(:label="$t('companyBankAccount.bankName')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.title }}
-    el-table-column(:label="$t('companyContactPerson.status')", align='left',)
+        span {{ scope.row.bank.bankName }}
+    el-table-column(:label="$t('companyBankAccount.status')", align='left',)
       template(slot-scope='scope')
-        span(:class="scope.row.defaultContact ?'label-enable':''")
-          | {{ scope.row.defaultContact ? 'Default':'' }}
+        span(:class="scope.row.currentBank ?'label-enable':''")
+          | {{ scope.row.currentBank ? 'Default':'' }}
     el-table-column(label='', align='right', width='150' )
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)' )
@@ -30,31 +30,17 @@
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('companyContactPerson.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input')
-      el-form-item(:label="$t('companyContactPerson.title')", prop='title')
-        el-input(v-model.number='temp.title', type='input')
-      el-form-item(:label="$t('companyContactPerson.email')", prop='email')
-        el-input(v-model.number='temp.email', type='input')
-      el-form-item(:label="$t('companyContactPerson.phone')", prop='phone')
-        el-input(v-model.number='temp.phone', type='input')
-      el-form-item(:label="$t('companyContactPerson.type')", prop='type')
-        el-select(v-model='temp.type', placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in typeOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('companyContactPerson.identityType')", prop='identityType')
-        el-select(v-model='temp.identityType', placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('companyContactPerson.identityNumber')", prop='identityNumber')
-        el-input(v-model.number='temp.identityNumber', type='input')
+      el-form-item(:label="$t('companyBankAccount.accountName')", prop='accountName')
+        el-input(v-model.number='temp.accountName', type='input')
+      el-form-item(:label="$t('companyBankAccount.accountNumber')", prop='accountNumber')
+        el-input(v-model.number='temp.accountNumber', type='input')
+      el-form-item(:label="$t('companyBankAccount.bankName')", prop='bankId')
+        el-select(v-model='temp.bankId', placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in bankOptions', :key='item.value', :label='item.label', :value='item.value')
 
-      el-form-item(:label="$t('companyContactPerson.gender')" prop='gender')
-        el-radio-group(v-model='temp.gender')
-          el-radio(label='male') Male
-          el-radio(label='female') Female
-
-      el-form-item(:label="$t('companyContactPerson.status')" prop='defaultContact')
-        el-switch(v-model='temp.defaultContact')
-        span.switch-status {{ temp.defaultContact?'Default':'Not Default' }}
+      el-form-item(:label="$t('companyBankAccount.status')" prop='currentBank')
+        el-switch(v-model='temp.currentBank')
+        span.switch-status {{ temp.currentBank?'Default':'Not Default' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -64,7 +50,8 @@
 </template>
 
 <script>
-import { fetchList, createCompanyContactPerson, updateCompanyContactPerson, deleteCompanyContactPerson } from '@/api/company-contact-person'
+import { fetchList, createCompanyBankAccount, updateCompanyBankAccount, deleteCompanyBankAccount } from '@/api/company-bank-account'
+import { fetchList as fetchBankList } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -81,32 +68,21 @@ export default {
         page: 1,
         limit: 20
       },
-      typeOptions: [{ label: 'PERSON IN CHARGE', value: 'pic' }, { label: 'CORRESPONDENCE', value: 'correspondence' }, { label: 'PAYOR', value: 'payor' }, { label: 'DIRECTOR', value: 'director' }],
-      identityTypeOptions: [{ label: 'Identity Card', value: 'ktp' }, { label: 'Driving License', value: 'sim' }, { label: 'Passport', value: 'passport' }, { label: 'Kitas', value: 'kitas' }],
+      bankOptions: [],
       temp: {
-        name: undefined,
-        type: undefined,
-        title: undefined,
-        identityType: undefined,
-        identityNumber: undefined,
-        gender: undefined,
-        email: undefined,
-        phone: undefined,
-        defaultContact: false
+        bankId: undefined,
+        accountName: undefined,
+        accountNumber: undefined,
+        currentBank: false
       },
       initialUpdate: false,
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        type: [{ required: true, message: 'This field is required' }],
-        title: [{ required: true, message: 'This field is required' }],
-        identityType: [{ required: true, message: 'This field is required' }],
-        identityNumber: [{ required: true, message: 'This field is required' }],
-        gender: [{ required: true, message: 'This field is required' }],
-        email: [{ required: true, message: 'This field is required' }],
-        phone: [{ required: true, message: 'This field is required' }],
-        defaultContact: [{ required: true, message: 'This field is required' }]
+        bankId: [{ required: true, message: 'This field is required' }],
+        accountName: [{ required: true, message: 'This field is required' }],
+        accountNumber: [{ required: true, message: 'This field is required' }],
+        currentBank: [{ required: true, message: 'This field is required' }]
       }
     }
   },
@@ -119,9 +95,15 @@ export default {
     }
   },
   created() {
+    this.getBankOptions()
     if (this.data.id !== undefined) { this.getList() }
   },
   methods: {
+    getBankOptions() {
+      fetchBankList().then(res => {
+        this.bankOptions = res.map(bank => ({ value: bank.id, label: bank.bankName }))
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -144,15 +126,10 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        name: undefined,
-        type: undefined,
-        title: undefined,
-        identityType: undefined,
-        identityNumber: undefined,
-        gender: undefined,
-        email: undefined,
-        phone: undefined,
-        defaultContact: false
+        bankId: undefined,
+        accountName: undefined,
+        accountNumber: undefined,
+        currentBank: false
       }
     },
     handleCreate() {
@@ -167,7 +144,8 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.temp['companyId'] = this.data.id
-          createCompanyContactPerson(this.temp).then((response) => {
+
+          createCompanyBankAccount(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
                 title: this.$t('table.successTitle'),
@@ -186,15 +164,10 @@ export default {
       this.temp = {
         companyId: this.data.id,
         id: row.id,
-        name: row.name,
-        type: row.type,
-        title: row.title,
-        identityType: row.identityType,
-        identityNumber: row.identityNumber,
-        gender: row.gender,
-        email: row.email,
-        phone: row.phone,
-        defaultContact: row.defaultContact
+        bankId: row.bank.id,
+        accountName: row.accountName,
+        accountNumber: row.accountNumber,
+        currentBank: row.currentBank
       }
       this.initialUpdate = true
       this.dialogStatus = 'update'
@@ -206,8 +179,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateCompanyContactPerson(tempData).then((response) => {
+          updateCompanyBankAccount(this.temp).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
@@ -232,7 +204,7 @@ export default {
       })
 
       const deleteCallback = () => {
-        deleteCompanyContactPerson(row).then((response) => {
+        deleteCompanyBankAccount(row).then((response) => {
           this.dialogFormVisible = false
           this.$notify({
             title: this.$t('table.successTitle'),
