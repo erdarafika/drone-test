@@ -70,17 +70,15 @@ export default {
         isCompanyAddress: true
       },
       dialogFormVisible: false,
-      dialogStatus: ''
-    }
-  },
-  computed: {
-    rules() {
-      return {
+      dialogStatus: '',
+      rules: {
         type: [{ required: true, message: `${this.$t('addressType.type')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }, { validator: alphanumericValidator }],
         isMemberAddress: [{ required: true, message: `${this.$t('addressType.displayOnMember')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
         isCompanyAddress: [{ required: true, message: `${this.$t('addressType.displayOnCompany')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }]
       }
-    },
+    }
+  },
+  computed: {
     filterredList() {
       const { q, limit, page } = this.listQuery
       const listAfterSearch = this.list.filter(data => !q || data.type.toLowerCase().includes(q.toLowerCase()))

@@ -42,6 +42,7 @@
 <script>
 import { fetchCityList, fetchProvinceList, fetchCountryList, createCity, updateCity, deleteCity } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { alphanumericValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Country',
@@ -66,8 +67,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'City name is required', trigger: 'change' }],
-        provinceId: [{ required: true, message: 'Province is required', trigger: 'change' }]
+        name: [{ required: true, message: 'this field is required' }, { validator: alphanumericValidator }],
+        provinceId: [{ required: true, message: 'this field is required' }]
       },
       provinceIdList: null,
       countryIdList: null

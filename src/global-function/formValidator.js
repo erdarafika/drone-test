@@ -7,7 +7,7 @@ const alphanumericValidator = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('Please input again'))
   } else if (!isAlphanumeric(value)) {
-    callback(new Error('This field must be alphanumeric'))
+    callback(new Error('This field do not accept symbol'))
   } else {
     callback()
   }
