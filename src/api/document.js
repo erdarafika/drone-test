@@ -7,19 +7,25 @@ export function fetchList() {
   })
 }
 
-export function fetchReason(query) {
+export function fetchReason(id) {
   return request({
-    url: '/document/reason/list',
-    method: 'get',
-    params: query
+    url: `/master/document-type/${id}/rejection-reason`,
+    method: 'get'
   })
 }
 
 export function createReason(data) {
   return request({
-    url: '/document/reason/create',
+    url: `/master/document-type/${data.id}/rejection-reason`,
     method: 'post',
     data
+  })
+}
+
+export function deleteReason(data) {
+  return request({
+    url: `/master/document-type/${data.documentId}/rejection-reason/${data.id}`,
+    method: 'delete'
   })
 }
 
