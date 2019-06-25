@@ -41,7 +41,8 @@ export default {
     moneySource: 'Sumber Dana',
     company: 'Perusahaan',
     userManagement: 'Manajamen Pengguna',
-    groupMaintenance: 'Perawatan Grup'
+    groupMaintenance: 'Perawatan Grup',
+    clientAdministration: 'Administrasi Klien'
   },
   // GLOBAL
   validatorMessage: {
@@ -296,7 +297,31 @@ export default {
     name: 'Nama'
   },
   companyInformation: {
-    name: 'Nama'
+    name: 'Nama',
+    code: 'Kode',
+    email: 'Email',
+    website: 'Website',
+    businessLine: 'Jalur Bisnis',
+    companyType: 'Tipe Perusahaan',
+    npwp: 'ID Pajak (NPWP)',
+    deedEstablishmentNumber: 'No Akta Pendirian',
+    articleAssociationNumber: 'Number of Article of Assosiation',
+    latestAmendmentArticleAssociationNumber: 'No. Terbaru pengesahan Anggaran Dasar',
+    companyNumberRegistrationNumber: 'Nomor Registrasi Sertifikat',
+    domicilieCertificateNumber: 'Nomor Sertifikat Domisili',
+    domicilieCertificateNumberExpiredDate: 'Tanggal Sertifikat Domisili',
+    deedEstablishmentDate: `Tanggal Akta Pendirian`,
+    articleAssociationDate: `Article of Assosiation Date`,
+    latestAmendmentArticleAssociationDate: `Tanggal terbaru pengesahan Anggaran Dasar`,
+    companyNumberRegistrationExpiredDate: `Tanggal Registrasi Sertifikat`,
+    asset: `Aset (IDR)`,
+    grossIncomePerYear: `Pemasukan Lain Per Tahun (IDR)`,
+    pensionProgramSubmissionPurpose: `Tujuan Pengajuan Program Pension`,
+    moneySource: `Sumber Dana`,
+    office: `No. Telp Kantor`,
+    office2: `No. Telp Kantor 2`,
+    fax: `No Fax`,
+    home: `No Telp Rumah`
   },
   user: {
     staff: 'Staff',
@@ -323,5 +348,30 @@ export default {
     address1: 'Alamat 1',
     address2: 'Alamat 2',
     district: 'Distrik'
+  },
+  companyContactPerson: {
+    name: 'Nama',
+    type: 'Jenis Kontak',
+    title: 'Judul',
+    identityType: 'Jenis Identitas',
+    identityNumber: 'Nomor Identitas',
+    gender: 'Jenis Kelamin',
+    email: 'Email',
+    phone: 'No Telp',
+    defaultContact: 'Kontak Default',
+    status: 'Status'
+  },
+  companyBankAccount: {
+    bankName: 'Bank',
+    accountName: 'Nama Akun',
+    accountNumber: 'Nomor Akun',
+    currentBank: 'Bank Default',
+    status: 'Status'
+  },
+  groupMaintenance: {
+    name: 'Nama',
+    code: 'Kode',
+    status: 'Status',
+    productType: 'Produk'
   }
 }
