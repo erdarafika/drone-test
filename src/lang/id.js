@@ -372,6 +372,21 @@ export default {
     name: 'Nama',
     code: 'Kode',
     status: 'Status',
-    productType: 'Produk'
+    productType: 'Produk',
+    isDraft: 'Draft',
+    companyId: 'Nama Employer',
+    productTypeId: 'Tipe Produk',
+    proposalNumber: 'Nomor Proposal',
+    proposalDate: 'Tanggal Proposal',
+    type: 'Tipe Grup',
+    effectiveDate: 'Tanggal Efektif',
+    caseCloseDate: 'Tanggal Tutup Kasus',
+    terminationDate: 'Tanggal Berakhir',
+    ppkReceiveDate: 'Tanggal PPK diterima',
+    totalEmployee: 'Jumlah Pekerja',
+    totalEmployeeRegistered: 'Jumlah Perkerja Terdaftar',
+    isHavingFundOutsideDplk: 'Dana diluar DPLK',
+    isTaxPaidByEmployer: 'Pajak dibayar oleh Pemberi Kerja',
+    notes: 'Catatan'
   }
 }

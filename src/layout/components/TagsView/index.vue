@@ -224,7 +224,7 @@ export default {
       font-size: 12px;
       margin-left: 5px;
       &:first-of-type {
-        margin-left: 15px;
+        margin-left: 30px;
       }
       &:last-of-type {
         margin-right: 15px;

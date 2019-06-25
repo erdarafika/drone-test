@@ -372,6 +372,21 @@ export default {
     name: 'Name',
     code: 'Code',
     status: 'Status',
-    productType: 'Product'
+    productType: 'Product',
+    isDraft: 'Draft',
+    companyId: 'Employer Name',
+    productTypeId: 'Product Type',
+    proposalNumber: 'Proposal Number',
+    proposalDate: 'Proposal Date',
+    type: 'Group Type',
+    effectiveDate: 'Effective Date',
+    caseCloseDate: 'Case Close Date',
+    terminationDate: 'Termination Date',
+    ppkReceiveDate: 'PPK Recieve Date',
+    totalEmployee: 'Total Employee',
+    totalEmployeeRegistered: 'Total Employee Registered',
+    isHavingFundOutsideDplk: 'Having Fund Outside DPLK',
+    isTaxPaidByEmployer: 'Tax Paid by Employee',
+    notes: 'Group Notes'
   }
 }

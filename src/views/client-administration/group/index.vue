@@ -2,8 +2,8 @@
 .app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    //- el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
-    //-   | {{ $t('table.add') }}
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('groupMaintenance.name')", align='left')
       template(slot-scope='scope')
@@ -28,77 +28,63 @@
         //-   | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
-  //- el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-  //-   el-tabs(type='border-card' v-model='activeTab')
-  //-     el-tab-pane(label='Information' name='Information')
-  //-       el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
-  //-         el-tabs.pane(tab-position='left', style='height:100%;')
-  //-           el-tab-pane(label='General')
-  //-             el-form-item(:label="$t('groupMaintenance.name')", prop='name' )
-  //-               el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-  //-             el-form-item(:label="$t('groupMaintenance.email')", prop='email')
-  //-               el-input(v-model='temp.email', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-  //-             el-form-item(:label="$t('groupMaintenance.code')", prop='code')
-  //-               el-input(v-model='temp.code', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='true' placeholder='Auto Generated When Approved')
-  //-             el-form-item(:label="$t('groupMaintenance.website')" prop='website')
-  //-               el-input(v-model='temp.website', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-  //-           el-tab-pane(label='Legals')
-  //-             el-form-item(:label="$t('groupMaintenance.businessLine')", prop='businessLine')
-  //-               el-select(placeholder='Select' v-model='temp.businessLine'  :disabled='dialogIsUpdate')
-  //-                 el-option(v-for='item in businessLineOptions', :key='item.value', :label='item.label', :value='item.value')
-  //-             el-form-item(:label="$t('groupMaintenance.npwp')", prop='npwp')
-  //-               el-input(v-model='temp.npwp', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.deedEstablishmentNumber')", prop='deedEstablishmentNumber')
-  //-               el-input(v-model='temp.deedEstablishmentNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.articleAssociationNumber')" prop='articleAssociationNumber')
-  //-               el-input(v-model='temp.articleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.latestAmendmentArticleAssociationNumber')" prop='latestAmendmentArticleAssociationNumber')
-  //-               el-input(v-model='temp.latestAmendmentArticleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.companyNumberRegistrationNumber')" prop='companyNumberRegistrationNumber')
-  //-               el-input(v-model='temp.companyNumberRegistrationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.domicilieCertificateNumber')" prop='domicilieCertificateNumber')
-  //-               el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-           el-tab-pane(label='Legals Date')
-  //-             el-form-item(:label="$t('groupMaintenance.deedEstablishmentDate')" prop='deedEstablishmentDate')
-  //-               el-date-picker(v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.articleAssociationDate')" prop='articleAssociationDate')
-  //-               el-date-picker(v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
-  //-               el-date-picker(v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
-  //-               el-date-picker(v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
-  //-               el-date-picker(v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-  //-           el-tab-pane(label='Assets Etc')
-  //-             el-form-item(:label="$t('groupMaintenance.asset')" prop='asset')
-  //-               el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.grossIncomePerYear')" prop='grossIncomePerYear')
-  //-               el-input(v-model='temp.grossIncomePerYear', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.moneySource')" prop='moneySource')
-  //-               el-input(v-model='temp.moneySource', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.pensionProgramSubmissionPurpose')" prop='pensionProgramSubmissionPurpose')
-  //-               el-input(v-model='temp.pensionProgramSubmissionPurpose', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
+  el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
+    el-tabs(type='border-card' v-model='activeTab')
+      el-tab-pane(label='Information' name='Information')
+        el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
+          el-tabs.pane(tab-position='left', style='height:100%;')
 
-  //-           el-tab-pane(label='Phone Number')
-  //-             el-form-item(:label="$t('groupMaintenance.office')" prop='office')
-  //-               el-input(v-model='temp.office', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.office2')" prop='office2')
-  //-               el-input(v-model='temp.office2', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.fax')" prop='fax')
-  //-               el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-             el-form-item(:label="$t('groupMaintenance.home')" prop='home')
-  //-               el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-  //-       .dialog-footer.pull-right( v-show='!dialogIsUpdate')
-  //-         el-button(@click='dialogFormVisible = false')
-  //-           | {{ $t('table.cancel') }}
-  //-         el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
-  //-           | {{ $t('table.confirm') }}
-  //-     el-tab-pane(label='Address' :disabled='!dialogIsUpdate' name='Address')
-  //-       Address(:data='temp')
-  //-     el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
-  //-       ContactPerson(:data='temp')
-  //-     el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
-  //-       BankAccount(:data='temp')
+            el-tab-pane(label='General')
+              //-     isDraft: undefined,
+              el-form-item(:label="$t('groupMaintenance.name')", prop='name' )
+                el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+              el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
+                el-select(placeholder='Select' v-model='temp.companyId'  :disabled='dialogIsUpdate')
+                  el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
+              el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId')
+                el-select(placeholder='Select' v-model='temp.productTypeId'  :disabled='dialogIsUpdate')
+                  el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+              el-form-item(:label="$t('groupMaintenance.proposalNumber')", prop='proposalNumber')
+                el-input(v-model='temp.proposalNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+              el-form-item(:label="$t('groupMaintenance.type')", prop='type')
+                el-select(placeholder='Select' v-model='temp.type'  :disabled='dialogIsUpdate')
+                  el-option(v-for='item in groupTypeOptions', :key='item', :label='item', :value='item')
+
+            el-tab-pane(label='Dates')
+              el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
+                el-date-picker(v-model='temp.proposalDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.effectiveDate')" prop='effectiveDate')
+                el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
+                el-date-picker(v-model='temp.caseCloseDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
+                el-date-picker(v-model='temp.terminationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
+                el-date-picker(v-model='temp.ppkReceiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+
+            el-tab-pane(label='Other')
+              el-form-item(:label="$t('groupMaintenance.totalEmployee')" prop='totalEmployee')
+                el-input(v-model='temp.totalEmployee', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.totalEmployeeRegistered')" prop='totalEmployeeRegistered')
+                el-input(v-model='temp.totalEmployeeRegistered', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.isHavingFundOutsideDplk')" prop='isHavingFundOutsideDplk')
+                el-input(v-model='temp.isHavingFundOutsideDplk', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.isTaxPaidByEmployer')" prop='isTaxPaidByEmployer')
+                el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
+                el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
+
+        .dialog-footer.pull-right( v-show='!dialogIsUpdate')
+          el-button(@click='dialogFormVisible = false')
+            | {{ $t('table.cancel') }}
+          el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
+            | {{ $t('table.confirm') }}
+      el-tab-pane(label='Address' :disabled='!dialogIsUpdate' name='Address')
+        Address(:data='temp')
+      el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
+        ContactPerson(:data='temp')
+      el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
+        BankAccount(:data='temp')
 
 </template>
 
@@ -118,7 +104,9 @@
 
 <script>
 import { fetchList, createGroupMaintanance, updateGroupMaintanance, deleteGroupMaintanance } from '@/api/group-maintenance'
-import { fetchList as fetchBusinessLine } from '@/api/business-line'
+import { fetchList as fetchCompany } from '@/api/company'
+import { fetchList as fetchProductType } from '@/api/product-type'
+
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Address from './components/address'
 import ContactPerson from './components/contactPerson'
@@ -139,69 +127,48 @@ export default {
         limit: 20,
         q: undefined
       },
-      businessLineOptions: [],
-      dummyOptions: ['Option 1', 'Option 2'],
+      companyOptions: [],
+      productTypeOptions: [],
+      groupTypeOptions: ['Organization', 'Individu'],
       temp: {
+        // id: undefined,
+        isDraft: 1,
+        companyId: undefined,
+        productTypeId: undefined,
         name: undefined,
-        code: undefined,
-        email: undefined,
-        website: undefined,
-        businessLine: undefined,
-        businessEntity: undefined,
-        npwp: undefined,
-        deedEstablishmentNumber: undefined,
-        articleAssociationNumber: undefined,
-        latestAmendmentArticleAssociationNumber: undefined,
-        companyNumberRegistrationNumber: undefined,
-        domicilieCertificateNumber: undefined,
-
-        domicilieCertificateNumberExpiredDate: undefined,
-        deedEstablishmentDate: undefined,
-        articleAssociationDate: undefined,
-        latestAmendmentArticleAssociationDate: undefined,
-        companyNumberRegistrationExpiredDate: undefined,
-
-        asset: undefined,
-        grossIncomePerYear: undefined,
-        pensionProgramSubmissionPurpose: undefined,
-        moneySource: undefined,
-
-        office: undefined,
-        office2: undefined,
-        fax: undefined,
-        home: undefined
+        proposalNumber: undefined,
+        proposalDate: undefined,
+        type: undefined,
+        effectiveDate: undefined,
+        caseCloseDate: undefined,
+        terminationDate: undefined,
+        ppkReceiveDate: undefined,
+        totalEmployee: undefined,
+        totalEmployeeRegistered: undefined,
+        isHavingFundOutsideDplk: undefined,
+        isTaxPaidByEmployer: undefined,
+        notes: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
+        // id: undefined,
+        isDraft: [{ required: true, message: 'this field is required' }],
+        companyId: [],
+        productTypeId: [{ required: true, message: 'this field is required' }],
         name: [{ required: true, message: 'this field is required' }],
-        code: [],
-        email: [{ type: 'email', message: 'email invalid' }],
-        website: [],
-        businessLine: [],
-        businessEntity: [],
-        npwp: [],
-        deedEstablishmentNumber: [],
-        articleAssociationNumber: [],
-        latestAmendmentArticleAssociationNumber: [],
-        companyNumberRegistrationNumber: [],
-        domicilieCertificateNumber: [],
-
-        domicilieCertificateNumberExpiredDate: [],
-        deedEstablishmentDate: [],
-        articleAssociationDate: [],
-        latestAmendmentArticleAssociationDate: [],
-        companyNumberRegistrationExpiredDate: [],
-
-        asset: [],
-        grossIncomePerYear: [],
-        pensionProgramSubmissionPurpose: [],
-        moneySource: [],
-
-        office: [],
-        office2: [],
-        fax: [],
-        home: []
+        proposalNumber: [],
+        proposalDate: [],
+        type: [],
+        effectiveDate: [],
+        caseCloseDate: [],
+        terminationDate: [],
+        ppkReceiveDate: [],
+        totalEmployee: [],
+        totalEmployeeRegistered: [],
+        isHavingFundOutsideDplk: [],
+        isTaxPaidByEmployer: [],
+        notes: []
       }
     }
   },
@@ -218,8 +185,11 @@ export default {
   },
   created() {
     this.getList()
-    fetchBusinessLine().then(res => {
-      this.businessLineOptions = res.map(businessLine => ({ value: businessLine.id, label: businessLine.name }))
+    fetchCompany().then(res => {
+      this.companyOptions = res.map(company => ({ value: company.id, label: company.name }))
+    })
+    fetchProductType().then(res => {
+      this.productTypeOptions = res.map(productType => ({ value: productType.id, label: productType.name }))
     })
   },
   methods: {
@@ -252,31 +222,22 @@ export default {
     },
     resetTemp() {
       this.temp = {
+        isDraft: 1,
+        companyId: undefined,
+        productTypeId: undefined,
         name: undefined,
-        code: undefined,
-        email: undefined,
-        website: undefined,
-        businessLine: undefined,
-        businessEntity: undefined,
-        npwp: undefined,
-        deedEstablishmentNumber: undefined,
-        articleAssociationNumber: undefined,
-        latestAmendmentArticleAssociationNumber: undefined,
-        companyNumberRegistrationNumber: undefined,
-        domicilieCertificateNumber: undefined,
-        domicilieCertificateNumberExpiredDate: undefined,
-        companyNumberRegistrationExpiredDate: undefined,
-        latestAmendmentArticleAssociationDate: undefined,
-        articleAssociationDate: undefined,
-        deedEstablishmentDate: undefined,
-        asset: undefined,
-        grossIncomePerYear: undefined,
-        pensionProgramSubmissionPurpose: undefined,
-        moneySource: undefined,
-        office: undefined,
-        office2: undefined,
-        fax: undefined,
-        home: undefined
+        proposalNumber: undefined,
+        proposalDate: undefined,
+        type: undefined,
+        effectiveDate: undefined,
+        caseCloseDate: undefined,
+        terminationDate: undefined,
+        ppkReceiveDate: undefined,
+        totalEmployee: undefined,
+        totalEmployeeRegistered: undefined,
+        isHavingFundOutsideDplk: undefined,
+        isTaxPaidByEmployer: undefined,
+        notes: undefined
       }
     },
     handleCreate() {
