@@ -19,6 +19,8 @@ selenium-debug.log
 *.sln
 *.local
 push.sh
+dist
+
 
 package-lock.json
 yarn.lock
