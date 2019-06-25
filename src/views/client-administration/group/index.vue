@@ -20,10 +20,10 @@
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    //- el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
-    //-   template(slot-scope='{row}')
-    //-     el-button(type='success', size='mini', @click='handleDetail(row)')
-    //-       | {{ $t('table.detail') }}
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
+      template(slot-scope='{row}')
+        el-button(type='success', size='mini', @click='handleDetail(row)')
+          | {{ $t('table.detail') }}
         //- el-button(type='danger', size='mini', @click='handleDelete(row)')
         //-   | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
@@ -79,12 +79,15 @@
             | {{ $t('table.cancel') }}
           el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
             | {{ $t('table.confirm') }}
-      el-tab-pane(label='Address' :disabled='!dialogIsUpdate' name='Address')
-        Address(:data='temp')
-      el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
-        ContactPerson(:data='temp')
-      el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
-        BankAccount(:data='temp')
+      el-tab-pane(label='Billing Contribution' :disabled='!dialogIsUpdate' name='Billing Contribution')
+        //- Billing Contribution(:data='temp')
+      el-tab-pane(label='Member Class Plan' :disabled='!dialogIsUpdate' name='Member Class Plan')
+        //- ContactPerson(:data='temp')
+      el-tab-pane(label='Investment Direction'  :disabled='!dialogIsUpdate' name='Investment Direction')
+      el-tab-pane(label='Group Charge'  :disabled='!dialogIsUpdate' name='Group Charge')
+      el-tab-pane(label='Withdrawal Rule'  :disabled='!dialogIsUpdate' name='Withdrawal Rule')
+      el-tab-pane(label='Agent'  :disabled='!dialogIsUpdate' name='Agent')
+        //- BankAccount(:data='temp')
 
 </template>
 
@@ -108,13 +111,13 @@ import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import Address from './components/address'
-import ContactPerson from './components/contactPerson'
-import BankAccount from './components/bankAccount'
+// import Billing Contribution from './components/Billing Contribution'
+// import ContactPerson from './components/contactPerson'
+// import BankAccount from './components/bankAccount'
 
 export default {
   name: 'Company',
-  components: { Pagination, Address, ContactPerson, BankAccount },
+  components: { Pagination },
   data() {
     return {
       activeTab: 'Information',
@@ -195,7 +198,23 @@ export default {
   methods: {
     handleDetail(row) {
       // this.resetTemp()
-      this.temp = Object.assign({}, row)
+      this.temp = {
+        companyId: row.company.id,
+        productTypeId: row.productType.id,
+        name: row.name,
+        proposalNumber: row.proposalNumber,
+        proposalDate: row.proposalDate,
+        type: row.type,
+        effectiveDate: row.effectiveDate,
+        caseCloseDate: row.caseCloseDate,
+        terminationDate: row.terminationDate,
+        ppkReceiveDate: row.ppkReceiveDate,
+        totalEmployee: row.totalEmployee,
+        totalEmployeeRegistered: row.totalEmployeeRegistered,
+        isHavingFundOutsideDplk: row.isHavingFundOutsideDplk,
+        isTaxPaidByEmployer: row.isTaxPaidByEmployer,
+        notes: row.notes
+      }
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {

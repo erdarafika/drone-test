@@ -225,7 +225,36 @@ export default {
   methods: {
     handleDetail(row) {
       // this.resetTemp()
-      this.temp = Object.assign({}, row)
+      this.temp = {
+        name: row.name,
+        code: row.code,
+        email: row.email,
+        website: row.website,
+        businessLine: row.businessLine.id,
+        businessEntity: row.businessEntity,
+        npwp: row.npwp,
+        deedEstablishmentNumber: row.deedEstablishmentNumber,
+        articleAssociationNumber: row.articleAssociationNumber,
+        latestAmendmentArticleAssociationNumber: row.latestAmendmentArticleAssociationNumber,
+        companyNumberRegistrationNumber: row.companyNumberRegistrationNumber,
+        domicilieCertificateNumber: row.domicilieCertificateNumber,
+
+        domicilieCertificateNumberExpiredDate: row.domicilieCertificateNumberExpiredDate,
+        deedEstablishmentDate: row.deedEstablishmentDate,
+        articleAssociationDate: row.articleAssociationDate,
+        latestAmendmentArticleAssociationDate: row.latestAmendmentArticleAssociationDate,
+        companyNumberRegistrationExpiredDate: row.companyNumberRegistrationExpiredDate,
+
+        asset: row.asset,
+        grossIncomePerYear: row.grossIncomePerYear,
+        pensionProgramSubmissionPurpose: row.pensionProgramSubmissionPurpose,
+        moneySource: row.moneySource,
+
+        office: row.office,
+        office2: row.office2,
+        fax: row.fax,
+        home: row.home
+      }
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
