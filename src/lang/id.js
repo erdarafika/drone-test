@@ -40,7 +40,8 @@ export default {
     department: 'Departemen',
     moneySource: 'Sumber Dana',
     company: 'Perusahaan',
-    userManagement: 'Manajamen Pengguna'
+    userManagement: 'Manajamen Pengguna',
+    groupMaintenance: 'Perawatan Grup'
   },
   // GLOBAL
   validatorMessage: {

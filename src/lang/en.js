@@ -40,7 +40,8 @@ export default {
     moneySource: 'Money Source',
     clientAdministration: 'Client Administration',
     company: 'Company',
-    userManagement: 'User Management'
+    userManagement: 'User Management',
+    groupMaintenance: 'Group Maintanance'
   },
   // GLOBAL
   validatorMessage: {
@@ -366,5 +367,11 @@ export default {
     accountNumber: 'Account Number',
     currentBank: 'Default Bank',
     status: 'Status'
+  },
+  groupMaintenance: {
+    name: 'Name',
+    code: 'Code',
+    status: 'Status',
+    productType: 'Product'
   }
 }

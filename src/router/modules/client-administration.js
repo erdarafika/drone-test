@@ -19,6 +19,15 @@ export default {
         title: 'company',
         roles: ['admin'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: 'group-maintenance',
+      name: 'GroupMaintenance',
+      component: () => import('@/views/client-administration/group/index'),
+      meta: {
+        title: 'groupMaintenance',
+        roles: ['admin'] // or you can only set roles in sub nav
+      }
     }
   ]
 }
