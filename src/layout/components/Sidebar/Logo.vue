@@ -54,7 +54,7 @@ export default {
   line-height: 50px;
   // background: #2b2f3a;
   // Pensiunku version
-  background: #2C2C2C;
+  background: white;
   text-align: center;
   overflow: hidden;
 
@@ -72,8 +72,8 @@ export default {
     & .sidebar-title {
       display: inline-block;
       margin: 0;
-      color: #fff;
-      font-weight: 600;
+      color: #606266;
+      font-weight: lighter;
       line-height: 50px;
 
       // font-size: 14px;

@@ -72,9 +72,13 @@ export default {
   font-size: 14px;
   line-height: 50px;
   margin-left: 8px;
+  color: white;
 
+  a {
+    color: #2d2d2db5 !important;
+  }
   .no-redirect {
-    color: #97a8be;
+    color: #2d2d2db5;
     cursor: text;
   }
 }

@@ -25,7 +25,7 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          {{ username }}
+          <!-- {{ username }} -->
           <!-- <i class="el-icon-caret-bottom" /> -->
           <!-- PensiunKu version -->
 
@@ -91,7 +91,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  background: rgb(190,244,255) !important;
+  background: linear-gradient(90deg, rgba(190,244,255,1) 0%, rgba(118,156,255,1) 100%) !important;
+  height: 64px;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -133,7 +135,7 @@ export default {
       padding: 0 8px;
       height: 100%;
       font-size: 18px;
-      color: #5a5e66;
+      color: white !important;
       vertical-align: text-bottom;
 
       &.hover-effect {
