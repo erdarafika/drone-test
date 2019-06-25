@@ -75,7 +75,7 @@ export function getInfo(token) {
       data: {
         roles: ['admin'],
         introduction: 'I am a super administrator',
-        avatar: 'https://imgbbb.com/images/2019/04/29/man-1.png',
+        avatar: 'https://cdn1.imggmi.com/uploads/2019/6/25/72ea991ecbdbf4401ae7abe984848d67-full.png',
         name: 'Super Admin',
         crudPermissions: ['maker', 'checkher']
       }
