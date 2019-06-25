@@ -76,7 +76,7 @@ export function getInfo(token) {
         roles: ['admin'],
         introduction: 'I am a super administrator',
         avatar: 'https://cdn1.imggmi.com/uploads/2019/6/25/72ea991ecbdbf4401ae7abe984848d67-full.png',
-        name: 'Super Admin',
+        name: 'Admin',
         crudPermissions: ['maker', 'checkher']
       }
     }), 300)
