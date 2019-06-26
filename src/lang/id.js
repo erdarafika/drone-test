@@ -54,6 +54,8 @@ export default {
     dashboard: 'Dasbor',
     github: 'Github',
     theme: 'Tema',
+    fullscreen: 'Layar Penuh',
+    language: 'Bahasa',
     size: 'Ukuran Huruf',
     sizes: {
       default: 'standar',
@@ -388,5 +390,12 @@ export default {
     isHavingFundOutsideDplk: 'Dana diluar DPLK',
     isTaxPaidByEmployer: 'Pajak dibayar oleh Pemberi Kerja',
     notes: 'Catatan'
+  },
+  classPlan: {
+    name: 'Nama',
+    groupId: 'Grup',
+    isPercentage: 'Menggunakan Persentase',
+    employee: 'Employee',
+    employer: 'Employer'
   }
 }

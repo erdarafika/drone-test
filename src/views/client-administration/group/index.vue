@@ -79,10 +79,11 @@
             | {{ $t('table.cancel') }}
           el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
             | {{ $t('table.confirm') }}
+
+      el-tab-pane(label='Member Class Plan' :disabled='!dialogIsUpdate' name='Member Class Plan')
+        ClassPlan(:data='temp')
       el-tab-pane(label='Billing Contribution' :disabled='!dialogIsUpdate' name='Billing Contribution')
         //- Billing Contribution(:data='temp')
-      el-tab-pane(label='Member Class Plan' :disabled='!dialogIsUpdate' name='Member Class Plan')
-        //- ContactPerson(:data='temp')
       el-tab-pane(label='Investment Direction'  :disabled='!dialogIsUpdate' name='Investment Direction')
       el-tab-pane(label='Group Charge'  :disabled='!dialogIsUpdate' name='Group Charge')
       el-tab-pane(label='Withdrawal Rule'  :disabled='!dialogIsUpdate' name='Withdrawal Rule')
@@ -111,13 +112,13 @@ import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-// import Billing Contribution from './components/Billing Contribution'
+import ClassPlan from './components/classPlan'
 // import ContactPerson from './components/contactPerson'
 // import BankAccount from './components/bankAccount'
 
 export default {
   name: 'Company',
-  components: { Pagination },
+  components: { Pagination, ClassPlan },
   data() {
     return {
       activeTab: 'Information',
@@ -199,6 +200,7 @@ export default {
     handleDetail(row) {
       // this.resetTemp()
       this.temp = {
+        id: row.id,
         companyId: row.company.id,
         productTypeId: row.productType.id,
         name: row.name,
@@ -271,7 +273,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          // console.log(this.temp);
+          console.log(this.temp)
 
           createGroupMaintanance(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {

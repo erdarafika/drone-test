@@ -53,7 +53,9 @@ export default {
     dashboard: 'Dashboard',
     github: 'Github',
     theme: 'Theme',
+    language: 'Language',
     size: 'Global Size',
+    fullscreen: 'Fullscreen',
     sizes: {
       default: 'default',
       medium: 'medium',
@@ -388,5 +390,12 @@ export default {
     isHavingFundOutsideDplk: 'Having Fund Outside DPLK',
     isTaxPaidByEmployer: 'Tax Paid by Employee',
     notes: 'Group Notes'
+  },
+  classPlan: {
+    name: 'Name',
+    groupId: 'Group',
+    isPercentage: 'Using Percentage',
+    employee: 'Employee',
+    employer: 'Employer'
   }
 }

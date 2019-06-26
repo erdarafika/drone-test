@@ -157,6 +157,8 @@ export default {
     }
   },
   created() {
+    console.log(this.data)
+
     this.$eventBus.$on('update-location', (data) => {
       this.getCountryAddress()
     })

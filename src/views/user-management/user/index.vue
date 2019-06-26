@@ -14,10 +14,10 @@
     el-table-column(:label="$t('user.email')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.dplkStaff.email }}
-    el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+    el-table-column(:label="$t('table.createdDate')", align='left', width='150')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(:label="$t('table.status')", align='left', width='200')
+    el-table-column(:label="$t('table.status')", align='left', width='90')
       template(slot-scope='scope')
         span(:class="scope.row.enabled?'label-enable':'label-disable'")
           | {{ scope.row.enabled? 'Enable': 'Disable' }}

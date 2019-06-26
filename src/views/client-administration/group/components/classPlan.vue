@@ -5,20 +5,30 @@
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
+    //- classPlan: {
+    //-   name: 'Name',
+    //-   groupId: 'Group',
+    //-   isPercentage: 'Using Percentage',
+    //-   employee: 'Employee',
+    //-   employer: 'Employer'
+    //- }
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('companyContactPerson.name')", align='left', )
+    el-table-column(:label="$t('classPlan.name')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.name }}
-    el-table-column(:label="$t('companyContactPerson.type')", align='left')
+    el-table-column(:label="$t('classPlan.groupId')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.type }}
-    el-table-column(:label="$t('companyContactPerson.title')", align='left')
+        span {{ scope.row.group.id }}
+    el-table-column(:label="$t('classPlan.isPercentage')", align='left',)
       template(slot-scope='scope')
-        span {{ scope.row.title }}
-    el-table-column(:label="$t('companyContactPerson.status')", align='left',)
+        span(:class="scope.row.isPercentage ?'label-enable':''")
+          | {{ scope.row.isPercentage ? 'Yes':'No' }}
+    el-table-column(:label="$t('classPlan.employee')", align='left')
       template(slot-scope='scope')
-        span(:class="scope.row.defaultContact ?'label-enable':''")
-          | {{ scope.row.defaultContact ? 'Default':'' }}
+        span {{ scope.row.employee }}
+    el-table-column(:label="$t('classPlan.employer')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.employer }}
     el-table-column(label='', align='right', width='150' )
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)' )
@@ -30,31 +40,31 @@
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('companyContactPerson.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input')
-      el-form-item(:label="$t('companyContactPerson.title')", prop='title')
-        el-input(v-model.number='temp.title', type='input')
-      el-form-item(:label="$t('companyContactPerson.email')", prop='email')
-        el-input(v-model.number='temp.email', type='input')
-      el-form-item(:label="$t('companyContactPerson.phone')", prop='phone')
-        el-input(v-model.number='temp.phone', type='input')
-      el-form-item(:label="$t('companyContactPerson.type')", prop='type')
-        el-select(v-model='temp.type', placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in typeOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('companyContactPerson.identityType')", prop='identityType')
-        el-select(v-model='temp.identityType', placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('companyContactPerson.identityNumber')", prop='identityNumber')
-        el-input(v-model.number='temp.identityNumber', type='input')
+      //- el-form-item(:label="$t('classPlan.name')", prop='name')
+      //-   el-input(v-model.number='temp.name', type='input')
+      //- el-form-item(:label="$t('classPlan.title')", prop='title')
+      //-   el-input(v-model.number='temp.title', type='input')
+      //- el-form-item(:label="$t('classPlan.email')", prop='email')
+      //-   el-input(v-model.number='temp.email', type='input')
+      //- el-form-item(:label="$t('classPlan.phone')", prop='phone')
+      //-   el-input(v-model.number='temp.phone', type='input')
+      //- el-form-item(:label="$t('classPlan.type')", prop='type')
+      //-   el-select(v-model='temp.type', placeholder='Select', filterable, default-first-option)
+      //-     el-option(v-for='item in typeOptions', :key='item.value', :label='item.label', :value='item.value')
+      //- el-form-item(:label="$t('classPlan.identityType')", prop='identityType')
+      //-   el-select(v-model='temp.identityType', placeholder='Select', filterable, default-first-option)
+      //-     el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+      //- el-form-item(:label="$t('classPlan.identityNumber')", prop='identityNumber')
+      //-   el-input(v-model.number='temp.identityNumber', type='input')
 
-      el-form-item(:label="$t('companyContactPerson.gender')" prop='gender')
-        el-radio-group(v-model='temp.gender')
-          el-radio(label='male') Male
-          el-radio(label='female') Female
+      //- el-form-item(:label="$t('classPlan.gender')" prop='gender')
+      //-   el-radio-group(v-model='temp.gender')
+      //-     el-radio(label='male') Male
+      //-     el-radio(label='female') Female
 
-      el-form-item(:label="$t('companyContactPerson.status')" prop='defaultContact')
-        el-switch(v-model='temp.defaultContact')
-        span.switch-status {{ temp.defaultContact?'Default':'Not Default' }}
+      //- el-form-item(:label="$t('classPlan.status')" prop='defaultContact')
+      //-   el-switch(v-model='temp.defaultContact')
+      //-   span.switch-status {{ temp.defaultContact?'Default':'Not Default' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -85,28 +95,20 @@ export default {
       identityTypeOptions: [{ label: 'Identity Card', value: 'ktp' }, { label: 'Driving License', value: 'sim' }, { label: 'Passport', value: 'passport' }, { label: 'Kitas', value: 'kitas' }],
       temp: {
         name: undefined,
-        type: undefined,
-        title: undefined,
-        identityType: undefined,
-        identityNumber: undefined,
-        gender: undefined,
-        email: undefined,
-        phone: undefined,
-        defaultContact: false
+        groupId: undefined,
+        isPercentage: undefined,
+        employee: undefined,
+        employer: undefined
       },
       initialUpdate: false,
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
         name: [{ required: true, message: 'This field is required' }],
-        type: [{ required: true, message: 'This field is required' }],
-        title: [{ required: true, message: 'This field is required' }],
-        identityType: [{ required: true, message: 'This field is required' }],
-        identityNumber: [{ required: true, message: 'This field is required' }],
-        gender: [{ required: true, message: 'This field is required' }],
-        email: [{ required: true, message: 'This field is required' }],
-        phone: [{ required: true, message: 'This field is required' }],
-        defaultContact: [{ required: true, message: 'This field is required' }]
+        groupId: [{ required: true, message: 'This field is required' }],
+        isPercentage: [{ required: true, message: 'This field is required' }],
+        employee: [{ required: true, message: 'This field is required' }],
+        employer: undefined
       }
     }
   },
@@ -119,7 +121,10 @@ export default {
     }
   },
   created() {
-    if (this.data.id !== undefined) { this.getList() }
+    if (this.data.id !== undefined) {
+      this.getList()
+      this.temp.groupId = this.data.id
+    }
   },
   methods: {
     getDialogHeader(dialogStatus) {
@@ -145,14 +150,10 @@ export default {
     resetTemp() {
       this.temp = {
         name: undefined,
-        type: undefined,
-        title: undefined,
-        identityType: undefined,
-        identityNumber: undefined,
-        gender: undefined,
-        email: undefined,
-        phone: undefined,
-        defaultContact: false
+        groupId: this.data.id,
+        isPercentage: undefined,
+        employee: undefined,
+        employer: undefined
       }
     },
     handleCreate() {
