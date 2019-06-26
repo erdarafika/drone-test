@@ -44,6 +44,13 @@ export function fetchAttachment(id) {
   })
 }
 
+export function deleteAttachment(data) {
+  return request({
+    url: `/master/email/${data.emailId}/attachment/${data.id}`,
+    method: 'delete'
+  })
+}
+
 export function createAttachment(data, id) {
   return request({
     url: `/master/email/${id}/attachment`,

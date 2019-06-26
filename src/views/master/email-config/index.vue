@@ -1,10 +1,10 @@
 
 <template lang="pug">
 .app-container
-  //- .filter-container
-  //-   el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-  //-   el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
-  //-     | {{ $t('table.add') }}
+  .filter-container
+    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('emailConfig.subject')", align='left')

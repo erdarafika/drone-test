@@ -21,7 +21,7 @@
 
 <script>
 
-import { fetchAttachment, createAttachment } from '@/api/email-config'
+import { fetchAttachment, createAttachment, deleteAttachment } from '@/api/email-config'
 
 export default {
   name: 'Attachments',
@@ -65,7 +65,28 @@ export default {
       this.$message.warning(`The limit is 1, you selected ${files.length} files this time, add up to ${files.length + fileList.length} totally`)
     },
     handleDelete(row) {
+      row['emailId'] = this.data.id
+      const cancelCallback = () => this.$notify({
+        title: this.$t('table.cancelTitle'),
+        message: this.$t('table.cancelCaption'),
+        type: 'warning',
+        duration: 2000
+      })
 
+      const deleteCallback = () => {
+        deleteAttachment(row).then((response) => {
+          this.dialogFormVisible = false
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getAttachments()
+        })
+      }
+
+      this.confirmDelete(deleteCallback, cancelCallback)
     },
     getAttachments() {
       this.listLoading = true
@@ -96,7 +117,7 @@ export default {
                 type: 'success',
                 duration: 2000
               })
-              this.getList()
+              this.getAttachments()
               this.$refs.upload.clearFiles()
             }
             this.dialogFormVisible = false
