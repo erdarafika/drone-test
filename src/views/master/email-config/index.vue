@@ -24,7 +24,8 @@
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 90%; margin-left:50px;')
       el-form-item(:label="$t('emailConfig.subject')", prop='subject')
         el-input(v-model='temp.subject', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-      tinymce(v-model='temp.htmlBody', :height='300')
+      el-form-item(label='', prop='htmlBody')
+        tinymce(v-model='temp.htmlBody', :height='300')
 
     .dialog-footer(slot='footer' style='width: 90%; margin-left:50px;')
       el-button(@click='dialogFormVisible = false')
@@ -76,7 +77,8 @@ export default {
       attachmentsTableVisible: false,
       dialogStatus: '',
       rules: {
-        subject: [{ required: true, message: 'Subject is required', trigger: 'change' }]
+        subject: [{ required: true, message: 'This field required' }],
+        htmlBody: [{ required: true, message: 'This field is required' }]
       }
     }
   },
