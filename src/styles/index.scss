@@ -254,3 +254,13 @@ span.label-disable {
 .el-table {
   border-radius: 5px;
 }
+
+.sidebar-icon {
+  height: 2em !important;
+  width: 2em !important;
+  vertical-align: -0.7em !important;
+}
+
+#app .hideSidebar .svg-icon {
+  margin-left: 12px !important;
+}

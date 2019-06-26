@@ -189,6 +189,7 @@
   .el-menu-item {
     &:hover {
       // you can use $subMenuHover
+      height: 100px;
       background-color: $menuHover !important;
     }
   }

@@ -6,7 +6,7 @@ export default {
   name: 'Master',
   meta: {
     title: 'master',
-    icon: 'component',
+    icon: 'master-setup',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [

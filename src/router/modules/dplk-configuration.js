@@ -7,7 +7,7 @@ export default {
   name: 'DplkConfiguration',
   meta: {
     title: 'dplkConfiguration',
-    // icon: 'component',
+    icon: 'dplk-configuration',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [
