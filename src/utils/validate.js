@@ -91,7 +91,7 @@ export function isArray(arg) {
  * @returns {Boolean}
  */
 export function isAlphabetic(str) {
-  return /^[a-zA-Z()]+$/.test(str)
+  return /^[a-zA-Z ()]+$/.test(str)
 }
 
 /**
@@ -99,6 +99,6 @@ export function isAlphabetic(str) {
  * @returns {Boolean}
  */
 export function isAlphanumeric(str) {
-  return /^[a-z0-9]+$/i.test(str)
+  return /^[a-z0-9 ]+$/i.test(str)
 }
 
