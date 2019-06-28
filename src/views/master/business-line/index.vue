@@ -11,10 +11,10 @@
   el-table(:key='tableKey', v-loading='listLoading', :data='list.filter(data => !listQuery.q || data.name.toLowerCase().includes(listQuery.q.toLowerCase()))', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('businessLine.name')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.name }}
+        | {{ scope.row.name }}
     el-table-column(:label="$t('businessLine.code')", align='left', width='180')
       template(slot-scope='scope')
-        span {{ scope.row.code }}
+        | {{ scope.row.code }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -63,8 +63,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'Business name is required', trigger: 'change' }],
-        code: [{ required: true, message: 'Business code is required', trigger: 'change' }, { type: 'number', message: 'Business code must be a number' }]
+        name: [{ required: true, message: 'Business name is required' }],
+        code: [{ required: true, message: 'Business code is required' }]
       },
       downloadLoading: false
     }
@@ -95,12 +95,12 @@ export default {
         this.list = response
         this.total = response.length
 
-        if (this.total) {
-          this.list = this.list.map(i => {
-            i.code = parseInt(i.code)
-            return i
-          })
-        }
+        // if (this.total) {
+        //   this.list = this.list.map(i => {
+        //     i.code = parseInt(i.code)
+        //     return i
+        //   })
+        // }
         this.listLoading = false
       })
     },
