@@ -96,7 +96,7 @@ export default {
 .navbar {
   background: rgb(190,244,255) !important;
   background: linear-gradient(90deg, rgba(190,244,255,1) 0%, rgba(118,156,255,1) 100%) !important;
-  height: 64px;
+  height: 50px !important;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -155,7 +155,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
         position: relative;
 
         .user-avatar {

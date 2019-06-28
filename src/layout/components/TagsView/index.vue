@@ -217,7 +217,7 @@ export default {
       height: 26px;
       line-height: 26px;
       color: #ffffff;
-      background: #7ca4ff;
+      background: #bbf0ff;
       border-radius: 5px 5px 0px 0px;
       margin-top: 8px;
       padding: 0 8px;
@@ -230,8 +230,8 @@ export default {
         margin-right: 15px;
       }
       &.active {
-        background-color: #4e78e2;
-        color: #fff;
+        background-color: #81aaff;
+        color: #ffffff;
         // border-color: #42b983;
         &::before {
           content: '';
