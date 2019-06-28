@@ -397,5 +397,12 @@ export default {
     isPercentage: 'Using Percentage',
     employee: 'Employee',
     employer: 'Employer'
+  },
+  groupBilling: {
+    frequency: 'Billing Cycle',
+    paymentMethod: 'Payment Method',
+    payor: 'Contribution Payor',
+    billingDate: 'Billing Date',
+    dplkBankId: 'DPLK Bank'
   }
 }

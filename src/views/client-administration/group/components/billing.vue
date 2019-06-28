@@ -6,19 +6,25 @@
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('classPlan.name')", align='left', )
+    el-table-column(:label="$t('groupBilling.frequency')", align='left', )
       template(slot-scope='scope')
-        span {{ scope.row.name }}
-    el-table-column(:label="$t('classPlan.isPercentage')", align='left',)
+        span {{ scope.row.frequency }}
+    el-table-column(:label="$t('groupBilling.paymentMethod')", align='left')
       template(slot-scope='scope')
-        span(:class="scope.row.isPercentage ?'label-enable':''")
-          | {{ scope.row.isPercentage ? 'Yes':'No' }}
-    el-table-column(:label="$t('classPlan.employee')", align='left')
+        span {{ scope.row.paymentMethod }}
+    //- el-table-column(:label="$t('groupBilling.isPercentage')", align='left',)
+    //-   template(slot-scope='scope')
+    //-     span(:class="scope.row.isPercentage ?'label-enable':''")
+    //-       | {{ scope.row.isPercentage ? 'Yes':'No' }}
+    el-table-column(:label="$t('groupBilling.payor')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.employee }}
-    el-table-column(:label="$t('classPlan.employer')", align='left')
+        span {{ scope.row.payor }}
+    el-table-column(:label="$t('groupBilling.dplkBank')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.employer }}
+        span {{ scope.row.dplkBank.accountName }}
+    el-table-column(:label="$t('groupBilling.billingDate')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.billingDate }}
     el-table-column(label='', align='right', width='150' )
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)' )
@@ -29,26 +35,26 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
-    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('classPlan.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input')
-      el-form-item(:label="$t('classPlan.employee')", prop='employee')
-        el-input(v-model.number='temp.employee', type='input')
-      el-form-item(:label="$t('classPlan.employer')", prop='employer')
-        el-input(v-model.number='temp.employer', type='input')
-      el-form-item(:label="$t('classPlan.isPercentage')" prop='isPercentage')
-        el-switch(v-model='temp.isPercentage')
-        span.switch-status {{ temp.isPercentage?'Yes':'No' }}
-    .dialog-footer(slot='footer')
-      el-button(@click='dialogFormVisible = false')
-        | {{ $t('table.cancel') }}
-      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-        | {{ $t('table.confirm') }}
+    //- el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+    //-   el-form-item(:label="$t('groupBilling.name')", prop='name')
+    //-     el-input(v-model.number='temp.name', type='input')
+    //-   el-form-item(:label="$t('groupBilling.employee')", prop='employee')
+    //-     el-input(v-model.number='temp.employee', type='input')
+    //-   el-form-item(:label="$t('groupBilling.employer')", prop='employer')
+    //-     el-input(v-model.number='temp.employer', type='input')
+    //-   el-form-item(:label="$t('groupBilling.isPercentage')" prop='isPercentage')
+    //-     el-switch(v-model='temp.isPercentage')
+    //-     span.switch-status {{ temp.isPercentage?'Yes':'No' }}
+    //- .dialog-footer(slot='footer')
+    //-   el-button(@click='dialogFormVisible = false')
+    //-     | {{ $t('table.cancel') }}
+    //-   el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+    //-     | {{ $t('table.confirm') }}
 
 </template>
 
 <script>
-import { fetchList, createGroupClassPlan, updateGroupClassPlan, deleteGroupClassPlan } from '@/api/group-class-plan'
+import { fetchList, createGroupBilling, updateGroupBilling, deleteGroupBilling } from '@/api/group-billing'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -66,21 +72,22 @@ export default {
         limit: 20
       },
       temp: {
-        name: undefined,
         groupId: undefined,
-        isPercentage: undefined,
-        employee: undefined,
-        employer: undefined
+        frequency: undefined,
+        paymentMethod: undefined,
+        payor: undefined,
+        billingDate: undefined,
+        dplkBankId: undefined
       },
       initialUpdate: false,
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        groupId: [{ required: true, message: 'This field is required' }],
-        isPercentage: [{ required: true, message: 'This field is required' }],
-        employee: [{ required: true, message: 'This field is required' }],
-        employer: [{ required: true, message: 'This field is required' }]
+        frequency: [{ required: true, message: 'This field is required' }],
+        paymentMethod: [{ required: true, message: 'This field is required' }],
+        payor: [{ required: true, message: 'This field is required' }],
+        billingDate: [{ required: true, message: 'This field is required' }],
+        dplkBankId: [{ required: true, message: 'This field is required' }]
       }
     }
   },
@@ -121,11 +128,12 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        name: undefined,
         groupId: this.data.id,
-        isPercentage: undefined,
-        employee: undefined,
-        employer: undefined
+        frequency: undefined,
+        paymentMethod: undefined,
+        payor: undefined,
+        billingDate: undefined,
+        dplkBankId: undefined
       }
     },
     handleCreate() {
@@ -140,7 +148,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.temp['companyId'] = this.data.id
-          createGroupClassPlan(this.temp).then((response) => {
+          createGroupBilling(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
                 title: this.$t('table.successTitle'),
@@ -158,11 +166,12 @@ export default {
     handleUpdate(row) {
       this.temp = {
         id: row.id,
-        name: row.name,
         groupId: this.data.id,
-        isPercentage: row.isPercentage,
-        employee: row.employee,
-        employer: row.employer
+        frequency: row.frequency,
+        paymentMethod: row.paymentMethod,
+        payor: row.payor,
+        billingDate: row.billingDate,
+        dplkBankId: row.dplkBank.id
       }
       this.initialUpdate = true
       this.dialogStatus = 'update'
@@ -175,7 +184,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          updateGroupClassPlan(tempData).then((response) => {
+          updateGroupBilling(tempData).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
@@ -200,7 +209,7 @@ export default {
       })
 
       const deleteCallback = () => {
-        deleteGroupClassPlan(row).then((response) => {
+        deleteGroupBilling(row).then((response) => {
           this.dialogFormVisible = false
           this.$notify({
             title: this.$t('table.successTitle'),

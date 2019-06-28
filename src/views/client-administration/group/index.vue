@@ -83,7 +83,7 @@
       el-tab-pane(label='Member Class Plan' :disabled='!dialogIsUpdate' name='Member Class Plan')
         ClassPlan(:data='temp')
       el-tab-pane(label='Billing Contribution' :disabled='!dialogIsUpdate' name='Billing Contribution')
-        //- Billing Contribution(:data='temp')
+        Billing(:data='temp')
       el-tab-pane(label='Investment Direction'  :disabled='!dialogIsUpdate' name='Investment Direction')
       el-tab-pane(label='Group Charge'  :disabled='!dialogIsUpdate' name='Group Charge')
       el-tab-pane(label='Withdrawal Rule'  :disabled='!dialogIsUpdate' name='Withdrawal Rule')
@@ -113,12 +113,11 @@ import { fetchList as fetchProductType } from '@/api/product-type'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ClassPlan from './components/classPlan'
-// import ContactPerson from './components/contactPerson'
-// import BankAccount from './components/bankAccount'
+import Billing from './components/billing'
 
 export default {
   name: 'Company',
-  components: { Pagination, ClassPlan },
+  components: { Pagination, ClassPlan, Billing },
   data() {
     return {
       activeTab: 'Information',

@@ -397,5 +397,12 @@ export default {
     isPercentage: 'Menggunakan Persentase',
     employee: 'Employee',
     employer: 'Employer'
+  },
+  groupBilling: {
+    frequency: 'Periode Tagihan',
+    paymentMethod: 'Metode Pembayaran Kontribusi',
+    payor: 'Pembayar Kontribusi',
+    billingDate: 'Tanggal Tagihan',
+    dplkBankId: 'DPLK Bank'
   }
 }
