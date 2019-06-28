@@ -5,13 +5,6 @@
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
-    //- classPlan: {
-    //-   name: 'Name',
-    //-   groupId: 'Group',
-    //-   isPercentage: 'Using Percentage',
-    //-   employee: 'Employee',
-    //-   employer: 'Employer'
-    //- }
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('classPlan.name')", align='left', )
       template(slot-scope='scope')
@@ -39,32 +32,23 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
+    //- classPlan: {
+    //-   name: 'Name',
+    //-   groupId: 'Group',
+    //-   isPercentage: 'Using Percentage',
+    //-   employee: 'Employee',
+    //-   employer: 'Employer'
+    //- }
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      //- el-form-item(:label="$t('classPlan.name')", prop='name')
-      //-   el-input(v-model.number='temp.name', type='input')
-      //- el-form-item(:label="$t('classPlan.title')", prop='title')
-      //-   el-input(v-model.number='temp.title', type='input')
-      //- el-form-item(:label="$t('classPlan.email')", prop='email')
-      //-   el-input(v-model.number='temp.email', type='input')
-      //- el-form-item(:label="$t('classPlan.phone')", prop='phone')
-      //-   el-input(v-model.number='temp.phone', type='input')
-      //- el-form-item(:label="$t('classPlan.type')", prop='type')
-      //-   el-select(v-model='temp.type', placeholder='Select', filterable, default-first-option)
-      //-     el-option(v-for='item in typeOptions', :key='item.value', :label='item.label', :value='item.value')
-      //- el-form-item(:label="$t('classPlan.identityType')", prop='identityType')
-      //-   el-select(v-model='temp.identityType', placeholder='Select', filterable, default-first-option)
-      //-     el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
-      //- el-form-item(:label="$t('classPlan.identityNumber')", prop='identityNumber')
-      //-   el-input(v-model.number='temp.identityNumber', type='input')
-
-      //- el-form-item(:label="$t('classPlan.gender')" prop='gender')
-      //-   el-radio-group(v-model='temp.gender')
-      //-     el-radio(label='male') Male
-      //-     el-radio(label='female') Female
-
-      //- el-form-item(:label="$t('classPlan.status')" prop='defaultContact')
-      //-   el-switch(v-model='temp.defaultContact')
-      //-   span.switch-status {{ temp.defaultContact?'Default':'Not Default' }}
+      el-form-item(:label="$t('classPlan.name')", prop='name')
+        el-input(v-model.number='temp.name', type='input')
+      el-form-item(:label="$t('classPlan.employee')", prop='employee')
+        el-input(v-model.number='temp.employee', type='input')
+      el-form-item(:label="$t('classPlan.employer')", prop='employer')
+        el-input(v-model.number='temp.employer', type='input')
+      el-form-item(:label="$t('classPlan.isPercentage')" prop='isPercentage')
+        el-switch(v-model='temp.isPercentage')
+        span.switch-status {{ temp.isPercentage?'Yes':'No' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -74,7 +58,7 @@
 </template>
 
 <script>
-import { fetchList, createCompanyContactPerson, updateCompanyContactPerson, deleteCompanyContactPerson } from '@/api/company-contact-person'
+import { fetchList, createGroupClassPlan, updateGroupClassPlan, deleteGroupClassPlan } from '@/api/group-class-plan'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -91,8 +75,6 @@ export default {
         page: 1,
         limit: 20
       },
-      typeOptions: [{ label: 'PERSON IN CHARGE', value: 'pic' }, { label: 'CORRESPONDENCE', value: 'correspondence' }, { label: 'PAYOR', value: 'payor' }, { label: 'DIRECTOR', value: 'director' }],
-      identityTypeOptions: [{ label: 'Identity Card', value: 'ktp' }, { label: 'Driving License', value: 'sim' }, { label: 'Passport', value: 'passport' }, { label: 'Kitas', value: 'kitas' }],
       temp: {
         name: undefined,
         groupId: undefined,
@@ -108,7 +90,7 @@ export default {
         groupId: [{ required: true, message: 'This field is required' }],
         isPercentage: [{ required: true, message: 'This field is required' }],
         employee: [{ required: true, message: 'This field is required' }],
-        employer: undefined
+        employer: [{ required: true, message: 'This field is required' }]
       }
     }
   },
@@ -168,7 +150,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.temp['companyId'] = this.data.id
-          createCompanyContactPerson(this.temp).then((response) => {
+          createGroupClassPlan(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
                 title: this.$t('table.successTitle'),
@@ -185,17 +167,12 @@ export default {
     },
     handleUpdate(row) {
       this.temp = {
-        companyId: this.data.id,
         id: row.id,
         name: row.name,
-        type: row.type,
-        title: row.title,
-        identityType: row.identityType,
-        identityNumber: row.identityNumber,
-        gender: row.gender,
-        email: row.email,
-        phone: row.phone,
-        defaultContact: row.defaultContact
+        groupId: this.data.id,
+        isPercentage: row.isPercentage,
+        employee: row.employee,
+        employer: row.employer
       }
       this.initialUpdate = true
       this.dialogStatus = 'update'
@@ -208,7 +185,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          updateCompanyContactPerson(tempData).then((response) => {
+          updateGroupClassPlan(tempData).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({
@@ -224,7 +201,7 @@ export default {
       })
     },
     handleDelete(row) {
-      row['companyId'] = this.data.id
+      row['groupId'] = this.data.id
       const cancelCallback = () => this.$notify({
         title: this.$t('table.cancelTitle'),
         message: this.$t('table.cancelCaption'),
@@ -233,7 +210,7 @@ export default {
       })
 
       const deleteCallback = () => {
-        deleteCompanyContactPerson(row).then((response) => {
+        deleteGroupClassPlan(row).then((response) => {
           this.dialogFormVisible = false
           this.$notify({
             title: this.$t('table.successTitle'),

@@ -43,8 +43,8 @@
               el-form-item(:label="$t('companyInformation.website')" prop='website')
                 el-input(v-model='temp.website', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
             el-tab-pane(label='Legals')
-              el-form-item(:label="$t('companyInformation.businessLine')", prop='businessLine')
-                el-select(placeholder='Select' v-model='temp.businessLine'  :disabled='dialogIsUpdate')
+              el-form-item(:label="$t('companyInformation.businessLine')", prop='businessLineId')
+                el-select(placeholder='Select' v-model='temp.businessLineId'  :disabled='dialogIsUpdate')
                   el-option(v-for='item in businessLineOptions', :key='item.value', :label='item.label', :value='item.value')
               el-form-item(:label="$t('companyInformation.npwp')", prop='npwp')
                 el-input(v-model='temp.npwp', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
@@ -60,15 +60,15 @@
                 el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
             el-tab-pane(label='Legals Date')
               el-form-item(:label="$t('companyInformation.deedEstablishmentDate')" prop='deedEstablishmentDate')
-                el-date-picker(v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+                el-date-picker(:value-format="dateFormat" v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
               el-form-item(:label="$t('companyInformation.articleAssociationDate')" prop='articleAssociationDate')
-                el-date-picker(v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+                el-date-picker(:value-format="dateFormat" v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
               el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
-                el-date-picker(v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+                el-date-picker(:value-format="dateFormat" v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
               el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
-                el-date-picker(v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+                el-date-picker(:value-format="dateFormat" v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
               el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
-                el-date-picker(v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+                el-date-picker(:value-format="dateFormat" v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
             el-tab-pane(label='Assets Etc')
               el-form-item(:label="$t('companyInformation.asset')" prop='asset')
                 el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  :disabled='dialogIsUpdate')
@@ -130,6 +130,7 @@ export default {
   data() {
     return {
       activeTab: 'Information',
+      dateFormat: 'dd-MM-yyyy',
       tableKey: 0,
       list: [],
       total: 0,
@@ -146,8 +147,8 @@ export default {
         code: undefined,
         email: undefined,
         website: undefined,
-        businessLine: undefined,
-        businessEntity: undefined,
+        businessLineId: undefined,
+        businessEntity: '-',
         npwp: undefined,
         deedEstablishmentNumber: undefined,
         articleAssociationNumber: undefined,
@@ -178,7 +179,7 @@ export default {
         code: [],
         email: [{ type: 'email', message: 'email invalid' }],
         website: [],
-        businessLine: [],
+        businessLineId: [],
         businessEntity: [],
         npwp: [],
         deedEstablishmentNumber: [],
@@ -230,7 +231,7 @@ export default {
         code: row.code,
         email: row.email,
         website: row.website,
-        businessLine: row.businessLine.id,
+        businessLineId: row.businessLineId.id,
         businessEntity: row.businessEntity,
         npwp: row.npwp,
         deedEstablishmentNumber: row.deedEstablishmentNumber,
@@ -285,8 +286,8 @@ export default {
         code: undefined,
         email: undefined,
         website: undefined,
-        businessLine: undefined,
-        businessEntity: undefined,
+        businessLineId: undefined,
+        businessEntity: '-',
         npwp: undefined,
         deedEstablishmentNumber: undefined,
         articleAssociationNumber: undefined,
