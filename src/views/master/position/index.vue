@@ -19,8 +19,7 @@
         | {{ scope.row.createdDate | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='100')
       template(slot-scope='{row}')
-        el-button(type='primary', size='mini', @click='handleUpdate(row)')
-          | {{ $t('table.edit') }}
+        Edit(:data='row' :action='handleUpdate')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -94,10 +93,7 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
         this.total = response.data.total
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     handleFilter() {

@@ -18,10 +18,8 @@
         | {{ scope.row.description }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
-        el-button(type='primary', size='mini', @click='handleUpdate(row)')
-          | {{ $t('table.edit') }}
-        el-button(type='danger', size='mini', @click='handleDelete(row)')
-          | {{ $t('table.delete') }}
+        Edit(:data='row' :action='handleUpdate')
+        Delete(:data='row' :action='handleDelete')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -95,10 +93,7 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.list = response
         this.total = response.length
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     resetTemp() {

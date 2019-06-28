@@ -23,6 +23,14 @@ import * as filters from './filters' // global filters
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 import confirmDelete from './global-function/deleteConfirm'
+import Delete from './components/ActionButtons/Delete'
+import Edit from './components/ActionButtons/Edit'
+import Detail from './components/ActionButtons/Detail'
+
+//  Register Component
+Vue.component('Delete', Delete)
+Vue.component('Edit', Edit)
+Vue.component('Detail', Detail)
 
 const moment = require('moment')
 require('moment/locale/id')

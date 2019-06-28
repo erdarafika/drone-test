@@ -66,9 +66,7 @@ export default {
       this.isLoading = true
       fetchDplkInformation().then(response => {
         this.dplkInformation = response
-        setTimeout(() => {
-          this.isLoading = false
-        }, 1.5 * 1000)
+        this.isLoading = false
       })
     },
     submitForm() {

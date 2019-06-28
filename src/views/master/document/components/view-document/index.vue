@@ -87,10 +87,7 @@ export default {
       fetchReason(this.data.id).then(response => {
         this.reasons = response
         this.total = response.length
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     createData() {

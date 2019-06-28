@@ -67,9 +67,7 @@ export default {
       this.isLoading = true
       fetchVirtualAccount().then(response => {
         this.temp = response.data.items
-        setTimeout(() => {
-          this.isLoading = false
-        }, 1.5 * 1000)
+        this.isLoading = false
       })
     },
     submitForm() {

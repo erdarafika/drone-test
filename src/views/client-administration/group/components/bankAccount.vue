@@ -119,9 +119,7 @@ export default {
         this.list = response
         this.total = response.length
 
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     resetTemp() {

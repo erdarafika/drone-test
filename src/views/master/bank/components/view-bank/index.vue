@@ -44,8 +44,7 @@
           span {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', width="90")
         template(slot-scope="scope")
-          el-button(type='danger', size='mini' @click="handleDelete(scope.row)")
-            | {{ $t('table.delete') }}
+          Delete(:data='scope.row' :action='handleDelete')
 
 </template>
 <style lang="scss">
@@ -159,10 +158,7 @@ export default {
       fetchBranch(this.data.id).then(response => {
         this.branches = response
         this.total = response.length
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     createData() {

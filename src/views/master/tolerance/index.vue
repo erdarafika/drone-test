@@ -51,9 +51,7 @@ export default {
       fetchTolerance().then(response => {
         if ('response_data' in response) { this.tolerance.amount = response.data } else { this.tolerance.amount = response.amount }
 
-        setTimeout(() => {
-          this.isLoading = false
-        }, 1.5 * 1000)
+        this.isLoading = false
       })
     },
     submitForm() {

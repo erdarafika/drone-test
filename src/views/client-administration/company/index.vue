@@ -22,10 +22,7 @@
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
-        el-button(type='success', size='mini', @click='handleDetail(row)')
-          | {{ $t('table.detail') }}
-        //- el-button(type='danger', size='mini', @click='handleDelete(row)')
-        //-   | {{ $t('table.delete') }}
+        Detail(:data='row' :action='handleDetail')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
@@ -275,10 +272,7 @@ export default {
       fetchList().then(response => {
         this.list = response
         this.total = response.length
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     resetTemp() {

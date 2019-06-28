@@ -93,12 +93,7 @@ export default {
       const emailConfigId = this.data.id
       fetchAttachment(emailConfigId).then(response => {
         this.attachments = response
-        console.log(response)
-
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        this.listLoading = false
       })
     },
     createData() {
