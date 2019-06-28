@@ -16,8 +16,7 @@
           | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(:label="``", align='right' width="150")
         template(slot-scope='{row}')
-          el-button(type='primary', size='mini', @click='handleDetail(row)')
-            | {{ $t('table.detail') }}
+          Detail(:data='row' :action='handleDetail')
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   </template>

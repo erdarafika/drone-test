@@ -27,8 +27,8 @@
           | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
-        Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+          Edit(:data='row' :action='handleUpdate')
+          Delete(:data='row' :action='handleDelete')
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
