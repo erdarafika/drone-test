@@ -52,6 +52,7 @@ export default {
     isNumber: 'must be number'
   },
   navbar: {
+    notification: 'Notification',
     logOut: 'Log Out',
     dashboard: 'Dashboard',
     github: 'Github',

@@ -53,6 +53,7 @@ export default {
     isNumber: 'harus berupa angka'
   },
   navbar: {
+    notification: 'Notifikasi',
     logOut: 'Keluar',
     dashboard: 'Dasbor',
     github: 'Github',

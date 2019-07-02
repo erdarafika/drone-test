@@ -23,6 +23,8 @@
         <el-tooltip :content="$t('navbar.language')" effect="dark" placement="bottom">
           <lang-select class="right-menu-item hover-effect" />
         </el-tooltip>
+
+        <notification class="right-menu-item" />
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -58,6 +60,7 @@ import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 // import Search from '@/components/HeaderSearch'
 import Clock from '@/components/Clock'
+import Notification from './Notification'
 
 export default {
   components: {
@@ -67,7 +70,8 @@ export default {
     ErrorLog,
     Screenfull,
     SizeSelect,
-    LangSelect
+    LangSelect,
+    Notification
     // Search
   },
   computed: {
