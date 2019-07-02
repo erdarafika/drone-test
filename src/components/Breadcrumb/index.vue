@@ -75,10 +75,10 @@ export default {
   color: white;
 
   a {
-    color: #2d2d2db5 !important;
+    color: white !important;
   }
   .no-redirect {
-    color: #2d2d2db5;
+    color: white;
     cursor: text;
   }
 }

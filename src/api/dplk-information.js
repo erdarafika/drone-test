@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchDplkInformation() {
   return request({
-    url: '/master/dplk/1',
+    url: '/master/dplk',
     method: 'get'
   })
 }

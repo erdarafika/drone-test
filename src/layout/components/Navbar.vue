@@ -95,7 +95,7 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   background: rgb(190,244,255) !important;
-  background: linear-gradient(90deg, rgba(190,244,255,1) 0%, rgba(118,156,255,1) 100%) !important;
+  background: linear-gradient(90deg, #69e3ff 0%, #326afe 100%) !important;
   height: 50px !important;
   overflow: hidden;
   position: relative;

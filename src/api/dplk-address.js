@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function fetchList() {
   return request({
-    url: '/master/dplk/1/address',
+    url: '/master/dplk/address',
     method: 'get'
   })
 }
 
 export function createDplkAddress(data) {
   return request({
-    url: 'master/dplk/1/address',
+    url: 'master/dplk/address',
     method: 'post',
     data
   })
@@ -17,7 +17,7 @@ export function createDplkAddress(data) {
 
 export function updateDplkAddress(data) {
   return request({
-    url: `/master/dplk/1/address/${data.id}`,
+    url: `/master/dplk/address/${data.id}`,
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function updateDplkAddress(data) {
 
 export function deleteDplkAddress(data) {
   return request({
-    url: `/master/dplk/1/address/${data.id}`,
+    url: `/master/dplk/address/${data.id}`,
     method: 'delete'
   })
 }
