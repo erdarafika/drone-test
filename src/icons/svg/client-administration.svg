@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="48" height="48" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Clien_Admin_Icon" data-name="Clien Admin Icon" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <circle id="Ellipse_65" data-name="Ellipse 65" cx="24" cy="24" r="24" fill="#ffec65"/>
+    <g id="Group_278" data-name="Group 278" transform="translate(9.616 9.467)">
+      <circle id="Ellipse_66" data-name="Ellipse 66" cx="7.948" cy="7.948" r="7.948" transform="translate(6.044)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_419" data-name="Path 419" d="M353.722,331.42l2.1,3.56H344.894c-1.908,0-3.459-.949-3.459-2.12V321.611c0-2.32,3.08-4.207,6.884-4.207l6,4.018-1.312,8.781Z" transform="translate(-341.435 -302.871)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_420" data-name="Path 420" d="M366.319,321.6V332.86c0,1.171-1.551,2.12-3.46,2.12H351.923l2.109-3.7.614-1.072-1.284-8.781h0l6.082-4.018a9.5,9.5,0,0,1,4.864,1.229A3.641,3.641,0,0,1,366.319,321.6Z" transform="translate(-337.54 -302.871)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

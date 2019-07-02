@@ -7,7 +7,7 @@ export default {
   name: 'FundAdministration',
   meta: {
     title: 'fundAdministration',
-    // icon: 'component',
+    icon: 'fund-administration',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g id="Fund_Admin_Icon" data-name="Fund Admin Icon" transform="translate(-236.666 -268.611)">
+    <circle id="Ellipse_78" data-name="Ellipse 78" cx="24" cy="24" r="24" transform="translate(236.666 268.612)" fill="#b1d288"/>
+    <g id="Group_284" data-name="Group 284" transform="translate(244.661 281.975)">
+      <path id="Path_425" data-name="Path 425" d="M277.256,294.81c-.145-1.429-27.827,3.4-27.709,4.335l-1.887-12.058c.965,1.4,29.121-3.42,28.615-4.477Z" transform="translate(-247.661 -281.881)" fill="#92a07e"/>
+      <path id="Path_426" data-name="Path 426" d="M277.034,294.786c-.673-4.3-27.036,7.334-27.463,4.6-.376-2.4-1.928-12.321-1.91-12.2.725,4.635,28.119-7.646,28.571-4.761S277.707,299.09,277.034,294.786Z" transform="translate(-247.661 -281.975)" fill="#fff"/>
+      <path id="Path_427" data-name="Path 427" d="M276.053,293.209c-.489-2.808-25.568,7.624-25.848,5.292-.361-3.026-1.44-9.2-1.559-9.964,1.157,2.284,26.36-7.507,26.7-5.259C275.729,285.827,276.053,293.209,276.053,293.209Z" transform="translate(-247.514 -281.831)" fill="#b1d288"/>
+      <ellipse id="Ellipse_79" data-name="Ellipse 79" cx="3.854" cy="3.854" rx="3.854" ry="3.854" transform="translate(11.391 5.101)" fill="#fff"/>
+      <text id="_" data-name="$" transform="translate(14.175 11.182) rotate(-8.893)" fill="#b1d288" font-size="5" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
+    </g>
+    <g id="Group_285" data-name="Group 285" transform="translate(245.672 287.013)">
+      <path id="Path_428" data-name="Path 428" d="M277.5,299.4c.078-1.433-28.936-.939-28.963,0V287.19c.311,6.161,29.3,1.122,28.963,0Z" transform="translate(-248.541 -286.236)" fill="#92a07e"/>
+      <path id="Path_429" data-name="Path 429" d="M277.5,299.665c0-4.356-28.963,2.77-28.963,0V287.314c0,4.692,28.963-3.207,28.963-.287Z" transform="translate(-248.541 -286.36)" fill="#fff"/>
+      <path id="Path_430" data-name="Path 430" d="M276.5,297.746c-.049-2.851-27.276,3.527-27.191,1.181.111-3.046,0-9.316,0-10.085.79,2.435,27.2-3.341,27.191-1.067C276.489,290.35,276.5,297.746,276.5,297.746Z" transform="translate(-248.426 -286.23)" fill="#b1d288"/>
+      <ellipse id="Ellipse_80" data-name="Ellipse 80" cx="3.854" cy="3.854" rx="3.854" ry="3.854" transform="translate(10.627 3.162)" fill="#fff"/>
+      <text id="_2" data-name="$" transform="translate(13.115 9.993)" fill="#b1d288" font-size="7" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
+    </g>
+  </g>
+</svg>

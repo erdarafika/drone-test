@@ -7,7 +7,7 @@ export default {
   name: 'ClientAdministration',
   meta: {
     title: 'clientAdministration',
-    // icon: 'component',
+    icon: 'client-administration',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [
