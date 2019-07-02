@@ -1,6 +1,6 @@
 
 <template lang="pug">
-.app-container
+app-container
   el-form.tolerance-form(:model='tolerance', :rules='rules', ref='dataForm', label-width='120px')
     el-form-item(label='Amount' prop="amount")
       .el-input(data-children-count='1')

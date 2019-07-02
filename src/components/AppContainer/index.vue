@@ -1,0 +1,38 @@
+<template lang="pug">
+.app-container
+  .header
+    | {{title}}
+  .block
+    slot
+</template>
+
+<script>
+export default {
+  computed: {
+    title() {
+      const routeTitle = this.$route.meta.title
+      const routeLangKey = `route.${routeTitle}`
+      return this.$t(routeLangKey)
+    }
+  }
+}
+</script>
+
+<style lang='scss'>
+.app-container {
+  margin: 20px;
+  border-radius:10px;
+  background: white;
+  .header {
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+    background: #489bff;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .block {
+    padding: 20px;
+  }
+}
+</style>

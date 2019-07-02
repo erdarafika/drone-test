@@ -1,5 +1,5 @@
 <template lang="pug">
-.app-container
+app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     //- el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')

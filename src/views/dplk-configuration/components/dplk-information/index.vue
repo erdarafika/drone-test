@@ -1,6 +1,6 @@
 
 <template lang="pug">
-.app-container
+div
   el-form.dplk-information-form(:model='dplkInformation', :rules='rules', ref='dataForm', label-width='200px')
     el-form-item(:label="$t('dplkInformation.name')" prop="name")
         el-input(v-model='dplkInformation.name' )

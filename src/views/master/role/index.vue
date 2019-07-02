@@ -1,5 +1,5 @@
 <template lang="pug">
-.app-container
+app-container
   .filter-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}

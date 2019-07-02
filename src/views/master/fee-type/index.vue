@@ -1,6 +1,6 @@
 
   <template lang="pug">
-  .app-container
+  app-container
     //- .filter-container
     //-   el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
 

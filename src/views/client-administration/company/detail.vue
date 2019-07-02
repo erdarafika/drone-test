@@ -1,5 +1,5 @@
 <template lang="pug">
-.app-container
+app-container
   div.back-button
     el-button(size='small', @click="$router.push({name: 'Company'})")
       | {{$t('table.back')}}

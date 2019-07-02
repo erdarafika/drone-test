@@ -1,6 +1,6 @@
 
 <template lang="pug">
-.app-container
+app-container
 
   el-form.withdrawal-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='280px', style='width: 80%; margin-left:50px;')
     h3.form-title {{ $t('route.withdrawalRule') }}

@@ -1,5 +1,5 @@
 <template lang="pug">
-.tab-container
+app-container
   el-tabs.pensiun-tab(type='border-card')
     el-tab-pane(:label='$t("location.country")')
       Country
@@ -37,6 +37,6 @@ export default {
     margin: 30px;
   }
   .pensiun-tab {
-    margin-top: 15px;
+    margin-top: 0px;
   }
 </style>
