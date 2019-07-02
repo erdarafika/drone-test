@@ -3,8 +3,8 @@
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
+        <img v-if="logo" :src="getLogo(logo)" class="login-logo">
         <h3 class="title">
-          <img v-if="logo" :src="getLogo(logo)" class="login-logo">
           <!-- {{ $t('login.title') }} -->
           {{ title }}
         </h3>
@@ -267,6 +267,14 @@ $light_gray:#2d2d2d;
     overflow: hidden;
   }
 
+  .login-logo {
+    width: 80px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    margin-bottom: 32px;
+  }
+
   .tips {
     font-size: 14px;
     color: $light_gray;
@@ -295,7 +303,7 @@ $light_gray:#2d2d2d;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
-      font-weight: bold;
+      font-weight: lighter;
     }
 
     .set-language {
