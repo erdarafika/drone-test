@@ -99,6 +99,23 @@ export const asyncRoutes = [
   clientAdministration,
   userManagement,
   {
+    path: '/import-data',
+    component: Layout,
+    redirect: '/import/import-excel',
+    name: 'ImportData',
+    meta: {
+      title: 'ImportData'
+    },
+    children: [
+      {
+        path: 'import-excel',
+        component: () => import('@/views/import-data/import-excel'),
+        name: 'ImportExcel',
+        meta: { title: 'importExcel' }
+      }
+    ]
+  },
+  {
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',

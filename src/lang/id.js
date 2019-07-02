@@ -43,7 +43,9 @@ export default {
     company: 'Perusahaan',
     userManagement: 'Manajamen Pengguna',
     groupMaintenance: 'Pengelolaan Grup',
-    clientAdministration: 'Administrasi Klien'
+    clientAdministration: 'Administrasi Klien',
+    importData: 'Import Data',
+    importExcel: 'Import Excel'
   },
   // GLOBAL
   validatorMessage: {

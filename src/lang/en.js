@@ -42,7 +42,9 @@ export default {
     clientAdministration: 'Client Administration',
     company: 'Company',
     userManagement: 'User Management',
-    groupMaintenance: 'Group Maintanance'
+    groupMaintenance: 'Group Maintanance',
+    importData: 'Import Data',
+    importExcel: 'Import Excel'
   },
   // GLOBAL
   validatorMessage: {
