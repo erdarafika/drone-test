@@ -21,6 +21,17 @@ export default {
       }
     },
     {
+      path: 'company/:id',
+      name: 'CompanyDetail',
+      component: () => import('@/views/client-administration/company/detail'),
+      meta: {
+        title: 'detail',
+        noCache: true,
+        breadcrumb: false
+      },
+      hidden: true
+    },
+    {
       path: 'group-maintenance',
       name: 'GroupMaintenance',
       component: () => import('@/views/client-administration/group/index'),

@@ -1,5 +1,6 @@
 export default {
   route: {
+    detail: 'Detail',
     dashboard: 'Dasbor',
     addressType: 'Tipe Alamat',
     businessLine: 'Jalur Bisnis',
@@ -65,6 +66,7 @@ export default {
     }
   },
   table: {
+    back: 'Halaman Sebelumnya',
     type: 'Tipe',
     save: 'Simpan',
     search: 'Pencarian',

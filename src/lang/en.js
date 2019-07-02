@@ -1,5 +1,6 @@
 export default {
   route: {
+    detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',
     businessLine: 'Business Line',
@@ -65,6 +66,7 @@ export default {
   },
 
   table: {
+    back: 'Back',
     approve: 'Approve',
     reject: 'Reject',
     type: 'Type',

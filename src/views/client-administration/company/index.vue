@@ -26,76 +26,68 @@
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-    el-tabs(type='border-card' v-model='activeTab')
-      el-tab-pane(label='Information' name='Information')
-        el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
-          el-tabs.pane(tab-position='left', style='height:100%;')
-            el-tab-pane(label='General')
-              el-form-item(:label="$t('companyInformation.name')", prop='name' )
-                el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-              el-form-item(:label="$t('companyInformation.email')", prop='email')
-                el-input(v-model='temp.email', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-              el-form-item(:label="$t('companyInformation.code')", prop='code')
-                el-input(v-model='temp.code', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='true' placeholder='Auto Generated When Approved')
-              el-form-item(:label="$t('companyInformation.website')" prop='website')
-                el-input(v-model='temp.website', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-            el-tab-pane(label='Legals')
-              el-form-item(:label="$t('companyInformation.businessLine')", prop='businessLineId')
-                el-select(placeholder='Select' v-model='temp.businessLineId'  :disabled='dialogIsUpdate')
-                  el-option(v-for='item in businessLineOptions', :key='item.value', :label='item.label', :value='item.value')
-              el-form-item(:label="$t('companyInformation.npwp')", prop='npwp')
-                el-input(v-model='temp.npwp', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.deedEstablishmentNumber')", prop='deedEstablishmentNumber')
-                el-input(v-model='temp.deedEstablishmentNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.articleAssociationNumber')" prop='articleAssociationNumber')
-                el-input(v-model='temp.articleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationNumber')" prop='latestAmendmentArticleAssociationNumber')
-                el-input(v-model='temp.latestAmendmentArticleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.companyNumberRegistrationNumber')" prop='companyNumberRegistrationNumber')
-                el-input(v-model='temp.companyNumberRegistrationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.domicilieCertificateNumber')" prop='domicilieCertificateNumber')
-                el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-            el-tab-pane(label='Legals Date')
-              el-form-item(:label="$t('companyInformation.deedEstablishmentDate')" prop='deedEstablishmentDate')
-                el-date-picker( v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.articleAssociationDate')" prop='articleAssociationDate')
-                el-date-picker( v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
-                el-date-picker( v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
-                el-date-picker( v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
-                el-date-picker( v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-            el-tab-pane(label='Assets Etc')
-              el-form-item(:label="$t('companyInformation.asset')" prop='asset')
-                el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.grossIncomePerYear')" prop='grossIncomePerYear')
-                el-input(v-model='temp.grossIncomePerYear', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.moneySource')" prop='moneySource')
-                el-input(v-model='temp.moneySource', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.pensionProgramSubmissionPurpose')" prop='pensionProgramSubmissionPurpose')
-                el-input(v-model='temp.pensionProgramSubmissionPurpose', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
+    el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
+      el-tabs.pane(tab-position='left', style='height:100%;')
+        el-tab-pane(label='General')
+          el-form-item(:label="$t('companyInformation.name')", prop='name' )
+            el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+          el-form-item(:label="$t('companyInformation.email')", prop='email')
+            el-input(v-model='temp.email', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+          el-form-item(:label="$t('companyInformation.code')", prop='code')
+            el-input(v-model='temp.code', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='true' placeholder='Auto Generated When Approved')
+          el-form-item(:label="$t('companyInformation.website')" prop='website')
+            el-input(v-model='temp.website', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+        el-tab-pane(label='Legals')
+          el-form-item(:label="$t('companyInformation.businessLine')", prop='businessLineId')
+            el-select(placeholder='Select' v-model='temp.businessLineId'  :disabled='dialogIsUpdate')
+              el-option(v-for='item in businessLineOptions', :key='item.value', :label='item.label', :value='item.value')
+          el-form-item(:label="$t('companyInformation.npwp')", prop='npwp')
+            el-input(v-model='temp.npwp', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.deedEstablishmentNumber')", prop='deedEstablishmentNumber')
+            el-input(v-model='temp.deedEstablishmentNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.articleAssociationNumber')" prop='articleAssociationNumber')
+            el-input(v-model='temp.articleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationNumber')" prop='latestAmendmentArticleAssociationNumber')
+            el-input(v-model='temp.latestAmendmentArticleAssociationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.companyNumberRegistrationNumber')" prop='companyNumberRegistrationNumber')
+            el-input(v-model='temp.companyNumberRegistrationNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.domicilieCertificateNumber')" prop='domicilieCertificateNumber')
+            el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+        el-tab-pane(label='Legals Date')
+          el-form-item(:label="$t('companyInformation.deedEstablishmentDate')" prop='deedEstablishmentDate')
+            el-date-picker( v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.articleAssociationDate')" prop='articleAssociationDate')
+            el-date-picker( v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
+            el-date-picker( v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
+            el-date-picker( v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
+            el-date-picker( v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+        el-tab-pane(label='Assets Etc')
+          el-form-item(:label="$t('companyInformation.asset')" prop='asset')
+            el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.grossIncomePerYear')" prop='grossIncomePerYear')
+            el-input(v-model='temp.grossIncomePerYear', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.moneySource')" prop='moneySource')
+            el-input(v-model='temp.moneySource', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.pensionProgramSubmissionPurpose')" prop='pensionProgramSubmissionPurpose')
+            el-input(v-model='temp.pensionProgramSubmissionPurpose', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
 
-            el-tab-pane(label='Phone Number')
-              el-form-item(:label="$t('companyInformation.office')" prop='office')
-                el-input(v-model='temp.office', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.office2')" prop='office2')
-                el-input(v-model='temp.office2', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.fax')" prop='fax')
-                el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('companyInformation.home')" prop='home')
-                el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-        .dialog-footer.pull-right( v-show='!dialogIsUpdate')
-          el-button(@click='dialogFormVisible = false')
-            | {{ $t('table.cancel') }}
-          el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
-            | {{ $t('table.confirm') }}
-      el-tab-pane(label='Address' :disabled='!dialogIsUpdate' name='Address')
-        Address(:data='temp')
-      el-tab-pane(label='Contact Person' :disabled='!dialogIsUpdate' name='Contact Person')
-        ContactPerson(:data='temp')
-      el-tab-pane(label='Bank Account'  :disabled='!dialogIsUpdate' name='Bank Account')
-        BankAccount(:data='temp')
+        el-tab-pane(label='Phone Number')
+          el-form-item(:label="$t('companyInformation.office')" prop='office')
+            el-input(v-model='temp.office', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.office2')" prop='office2')
+            el-input(v-model='temp.office2', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.fax')" prop='fax')
+            el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('companyInformation.home')" prop='home')
+            el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+    .dialog-footer.pull-right(v-show='!dialogIsUpdate' style='margin-top:-20px')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
+        | {{ $t('table.confirm') }}
 
 </template>
 
@@ -126,7 +118,6 @@ export default {
   components: { Pagination, Address, ContactPerson, BankAccount },
   data() {
     return {
-      activeTab: 'Information',
       dateFormat: 'dd-MM-yyyy',
       tableKey: 0,
       list: [],
@@ -138,7 +129,6 @@ export default {
         q: undefined
       },
       businessLineOptions: [],
-      dummyOptions: ['Option 1', 'Option 2'],
       temp: {
         name: undefined,
         code: undefined,
@@ -222,43 +212,7 @@ export default {
   },
   methods: {
     handleDetail(row) {
-      // this.resetTemp()
-      this.temp = {
-        id: row.id,
-        name: row.name,
-        code: row.code,
-        email: row.email,
-        website: row.website,
-        businessLineId: row.businessLine.id,
-        businessEntity: row.businessEntity,
-        npwp: row.npwp,
-        deedEstablishmentNumber: row.deedEstablishmentNumber,
-        articleAssociationNumber: row.articleAssociationNumber,
-        latestAmendmentArticleAssociationNumber: row.latestAmendmentArticleAssociationNumber,
-        companyNumberRegistrationNumber: row.companyNumberRegistrationNumber,
-        domicilieCertificateNumber: row.domicilieCertificateNumber,
-
-        domicilieCertificateNumberExpiredDate: row.domicilieCertificateNumberExpiredDate,
-        deedEstablishmentDate: row.deedEstablishmentDate,
-        articleAssociationDate: row.articleAssociationDate,
-        latestAmendmentArticleAssociationDate: row.latestAmendmentArticleAssociationDate,
-        companyNumberRegistrationExpiredDate: row.companyNumberRegistrationExpiredDate,
-
-        asset: row.asset,
-        grossIncomePerYear: row.grossIncomePerYear,
-        pensionProgramSubmissionPurpose: row.pensionProgramSubmissionPurpose,
-        moneySource: row.moneySource,
-
-        office: row.office,
-        office2: row.office2,
-        fax: row.fax,
-        home: row.home
-      }
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      this.$router.push({ name: 'CompanyDetail', params: { id: row.id }})
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
@@ -305,7 +259,6 @@ export default {
       }
     },
     handleCreate() {
-      this.activeTab = 'Information'
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -334,7 +287,6 @@ export default {
       })
     },
     handleUpdate(row) {
-      this.activeTab = 'Information'
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
