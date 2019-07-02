@@ -41,7 +41,7 @@ export default {
     moneySource: 'Sumber Dana',
     company: 'Perusahaan',
     userManagement: 'Manajamen Pengguna',
-    groupMaintenance: 'Perawatan Grup',
+    groupMaintenance: 'Pengelolaan Grup',
     clientAdministration: 'Administrasi Klien'
   },
   // GLOBAL

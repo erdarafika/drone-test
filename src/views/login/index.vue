@@ -103,7 +103,7 @@ export default {
       capsTooltip: false,
       loading: false,
       redirect: undefined,
-      title: 'PensiunKu',
+      title: 'Code Cofee Creative',
       logo: 'app-logo'
     }
   },

@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: 'PensiunKu',
+      title: 'Code Cofee Creative',
       logo: 'app-logo'
     }
   },
@@ -80,7 +80,7 @@ export default {
       // font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       // PensiunKu version
       font-family: 'Roboto', Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
 
       vertical-align: middle;
     }
