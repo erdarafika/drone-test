@@ -39,6 +39,17 @@ export default {
         title: 'groupMaintenance',
         roles: ['admin'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: 'group-maintenance/:id',
+      name: 'GroupMaintenanceDetail',
+      component: () => import('@/views/client-administration/group/detail'),
+      meta: {
+        title: 'detail',
+        noCache: true,
+        breadcrumb: false
+      },
+      hidden: true
     }
   ]
 }

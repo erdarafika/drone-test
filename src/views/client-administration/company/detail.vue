@@ -138,9 +138,7 @@ export default {
         office2: undefined,
         fax: undefined,
         home: undefined
-      },
-      dialogFormVisible: false,
-      dialogStatus: ''
+      }
     }
   },
   created() {

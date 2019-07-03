@@ -23,72 +23,55 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
-        //- el-button(type='danger', size='mini', @click='handleDelete(row)')
-        //-   | {{ $t('table.delete') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-    el-tabs(type='border-card' v-model='activeTab')
-      el-tab-pane(label='Information' name='Information')
-        el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
-          el-tabs.pane(tab-position='left', style='height:100%;')
+    el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
+      el-tabs.pane(tab-position='left', style='height:100%;')
+        el-tab-pane(label='General')
+          el-form-item(:label="$t('groupMaintenance.name')", prop='name' )
+            el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+          el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
+            el-select(placeholder='Select' v-model='temp.companyId'  :disabled='dialogIsUpdate')
+              el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
+          el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId')
+            el-select(placeholder='Select' v-model='temp.productTypeId'  :disabled='dialogIsUpdate')
+              el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+          el-form-item(:label="$t('groupMaintenance.proposalNumber')", prop='proposalNumber')
+            el-input(v-model='temp.proposalNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+          el-form-item(:label="$t('groupMaintenance.type')", prop='type')
+            el-select(placeholder='Select' v-model='temp.type'  :disabled='dialogIsUpdate')
+              el-option(v-for='item in groupTypeOptions', :key='item', :label='item', :value='item')
 
-            el-tab-pane(label='General')
-              //-     isDraft: undefined,
-              el-form-item(:label="$t('groupMaintenance.name')", prop='name' )
-                el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-              el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
-                el-select(placeholder='Select' v-model='temp.companyId'  :disabled='dialogIsUpdate')
-                  el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
-              el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId')
-                el-select(placeholder='Select' v-model='temp.productTypeId'  :disabled='dialogIsUpdate')
-                  el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
-              el-form-item(:label="$t('groupMaintenance.proposalNumber')", prop='proposalNumber')
-                el-input(v-model='temp.proposalNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
-              el-form-item(:label="$t('groupMaintenance.type')", prop='type')
-                el-select(placeholder='Select' v-model='temp.type'  :disabled='dialogIsUpdate')
-                  el-option(v-for='item in groupTypeOptions', :key='item', :label='item', :value='item')
+        el-tab-pane(label='Dates')
+          el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
+            el-date-picker(v-model='temp.proposalDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.effectiveDate')" prop='effectiveDate')
+            el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
+            el-date-picker(v-model='temp.caseCloseDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
+            el-date-picker(v-model='temp.terminationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
+            el-date-picker(v-model='temp.ppkReceiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
 
-            el-tab-pane(label='Dates')
-              el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
-                el-date-picker(v-model='temp.proposalDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.effectiveDate')" prop='effectiveDate')
-                el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
-                el-date-picker(v-model='temp.caseCloseDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
-                el-date-picker(v-model='temp.terminationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
-                el-date-picker(v-model='temp.ppkReceiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+        el-tab-pane(label='Other')
+          el-form-item(:label="$t('groupMaintenance.totalEmployee')" prop='totalEmployee')
+            el-input(v-model='temp.totalEmployee', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.totalEmployeeRegistered')" prop='totalEmployeeRegistered')
+            el-input(v-model='temp.totalEmployeeRegistered', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.isHavingFundOutsideDplk')" prop='isHavingFundOutsideDplk')
+            el-input(v-model='temp.isHavingFundOutsideDplk', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.isTaxPaidByEmployer')" prop='isTaxPaidByEmployer')
+            el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+          el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
+            el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
 
-            el-tab-pane(label='Other')
-              el-form-item(:label="$t('groupMaintenance.totalEmployee')" prop='totalEmployee')
-                el-input(v-model='temp.totalEmployee', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.totalEmployeeRegistered')" prop='totalEmployeeRegistered')
-                el-input(v-model='temp.totalEmployeeRegistered', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.isHavingFundOutsideDplk')" prop='isHavingFundOutsideDplk')
-                el-input(v-model='temp.isHavingFundOutsideDplk', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.isTaxPaidByEmployer')" prop='isTaxPaidByEmployer')
-                el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-              el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
-                el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
-
-        .dialog-footer.pull-right( v-show='!dialogIsUpdate')
-          el-button(@click='dialogFormVisible = false')
-            | {{ $t('table.cancel') }}
-          el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
-            | {{ $t('table.confirm') }}
-
-      el-tab-pane(label='Member Class Plan' :disabled='!dialogIsUpdate' name='Member Class Plan')
-        ClassPlan(:data='temp')
-      el-tab-pane(label='Billing Contribution' :disabled='!dialogIsUpdate' name='Billing Contribution')
-        Billing(:data='temp')
-      el-tab-pane(label='Investment Direction'  :disabled='!dialogIsUpdate' name='Investment Direction')
-      el-tab-pane(label='Group Charge'  :disabled='!dialogIsUpdate' name='Group Charge')
-      el-tab-pane(label='Withdrawal Rule'  :disabled='!dialogIsUpdate' name='Withdrawal Rule')
-      el-tab-pane(label='Agent'  :disabled='!dialogIsUpdate' name='Agent')
-        //- BankAccount(:data='temp')
-
+    .dialog-footer.pull-right( v-show='!dialogIsUpdate')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
+        | {{ $t('table.confirm') }}
 </template>
 
 <style>
@@ -196,30 +179,7 @@ export default {
   },
   methods: {
     handleDetail(row) {
-      // this.resetTemp()
-      this.temp = {
-        id: row.id,
-        companyId: row.company.id,
-        productTypeId: row.productType.id,
-        name: row.name,
-        proposalNumber: row.proposalNumber,
-        proposalDate: row.proposalDate,
-        type: row.type,
-        effectiveDate: row.effectiveDate,
-        caseCloseDate: row.caseCloseDate,
-        terminationDate: row.terminationDate,
-        ppkReceiveDate: row.ppkReceiveDate,
-        totalEmployee: row.totalEmployee,
-        totalEmployeeRegistered: row.totalEmployeeRegistered,
-        isHavingFundOutsideDplk: row.isHavingFundOutsideDplk,
-        isTaxPaidByEmployer: row.isTaxPaidByEmployer,
-        notes: row.notes
-      }
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      this.$router.push({ name: 'GroupMaintenanceDetail', params: { id: row.id }})
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
