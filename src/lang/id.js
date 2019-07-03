@@ -40,7 +40,7 @@ export default {
     position: 'Jabatan',
     department: 'Departemen',
     moneySource: 'Sumber Dana',
-    company: 'Perusahaan',
+    company: 'Pengelolaan Perusahaan',
     userManagement: 'Manajamen Pengguna',
     groupMaintenance: 'Pengelolaan Grup',
     clientAdministration: 'Administrasi Klien',

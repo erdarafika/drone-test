@@ -40,9 +40,9 @@ export default {
     department: 'Department',
     moneySource: 'Money Source',
     clientAdministration: 'Client Administration',
-    company: 'Company',
+    company: 'Company Maintenance',
     userManagement: 'User Management',
-    groupMaintenance: 'Group Maintanance',
+    groupMaintenance: 'Group Maintenance',
     importData: 'Import Data',
     importExcel: 'Import Excel'
   },
