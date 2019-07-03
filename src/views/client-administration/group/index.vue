@@ -45,15 +45,15 @@ app-container
 
         el-tab-pane(label='Dates')
           el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
-            el-date-picker(v-model='temp.proposalDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.proposalDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
           el-form-item(:label="$t('groupMaintenance.effectiveDate')" prop='effectiveDate')
-            el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
-            el-date-picker(v-model='temp.caseCloseDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.caseCloseDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
-            el-date-picker(v-model='temp.terminationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.terminationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
-            el-date-picker(v-model='temp.ppkReceiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.ppkReceiveDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
 
         el-tab-pane(label='Other')
           el-form-item(:label="$t('groupMaintenance.totalEmployee')" prop='totalEmployee')
@@ -61,9 +61,11 @@ app-container
           el-form-item(:label="$t('groupMaintenance.totalEmployeeRegistered')" prop='totalEmployeeRegistered')
             el-input(v-model='temp.totalEmployeeRegistered', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
           el-form-item(:label="$t('groupMaintenance.isHavingFundOutsideDplk')" prop='isHavingFundOutsideDplk')
-            el-input(v-model='temp.isHavingFundOutsideDplk', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+            el-switch(v-model='temp.isHavingFundOutsideDplk')
+            span.switch-status {{ temp.isHavingFundOutsideDplk?'Yes':'No' }}
           el-form-item(:label="$t('groupMaintenance.isTaxPaidByEmployer')" prop='isTaxPaidByEmployer')
-            el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+            el-switch(v-model='temp.isTaxPaidByEmployer')
+            span.switch-status {{ temp.isTaxPaidByEmployer?'Yes':'No' }}
           el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
             el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
 
@@ -94,14 +96,13 @@ import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import ClassPlan from './components/classPlan'
-import Billing from './components/billing'
 
 export default {
   name: 'Company',
-  components: { Pagination, ClassPlan, Billing },
+  components: { Pagination },
   data() {
     return {
+      dateFormat: 'dd-MM-yyyy',
       activeTab: 'Information',
       tableKey: 0,
       list: [],

@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Element Admin' // page title
+const name = defaultSettings.title || 'Code Coffee Creative' // page title
 const port = 9527 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/

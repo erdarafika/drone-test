@@ -109,13 +109,9 @@ app-container
 import { fetchList, createCompany, updateCompany, deleteCompany } from '@/api/company'
 import { fetchList as fetchBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import Address from './components/address'
-import ContactPerson from './components/contactPerson'
-import BankAccount from './components/bankAccount'
-
 export default {
   name: 'Company',
-  components: { Pagination, Address, ContactPerson, BankAccount },
+  components: { Pagination },
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',
