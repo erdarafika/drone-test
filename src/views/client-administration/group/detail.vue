@@ -45,11 +45,11 @@ app-container
               el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='true')
             el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
               el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='true')
-      .dialog-footer.pull-right( v-show='!dialogIsUpdate')
-        el-button(@click='dialogFormVisible = false')
-          | {{ $t('table.cancel') }}
-        el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+      //- .dialog-footer.pull-right( v-show='!dialogIsUpdate')
+      //-   el-button(@click='dialogFormVisible = false')
+      //-     | {{ $t('table.cancel') }}
+      //-   el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
+      //-     | {{ $t('table.confirm') }}
 
     el-tab-pane(label='Member Class Plan' name='Member Class Plan')
       ClassPlan(:data='temp')

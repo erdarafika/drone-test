@@ -63,11 +63,11 @@ app-container
               el-input(v-model='temp.fax', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='true')
             el-form-item(:label="$t('companyInformation.home')" prop='home')
               el-input(v-model='temp.home', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='true')
-      .dialog-footer.pull-right( v-show='!true')
-        el-button(@click='dialogFormVisible = false')
-          | {{ $t('table.cancel') }}
-        el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+      //- .dialog-footer.pull-right( v-show='!true')
+      //-   el-button(@click='dialogFormVisible = false')
+      //-     | {{ $t('table.cancel') }}
+      //-   el-button(type='primary' @click="dialogStatus==='create'?createData():updateData()")
+      //-     | {{ $t('table.confirm') }}
     el-tab-pane(label='Address' name='Address')
       Address(:data='temp')
     el-tab-pane(label='Contact Person' name='Contact Person')
