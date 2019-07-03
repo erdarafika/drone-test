@@ -12,16 +12,12 @@ div
     el-table-column(:label="$t('groupBilling.paymentMethod')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.paymentMethod }}
-    //- el-table-column(:label="$t('groupBilling.isPercentage')", align='left',)
-    //-   template(slot-scope='scope')
-    //-     span(:class="scope.row.isPercentage ?'label-enable':''")
-    //-       | {{ scope.row.isPercentage ? 'Yes':'No' }}
     el-table-column(:label="$t('groupBilling.payor')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.payor }}
-    el-table-column(:label="$t('groupBilling.dplkBank')", align='left')
+    el-table-column(:label="$t('groupBilling.dplkBankId')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.dplkBank.accountName }}
+        span {{ scope.row.dplkBank.bank.bankName }}
     el-table-column(:label="$t('groupBilling.billingDate')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.billingDate }}
@@ -33,26 +29,33 @@ div
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
-    //- el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-    //-   el-form-item(:label="$t('groupBilling.name')", prop='name')
-    //-     el-input(v-model.number='temp.name', type='input')
-    //-   el-form-item(:label="$t('groupBilling.employee')", prop='employee')
-    //-     el-input(v-model.number='temp.employee', type='input')
-    //-   el-form-item(:label="$t('groupBilling.employer')", prop='employer')
-    //-     el-input(v-model.number='temp.employer', type='input')
-    //-   el-form-item(:label="$t('groupBilling.isPercentage')" prop='isPercentage')
-    //-     el-switch(v-model='temp.isPercentage')
-    //-     span.switch-status {{ temp.isPercentage?'Yes':'No' }}
-    //- .dialog-footer(slot='footer')
-    //-   el-button(@click='dialogFormVisible = false')
-    //-     | {{ $t('table.cancel') }}
-    //-   el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-    //-     | {{ $t('table.confirm') }}
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('groupBilling.frequency')", prop='frequency')
+        el-select(placeholder='Select' v-model='temp.frequency')
+          el-option(v-for='item in frequencyOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('groupBilling.paymentMethod')", prop='paymentMethod')
+        el-select(placeholder='Select' v-model='temp.paymentMethod')
+          el-option(v-for='item in paymentMethodOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('groupBilling.payor')", prop='payor')
+        el-select(placeholder='Select' v-model='temp.payor')
+          el-option(v-for='item in payorOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('groupBilling.billingDate')" prop='billingDate')
+        el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a date')
+      el-form-item(:label="$t('groupBilling.dplkBankId')" prop='dplkBankId')
+        el-select(placeholder='Select' v-model='temp.dplkBankId')
+          el-option(v-for='item in dplkBankOptions', :key='item.value', :label='item.label', :value='item.value')
+
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+        | {{ $t('table.confirm') }}
 
 </template>
 
 <script>
 import { fetchList, createGroupBilling, updateGroupBilling, deleteGroupBilling } from '@/api/group-billing'
+import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -61,6 +64,7 @@ export default {
   props: ['data'],
   data() {
     return {
+      dateFormat: 'dd-MM-yyyy',
       tableKey: 0,
       list: [],
       total: 0,
@@ -71,12 +75,16 @@ export default {
       },
       temp: {
         groupId: undefined,
-        frequency: undefined,
+        frequency: 1,
         paymentMethod: undefined,
         payor: undefined,
         billingDate: undefined,
         dplkBankId: undefined
       },
+      frequencyOptions: [{ label: 1, value: 1 }, { label: 4, value: 4 }, { label: 6, value: 6 }, { label: 12, value: 12 }],
+      paymentMethodOptions: [{ label: 'Bank Transfer', value: 'bank-transfer' }, { label: 'Virtual Account', value: 'virtual-account' }],
+      payorOptions: [{ label: 'Self', value: 'self' }, { label: 'Others', value: 'others' }],
+      dplkBankOptions: undefined,
       initialUpdate: false,
       dialogFormVisible: false,
       dialogStatus: '',
@@ -102,6 +110,9 @@ export default {
       this.getList()
       this.temp.groupId = this.data.id
     }
+    fetchDplkBankList().then(res => {
+      this.dplkBankOptions = res.map(item => ({ label: `${item.bank.bankName} | ${item.accountName}`, value: item.id }))
+    })
   },
   methods: {
     getDialogHeader(dialogStatus) {
@@ -124,7 +135,7 @@ export default {
     resetTemp() {
       this.temp = {
         groupId: this.data.id,
-        frequency: undefined,
+        frequency: 1,
         paymentMethod: undefined,
         payor: undefined,
         billingDate: undefined,
