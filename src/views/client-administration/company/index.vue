@@ -55,15 +55,15 @@ app-container
             el-input(v-model='temp.domicilieCertificateNumber', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
         el-tab-pane(label='Legals Date')
           el-form-item(:label="$t('companyInformation.deedEstablishmentDate')" prop='deedEstablishmentDate')
-            el-date-picker( v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.deedEstablishmentDate', type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
           el-form-item(:label="$t('companyInformation.articleAssociationDate')" prop='articleAssociationDate')
-            el-date-picker( v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.articleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('companyInformation.latestAmendmentArticleAssociationDate')" prop='latestAmendmentArticleAssociationDate')
-            el-date-picker( v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.latestAmendmentArticleAssociationDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('companyInformation.companyNumberRegistrationExpiredDate')" prop='companyNumberRegistrationExpiredDate')
-            el-date-picker( v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.companyNumberRegistrationExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
           el-form-item(:label="$t('companyInformation.domicilieCertificateNumberExpiredDate')" prop='domicilieCertificateNumberExpiredDate')
-            el-date-picker( v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+            el-date-picker(:value-format='dateFormat' v-model='temp.domicilieCertificateNumberExpiredDate', type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
         el-tab-pane(label='Assets Etc')
           el-form-item(:label="$t('companyInformation.asset')" prop='asset')
             el-input(v-model='temp.asset', type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  :disabled='dialogIsUpdate')
@@ -157,7 +157,8 @@ export default {
         office: undefined,
         office2: undefined,
         fax: undefined,
-        home: undefined
+        home: undefined,
+        isDraft: 1
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -255,7 +256,8 @@ export default {
         office: undefined,
         office2: undefined,
         fax: undefined,
-        home: undefined
+        home: undefined,
+        isDraft: 1
       }
     },
     handleCreate() {

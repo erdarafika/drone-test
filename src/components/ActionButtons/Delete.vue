@@ -1,4 +1,5 @@
 <template lang="pug">
+el-tooltip(:content="$t('table.delete')" placement='top')
   svg-icon.actionButton(icon-class='delete' @click='handleAction')
 </template>
 

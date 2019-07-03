@@ -45,7 +45,6 @@ app-container
               el-input(v-model='temp.isTaxPaidByEmployer', type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='true')
             el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
               el-input(v-model='temp.notes', type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='true')
-
       .dialog-footer.pull-right( v-show='!dialogIsUpdate')
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
@@ -60,7 +59,6 @@ app-container
     el-tab-pane(label='Group Charge'  name='Group Charge' :disabled='true')
     el-tab-pane(label='Withdrawal Rule'  name='Withdrawal Rule' :disabled='true')
     el-tab-pane(label='Agent'  name='Agent' :disabled='true')
-
 </template>
 
 <style>

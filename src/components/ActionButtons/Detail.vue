@@ -1,4 +1,5 @@
 <template lang="pug">
+el-tooltip(:content="$t('table.detail')" placement='top')
   svg-icon.actionButton(icon-class='view' @click='handleAction')
 </template>
 
