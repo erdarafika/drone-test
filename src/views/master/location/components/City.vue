@@ -24,9 +24,9 @@ div
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('location.name')", prop='name')
-        el-input(v-model='temp.name')
+        el-input(v-model='temp.name' name='name')
       el-form-item(:label="$t('location.province')", prop='provinceId')
-        el-select(v-model='temp.provinceId', placeholder='Select', filterable, default-first-option :disabled="dialogStatus==='update'")
+        el-select(v-model='temp.provinceId', name='provinceId' placeholder='Select', filterable, default-first-option :disabled="dialogStatus==='update'")
           el-option(v-for='item in provinceOptions', :key='item.value', :label='item.label', :value='item.value')
 
     .dialog-footer(slot='footer')

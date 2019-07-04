@@ -14,7 +14,7 @@
 
     el-form(:model='temp', :inline='true'  :rules='rules', ref='dataForm', label-width='150px')
       el-form-item(:label='$t("document.rejectionReason")', prop='reason')
-        el-input(v-model='temp.reason', autocomplete='off')
+        el-input(v-model='temp.reason', name='reason' autocomplete='off')
       el-form-item
         el-button(type='primary' @click="createData()") {{$t('table.add')}}
 

@@ -23,7 +23,7 @@ app-container
   el-dialog.emailconfig-form(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 90%; margin-left:50px;')
       el-form-item(:label="$t('emailConfig.subject')", prop='subject')
-        el-input(v-model='temp.subject', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-input(v-model='temp.subject', name='subject' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
       el-form-item(label='', prop='htmlBody')
         tinymce(v-model='temp.htmlBody', :height='300')
 

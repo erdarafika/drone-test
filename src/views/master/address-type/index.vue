@@ -27,12 +27,12 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('addressType.type')", prop='type')
-        el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' )
+        el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' )
       el-form-item(:label="$t('addressType.displayOnMember')" prop="isMemberAddress")
-        el-switch(v-model='temp.isMemberAddress')
+        el-switch(v-model='temp.isMemberAddress' name='isMemberAddress')
         span.switch-status {{ temp.isMemberAddress?'Enabled':'Disabled' }}
       el-form-item(:label="$t('addressType.displayOnCompany')" prop="isCompanyAddress")
-        el-switch(v-model='temp.isCompanyAddress')
+        el-switch(v-model='temp.isCompanyAddress' name='isCompanyAddress')
         span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')

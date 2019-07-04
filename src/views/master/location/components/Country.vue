@@ -21,7 +21,7 @@ div
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('location.name')", prop='name')
-        el-input(v-model='temp.name')
+        el-input(v-model='temp.name' name='name')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')

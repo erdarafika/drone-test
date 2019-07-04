@@ -2,7 +2,7 @@
   .document-detail
     el-form(:model='temp', :inline='true' :rules='rules', ref='dataForm', label-width='100px')
       el-form-item(label='Name', prop='name')
-        el-input(v-model='temp.name', autocomplete='off')
+        el-input(v-model='temp.name', autocomplete='off' name='name')
       el-form-item
         el-upload.upload-demo(ref='upload', :limit="3" :on-exceed="handleExceed" :before-upload="beforeUpload" action='https://jsonplaceholder.typicode.com/posts/', :auto-upload='false')
           el-button(slot='trigger', type='primary') {{$t('emailConfig.selectFile')}}

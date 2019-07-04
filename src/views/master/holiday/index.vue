@@ -24,9 +24,9 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('holiday.date')", prop='date')
-        el-date-picker(v-model='temp.date', type='date', placeholder='Pick a day')
+        el-date-picker(v-model='temp.date', type='date', placeholder='Pick a day' name='date')
       el-form-item(:label="$t('holiday.description')", prop='description')
-        el-input(v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-input(v-model='temp.description', name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')

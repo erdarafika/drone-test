@@ -26,9 +26,9 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('businessLine.name')", prop='name')
-        el-input(v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-input(v-model='temp.name', name='name' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
       el-form-item(:label="$t('businessLine.code')", prop='code')
-        el-input(v-model.number='temp.code', type='input')
+        el-input(v-model.number='temp.code', name='code' type='input')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')

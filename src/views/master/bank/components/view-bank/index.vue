@@ -24,11 +24,11 @@
         h3 {{$t('bank.branch')}}
         el-form(:model='temp',  :rules='rules', ref='dataForm', label-width='100px')
           el-form-item(:label='$t("bank.branchName")', prop='bankBranch')
-            el-input(v-model='temp.bankBranch', autocomplete='off')
+            el-input(v-model='temp.bankBranch', autocomplete='off' name='bankBranch')
           el-form-item(:label='$t("bank.branchAddress")', prop='bankAddress')
-            el-input(v-model='temp.bankAddress', autocomplete='off')
+            el-input(v-model='temp.bankAddress', autocomplete='off' name='bankAddress')
           el-form-item(:label='$t("bank.branchCountry")', prop='country')
-            el-select(v-model='temp.country', placeholder='Select', filterable, default-first-option)
+            el-select(v-model='temp.country', name='country' placeholder='Select', filterable, default-first-option)
               el-option(v-for='item in countryList', :key='item' :label='item', :value='item')
           el-form-item
             el-button(type='primary' @click="createData()") {{$t('table.save')}}
