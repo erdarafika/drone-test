@@ -61,14 +61,14 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
-        el-select(v-model='temp.dplkStaffId', placeholder='Select', filterable, default-first-option)
+        el-select(v-model='temp.dplkStaffId', name='dplkStaffId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('user.password')" prop='password')
-        el-input(v-model.number='temp.password', type='password')
+        el-input(v-model.number='temp.password', name='password' type='password')
       el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
-        el-input(v-model.number='temp.confirmPassword', type='password')
+        el-input(v-model.number='temp.confirmPassword', name='confirmPassword' type='password')
       el-form-item(:label="$t('user.status')")
-        el-switch(v-model='temp.enabled')
+        el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
       el-form-item(:label="$t('user.authorities')" prop='roles')
         el-checkbox(:indeterminate='authoritiesIsIndeterminate', v-model='authoritiesCheckAll', @change='handleCheckAllAuthoritiesChange') Check all

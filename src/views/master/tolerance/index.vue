@@ -4,7 +4,7 @@ app-container
   el-form.tolerance-form(:model='tolerance', :rules='rules', ref='dataForm', label-width='120px')
     el-form-item(label='Amount' prop="amount")
       .el-input(data-children-count='1')
-        money.el-input__inner(v-model='tolerance.amount', v-bind='moneyConfig' )
+        money.el-input__inner(v-model='tolerance.amount', name='amount' v-bind='moneyConfig' )
     el-form-item
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
 
