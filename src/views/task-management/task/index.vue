@@ -66,7 +66,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList().then(response => {
-        this.list = response
+        this.list = response.filter(item => item.status !== 'approved')
         this.total = response.length
         this.listLoading = false
       })
