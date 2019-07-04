@@ -2,6 +2,7 @@
 .app-container
   .header
     | {{title}}
+    slot(name='header')
   .block
     slot
 </template>

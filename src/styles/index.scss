@@ -280,3 +280,24 @@ span.label-disable {
 .el-dialog {
   border-radius: 10px;
 }
+
+.action-button {
+  float:right;
+  .save {
+    color: white;
+    background: #377c93;
+    border: none;
+  }
+  .save:hover {
+    background: #205567;
+  }
+  
+  .approval {
+    color: white;
+    background: #6f00cf;
+    border: none;
+  }
+  .approval:hover {
+    background: #400d6d;
+  }
+}

@@ -26,12 +26,14 @@ import confirmDelete from './global-function/deleteConfirm'
 import Delete from './components/ActionButtons/Delete'
 import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
+import RequestApproval from './components/ActionButtons/RequestApproval'
 import AppContainer from './components/AppContainer/'
 
 //  Register Component
 Vue.component('Delete', Delete)
 Vue.component('Edit', Edit)
 Vue.component('Detail', Detail)
+Vue.component('RequestApproval', RequestApproval)
 Vue.component('AppContainer', AppContainer)
 
 const moment = require('moment')

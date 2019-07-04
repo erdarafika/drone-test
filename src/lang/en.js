@@ -67,8 +67,13 @@ export default {
       mini: 'mini'
     }
   },
-
+  message: {
+    requestApprovalConfirm: 'Are You Sure ?',
+    yes: 'Yes',
+    no: 'No'
+  },
   table: {
+    requestApproval: 'Request For Approval',
     back: 'Back',
     approve: 'Approve',
     reject: 'Reject',

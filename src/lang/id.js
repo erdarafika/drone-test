@@ -68,7 +68,13 @@ export default {
       mini: 'sangat kecil'
     }
   },
+  message: {
+    requestApprovalConfirm: 'Apa Anda Yakin ?',
+    yes: 'Yea',
+    no: 'Tidak'
+  },
   table: {
+    requestApproval: 'Request For Approval',
     back: 'Halaman Sebelumnya',
     type: 'Tipe',
     save: 'Simpan',

@@ -1,5 +1,11 @@
 <template lang="pug">
 app-container
+  template(v-slot:header)
+    .action-button
+      el-button.save(size='small' @click="createData()" v-if='!dialogIsUpdate')
+        | {{ $t('table.save') }}
+      RequestApproval(:callback="requestApproval")
+
   div.back-button
     el-button(size='small', @click="$router.push({name: 'Company'})")
       | {{$t('table.back')}}
@@ -63,9 +69,6 @@ app-container
               el-input(v-model='temp.fax', name='fax' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
             el-form-item(:label="$t('companyInformation.home')" prop='home')
               el-input(v-model='temp.home', name='home' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
-      .dialog-footer.pull-right(v-show='!dialogIsUpdate' style='margin-top:-20px' v-if='!dialogIsUpdate')
-        el-button(type='primary' @click="createData()")
-          | {{ $t('table.confirm') }}
     el-tab-pane(label='Address' name='Address' :disabled='!dialogIsUpdate')
       Address(:data='temp')
     el-tab-pane(label='Contact Person' name='Contact Person' :disabled='!dialogIsUpdate')
@@ -190,6 +193,9 @@ export default {
     })
   },
   methods: {
+    requestApproval() {
+      console.log('Request Approval')
+    },
     reFormatDate(date) {
       return this.$moment(date).format(this.momentDateFormat)
     },

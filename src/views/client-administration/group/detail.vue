@@ -1,5 +1,11 @@
 <template lang="pug">
 app-container
+  template(v-slot:header)
+    .action-button
+      el-button.save(size='small' @click="createData()" v-if='!dialogIsUpdate')
+        | {{ $t('table.save') }}
+      RequestApproval(:callback="requestApproval")
+
   div.back-button
     el-button(size='small', @click="$router.push({name: 'GroupMaintenance'})")
       | {{$t('table.back')}}
@@ -162,6 +168,9 @@ export default {
     })
   },
   methods: {
+    requestApproval() {
+      console.log('Request Approval')
+    },
     reFormatDate(date) {
       return this.$moment(date).format(this.momentDateFormat)
     },
