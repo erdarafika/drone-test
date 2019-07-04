@@ -45,10 +45,12 @@
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
           | {{ $t('table.confirm') }}
 
+        RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"')
+
   </template>
 
 <script>
-import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType } from '@/api/investment-type'
+import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
 
 export default {
@@ -99,11 +101,18 @@ export default {
     this.getList()
   },
   methods: {
-    // handleViewUnitPrice(row) {
-    //   this.$router.push({ path: '/fund-administration/unit-price', query: {
-    //     id: row.unitId
-    //   }})
-    // },
+    requestApproval() {
+      approveInvestmentType(this.temp.id).then(res => {
+        this.$notify({
+          title: this.$t('table.successTitle'),
+          message: this.$t('table.successCaption'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
+        this.dialogFormVisible = false
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')

@@ -14,6 +14,13 @@ export function fetchInvestmentType(id) {
   })
 }
 
+export function approveInvestmentType(id) {
+  return request({
+    url: `/fund/investment-type/${id}/request-approval`,
+    method: 'post'
+  })
+}
+
 export function createInvestmentType(data) {
   return request({
     url: '/fund/investment-type',
