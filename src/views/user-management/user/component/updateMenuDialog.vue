@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.submitData(this.menuData)
+      this.submitData({ menus: this.menuData.menus })
     },
     handleCheckAllMenusChange(val) {
       this.menuData.menus = val ? this.menuList : []

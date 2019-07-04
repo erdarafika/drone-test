@@ -91,6 +91,7 @@ import fundAdministration from './modules/fund-administration'
 import dplkConfiguration from './modules/dplk-configuration'
 import clientAdministration from './modules/client-administration'
 import userManagement from './modules/user-management'
+import taskManagement from './modules/task-management'
 
 export const asyncRoutes = [
   masterSetup,
@@ -98,6 +99,7 @@ export const asyncRoutes = [
   dplkConfiguration,
   clientAdministration,
   userManagement,
+  taskManagement,
   {
     path: '/import-data',
     component: Layout,

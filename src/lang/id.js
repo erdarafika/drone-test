@@ -45,7 +45,8 @@ export default {
     groupMaintenance: 'Pengelolaan Grup',
     clientAdministration: 'Administrasi Klien',
     importData: 'Import Data',
-    importExcel: 'Import Excel'
+    importExcel: 'Import Excel',
+    taskManagement: 'Manajemen Tugas'
   },
   // GLOBAL
   validatorMessage: {
@@ -415,5 +416,11 @@ export default {
     payor: 'Pembayar Kontribusi',
     billingDate: 'Tanggal Tagihan',
     dplkBankId: 'DPLK Bank'
+  },
+  taskManagement: {
+    status: 'Status',
+    issuer: 'Issuer',
+    description: 'Deskripsi',
+    taskType: 'Tipe Tugas'
   }
 }

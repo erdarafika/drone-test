@@ -44,7 +44,8 @@ export default {
     userManagement: 'User Management',
     groupMaintenance: 'Group Maintenance',
     importData: 'Import Data',
-    importExcel: 'Import Excel'
+    importExcel: 'Import Excel',
+    taskManagement: 'Task Management'
   },
   // GLOBAL
   validatorMessage: {
@@ -414,5 +415,11 @@ export default {
     payor: 'Contribution Payor',
     billingDate: 'Billing Date',
     dplkBankId: 'DPLK Bank'
+  },
+  taskManagement: {
+    status: 'Status',
+    issuer: 'Issuer',
+    description: 'Description',
+    taskType: 'Task Type'
   }
 }

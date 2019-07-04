@@ -26,6 +26,8 @@ import confirmDelete from './global-function/deleteConfirm'
 import Delete from './components/ActionButtons/Delete'
 import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
+import Reject from './components/ActionButtons/Reject'
+import Approve from './components/ActionButtons/Approve'
 import RequestApproval from './components/ActionButtons/RequestApproval'
 import AppContainer from './components/AppContainer/'
 
@@ -33,6 +35,8 @@ import AppContainer from './components/AppContainer/'
 Vue.component('Delete', Delete)
 Vue.component('Edit', Edit)
 Vue.component('Detail', Detail)
+Vue.component('Approve', Approve)
+Vue.component('Reject', Reject)
 Vue.component('RequestApproval', RequestApproval)
 Vue.component('AppContainer', AppContainer)
 
