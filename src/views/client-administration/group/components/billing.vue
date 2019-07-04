@@ -106,7 +106,7 @@ export default {
     }
   },
   created() {
-    if (this.data.id !== undefined) {
+    if (this.data.id) {
       this.getList()
       this.temp.groupId = this.data.id
     }

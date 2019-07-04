@@ -94,7 +94,7 @@ export default {
   },
   created() {
     this.getBankOptions()
-    if (this.data.id !== undefined) { this.getList() }
+    if (this.data.id) { this.getList() }
   },
   methods: {
     getBankOptions() {

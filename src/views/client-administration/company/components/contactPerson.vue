@@ -117,7 +117,7 @@ export default {
     }
   },
   created() {
-    if (this.data.id !== undefined) { this.getList() }
+    if (this.data.id) { this.getList() }
   },
   methods: {
     getDialogHeader(dialogStatus) {

@@ -160,7 +160,7 @@ export default {
       this.getCountryAddress()
     })
 
-    if (this.data.id !== undefined) { this.getCountryAddress() }
+    if (this.data.id) { this.getCountryAddress() }
   },
   methods: {
     getCountryAddress() {

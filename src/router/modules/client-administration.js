@@ -21,7 +21,7 @@ export default {
       }
     },
     {
-      path: 'company/:id',
+      path: 'company/:action',
       name: 'CompanyDetail',
       component: () => import('@/views/client-administration/company/detail'),
       meta: {
@@ -41,7 +41,7 @@ export default {
       }
     },
     {
-      path: 'group-maintenance/:id',
+      path: 'group-maintenance/:action',
       name: 'GroupMaintenanceDetail',
       component: () => import('@/views/client-administration/group/detail'),
       meta: {
