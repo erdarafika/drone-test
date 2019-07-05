@@ -4,12 +4,12 @@
       <rect width="48" height="48" fill="none"/>
     </clipPath>
   </defs>
-  <g id="Clien_Admin_Icon" data-name="Clien Admin Icon" transform="translate(0 0)" clip-path="url(#clip-path)">
-    <circle id="Ellipse_65" data-name="Ellipse 65" cx="24" cy="24" r="24" fill="#ffec65"/>
-    <g id="Group_278" data-name="Group 278" transform="translate(9.616 9.467)">
-      <circle id="Ellipse_66" data-name="Ellipse 66" cx="7.948" cy="7.948" r="7.948" transform="translate(6.044)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
-      <path id="Path_419" data-name="Path 419" d="M353.722,331.42l2.1,3.56H344.894c-1.908,0-3.459-.949-3.459-2.12V321.611c0-2.32,3.08-4.207,6.884-4.207l6,4.018-1.312,8.781Z" transform="translate(-341.435 -302.871)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
-      <path id="Path_420" data-name="Path 420" d="M366.319,321.6V332.86c0,1.171-1.551,2.12-3.46,2.12H351.923l2.109-3.7.614-1.072-1.284-8.781h0l6.082-4.018a9.5,9.5,0,0,1,4.864,1.229A3.641,3.641,0,0,1,366.319,321.6Z" transform="translate(-337.54 -302.871)" fill="#fff" stroke="#ffec65" stroke-miterlimit="10" stroke-width="1"/>
+  <g id="Client_Admin_Icon" data-name="Client Admin Icon" clip-path="url(#clip-path)">
+    <circle id="Ellipse_83" data-name="Ellipse 83" cx="24" cy="24" r="24" fill="#2f9036"/>
+    <g id="Group_286" data-name="Group 286" transform="translate(-327.923 -293.404)">
+      <circle id="Ellipse_84" data-name="Ellipse 84" cx="8.049" cy="8.049" r="8.049" transform="translate(343.476 302.255)" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_431" data-name="Path 431" d="M349.8,331.167l2.125,3.605H340.858c-1.932,0-3.5-.96-3.5-2.147V321.234c0-2.351,3.119-4.261,6.972-4.261l6.077,4.068-1.33,8.894Z" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_432" data-name="Path 432" d="M366.5,321.222v11.4c0,1.187-1.571,2.147-3.5,2.147H351.922l2.136-3.752.621-1.085-1.3-8.894h0l6.159-4.068a9.641,9.641,0,0,1,4.927,1.243A3.688,3.688,0,0,1,366.5,321.222Z" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
     </g>
   </g>
 </svg>

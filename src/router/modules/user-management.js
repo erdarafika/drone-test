@@ -7,7 +7,7 @@ export default {
   name: 'UserManagement',
   meta: {
     title: 'userManagement',
-    // icon: 'component',
+    icon: 'user-management',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [

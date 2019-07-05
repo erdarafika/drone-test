@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="48" height="48" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Finance_Icon" data-name="Finance Icon" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <circle id="Ellipse_85" data-name="Ellipse 85" cx="24" cy="24" r="24" fill="#665300"/>
+    <path id="Path_439" data-name="Path 439" d="M355.89,163.42v16.45h-5.38v-.02c.24-.04.48-.09.69-.13a4.325,4.325,0,0,0,2.86-1.68,5.543,5.543,0,0,0,.77-4.55,9.016,9.016,0,0,0-4.32-5.95v-4.12Z" transform="translate(-329.889 -143.545)" fill="#fff"/>
+    <path id="Path_440" data-name="Path 440" d="M354.375,178.146a4.405,4.405,0,0,1-2.956,1.574c-.21.04-.669.09-.909.13V167.54a9.648,9.648,0,0,1,4.635,6.056A5.543,5.543,0,0,1,354.375,178.146Z" transform="translate(-329.889 -143.545)" fill="#4c4c4c"/>
+    <rect id="Rectangle_201" data-name="Rectangle 201" width="5.378" height="20.352" transform="translate(27.67 15.977)" fill="#fff"/>
+    <rect id="Rectangle_202" data-name="Rectangle 202" width="5.378" height="25.208" transform="translate(34.718 11.121)" fill="#fff"/>
+    <path id="Path_441" data-name="Path 441" d="M348.16,166.44a.551.551,0,0,0-.37.07,5.617,5.617,0,0,1-5.43.3.806.806,0,0,0-.78-.03,22.688,22.688,0,0,0-2.62,1.65,8.3,8.3,0,0,0-3.14,5.79,5.986,5.986,0,0,0,.61,3.4,4.532,4.532,0,0,0,3.15,2.13,19.184,19.184,0,0,0,5.21.65,20.2,20.2,0,0,0,2.06-.01c1.04-.1,2.49-.32,3.66-.54V167.54A13.727,13.727,0,0,0,348.16,166.44Z" transform="translate(-329.889 -143.545)" fill="#fff"/>
+    <path id="Path_442" data-name="Path 442" d="M354.06,178.04a4.325,4.325,0,0,1-2.86,1.68c-.21.04-.45.09-.69.13V167.54a9.016,9.016,0,0,1,4.32,5.95A5.543,5.543,0,0,1,354.06,178.04Z" transform="translate(-329.889 -143.545)" fill="#fff"/>
+    <path id="Path_443" data-name="Path 443" d="M344.646,166.3c-.337-.037-.754-.079-1.169-.132a1.93,1.93,0,0,1-1.794-1.422c-.27-.855-.688-1.662-1.04-2.49-.237-.561-.136-1.208.5-1.251a2.952,2.952,0,0,1,1.42.921c1,1.42.819-.877,1.1-1.576a1.128,1.128,0,0,1,1.018-.829.989.989,0,0,1,1.04.734c.374,1.234.873,1.158,1.465.452a.9.9,0,0,1,.4-.22.841.841,0,0,1,.785.217c.346.235.157.678-.012,1.02a7.246,7.246,0,0,0-.877,3.345.945.945,0,0,1-.424.651A4.752,4.752,0,0,1,344.646,166.3Z" transform="translate(-329.889 -143.545)" fill="#fff"/>
+    <text id="_" data-name="$" transform="translate(13.967 31.912)" fill="#665300" font-size="6.763" font-family="AgencyFB-Bold, Agency FB" font-weight="700"><tspan x="0" y="0">$</tspan></text>
+  </g>
+</svg>

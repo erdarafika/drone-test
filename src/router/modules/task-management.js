@@ -7,7 +7,7 @@ export default {
   name: 'UserManagement',
   meta: {
     title: 'taskManagement',
-    // icon: 'component',
+    icon: 'task-management',
     roles: ['admin'] // you can set roles in root nav
   },
   children: [
