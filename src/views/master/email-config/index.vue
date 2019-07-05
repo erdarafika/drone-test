@@ -50,6 +50,7 @@ import { fetchList, createEmailConfig, updateEmailConfig, deleteEmailConfig } fr
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Tinymce from '@/components/Tinymce'
 import Attachments from './components/Attachments'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'EmailConfig',
@@ -77,8 +78,8 @@ export default {
       attachmentsTableVisible: false,
       dialogStatus: '',
       rules: {
-        subject: [{ required: true, message: 'This field required' }],
-        htmlBody: [{ required: true, message: 'This field is required' }]
+        subject: [requiredValidator],
+        htmlBody: [requiredValidator]
       }
     }
   },

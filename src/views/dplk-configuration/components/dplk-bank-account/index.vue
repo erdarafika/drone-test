@@ -64,6 +64,7 @@ import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBank
 import { fetchList as fetchBankList, fetchBranch } from '@/api/bank'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -90,10 +91,10 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        accountName: [{ required: true, message: 'This field is required' }],
-        accountNumber: [{ required: true, message: 'This field is required' }],
-        bankId: [{ required: true, message: 'This field is required' }],
-        branchId: [{ required: true, message: 'This field is required' }]
+        accountName: [requiredValidator],
+        accountNumber: [requiredValidator],
+        bankId: [requiredValidator],
+        branchId: [requiredValidator]
       }
     }
   },

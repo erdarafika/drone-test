@@ -68,6 +68,7 @@ import { fetchList, createCompanyAddress, updateCompanyAddress, deleteCompanyAdd
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -103,15 +104,15 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        district: [{ required: true, message: 'This field is required' }],
-        address1: [{ required: true, message: 'This field is required' }],
-        address2: [{ required: true, message: 'This field is required' }],
-        addressTypeId: [{ required: true, message: 'This field is required' }],
-        countryId: [{ required: true, message: 'This field is required' }],
-        cityId: [{ required: true, message: 'This field is required' }],
-        provinceId: [{ required: true, message: 'This field is required' }],
-        postalCode: [{ required: true, message: 'This field is required' }],
-        defaultAddress: [{ required: true, message: 'This field is required' }]
+        district: [requiredValidator],
+        address1: [requiredValidator],
+        address2: [requiredValidator],
+        addressTypeId: [requiredValidator],
+        countryId: [requiredValidator],
+        cityId: [requiredValidator],
+        provinceId: [requiredValidator],
+        postalCode: [requiredValidator],
+        defaultAddress: [requiredValidator]
       }
     }
   },

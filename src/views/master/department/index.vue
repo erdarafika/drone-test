@@ -41,7 +41,7 @@ app-container
 <script>
 import { fetchList, createDepartment, updateDepartment, deleteDepartment } from '@/api/department'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphanumericValidator } from '@/global-function/formValidator'
+import { alphanumericValidator, requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Department',
@@ -70,9 +70,9 @@ export default {
   computed: {
     rules() {
       return {
-        code: [{ required: true, message: 'this field is required' }, { validator: alphanumericValidator }],
-        name: [{ required: true, message: 'this field is required' }, { validator: alphanumericValidator }],
-        description: [{ validator: alphanumericValidator }]
+        code: [requiredValidator, alphanumericValidator],
+        name: [requiredValidator, alphanumericValidator],
+        description: [alphanumericValidator]
       }
     },
     filterredList() {

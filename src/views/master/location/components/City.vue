@@ -40,7 +40,7 @@ div
 <script>
 import { fetchCityList, fetchProvinceList, fetchCountryList, createCity, updateCity, deleteCity } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphabeticValidator } from '@/global-function/formValidator'
+import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Country',
@@ -65,8 +65,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'this field is required' }, { validator: alphabeticValidator }],
-        provinceId: [{ required: true, message: 'this field is required' }]
+        name: [requiredValidator, alphabeticValidator],
+        provinceId: [requiredValidator]
       },
       provinceIdList: null,
       countryIdList: null

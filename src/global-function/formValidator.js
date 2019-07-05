@@ -3,7 +3,7 @@ import {
   isAlphabetic
 } from '@/utils/validate'
 
-const alphanumericValidator = (rule, value, callback) => {
+const alphanumericValidatorFunc = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('Please input again'))
   } else if (!isAlphanumeric(value)) {
@@ -13,7 +13,7 @@ const alphanumericValidator = (rule, value, callback) => {
   }
 }
 
-const alphabeticValidator = (rule, value, callback) => {
+const alphabeticValidatorFunc = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('Please input again'))
   } else if (!isAlphabetic(value)) {
@@ -23,7 +23,17 @@ const alphabeticValidator = (rule, value, callback) => {
   }
 }
 
+const requiredValidator = { required: true, message: `this field is required` }
+
+const emailValidator = { type: 'email', message: 'please write valid email', trigger: 'blur' }
+
+const alphabeticValidator = { validator: alphabeticValidatorFunc, trigger: 'blur' }
+
+const alphanumericValidator = { validator: alphanumericValidatorFunc, trigger: 'blur' }
+
 export {
+  emailValidator,
+  requiredValidator,
   alphanumericValidator,
   alphabeticValidator
 }

@@ -45,7 +45,7 @@ app-container
 <script>
 import { fetchList, createAddressType, updateAddressType, deleteAddressType } from '@/api/address-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphanumericValidator } from '@/global-function/formValidator'
+import { alphanumericValidator, requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'AddressType',
@@ -70,9 +70,9 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        type: [{ required: true, message: `${this.$t('addressType.type')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }, { validator: alphanumericValidator }],
-        isMemberAddress: [{ required: true, message: `${this.$t('addressType.displayOnMember')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }],
-        isCompanyAddress: [{ required: true, message: `${this.$t('addressType.displayOnCompany')} ${this.$t('validatorMessage.isRequired')}`, trigger: 'blur' }]
+        type: [requiredValidator, alphanumericValidator],
+        isMemberAddress: [requiredValidator],
+        isCompanyAddress: [requiredValidator]
       }
     }
   },

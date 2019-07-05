@@ -47,7 +47,7 @@ app-container
 import { fetchList, createDocument, updateDocument, deleteDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewDocument from './components/view-document/index'
-import { alphabeticValidator, alphanumericValidator } from '@/global-function/formValidator'
+import { alphabeticValidator, alphanumericValidator, requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -74,8 +74,8 @@ export default {
       viewRecordVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }, { validator: alphabeticValidator }],
-        code: [{ required: true, message: 'This field is required' }, { validator: alphanumericValidator }]
+        name: [requiredValidator, alphabeticValidator],
+        code: [requiredValidator, alphanumericValidator]
       }
     }
   },

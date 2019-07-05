@@ -89,6 +89,7 @@ import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Company',
@@ -123,10 +124,10 @@ export default {
       },
       dialogStatus: 'create',
       rules: {
-        isDraft: [{ required: true, message: 'this field is required' }],
+        isDraft: [requiredValidator],
         companyId: [],
-        productTypeId: [{ required: true, message: 'this field is required' }],
-        name: [{ required: true, message: 'this field is required' }],
+        productTypeId: [requiredValidator],
+        name: [requiredValidator],
         proposalNumber: [],
         proposalDate: [],
         type: [],

@@ -18,6 +18,7 @@ app-container
 
 <script>
 import { fetchTolerance, updateTolerance } from '@/api/tolerance'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Tolerance',
@@ -28,7 +29,7 @@ export default {
       },
       rules: {
         amount: [
-          { required: true, message: 'Amount is required', trigger: 'change' }
+          requiredValidator
         ]
       },
       isLoading: false,

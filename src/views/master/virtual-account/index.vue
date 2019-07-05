@@ -33,6 +33,7 @@ app-container
 <script>
 import { fetchVirtualAccount, updateVirtualAccount } from '@/api/virtual-account'
 import { fetchList as fetchBank } from '@/api/bank'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'VirtualAccount',
@@ -48,9 +49,9 @@ export default {
         createdDate: undefined
       },
       rules: {
-        name: [{ required: true, message: 'Name is required' }],
-        accountCode: [{ required: true, message: 'Account Code is required' }],
-        dplkBankId: [{ required: true, message: 'DPLK Bank is required' }]
+        name: [requiredValidator],
+        accountCode: [requiredValidator],
+        dplkBankId: [requiredValidator]
       },
       isLoading: false,
       bankOptions: []

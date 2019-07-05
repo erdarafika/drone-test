@@ -52,6 +52,7 @@
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'InvestmentType',
@@ -81,8 +82,8 @@ export default {
         description: undefined
       },
       rules: {
-        name: [{ required: true, message: 'Business name is required', trigger: 'change' }],
-        code: [{ required: true, message: 'Business code is required', trigger: 'change' }]
+        name: [requiredValidator],
+        code: [requiredValidator]
       },
       dialogFormVisible: false,
       dialogStatus: ''

@@ -76,6 +76,7 @@ tr.top-bar {
 <script>
 import { fetchBranch, createBranch, deleteBranch } from '@/api/bank'
 import { fetchCountryList } from '@/api/location'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'ViewDocument',
@@ -96,13 +97,13 @@ export default {
       listLoading: false,
       rules: {
         bankBranch: [
-          { required: true, message: 'Branch name is required' }
+          requiredValidator
         ],
         bankAddress: [
-          { required: true, message: 'Branch address is required' }
+          requiredValidator
         ],
         country: [
-          { required: true, message: 'Branch country is required' }
+          requiredValidator
         ]
       }
     }

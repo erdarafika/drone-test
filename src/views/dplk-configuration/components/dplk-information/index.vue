@@ -25,6 +25,7 @@ div
 
 <script>
 import { fetchDplkInformation, updateDplkInformation } from '@/api/dplk-information'
+import { requiredValidator, emailValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'DplkInformation',
@@ -40,19 +41,19 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: 'This field is required' }
+          requiredValidator
         ],
         website: [
-          { required: true, message: 'This field is required' }
+          requiredValidator
         ],
         email: [
-          { required: true, message: 'This field is required' }, { type: 'email', message: 'Invalid Email Address' }
+          requiredValidator, emailValidator
         ],
         telp: [
-          { required: true, message: 'This field is required' }
+          requiredValidator
         ],
         fax: [
-          { required: true, message: 'This field is required' }
+          requiredValidator
         ]
       },
       isLoading: false

@@ -47,6 +47,7 @@ div
 <script>
 import { fetchList, createGroupClassPlan, updateGroupClassPlan, deleteGroupClassPlan } from '@/api/group-class-plan'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -73,11 +74,11 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        groupId: [{ required: true, message: 'This field is required' }],
-        isPercentage: [{ required: true, message: 'This field is required' }],
-        employee: [{ required: true, message: 'This field is required' }],
-        employer: [{ required: true, message: 'This field is required' }]
+        name: [requiredValidator],
+        groupId: [requiredValidator],
+        isPercentage: [requiredValidator],
+        employee: [requiredValidator],
+        employer: [requiredValidator]
       }
     }
   },

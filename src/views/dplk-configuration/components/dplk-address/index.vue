@@ -77,6 +77,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 // import crudPermission from '@/directive/crud-permission/index.js'
 // import checkCrudPermission from '@/utils/crud-permission'
 // import RecordStatus from '@/components/RecordStatus'
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -109,13 +110,13 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        addressTypeId: [{ required: true, message: 'This field is required' }],
-        countryId: [{ required: true, message: 'This field is required' }],
-        cityId: [{ required: true, message: 'This field is required' }],
-        provinceId: [{ required: true, message: 'This field is required' }],
-        postalCode: [{ required: true, message: 'This field is required' }],
-        isDefault: [{ required: true, message: 'This field is required' }]
+        name: [requiredValidator],
+        addressTypeId: [requiredValidator],
+        countryId: [requiredValidator],
+        cityId: [requiredValidator],
+        provinceId: [requiredValidator],
+        postalCode: [requiredValidator],
+        isDefault: [requiredValidator]
       }
     }
   },

@@ -39,7 +39,7 @@ app-container
 <script>
 import { fetchList, createHoliday, updateHoliday, deleteHoliday } from '@/api/holiday'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphabeticValidator } from '@/global-function/formValidator'
+import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -62,8 +62,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        date: [{ required: true, message: 'Holiday date is required' }],
-        description: [{ required: true, message: 'Holiday description is required' }, { validator: alphabeticValidator }]
+        date: [requiredValidator],
+        description: [requiredValidator, alphabeticValidator]
       }
     }
   },

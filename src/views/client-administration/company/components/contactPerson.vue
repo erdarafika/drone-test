@@ -64,6 +64,7 @@ div
 <script>
 import { fetchList, createCompanyContactPerson, updateCompanyContactPerson, deleteCompanyContactPerson } from '@/api/company-contact-person'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -96,15 +97,15 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [{ required: true, message: 'This field is required' }],
-        type: [{ required: true, message: 'This field is required' }],
-        title: [{ required: true, message: 'This field is required' }],
-        identityType: [{ required: true, message: 'This field is required' }],
-        identityNumber: [{ required: true, message: 'This field is required' }],
-        gender: [{ required: true, message: 'This field is required' }],
-        email: [{ required: true, message: 'This field is required' }],
-        phone: [{ required: true, message: 'This field is required' }],
-        defaultContact: [{ required: true, message: 'This field is required' }]
+        name: [requiredValidator],
+        type: [requiredValidator],
+        title: [requiredValidator],
+        identityType: [requiredValidator],
+        identityNumber: [requiredValidator],
+        gender: [requiredValidator],
+        email: [requiredValidator],
+        phone: [requiredValidator],
+        defaultContact: [requiredValidator]
       }
     }
   },

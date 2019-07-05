@@ -41,6 +41,7 @@ app-container
 <script>
 import { fetchList } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Department',
@@ -69,8 +70,8 @@ export default {
   computed: {
     rules() {
       return {
-        code: [{ required: true, message: 'this field is required' }],
-        name: [{ required: true, message: 'this field is required' }],
+        code: [requiredValidator],
+        name: [requiredValidator],
         description: []
       }
     },

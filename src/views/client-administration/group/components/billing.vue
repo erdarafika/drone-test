@@ -57,6 +57,7 @@ div
 import { fetchList, createGroupBilling, updateGroupBilling, deleteGroupBilling } from '@/api/group-billing'
 import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -89,11 +90,11 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        frequency: [{ required: true, message: 'This field is required' }],
-        paymentMethod: [{ required: true, message: 'This field is required' }],
-        payor: [{ required: true, message: 'This field is required' }],
-        billingDate: [{ required: true, message: 'This field is required' }],
-        dplkBankId: [{ required: true, message: 'This field is required' }]
+        frequency: [requiredValidator],
+        paymentMethod: [requiredValidator],
+        payor: [requiredValidator],
+        billingDate: [requiredValidator],
+        dplkBankId: [requiredValidator]
       }
     }
   },

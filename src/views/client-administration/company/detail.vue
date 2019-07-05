@@ -99,6 +99,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import Address from './components/address'
 import ContactPerson from './components/contactPerson'
 import BankAccount from './components/bankAccount'
+import { requiredValidator, emailValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Company',
@@ -144,9 +145,9 @@ export default {
       },
       dialogStatus: 'create',
       rules: {
-        name: [{ required: true, message: 'this field is required' }],
+        name: [requiredValidator],
         code: [],
-        email: [{ type: 'email', message: 'email invalid' }],
+        email: [emailValidator],
         website: [],
         businessLineId: [],
         businessEntity: [],
