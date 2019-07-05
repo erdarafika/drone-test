@@ -30,9 +30,9 @@ div
       el-form-item(:label="$t('classPlan.name')", prop='name')
         el-input(v-model.number='temp.name', name='name' type='input')
       el-form-item(:label="$t('classPlan.employee')", prop='employee')
-        el-input(v-model.number='temp.employee', name='employee' type='input')
+        el-input-number(v-model.number='temp.employee', name='employee' type='input')
       el-form-item(:label="$t('classPlan.employer')", prop='employer')
-        el-input(v-model.number='temp.employer', name='employer' type='input')
+        el-input-number(v-model.number='temp.employer', name='employer' type='input')
       el-form-item(:label="$t('classPlan.isPercentage')" prop='isPercentage')
         el-switch(v-model='temp.isPercentage' name='isPercentage')
         span.switch-status {{ temp.isPercentage?'Yes':'No' }}
@@ -67,8 +67,8 @@ export default {
         name: undefined,
         groupId: undefined,
         isPercentage: undefined,
-        employee: undefined,
-        employer: undefined
+        employee: 0,
+        employer: 0
       },
       initialUpdate: false,
       dialogFormVisible: false,
@@ -119,8 +119,8 @@ export default {
         name: undefined,
         groupId: this.data.id,
         isPercentage: undefined,
-        employee: undefined,
-        employer: undefined
+        employee: 0,
+        employer: 0
       }
     },
     handleCreate() {
