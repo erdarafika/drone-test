@@ -31,7 +31,10 @@ const alphabeticValidator = { validator: alphabeticValidatorFunc, trigger: 'blur
 
 const alphanumericValidator = { validator: alphanumericValidatorFunc, trigger: 'blur' }
 
+const numberValidator = { type: 'number', message: 'must be number', trigger: 'blur' }
+
 export {
+  numberValidator,
   emailValidator,
   requiredValidator,
   alphanumericValidator,

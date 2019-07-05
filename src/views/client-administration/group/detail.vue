@@ -62,9 +62,10 @@ app-container
       ClassPlan(:data='temp')
     el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogIsUpdate')
       Billing(:data='temp')
+    el-tab-pane(label='Withdrawal Rule'  name='Withdrawal Rule'  :disabled='!dialogIsUpdate')
+      Withdrawal(:data='temp')
     el-tab-pane(label='Investment Direction'  name='Investment Direction' :disabled='!dialogIsUpdate')
     el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogIsUpdate')
-    el-tab-pane(label='Withdrawal Rule'  name='Withdrawal Rule'  :disabled='!dialogIsUpdate')
     el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogIsUpdate')
 </template>
 
@@ -76,7 +77,6 @@ app-container
   padding: 15px;
   padding-left: 20px;
 }
-
 .company-information-form .el-form-item--medium .el-form-item__label {
   line-height: 10px !important;
 }
@@ -89,11 +89,12 @@ import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
+import Withdrawal from './components/withdrawal'
 import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Company',
-  components: { Pagination, ClassPlan, Billing },
+  components: { Pagination, ClassPlan, Billing, Withdrawal },
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',

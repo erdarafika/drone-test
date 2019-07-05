@@ -421,5 +421,15 @@ export default {
     issuer: 'Issuer',
     description: 'Description',
     taskType: 'Task Type'
+  },
+  groupWithdrawal: {
+    isPartialAllowed: 'Partial Allowed',
+    minimumWithdrawalYear: 'Minimum Withdrawal Year',
+    maximumWithdrawalFrequency: 'Maximum Withdrawal Frequency',
+    minimumWithdrawalAmount: 'Minimum Withdrawal Amount',
+    maximumWithdrawalPercentage: 'Maximum Withdrawal Percentage',
+    maximumWithdrawalAmount: 'Maximum Withdrawal Amount',
+    normalRetireAge: 'Normal Retire Age',
+    earlyRetireAge: 'Early Retire Age'
   }
 }
