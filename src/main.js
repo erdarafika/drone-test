@@ -29,6 +29,10 @@ import Detail from './components/ActionButtons/Detail'
 import Reject from './components/ActionButtons/Reject'
 import Approve from './components/ActionButtons/Approve'
 import RequestApproval from './components/ActionButtons/RequestApproval'
+import Authorization from './components/ActionButtons/Authorization'
+import Terminate from './components/ActionButtons/Terminate'
+import SettingPassword from './components/ActionButtons/SettingPassword'
+
 import AppContainer from './components/AppContainer/'
 
 //  Register Component
@@ -38,6 +42,9 @@ Vue.component('Detail', Detail)
 Vue.component('Approve', Approve)
 Vue.component('Reject', Reject)
 Vue.component('RequestApproval', RequestApproval)
+Vue.component('Authorization', Authorization)
+Vue.component('Terminate', Terminate)
+Vue.component('SettingPassword', SettingPassword)
 Vue.component('AppContainer', AppContainer)
 
 const moment = require('moment')

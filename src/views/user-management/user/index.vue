@@ -21,16 +21,15 @@ app-container
       template(slot-scope='scope')
         span(:class="scope.row.enabled?'label-enable':'label-disable'")
           | {{ scope.row.enabled? 'Enable': 'Disable' }}
-    el-table-column(label='', align='right', class-name='small-padding')
+    el-table-column(label='', align='right', class-name='small-padding' width='150px')
       template(slot-scope='{row}')
-        el-button(type='success', size='mini', @click='handleDetail(row)')
-          | {{ $t('table.detail') }}
+        Detail(:data='row' :action='handleDetail')
+        Authorization(:data='row' :action='handleUpdateRole')
+        Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
+    el-table-column(label='', align='right', class-name='small-padding' width='90px')
+      template(slot-scope='{row}')
         el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
           | {{ $t('user.updateMenu') }}
-        el-button(type='warning', size='mini', @click='handleUpdateRole(row)')
-          | {{ $t('user.updateRole') }}
-        el-button(type='danger', size='mini', @click='handleDisable(row)' :disabled='!row.enabled')
-          | {{ $t('table.disable') }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 35 35">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="35" height="35" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Terminated_icon" data-name="Terminated icon" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <circle id="Ellipse_72" data-name="Ellipse 72" cx="17.5" cy="17.5" r="17.5" fill="#d84b95"/>
+    <circle id="Ellipse_73" data-name="Ellipse 73" cx="13.65" cy="13.65" r="13.65" transform="translate(3.85 3.85)" fill="#fff"/>
+    <circle id="Ellipse_74" data-name="Ellipse 74" cx="10.519" cy="10.519" r="10.519" transform="translate(6.981 6.981)" fill="#d84b95"/>
+    <rect id="Rectangle_200" data-name="Rectangle 200" width="3.333" height="22.833" transform="translate(8.33 10.637) rotate(-45)" fill="#fff"/>
+  </g>
+</svg>
