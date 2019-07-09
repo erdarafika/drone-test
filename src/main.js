@@ -34,7 +34,7 @@ import Authorization from './components/ActionButtons/Authorization'
 import Terminate from './components/ActionButtons/Terminate'
 import SettingPassword from './components/ActionButtons/SettingPassword'
 import Status from './components/ActionButtons/Status'
-
+import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
 
 //  Register Component
@@ -52,29 +52,17 @@ Vue.component('AppContainer', AppContainer)
 
 const moment = require('moment')
 require('moment/locale/id')
-
 import money from 'v-money'
-// register directive v-money and component <money>
-Vue.use(money, { precision: 0 })
-/**
- * If you don't want to use mock-server
- * you want to use mockjs for request interception
- * you can execute:
- *
- * import { mockXHR } from '../mock'
- * mockXHR()
- */
 
+Vue.use(money, { precision: 0 })
 Vue.use(require('vue-moment'), {
   moment
 })
-
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
 })
 
-// register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
@@ -84,6 +72,8 @@ Vue.mixin({
     confirmDelete
   }
 })
+
+Vue.use(VCalendar)
 
 Vue.config.productionTip = false
 
@@ -95,7 +85,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Vue.prototype.$eventBus = new Vue()
-
 new Vue({
   el: '#app',
   router,

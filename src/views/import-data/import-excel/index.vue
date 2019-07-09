@@ -1,6 +1,6 @@
 <template>
   <app-container>
-    <el-alert title="Informasi" description="Fitur Sementara Sampai Feature" type="info" show-icon style="font-size:16px" />
+    <el-alert title="Informasi" description="Fitur Sementara Sampai Preview" type="info" show-icon style="font-size:16px" />
     <div class="upload-section">
       <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
     </div>
