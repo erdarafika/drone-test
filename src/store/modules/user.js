@@ -42,8 +42,6 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       loginOauth2({ username: username.trim(), password: password }).then(response => {
-        console.log(response)
-
         const { data } = response
         const token = `${data.token_type} ${data.access_token}`
         commit('SET_TOKEN', data.access_token)
@@ -60,7 +58,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
         const data = response
-        console.log(data)
         if (!data) {
           reject('Verification failed, please Login again.')
         }
@@ -68,16 +65,6 @@ const actions = {
         const roles = data.authorities.map(item => item.role)
         const name = data.dplkStaff.name
         const menus = data.menus.map(item => item.menu)
-        // const data = {
-        //   pensionMenu: '',
-        //   // introduction: 'I am a super administrator',
-        //   // avatar: 'https://i.ibb.co/2P7FGtN/user.png',
-        //   name: 'Admin',
-        //   // crudPermissions: ['maker', 'checkher']
-        // }
-
-        // const { roles, name } = data
-        // const menus = []
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')

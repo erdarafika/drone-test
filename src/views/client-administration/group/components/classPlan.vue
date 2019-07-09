@@ -66,7 +66,7 @@ export default {
       temp: {
         name: undefined,
         groupId: undefined,
-        isPercentage: undefined,
+        isPercentage: false,
         employee: 0,
         employer: 0
       },
@@ -118,7 +118,7 @@ export default {
       this.temp = {
         name: undefined,
         groupId: this.data.id,
-        isPercentage: undefined,
+        isPercentage: false,
         employee: 0,
         employer: 0
       }

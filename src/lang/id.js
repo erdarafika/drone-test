@@ -138,7 +138,8 @@ export default {
     password: 'Sandi',
     any: 'bebas',
     thirdparty: 'Atau masuk dengan',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !',
+    failMessage: 'Username atau password anda salah'
   },
   permission: {
     addRole: 'New Role',

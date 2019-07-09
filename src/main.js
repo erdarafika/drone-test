@@ -22,6 +22,7 @@ import * as filters from './filters' // global filters
 
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
+
 import confirmDelete from './global-function/deleteConfirm'
 import Delete from './components/ActionButtons/Delete'
 import Edit from './components/ActionButtons/Edit'
@@ -32,6 +33,7 @@ import RequestApproval from './components/ActionButtons/RequestApproval'
 import Authorization from './components/ActionButtons/Authorization'
 import Terminate from './components/ActionButtons/Terminate'
 import SettingPassword from './components/ActionButtons/SettingPassword'
+import Disable from './components/ActionButtons/Disable'
 
 import AppContainer from './components/AppContainer/'
 
@@ -45,6 +47,7 @@ Vue.component('RequestApproval', RequestApproval)
 Vue.component('Authorization', Authorization)
 Vue.component('Terminate', Terminate)
 Vue.component('SettingPassword', SettingPassword)
+Vue.component('Disable', Disable)
 Vue.component('AppContainer', AppContainer)
 
 const moment = require('moment')
