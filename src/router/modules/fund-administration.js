@@ -7,8 +7,7 @@ export default {
   name: 'FundAdministration',
   meta: {
     title: 'fundAdministration',
-    icon: 'fund-administration',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'fund-administration'
   },
   children: [
     {
@@ -17,7 +16,7 @@ export default {
       component: () => import('@/views/fund-administration/investment-type/index'),
       meta: {
         title: 'investmentType',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'investment_type'
       }
     },
     {
@@ -26,7 +25,7 @@ export default {
       component: () => import('@/views/fund-administration/unit-price/index'),
       meta: {
         title: 'unitPrice',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'unit-price'
       }
     }
   ]

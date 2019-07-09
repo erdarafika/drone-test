@@ -302,7 +302,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          // console.log(this.temp);
+          console.log(this.temp)
           createUser(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.$notify({

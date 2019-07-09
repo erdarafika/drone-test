@@ -7,8 +7,7 @@ export default {
   name: 'UserManagement',
   meta: {
     title: 'userManagement',
-    icon: 'user-management',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'user-management'
   },
   children: [
     {
@@ -17,7 +16,7 @@ export default {
       component: () => import('@/views/user-management/user/index'),
       meta: {
         title: 'userManagement',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'user-maintenance'
       }
     }
   ]

@@ -7,8 +7,8 @@ export default {
   name: 'UserManagement',
   meta: {
     title: 'taskManagement',
-    icon: 'task-management',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'task-management'
+    // pensionMenu: '' // you can set roles in root nav
   },
   children: [
     {
@@ -17,7 +17,7 @@ export default {
       component: () => import('@/views/task-management/task/index'),
       meta: {
         title: 'taskManagement',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'task-management'
       }
     }
   ]

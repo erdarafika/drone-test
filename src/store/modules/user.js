@@ -5,10 +5,11 @@ import router, { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
-  avatar: '',
+  avatar: 'https://i.ibb.co/2P7FGtN/user.png',
   introduction: '',
   roles: [],
-  crud_level: undefined
+  crud_level: [],
+  menus: []
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
   }
 }
 
@@ -54,27 +58,38 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-        console.log('user_data', data)
+      getInfo().then(response => {
+        const data = response
+        console.log(data)
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction, crudPermissions } = data
+        const roles = data.authorities.map(item => item.role)
+        const name = data.dplkStaff.name
+        const menus = data.menus.map(item => item.menu)
+        // const data = {
+        //   pensionMenu: '',
+        //   // introduction: 'I am a super administrator',
+        //   // avatar: 'https://i.ibb.co/2P7FGtN/user.png',
+        //   name: 'Admin',
+        //   // crudPermissions: ['maker', 'checkher']
+        // }
 
+        // const { roles, name } = data
+        // const menus = []
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
-        if (!crudPermissions) { reject('No Crud Level, ex: Maker, Checker, Approver') }
 
-        commit('SET_CRUD_LEVEL', crudPermissions)
+        commit('SET_CRUD_LEVEL', roles)
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        commit('SET_MENUS', menus)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_INTRODUCTION', introduction)
+        resolve({ name, roles, menus })
       }).catch(error => {
         reject(error)
       })

@@ -7,8 +7,7 @@ export default {
   name: 'ClientAdministration',
   meta: {
     title: 'clientAdministration',
-    icon: 'client-administration',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'client-administration'
   },
   children: [
     {
@@ -17,7 +16,7 @@ export default {
       component: () => import('@/views/client-administration/company/index'),
       meta: {
         title: 'company',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'company'
       }
     },
     {
@@ -27,7 +26,8 @@ export default {
       meta: {
         title: 'detail',
         noCache: true,
-        breadcrumb: false
+        breadcrumb: false,
+        pensionMenu: 'company'
       },
       hidden: true
     },
@@ -37,7 +37,7 @@ export default {
       component: () => import('@/views/client-administration/group/index'),
       meta: {
         title: 'groupMaintenance',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'group'
       }
     },
     {
@@ -47,7 +47,8 @@ export default {
       meta: {
         title: 'detail',
         noCache: true,
-        breadcrumb: false
+        breadcrumb: false,
+        pensionMenu: 'group'
       },
       hidden: true
     }

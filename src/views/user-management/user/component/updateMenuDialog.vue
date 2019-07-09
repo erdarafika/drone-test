@@ -43,7 +43,9 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.submitData({ menus: this.menuData.menus })
+      const menu = new Set(this.menuData.menus)
+
+      this.submitData({ menus: [...menu], id: this.menuData.id })
     },
     handleCheckAllMenusChange(val) {
       this.menuData.menus = val ? this.menuList : []

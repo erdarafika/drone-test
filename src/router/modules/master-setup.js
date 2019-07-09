@@ -6,8 +6,7 @@ export default {
   name: 'Master',
   meta: {
     title: 'master',
-    icon: 'master-setup',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'master-setup' // you can set roles in root nav
   },
   children: [
     {
@@ -16,7 +15,7 @@ export default {
       component: () => import('@/views/master/address-type/index'),
       meta: {
         title: 'addressType',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'address-type'
       }
     },
     {
@@ -25,7 +24,7 @@ export default {
       component: () => import('@/views/master/location/index'),
       meta: {
         title: 'location',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'location'
       }
     },
     {
@@ -34,7 +33,7 @@ export default {
       component: () => import('@/views/master/bank/index'),
       meta: {
         title: 'bank',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'bank'
       }
     },
     {
@@ -43,7 +42,7 @@ export default {
       component: () => import('@/views/master/business-line/index'),
       meta: {
         title: 'businessLine',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'business-line'
       }
     },
     {
@@ -52,7 +51,7 @@ export default {
       component: () => import('@/views/master/department/index'),
       meta: {
         title: 'department',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'department'
       }
     },
     {
@@ -61,7 +60,7 @@ export default {
       component: () => import('@/views/master/holiday/index'),
       meta: {
         title: 'holiday',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'holiday'
       }
     },
     {
@@ -70,7 +69,7 @@ export default {
       component: () => import('@/views/master/document/index'),
       meta: {
         title: 'document',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'document'
       }
     },
     {
@@ -79,7 +78,7 @@ export default {
       component: () => import('@/views/master/tolerance/index'),
       meta: {
         title: 'tolerance',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'tolerance'
       }
     },
     {
@@ -88,8 +87,9 @@ export default {
       component: () => import('@/views/master/money-source/index'),
       meta: {
         title: 'moneySource',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
+        pensionMenu: 'money-source'
+      },
+      hidden: true
     },
     // {
     //   path: 'role',
@@ -98,7 +98,7 @@ export default {
     //   hidden: false,
     //   meta: {
     //     title: 'role',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   }
     // },
     // {
@@ -107,7 +107,7 @@ export default {
     //   name: 'Position',
     //   meta: {
     //     title: 'position',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   }
     // },
     // {
@@ -116,7 +116,7 @@ export default {
     //   name: 'WithdrawalRule',
     //   meta: {
     //     title: 'withdrawalRule',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   }
     // },
     {
@@ -125,7 +125,7 @@ export default {
       component: () => import('@/views/master/email-config/index'),
       meta: {
         title: 'emailConfig',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'email'
       }
     },
     {
@@ -134,7 +134,7 @@ export default {
       component: () => import('@/views/master/fee-type/index'),
       meta: {
         title: 'feeType',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'fee-type'
       }
     },
     {
@@ -143,7 +143,7 @@ export default {
       component: () => import('@/views/master/benefit-type/index'),
       meta: {
         title: 'benefitType',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'benefit-type'
       }
     },
     {
@@ -152,8 +152,8 @@ export default {
       name: 'SubBenefit',
       hidden: true,
       meta: {
-        title: 'subBenefit',
-        roles: ['admin']
+        title: 'subBenefit'
+        // pensionMenu: ''
       }
     },
     // {
@@ -163,7 +163,7 @@ export default {
     //   hidden: true,
     //   meta: {
     //     title: 'subBenefitDocument',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   }
     // }
     {
@@ -172,7 +172,7 @@ export default {
       component: () => import('@/views/master/product-type/index'),
       meta: {
         title: 'productType',
-        roles: ['admin'] // or you can only set roles in sub nav
+        pensionMenu: 'product-type'
       }
     }
     // {
@@ -182,7 +182,7 @@ export default {
     //   hidden: true,
     //   meta: {
     //     title: 'documentMatrix',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   }
     // },
     // {
@@ -191,7 +191,7 @@ export default {
     //   component: () => import('@/views/master/dplk-bank/index'),
     //   meta: {
     //     title: 'dplkBank',
-    //     roles: ['admin'] // or you can only set roles in sub nav
+    //     pensionMenu: ''
     //   }
     // },
     // {
@@ -201,7 +201,7 @@ export default {
     //   component: () => import('@/views/master/virtual-account/index'),
     //   meta: {
     //     title: 'virtualAccount',
-    //     roles: ['admin']
+    //     pensionMenu: ''
     //   },
     //   redirect: '/virtual-account/bca',
     //   children: [{
@@ -210,7 +210,7 @@ export default {
     //     component: () => import('@/views/master/virtual-account/index'),
     //     meta: {
     //       title: 'bca',
-    //       roles: ['admin'] // or you can only set roles in sub nav
+    //       pensionMenu: ''
     //     }
     //   },
     //   {
@@ -219,7 +219,7 @@ export default {
     //     component: () => import('@/views/master/virtual-account/index'),
     //     meta: {
     //       title: 'cimb',
-    //       roles: ['admin'] // or you can only set roles in sub nav
+    //       pensionMenu: ''
     //     }
     //   }
 

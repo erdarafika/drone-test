@@ -64,9 +64,10 @@ app-container
       Billing(:data='temp')
     el-tab-pane(label='Withdrawal Rule'  name='Withdrawal Rule'  :disabled='!dialogIsUpdate')
       Withdrawal(:data='temp')
-    el-tab-pane(label='Investment Direction'  name='Investment Direction' :disabled='!dialogIsUpdate')
-    el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogIsUpdate')
-    el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogIsUpdate')
+    //- el-tab-pane(label='Group Charge'  name='Group Charge' :disabled='!dialogIsUpdate')
+    //-   GroupCharge(:data='temp')
+    //- el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogIsUpdate')
+    //- el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogIsUpdate')
 </template>
 
 <style>
@@ -90,6 +91,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
 import Withdrawal from './components/withdrawal'
+// import GroupCharge from './components/groupCharge'
 import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
