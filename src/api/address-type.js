@@ -37,3 +37,11 @@ export function deleteAddressType(data) {
     method: 'delete'
   })
 }
+
+export function updateStatusAddressType(data) {
+  return request({
+    url: `/master/address-type/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}

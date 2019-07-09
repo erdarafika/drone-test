@@ -18,13 +18,13 @@ app-container
     el-table-column(:label="$t('bank.transferCode')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.transferCode }}
-    el-table-column(:label="$t('bank.status')", align='left')
-      template(slot-scope='scope')
-        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
-          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    el-table-column(:label="$t('table.status')", align='left')
+      template(slot-scope='scope')
+        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
+          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
         Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
