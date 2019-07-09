@@ -89,6 +89,7 @@ export default {
     edit: 'Ubah',
     delete: 'Hapus',
     disable: 'Nonaktifkan',
+    enable: 'Aktifkan',
     cancel: 'Batal',
     confirm: 'Konfirmasi',
     successCaption: 'Operasi Berhasil',
@@ -204,7 +205,8 @@ export default {
     branchName: 'Nama',
     branchAddress: 'Alamat',
     branchCountry: 'Negara',
-    codeName: 'Kode Nama'
+    codeName: 'Kode Nama',
+    bank: 'Bank'
   },
   dplkBank: {
     accountName: 'Nama Pemilik',

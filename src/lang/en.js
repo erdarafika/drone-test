@@ -90,6 +90,7 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     disable: 'Disable',
+    enable: 'Enable',
     cancel: 'Cancel',
     confirm: 'Confirm',
     successCaption: 'Success',
@@ -117,6 +118,7 @@ export default {
     addModalHeader: 'Add New Data',
     editModalHeader: 'Edit Data'
   },
+  // SINGLE PAGE
   addressType: {
     type: 'Name',
     displayOnMember: 'Display on Member',
@@ -124,7 +126,6 @@ export default {
     active: 'Active',
     showActiveOnly: 'Show Active Only'
   },
-  // SINGLE PAGE
   page404: {
     title: 'OOPS!',
     subTitle: 'Sorry, Page Not Found...',
@@ -203,7 +204,8 @@ export default {
     branchName: 'Name',
     branchAddress: 'Address',
     branchCountry: 'Country',
-    codeName: 'Code Name'
+    codeName: 'Code Name',
+    status: 'Status'
   },
   dplkBank: {
     accountName: 'Account Name',

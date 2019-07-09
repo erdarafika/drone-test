@@ -33,7 +33,7 @@ import RequestApproval from './components/ActionButtons/RequestApproval'
 import Authorization from './components/ActionButtons/Authorization'
 import Terminate from './components/ActionButtons/Terminate'
 import SettingPassword from './components/ActionButtons/SettingPassword'
-import Disable from './components/ActionButtons/Disable'
+import Status from './components/ActionButtons/Status'
 
 import AppContainer from './components/AppContainer/'
 
@@ -47,7 +47,7 @@ Vue.component('RequestApproval', RequestApproval)
 Vue.component('Authorization', Authorization)
 Vue.component('Terminate', Terminate)
 Vue.component('SettingPassword', SettingPassword)
-Vue.component('Disable', Disable)
+Vue.component('Status', Status)
 Vue.component('AppContainer', AppContainer)
 
 const moment = require('moment')

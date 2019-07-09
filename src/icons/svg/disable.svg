@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.826086704131512" height="25.695651939550743"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" class="" style=""/>
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="37.6150016784668" height="37.6150016784668" fill="none" id="svg_1"/>
+    </clipPath>
+  </defs>
+  
+<g class="currentLayer" style=""><title>Layer 1</title><g id="Icon_Disable" data-name="Icon Disable" clip-path="url(#clip-path)" class="">
+    <circle id="Ellipse_51" data-name="Ellipse 51" cx="6.776260137557983" cy="26.019042491912842" r="13.298999786376953" transform="rotate(-45 -6.521739006042478,12.720043182373047) " fill="#ffde82"/>
+    <g id="Edit" transform="rotate(45 12.405261039733885,0.19804334640502963) ">
+      <path id="Subtraction_9" data-name="Subtraction 9" d="M18.97826080126781,17.80604334640503 h0 a9.164,9.164 0 0 1 -4.17,-2.35 A9.07,9.07 0 0 1 12.40426080126781,11.33804334640503 H18.97826080126781 v6.467 zm4.673,-0.03400000000000004 h0 V11.33804334640503 h6.444 a9.137,9.137 0 0 1 -6.444,6.434 zM18.97826080126781,6.666043346405029 H12.40426080126781 A9.07,9.07 0 0 1 14.804260801267809,2.548043346405029 A9.164,9.164 0 0 1 18.97826080126781,0.19804334640502938 V6.665043346405028 zm11.117,0 H23.65126080126781 V0.23204334640502916 a9.137,9.137 0 0 1 6.444,6.434 z" fill="#fff"/>
+    </g>
+  </g></g></svg>

@@ -18,11 +18,16 @@ app-container
     el-table-column(:label="$t('bank.transferCode')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.transferCode }}
+    el-table-column(:label="$t('bank.status')", align='left')
+      template(slot-scope='scope')
+        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
+          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
         Edit(:data='row' :action='handleUpdate')
         Delete(:data='row' :action='handleDelete')
         Detail(:data='row' :action='handleView')
@@ -47,7 +52,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createBank, updateBank, deleteBank } from '@/api/bank'
+import { fetchList, createBank, updateBank, deleteBank, updateStatusBank } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewBank from './components/view-bank/index'
 import { requiredValidator } from '@/global-function/formValidator'
@@ -95,6 +100,24 @@ export default {
     this.getList()
   },
   methods: {
+    handleUpdateStatus(row) {
+      const payload = {
+        id: row.id,
+        isActive: !row.isActive
+      }
+      updateStatusBank(payload).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogFormVisible = false
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')

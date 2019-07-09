@@ -10,7 +10,7 @@
           span {{ scope.row.name }}
       el-table-column(:label="$t('feeType.status')", align='left', width='180')
         template(slot-scope='scope')
-          span(:class="scope.row.status === 'enable' ? 'label-enable' : 'label-disable'")
+          span(:class="scope.row.status === 'active' ? 'label-enable' : 'label-disable'")
             | {{ scope.row.status }}
       el-table-column(:label="$t('table.createdDate')", align='left', width='200')
         template(slot-scope='scope')

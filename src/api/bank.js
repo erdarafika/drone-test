@@ -53,6 +53,14 @@ export function deleteBank(data) {
   })
 }
 
+export function updateStatusBank(data) {
+  return request({
+    url: `/master/bank/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}
+
 export function deleteBranch(data) {
   return request({
     url: `master/bank/${data.bank.id}/branch/${data.id}`,
