@@ -30,6 +30,14 @@ export function updateBusinessLine(data) {
   })
 }
 
+export function updateStatusBusinessLine(data) {
+  return request({
+    url: `/master/business-line/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}
+
 export function deleteBusinessLine(data) {
   return request({
     url: `/master/business-line/${data.id}`,

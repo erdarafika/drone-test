@@ -18,8 +18,13 @@ app-container
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    el-table-column(:label="$t('table.status')", align='left')
+      template(slot-scope='scope')
+        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
+          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
         Edit(:data='row' :action='handleUpdate')
         Delete(:data='row' :action='handleDelete')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
@@ -39,7 +44,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine } from '@/api/business-line'
+import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine, updateStatusBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { requiredValidator } from '@/global-function/formValidator'
 
@@ -82,6 +87,24 @@ export default {
     this.getList()
   },
   methods: {
+    handleUpdateStatus(row) {
+      const payload = {
+        id: row.id,
+        isActive: !row.isActive
+      }
+      updateStatusBusinessLine(payload).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogFormVisible = false
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
