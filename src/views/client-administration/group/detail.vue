@@ -2,7 +2,7 @@
 app-container
   template(v-slot:header)
     .action-button
-      el-button.save(size='small' @click="createData()" v-if='!dialogIsUpdate')
+      el-button.save(size='small' @click="dialogIsUpdate ? updateData() : createData()")
         | {{ $t('table.save') }}
       RequestApproval(:callback="requestApproval")
 
@@ -15,36 +15,36 @@ app-container
         el-tabs.pane(tab-position='top', style='height:100%;')
           el-tab-pane(label='General')
             el-form-item(:label="$t('groupMaintenance.name')", prop='name' )
-              el-input(v-model='temp.name',  name='name' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+              el-input(v-model='temp.name',  name='name' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'   )
             el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
-              el-select(placeholder='Select' v-model='temp.companyId'  name='companyId'  :disabled='dialogIsUpdate')
+              el-select(placeholder='Select' v-model='temp.companyId'  name='companyId'  )
                 el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId')
-              el-select(placeholder='Select' v-model='temp.productTypeId' name='productTypeId'  :disabled='dialogIsUpdate')
+              el-select(placeholder='Select' v-model='temp.productTypeId' name='productTypeId'  )
                 el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('groupMaintenance.proposalNumber')", prop='proposalNumber')
-              el-input(v-model='temp.proposalNumber',  name='proposalNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate' )
+              el-input(v-model='temp.proposalNumber',  name='proposalNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'   )
             el-form-item(:label="$t('groupMaintenance.type')", prop='type')
-              el-select(placeholder='Select' v-model='temp.type'  name='type'  :disabled='dialogIsUpdate')
+              el-select(placeholder='Select' v-model='temp.type'  name='type'  )
                 el-option(v-for='item in groupTypeOptions', :key='item', :label='item', :value='item')
 
           el-tab-pane(label='Dates')
             el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.proposalDate', name='proposalDate' type='date', placeholder='Pick a date'  :disabled='dialogIsUpdate')
+              el-date-picker(:value-format='dateFormat' v-model='temp.proposalDate', name='proposalDate' type='date', placeholder='Pick a date'  )
             el-form-item(:label="$t('groupMaintenance.effectiveDate')" prop='effectiveDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', name='effectiveDate' type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', name='effectiveDate' type='date', placeholder='Pick a date' )
             el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.caseCloseDate', name='caseCloseDate' type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-date-picker(:value-format='dateFormat' v-model='temp.caseCloseDate', name='caseCloseDate' type='date', placeholder='Pick a date' )
             el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.terminationDate', name='terminationDate' type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-date-picker(:value-format='dateFormat' v-model='temp.terminationDate', name='terminationDate' type='date', placeholder='Pick a date' )
             el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.ppkReceiveDate', name='ppkReceiveDate' type='date', placeholder='Pick a date' :disabled='dialogIsUpdate')
+              el-date-picker(:value-format='dateFormat' v-model='temp.ppkReceiveDate', name='ppkReceiveDate' type='date', placeholder='Pick a date' )
 
           el-tab-pane(label='Other')
             el-form-item(:label="$t('groupMaintenance.totalEmployee')" prop='totalEmployee')
-              el-input(v-model='temp.totalEmployee', name='totalEmployee' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-input(v-model='temp.totalEmployee', name='totalEmployee' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  )
             el-form-item(:label="$t('groupMaintenance.totalEmployeeRegistered')" prop='totalEmployeeRegistered')
-              el-input(v-model='temp.totalEmployeeRegistered', name='totalEmployeeRegistered' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  :disabled='dialogIsUpdate')
+              el-input(v-model='temp.totalEmployeeRegistered', name='totalEmployeeRegistered' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  )
             el-form-item(:label="$t('groupMaintenance.isHavingFundOutsideDplk')" prop='isHavingFundOutsideDplk')
               el-switch(v-model='temp.isHavingFundOutsideDplk'  name='isHavingFundOutsideDplk')
               span.switch-status {{ temp.isHavingFundOutsideDplk?'Yes':'No' }}
@@ -52,7 +52,7 @@ app-container
               el-switch(v-model='temp.isTaxPaidByEmployer' name='isTaxPaidByEmployer')
               span.switch-status {{ temp.isTaxPaidByEmployer?'Yes':'No' }}
             el-form-item(:label="$t('groupMaintenance.notes')" prop='notes')
-              el-input(v-model='temp.notes', name='notes' type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  :disabled='dialogIsUpdate')
+              el-input(v-model='temp.notes', name='notes' type='textarea', :autosize='{ minRows: 4, maxRows: 4}'  )
 
       .dialog-footer.pull-right(v-show='!dialogIsUpdate' style='margin-top:-20px' v-if='!dialogIsUpdate')
         el-button(type='primary' @click="createData()")
@@ -84,7 +84,7 @@ app-container
 </style>
 
 <script>
-import { fetchGroupMaintanance as fetchRecord, createGroupMaintanance } from '@/api/group-maintenance'
+import { fetchGroupMaintanance as fetchRecord, createGroupMaintanance, updateGroupMaintanance } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -176,6 +176,7 @@ export default {
       console.log('Request Approval')
     },
     reFormatDate(date) {
+      if (!date) { return null }
       return this.$moment(date).format(this.momentDateFormat)
     },
     getRecord() {
@@ -188,6 +189,7 @@ export default {
         response.ppkReceiveDate = this.reFormatDate(response.ppkReceiveDate)
         response.companyId = response.company.id
         response.productTypeId = response.productType.id
+        response.isDraft = 1
 
         this.temp = response
         this.listLoading = false
@@ -226,6 +228,24 @@ export default {
                 duration: 2000
               })
               this.$router.push({ name: 'GroupMaintenanceDetail', params: { action: 'update' }, query: { id: response.id }})
+            }
+          })
+        }
+      })
+    },
+    updateData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          updateGroupMaintanance(this.temp).then((response) => {
+            this.dialogFormVisible = false
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.$notify({
+                title: this.$t('table.successTitle'),
+                message: this.$t('table.successCaption'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
             }
           })
         }
