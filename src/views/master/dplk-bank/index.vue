@@ -54,7 +54,7 @@ app-container
 </style>
 
 <script>
-import { fetchList, createDplkBank, updateDplkBank } from '@/api/dplk-bank'
+import { fetchList, createDplkBank, updateDplkBank, updateStatusDplkBank } from '@/api/dplk-bank'
 import { fetchList as fetchBank, fetchBranch } from '@/api/bank'
 import { fetchCountryList as fetchCountry } from '@/api/location'
 
@@ -124,6 +124,24 @@ export default {
     })
   },
   methods: {
+    handleUpdateStatus(row) {
+      const payload = {
+        id: row.id,
+        isActive: !row.isActive
+      }
+      updateStatusDplkBank(payload).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogFormVisible = false
+      })
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')

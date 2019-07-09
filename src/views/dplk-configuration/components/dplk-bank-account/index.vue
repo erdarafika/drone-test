@@ -26,12 +26,17 @@ div
     el-table-column(:label="$t('table.createdDate')", align='left')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(:label="$t('table.status')", align='left', width='190')
+    el-table-column(:label="$t('table.status')", align='left')
       template(slot-scope='scope')
         span(:class="scope.row.defaultBank?'label-enable':''")
           | {{ scope.row.defaultBank? 'Default': '' }}
+    el-table-column(:label="$t('table.status')", align='left')
+      template(slot-scope='scope')
+        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
+          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right' width='150')
       template(slot-scope='{row}')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
         Edit(:data='row' :action='handleUpdate')
         Delete(:data='row' :action='handleDelete')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
@@ -60,7 +65,7 @@ div
 </template>
 
 <script>
-import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBankAccount } from '@/api/dplk-bank-account'
+import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBankAccount, updateStatusDplkBankAccount } from '@/api/dplk-bank-account'
 import { fetchList as fetchBankList, fetchBranch } from '@/api/bank'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -113,6 +118,24 @@ export default {
     })
   },
   methods: {
+    handleUpdateStatus(row) {
+      const payload = {
+        id: row.id,
+        isActive: !row.isActive
+      }
+      updateStatusDplkBankAccount(payload).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.$notify({
+            title: this.$t('table.successTitle'),
+            message: this.$t('table.successCaption'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
+        this.dialogFormVisible = false
+      })
+    },
     getBranchOptions() {
       const bankId = this.temp.bankId
       fetchBranch(bankId).then(res => {

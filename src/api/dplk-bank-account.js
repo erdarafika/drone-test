@@ -23,6 +23,14 @@ export function updateDplkBankAccount(data) {
   })
 }
 
+export function updateStatusDplkBankAccount(data) {
+  return request({
+    url: `/master/dplk/bank/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}
+
 export function deleteDplkBankAccount(data) {
   return request({
     url: `/master/dplk/bank/${data.id}`,
