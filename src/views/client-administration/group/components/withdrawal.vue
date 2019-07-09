@@ -16,9 +16,9 @@ div
     el-form-item(:label="$t('groupWithdrawal.maximumWithdrawalAmount')" prop="maximumWithdrawalAmount")
       el-input-number(v-model.number='groupWithdrawal.maximumWithdrawalAmount'  name='maximumWithdrawalAmount')
     el-form-item(:label="$t('groupWithdrawal.normalRetireAge')" prop="normalRetireAge")
-      el-input-number(v-model.number='groupWithdrawal.normalRetireAge'  name='normalRetireAge')
+      el-input-number(v-model.number='groupWithdrawal.normalRetireAge' :min="40"  name='normalRetireAge')
     el-form-item(:label="$t('groupWithdrawal.earlyRetireAge')" prop="earlyRetireAge")
-      el-input-number(v-model.number='groupWithdrawal.earlyRetireAge'  name='earlyRetireAge')
+      el-input-number(v-model.number='groupWithdrawal.earlyRetireAge' :min="30" name='earlyRetireAge')
 
     el-form-item
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
@@ -47,8 +47,8 @@ export default {
         minimumWithdrawalAmount: 1,
         maximumWithdrawalPercentage: 1,
         maximumWithdrawalAmount: 1,
-        normalRetireAge: 1,
-        earlyRetireAge: 1,
+        normalRetireAge: 40,
+        earlyRetireAge: 30,
         groupId: undefined
       },
       rules: {
@@ -75,7 +75,7 @@ export default {
         const { early_retire_age, is_partial_allowed, maximum_withdrawal_amount, maximum_withdrawal_frequency, maximum_withdrawal_percentage, minimum_withdrawal_amount, minimum_withdrawal_year, normal_retire_age } = response
         this.groupWithdrawal = Object.assign(this.groupWithdrawal, {
           earlyRetireAge: early_retire_age,
-          isPartialAllowed: is_partial_allowed,
+          isPartialAllowed: is_partial_allowed || false,
           maximumWithdrawalAmount: maximum_withdrawal_amount,
           maximumWithdrawalFrequency: maximum_withdrawal_frequency,
           maximumWithdrawalPercentage: maximum_withdrawal_percentage,
