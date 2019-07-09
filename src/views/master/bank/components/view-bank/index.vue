@@ -3,11 +3,10 @@
     el-button(type='danger', size='mini' @click="documentDelete(data)")
       | {{ $t('table.delete') }} {{$t('route.bank')}}
     el-row
-      el-col(:span='14')
+      el-col(:span='10')
+        h3 {{$t('table.detail ')}}
         .detail-block
           table
-            tr.top-bar
-              td(colspan="2")
             tr
               th(width="150") {{ $t('bank.name') }}
               td {{ data.bankName }}
@@ -20,7 +19,7 @@
             tr
               th {{ $t('table.createdDate') }}
               td {{ data.created_at | moment("Do MMMM, YYYY") }}
-      el-col.branch-block(:span='10')
+      el-col.branch-block(:span='14 ')
         h3 {{$t('bank.branch')}}
         el-form(:model='temp',  :rules='rules', ref='dataForm', label-width='100px')
           el-form-item(:label='$t("bank.branchName")', prop='bankBranch')
@@ -76,7 +75,7 @@ tr.top-bar {
 <script>
 import { fetchBranch, createBranch, deleteBranch } from '@/api/bank'
 import { fetchCountryList } from '@/api/location'
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, alphanumericValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'ViewDocument',
@@ -97,10 +96,10 @@ export default {
       listLoading: false,
       rules: {
         bankBranch: [
-          requiredValidator
+          requiredValidator, alphabeticValidator
         ],
         bankAddress: [
-          requiredValidator
+          requiredValidator, alphanumericValidator
         ],
         country: [
           requiredValidator
