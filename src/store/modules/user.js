@@ -9,7 +9,7 @@ const state = {
   introduction: '',
   position: '',
   roles: [],
-  crud_level: [],
+  // crud_level: [],
   menus: []
 }
 
@@ -20,9 +20,9 @@ const mutations = {
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
-  SET_CRUD_LEVEL(state, crud_level) {
-    state.crud_level = crud_level
-  },
+  // SET_CRUD_LEVEL(state, crud_level) {
+  //   state.crud_level = crud_level
+  // },
   SET_NAME: (state, name) => {
     state.name = name
   },
@@ -65,17 +65,19 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
+        console.log(data)
 
-        const roles = data.authorities.map(item => item.role)
+        const roles = [data.role]
+        // const roles = data.authorities.map(item => item.role)
         const name = data.dplkStaff.name
-        const menus = data.menus.map(item => item.menu)
+        const menus = data.authorities.map(item => item.menu)
         const position = data.dplkStaff.department.name
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        // if (!roles || roles.length <= 0) {
+        //   reject('getInfo: roles must be a non-null array!')
+        // }
 
-        commit('SET_CRUD_LEVEL', roles)
+        // commit('SET_CRUD_LEVEL', roles)
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_MENUS', menus)
