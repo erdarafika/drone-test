@@ -3,11 +3,15 @@
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="getLogo(logo)" class="sidebar-logo">
-        <h1 v-else class="sidebar-title">{{ title }} </h1>
+        <h1 v-else class="sidebar-title">{{ collapseTitle }} </h1>
+        <img v-if="profileImage" :src="getLogo(profileImage)" class="sidebar-profile-image">
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="getLogo(logo)" class="sidebar-logo">
+        <!-- <img v-if="logo" :src="getLogo(logo)" class="sidebar-logo"> -->
         <h1 class="sidebar-title">{{ title }} </h1>
+        <img v-if="profileImage" :src="getLogo(profileImage)" class="sidebar-profile-image">
+        <span class="sidebar-profile-title"> {{ profileName }} </span>
+        <span class="sidebar-profile-subtitle"> {{ profilePosition }} </span>
       </router-link>
     </transition>
   </div>
@@ -25,7 +29,20 @@ export default {
   data() {
     return {
       title: 'Code Cofee Creative',
-      logo: 'app-logo'
+      collapseTitle: 'CCC',
+      logo: '',
+      profileImage: 'profile'
+    }
+  },
+  computed: {
+    profilePicture() {
+      return this.$store.getters.avatar
+    },
+    profileName() {
+      return this.$store.getters.name
+    },
+    profilePosition() {
+      return this.$store.getters.position
     }
   },
   methods: {
@@ -50,7 +67,7 @@ export default {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 170px;
   line-height: 50px;
   // background: #2b2f3a;
   // Pensiunku version
@@ -69,6 +86,33 @@ export default {
       margin-right: 12px;
     }
 
+    & .sidebar-profile-image {
+      width: 60px;
+      height: 60px;
+      margin: auto;
+      display: block;
+    }
+
+    & .sidebar-profile-title {
+
+      line-height: 35px;
+      display: block;
+      color: #606266;
+      font-weight: bold;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    & .sidebar-profile-subtitle {
+
+      line-height: 10px;
+      display: block;
+      color: #606266;
+      font-weight: lighter;
+      font-size: 12px;
+      text-align: center;
+    }
+
     & .sidebar-title {
       display: inline-block;
       margin: 0;
@@ -80,15 +124,22 @@ export default {
       // font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       // PensiunKu version
       font-family: 'Roboto', Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-      font-size: 16px;
+      font-size: 13px;
 
       vertical-align: middle;
     }
   }
 
   &.collapse {
+    height: 100px;
     .sidebar-logo {
       margin-right: 0px;
+    }
+    .sidebar-profile-image {
+      width: 32px;
+      height: 32px;
+      margin: auto;
+      display: block;
     }
   }
 }

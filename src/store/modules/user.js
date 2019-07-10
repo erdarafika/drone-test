@@ -7,6 +7,7 @@ const state = {
   name: '',
   avatar: 'https://i.ibb.co/2P7FGtN/user.png',
   introduction: '',
+  position: '',
   roles: [],
   crud_level: [],
   menus: []
@@ -33,6 +34,9 @@ const mutations = {
   },
   SET_MENUS: (state, menus) => {
     state.menus = menus
+  },
+  SET_POSITION: (state, position) => {
+    state.position = position
   }
 }
 
@@ -65,6 +69,7 @@ const actions = {
         const roles = data.authorities.map(item => item.role)
         const name = data.dplkStaff.name
         const menus = data.menus.map(item => item.menu)
+        const position = data.dplkStaff.department.name
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
@@ -74,6 +79,7 @@ const actions = {
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_MENUS', menus)
+        commit('SET_POSITION', position)
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
         resolve({ name, roles, menus })
