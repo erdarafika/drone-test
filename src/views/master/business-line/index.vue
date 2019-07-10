@@ -26,7 +26,7 @@ app-container
       template(slot-scope='{row}')
         Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
         Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+        //- Delete(:data='row' :action='handleDelete')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -44,7 +44,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine, updateStatusBusinessLine } from '@/api/business-line'
+import { fetchList, createBusinessLine, updateBusinessLine, /* deleteBusinessLine,*/ updateStatusBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
 
@@ -173,19 +173,19 @@ export default {
         }
       })
     },
-    handleDelete(row) {
-      const cancelCallback = () => this.cancelNotifier()
+    // handleDelete(row) {
+    //   const cancelCallback = () => this.cancelNotifier()
 
-      const deleteCallback = () => {
-        deleteBusinessLine(row).then((response) => {
-          this.dialogFormVisible = false
-          this.successNotifier()
-          this.getList()
-        })
-      }
+    //   const deleteCallback = () => {
+    //     deleteBusinessLine(row).then((response) => {
+    //       this.dialogFormVisible = false
+    //       this.successNotifier()
+    //       this.getList()
+    //     })
+    //   }
 
-      this.confirmDelete(deleteCallback, cancelCallback)
-    },
+    //   this.confirmDelete(deleteCallback, cancelCallback)
+    // },
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
