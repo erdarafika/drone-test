@@ -22,7 +22,7 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
         Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+        //- Delete(:data='row' :action='handleDelete')
         Detail(:data='row' :action='handleView')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
