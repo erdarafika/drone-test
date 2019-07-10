@@ -65,8 +65,10 @@ export default {
     }
   },
   created() {
-    this.getGroupWithdrawal()
-    this.groupWithdrawal.groupId = this.data.id
+    if (this.data.id) {
+      this.getGroupWithdrawal()
+      this.groupWithdrawal.groupId = this.data.id
+    }
   },
   methods: {
     getGroupWithdrawal() {
