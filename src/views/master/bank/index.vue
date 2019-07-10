@@ -29,7 +29,7 @@ app-container
       template(slot-scope='{row}')
         Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
         Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+        //- Delete(:data='row' :action='handleDelete')
         Detail(:data='row' :action='handleView')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
@@ -52,7 +52,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createBank, updateBank, deleteBank, updateStatusBank } from '@/api/bank'
+import { fetchList, createBank, updateBank, /* deleteBank,*/ updateStatusBank } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewBank from './components/view-bank/index'
 import { requiredValidator } from '@/global-function/formValidator'
@@ -184,19 +184,19 @@ export default {
         }
       })
     },
-    handleDelete(row) {
-      const cancelCallback = () => this.cancelNotifier()
+    // handleDelete(row) {
+    //   const cancelCallback = () => this.cancelNotifier()
 
-      const deleteCallback = () => {
-        deleteBank(row).then((response) => {
-          this.dialogFormVisible = false
-          this.successNotifier()
-          this.getList()
-        })
-      }
+    //   const deleteCallback = () => {
+    //     deleteBank(row).then((response) => {
+    //       this.dialogFormVisible = false
+    //       this.successNotifier()
+    //       this.getList()
+    //     })
+    //   }
 
-      this.confirmDelete(deleteCallback, cancelCallback)
-    },
+    //   this.confirmDelete(deleteCallback, cancelCallback)
+    // },
 
     handleDownload() {
       this.downloadLoading = true
