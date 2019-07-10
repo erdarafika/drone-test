@@ -52,9 +52,11 @@ app-container
               el-date-picker(:value-format='dateFormat' v-model='temp.domicilieCertificateNumberExpiredDate', name='domicilieCertificateNumberExpiredDate' type='date', placeholder='Pick a date' )
           el-tab-pane(label='Assets Etc')
             el-form-item(:label="$t('companyInformation.asset')" prop='asset')
-              el-input(v-model='temp.asset', name='asset' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' prop=''  )
+              el-select(placeholder='Select' v-model='temp.asset' name='asset'  )
+                el-option(v-for='item in assetIncomeOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('companyInformation.grossIncomePerYear')" prop='grossIncomePerYear')
-              el-input(v-model='temp.grossIncomePerYear', name='grossIncomePerYear' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  )
+              el-select(placeholder='Select' v-model='temp.grossIncomePerYear' name='grossIncomePerYear'  )
+                el-option(v-for='item in assetIncomeOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('companyInformation.moneySource')" prop='moneySource')
               el-input(v-model='temp.moneySource', name='moneySource' type='textarea', :autosize='{ minRows: 1, maxRows: 2}'  )
             el-form-item(:label="$t('companyInformation.pensionProgramSubmissionPurpose')" prop='pensionProgramSubmissionPurpose')
@@ -111,6 +113,14 @@ export default {
       momentDateFormat: 'DD-MM-YYYY',
       listLoading: true,
       businessLineOptions: [],
+      assetIncomeOptions: [
+        { label: '<= 500 Juta', value: 'lt500m' },
+        { label: '>= 500 Juta -  1 Milyar', value: 'gt500mlt1b' },
+        { label: '>= 1 Milyar - 10 Milyar', value: 'gt1blt10b' },
+        { label: '>= 10 Milyar - 100 Milyar', value: 'gt10b-100b' },
+        { label: '>= 100 Milyar - 500 Milyar', value: 'gt100b-500b' },
+        { label: '>= 500 Milyar', value: 'gt500b' }
+      ],
       temp: {
         id: undefined,
         name: undefined,

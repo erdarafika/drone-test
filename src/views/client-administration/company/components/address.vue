@@ -38,6 +38,10 @@ div
         el-input(v-model.number='temp.address1', name='address1' type='input')
       el-form-item(:label="$t('companyAddress.address2')", prop='address2')
         el-input(v-model.number='temp.address2', name='address2' type='input')
+      el-form-item(:label="$t('companyAddress.address3')", prop='address3')
+        el-input(v-model.number='temp.address3', name='address3' type='input')
+      el-form-item(:label="$t('companyAddress.address4')", prop='address4')
+        el-input(v-model.number='temp.address4', name='address4' type='input')
       el-form-item(:label="$t('companyAddress.postalCode')", prop='postalCode')
         el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
       el-form-item(:label="$t('companyAddress.addressType')", prop='addressTypeId')
@@ -92,6 +96,8 @@ export default {
       temp: {
         address1: undefined,
         address2: undefined,
+        address3: undefined,
+        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
@@ -107,6 +113,8 @@ export default {
         district: [requiredValidator],
         address1: [requiredValidator],
         address2: [requiredValidator],
+        address3: [],
+        address4: [],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
         cityId: [requiredValidator],
@@ -197,6 +205,8 @@ export default {
       this.temp = {
         address1: undefined,
         address2: undefined,
+        address3: undefined,
+        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
@@ -237,6 +247,8 @@ export default {
         defaultAddress: row.defaultAddress,
         address1: row.address1,
         address2: row.address2,
+        address3: row.address3,
+        address4: row.address4,
         countryId: row.country.id,
         provinceId: row.province.id,
         cityId: row.city.id,
