@@ -75,12 +75,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateVirtualAccount().then(() => {
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            this.successNotifier()
           })
         }
       })

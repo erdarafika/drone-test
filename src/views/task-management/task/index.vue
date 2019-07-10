@@ -74,12 +74,7 @@ export default {
     handleApprove(row) {
       approveTask(row.id).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
       })
@@ -87,12 +82,7 @@ export default {
     handleReject(row) {
       rejectTask(row.id).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
       })

@@ -251,12 +251,7 @@ export default {
         if (valid) {
           createCompany(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.$notify({
-                title: this.$t('table.successTitle'),
-                message: this.$t('table.successCaption'),
-                type: 'success',
-                duration: 2000
-              })
+              this.successNotifier()
             }
             this.$router.push({ name: 'CompanyDetail', params: { action: 'update' }, query: { id: response.id }})
           })
@@ -271,12 +266,7 @@ export default {
           updateCompany(this.temp).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.$notify({
-                title: this.$t('table.successTitle'),
-                message: this.$t('table.successCaption'),
-                type: 'success',
-                duration: 2000
-              })
+              this.successNotifier()
               this.getList()
             }
           })

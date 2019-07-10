@@ -24,6 +24,7 @@ import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 
 import confirmDelete from './global-function/deleteConfirm'
+import { successNotifier, cancelNotifier } from './global-function/defaultMessage'
 import Delete from './components/ActionButtons/Delete'
 import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
@@ -69,7 +70,9 @@ Object.keys(filters).forEach(key => {
 
 Vue.mixin({
   methods: {
-    confirmDelete
+    confirmDelete,
+    successNotifier,
+    cancelNotifier
   }
 })
 

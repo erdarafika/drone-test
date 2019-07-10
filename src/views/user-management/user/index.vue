@@ -180,12 +180,7 @@ export default {
     handleDisable(row) {
       disableUser(row).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
         this.dialogUpdateMenuVisible = false
@@ -194,12 +189,7 @@ export default {
     handleSubmitUpdateMenu(data) {
       updateUserMenu(data).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
         this.dialogUpdateMenuVisible = false
@@ -219,12 +209,7 @@ export default {
     handleSubmitUpdateRole(data) {
       updateUserRole(data).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
         this.dialogUpdateRoleVisible = false
@@ -305,12 +290,7 @@ export default {
           console.log(this.temp)
           createUser(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.$notify({
-                title: this.$t('table.successTitle'),
-                message: this.$t('table.successCaption'),
-                type: 'success',
-                duration: 2000
-              })
+              this.successNotifier()
               this.getList()
             }
             this.dialogFormVisible = false
@@ -318,44 +298,6 @@ export default {
         }
       })
     }
-    // handleUpdate(row) {
-    //   this.temp = Object.assign({}, row) // copy obj
-    //   this.dialogStatus = 'update'
-    //   this.dialogFormVisible = true
-    //   this.$nextTick(() => {
-    //     this.$refs['dataForm'].clearValidate()
-    //   })
-    // },
-    // updateData() {
-    //   this.$refs['dataForm'].validate((valid) => {
-    //     if (valid) {
-    //       updateAddressType(this.temp).then((response) => {
-    //         this.dialogFormVisible = false
-    //         if (response.status_code >= 200 && response.status_code <= 300) {
-    //           this.$notify({
-    //             title: this.$t('table.successTitle'),
-    //             message: this.$t('table.successCaption'),
-    //             type: 'success',
-    //             duration: 2000
-    //           })
-    //           this.getList()
-    //         }
-    //       })
-    //     }
-    //   })
-    // },
-    // handleDelete(row) {
-    //   deleteAddressType(row).then((response) => {
-    //     this.dialogFormVisible = false
-    //     this.$notify({
-    //       title: this.$t('table.successTitle'),
-    //       message: this.$t('table.successCaption'),
-    //       type: 'success',
-    //       duration: 2000
-    //     })
-    //     this.getList()
-    //   })
-    // }
   }
 }
 </script>

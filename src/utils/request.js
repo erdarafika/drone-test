@@ -55,7 +55,6 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
     }
-
     return res
 
     // if the custom code is not 20000, it is judged as an error.

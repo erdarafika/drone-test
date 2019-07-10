@@ -134,12 +134,7 @@ export default {
             console.log(response)
 
             // if (response[0].status_code >= 200 && response.status_code[0] <= 300) {
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            this.successNotifier()
             this.getList()
             // }
             this.dialogFormVisible = false

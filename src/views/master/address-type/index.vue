@@ -100,12 +100,7 @@ export default {
       }
       updateStatusAddressType(payload).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
         this.dialogFormVisible = false
@@ -147,12 +142,7 @@ export default {
         if (valid) {
           createAddressType(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.$notify({
-                title: this.$t('table.successTitle'),
-                message: this.$t('table.successCaption'),
-                type: 'success',
-                duration: 2000
-              })
+              this.successNotifier()
               this.getList()
             }
             this.dialogFormVisible = false
@@ -174,12 +164,7 @@ export default {
           updateAddressType(this.temp).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.$notify({
-                title: this.$t('table.successTitle'),
-                message: this.$t('table.successCaption'),
-                type: 'success',
-                duration: 2000
-              })
+              this.successNotifier()
               this.getList()
             }
           })
@@ -187,22 +172,12 @@ export default {
       })
     },
     handleDelete(row) {
-      const cancelCallback = () => this.$notify({
-        title: this.$t('table.cancelTitle'),
-        message: this.$t('table.cancelCaption'),
-        type: 'warning',
-        duration: 2000
-      })
+      const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
         deleteAddressType(row).then((response) => {
           this.dialogFormVisible = false
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         })
       }

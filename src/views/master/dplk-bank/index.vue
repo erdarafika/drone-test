@@ -131,12 +131,7 @@ export default {
       }
       updateStatusDplkBank(payload).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
-          this.$notify({
-            title: this.$t('table.successTitle'),
-            message: this.$t('table.successCaption'),
-            type: 'success',
-            duration: 2000
-          })
+          this.successNotifier()
           this.getList()
         }
         this.dialogFormVisible = false
@@ -191,12 +186,7 @@ export default {
           createDplkBank(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            this.successNotifier()
           })
         }
       })
@@ -224,23 +214,13 @@ export default {
               }
             }
             this.dialogFormVisible = false
-            this.$notify({
-              title: this.$t('table.successTitle'),
-              message: this.$t('table.successCaption'),
-              type: 'success',
-              duration: 2000
-            })
+            this.successNotifier()
           })
         }
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: this.$t('table.successTitle'),
-        message: this.$t('table.successCaption'),
-        type: 'success',
-        duration: 2000
-      })
+      this.successNotifier()
       const index = this.list.indexOf(row)
       this.list.splice(index, 1)
     }
