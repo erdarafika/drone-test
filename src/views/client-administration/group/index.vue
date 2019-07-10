@@ -23,6 +23,7 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
+        Edit(:data='row' :action='handleUpdate')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 </template>
 
@@ -74,8 +75,11 @@ export default {
     this.getList()
   },
   methods: {
-    handleDetail(row) {
+    handleUpdate(row) {
       this.$router.push({ name: 'GroupMaintenanceDetail', params: { action: 'update' }, query: { id: row.id }})
+    },
+    handleDetail(row) {
+      this.$router.push({ name: 'GroupMaintenanceDetail', params: { action: 'detail' }, query: { id: row.id }})
     },
     handleCreate() {
       this.$router.push({ name: 'GroupMaintenanceDetail', params: { action: 'create' }})
