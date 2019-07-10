@@ -6,9 +6,10 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
   el-row
-    el-col(:span='6')
-      v-calendar(is-expanded :attributes='attributes' :locale='language')
-    el-col(:span='18' style='padding-left:20px;')
+    el-col(:span='12')
+      v-calendar( :attributes='attributes' :locale='language' :columns="$screens({ default: 1, lg: 2 })" :rows="$screens({ default: 1, lg: 2 })"
+  :is-expanded="$screens({ default: true, lg: true })")
+    el-col(:span='12' style='padding-left:20px;')
       el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
         el-table-column(:label="$t('table.createdDate')", align='left', width='150')
           template(slot-scope='scope')
