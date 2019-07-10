@@ -82,6 +82,15 @@ export default {
       }
     },
     {
+      path: 'email-config',
+      name: 'EmailConfig',
+      component: () => import('@/views/master/email-config/index'),
+      meta: {
+        title: 'emailConfig',
+        pensionMenu: 'email'
+      }
+    },
+    {
       path: 'money-source',
       name: 'MoneySource',
       component: () => import('@/views/master/money-source/index'),
@@ -119,15 +128,6 @@ export default {
     //     pensionMenu: ''
     //   }
     // },
-    {
-      path: 'email-config',
-      name: 'EmailConfig',
-      component: () => import('@/views/master/email-config/index'),
-      meta: {
-        title: 'emailConfig',
-        pensionMenu: 'email'
-      }
-    },
     {
       path: 'fee-type',
       name: 'FeeType',

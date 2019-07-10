@@ -6,9 +6,9 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
   el-row
-    el-col(:span='8')
+    el-col(:span='6')
       v-calendar(is-expanded :attributes='attributes' :locale='language')
-    el-col(:span='16' style='padding-left:20px;')
+    el-col(:span='18' style='padding-left:20px;')
       el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
         el-table-column(:label="$t('table.createdDate')", align='left', width='150')
           template(slot-scope='scope')
@@ -38,6 +38,21 @@ app-container
         | {{ $t('table.confirm') }}
 
 </template>
+
+<style lang="scss">
+.vc-border-gray-400 {
+    border-color: #91b3dc96;
+}
+.vc-text-gray-800 {
+    color: #1682e6;
+}
+.vc-text-gray-600 {
+    color: #1682e6;
+}
+.vc-bg-blue-600 {
+    background-color: #e64242;
+}
+</style>
 
 <script>
 import { fetchList, createHoliday, updateHoliday, deleteHoliday } from '@/api/holiday'
@@ -103,7 +118,7 @@ export default {
           const itemDate = new Date(item.date)
           return {
             dates: itemDate,
-            highlight: true
+            dot: true
           }
         })
         // this.attributes.dates.push(new Date())

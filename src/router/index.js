@@ -95,8 +95,8 @@ import taskManagement from './modules/task-management'
 
 export const asyncRoutes = [
   masterSetup,
-  fundAdministration,
   dplkConfiguration,
+  fundAdministration,
   clientAdministration,
   userManagement,
   taskManagement,
