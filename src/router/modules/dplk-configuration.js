@@ -15,7 +15,8 @@ export default {
       name: 'DplkInformation',
       component: () => import('@/views/dplk-configuration/index'),
       meta: {
-        title: 'dplkConfiguration'
+        title: 'dplkConfiguration',
+        pensionMenu: 'dplk-configuration'
       }
     }
     // {

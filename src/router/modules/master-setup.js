@@ -152,8 +152,8 @@ export default {
       name: 'SubBenefit',
       hidden: true,
       meta: {
-        title: 'subBenefit'
-        // pensionMenu: ''
+        title: 'subBenefit',
+        pensionMenu: 'sub-benefit-type'
       }
     },
     // {
