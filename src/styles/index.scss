@@ -243,9 +243,9 @@ span.label-disable {
   width: 85% !important;
 }
 
-.el-form-item--medium .el-form-item__label {
-  line-height: 15px;
-}
+// .el-form-item--medium .el-form-item__label {
+//   line-height: 15px;
+// }
 
 .el-table {
   border-radius: 5px;
@@ -308,4 +308,26 @@ span.label-disable {
 
 .el-table thead {
   color: #4b7ff5;
+}
+
+.el-form--inline .el-form-item {
+  margin-right: 30px;
+}
+
+.complex-filter-container {
+  padding-top: 10px;
+  border-top: 1px solid #489bff3d;
+  border-bottom: 1px solid #489bff3d;
+  margin-bottom: 24px;
+  .complex-filter-item  {
+    background: #489bff12;
+    padding: 10px;
+    margin-bottom: 10px;
+    .title {
+      border-bottom: 1px solid #cce7ff;
+      padding-bottom: 4px;
+      font-size: 12px;
+      color: #6593bd;
+    }
+  } 
 }
