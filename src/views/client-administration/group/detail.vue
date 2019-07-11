@@ -1,14 +1,12 @@
 <template lang="pug">
 app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.push({name: 'GroupMaintenance'}) }")
   template(v-slot:header)
     .action-button(v-if='!dialogIsDetail')
       el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
         | {{ $t('table.save') }}
       RequestApproval(:callback="requestApproval")
-
-  div.back-button
-    el-button(size='small', @click="$router.push({name: 'GroupMaintenance'})")
-      | {{$t('table.back')}}
   el-tabs(type='border-card' v-model='activeTab')
     el-tab-pane(label='Information' name='Information')
       el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
