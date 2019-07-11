@@ -1,9 +1,9 @@
 <template lang="pug">
 app-container
-  template(v-slot:header)
-    .action-button(v-if='!dialogIsDetail')
-      //- el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
-      //-   | {{ $t('table.save') }}
+  //- template(v-slot:header)
+  //-   //- .action-button(v-if='!dialogIsDetail')
+  //-   //-   //- el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
+  //-   //-   //-   | {{ $t('table.save') }}
 
   div.back-button
     el-button(size='small', @click="$router.push({name: 'User'})")
