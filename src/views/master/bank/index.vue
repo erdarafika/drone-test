@@ -52,10 +52,10 @@ app-container
 </template>
 
 <script>
-import { fetchList, createBank, updateBank, /* deleteBank,*/ updateStatusBank } from '@/api/bank'
+import { fetchList, createBank, updateBank, deleteBank, updateStatusBank } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewBank from './components/view-bank/index'
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphanumericValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Bank',
@@ -82,8 +82,8 @@ export default {
       dialogStatus: '',
       rules: {
         bankName: [requiredValidator],
-        swiftCode: [requiredValidator],
-        transferCode: [requiredValidator]
+        swiftCode: [requiredValidator, alphanumericValidator],
+        transferCode: [requiredValidator, numberValidator]
       },
       downloadLoading: false
     }
@@ -184,19 +184,19 @@ export default {
         }
       })
     },
-    // handleDelete(row) {
-    //   const cancelCallback = () => this.cancelNotifier()
+    handleDelete(row) {
+      const cancelCallback = () => this.cancelNotifier()
 
-    //   const deleteCallback = () => {
-    //     deleteBank(row).then((response) => {
-    //       this.dialogFormVisible = false
-    //       this.successNotifier()
-    //       this.getList()
-    //     })
-    //   }
+      const deleteCallback = () => {
+        deleteBank(row).then((response) => {
+          this.dialogFormVisible = false
+          this.successNotifier()
+          this.getList()
+        })
+      }
 
-    //   this.confirmDelete(deleteCallback, cancelCallback)
-    // },
+      this.confirmDelete(deleteCallback, cancelCallback)
+    },
 
     handleDownload() {
       this.downloadLoading = true

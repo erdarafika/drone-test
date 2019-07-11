@@ -1,8 +1,13 @@
 <template lang="pug">
 .app-container
   .header
-    | {{title}}
-    slot(name='header')
+    el-row
+      el-col(:span='1')
+        slot(name='header-left')
+      el-col(:span='15')
+        | {{title}}
+      el-col(:span='8')
+        slot(name='header')
   .block
     slot
 </template>

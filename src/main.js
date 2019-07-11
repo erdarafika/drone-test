@@ -30,6 +30,7 @@ import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
 import Reject from './components/ActionButtons/Reject'
 import Approve from './components/ActionButtons/Approve'
+import Back from './components/ActionButtons/Back'
 import RequestApproval from './components/ActionButtons/RequestApproval'
 import Authorization from './components/ActionButtons/Authorization'
 import Terminate from './components/ActionButtons/Terminate'
@@ -44,6 +45,7 @@ Vue.component('Edit', Edit)
 Vue.component('Detail', Detail)
 Vue.component('Approve', Approve)
 Vue.component('Reject', Reject)
+Vue.component('Back', Back)
 Vue.component('RequestApproval', RequestApproval)
 Vue.component('Authorization', Authorization)
 Vue.component('Terminate', Terminate)

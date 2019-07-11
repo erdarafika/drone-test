@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.695" height="24.793" viewBox="0 0 21.695 24.793">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="21.694" height="24.794" fill="none"/>
+    </clipPath>
+    <filter id="Path_418" x="-1.5" y="-0.5" width="24.695" height="27.793" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Arrow_back" data-name="Arrow back" clip-path="url(#clip-path)">
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_418)">
+      <g id="Path_418-2" data-name="Path 418" transform="translate(0 24.79) rotate(-90)" fill="#a6edff">
+        <path d="M 23.64277267456055 20.68830490112305 L 12.58461284637451 16.20537757873535 L 12.39676284790039 16.12922859191895 L 12.20891284942627 16.20537757873535 L 1.150752305984497 20.68830490112305 L 12.39676284790039 1.007778286933899 L 23.64277267456055 20.68830490112305 Z" stroke="none"/>
+        <path d="M 12.39676284790039 2.015558242797852 L 2.301502227783203 19.68227386474609 L 12.02106285095215 15.74200820922852 L 12.39676284790039 15.58969783782959 L 12.77246284484863 15.74200820922852 L 22.49202346801758 19.68227386474609 L 12.39676284790039 2.015558242797852 M 12.39676284790039 -1.9073486328125e-06 L 24.79352378845215 21.69433784484863 L 12.39676284790039 16.66874694824219 L 1.9073486328125e-06 21.69433784484863 L 12.39676284790039 -1.9073486328125e-06 Z" stroke="none" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,13 +1,7 @@
 <template lang="pug">
 app-container
-  //- template(v-slot:header)
-  //-   //- .action-button(v-if='!dialogIsDetail')
-  //-   //-   //- el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
-  //-   //-   //-   | {{ $t('table.save') }}
-
-  div.back-button
-    el-button(size='small', @click="$router.push({name: 'User'})")
-      | {{$t('table.back')}}
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.push({name: 'User'}) }")
 
   el-alert(title='Informasi', description='Tampilan Dibawah Belum Terhubung ke API', type='info', show-icon='', style='font-size:16px')
   el-row
