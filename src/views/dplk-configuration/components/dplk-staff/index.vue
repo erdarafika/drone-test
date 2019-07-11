@@ -52,7 +52,7 @@ div
 <script>
 import { fetchList, createDplkStaff, updateDplkStaff, deleteDplkStaff } from '@/api/dplk-staff'
 import { fetchList as fetchDepartmentList } from '@/api/department'
-import { requiredValidator, emailValidator } from '@/global-function/formValidator'
+import rules from './validation-tules'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 export default {
@@ -78,12 +78,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      rules: {
-        name: [requiredValidator],
-        email: [requiredValidator, emailValidator],
-        departmentId: [requiredValidator],
-        identityNumber: [requiredValidator]
-      }
+      rules
     }
   },
   computed: {

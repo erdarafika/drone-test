@@ -9,7 +9,7 @@ app-container
 
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :model='temp', label-position='top', label-width='200px', style='width: 80%; margin-left:50px;')
-        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="{required: true, message: 'this field is required', trigger: 'change'}")
+        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="{required: true, message: 'this field is required', trigger: 'blur'}")
           el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' )
         el-form-item
           hr
@@ -47,6 +47,7 @@ app-container
 <script>
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
+import rules from './validation-rules'
 
 export default {
   name: 'UnitPrice',
@@ -67,9 +68,7 @@ export default {
         effectiveDate: undefined,
         data: []
       },
-      rules: {
-
-      },
+      rules,
       investmentTypePrice: [],
       dialogFormVisible: false,
       dialogStatus: ''

@@ -77,7 +77,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 // import crudPermission from '@/directive/crud-permission/index.js'
 // import checkCrudPermission from '@/utils/crud-permission'
 // import RecordStatus from '@/components/RecordStatus'
-import { requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Document',
@@ -109,15 +109,7 @@ export default {
       initialUpdate: false,
       dialogFormVisible: false,
       dialogStatus: '',
-      rules: {
-        name: [requiredValidator],
-        addressTypeId: [requiredValidator],
-        countryId: [requiredValidator],
-        cityId: [requiredValidator],
-        provinceId: [requiredValidator],
-        postalCode: [requiredValidator],
-        isDefault: [requiredValidator]
-      }
+      rules
     }
   },
   computed: {

@@ -1,9 +1,16 @@
-import { validUsername, validURL, validLowerCase, validUpperCase, validAlphabets } from '@/utils/validate.js'
+import { validURL, validLowerCase, validUpperCase, validAlphabets, isAlphabetic, isAlphanumeric } from '@/utils/validate.js'
 describe('Utils:validate', () => {
-  it('validUsername', () => {
-    expect(validUsername('admin')).toBe(true)
-    expect(validUsername('editor')).toBe(true)
-    expect(validUsername('xxxx')).toBe(false)
+  it('isAlphabetic', () => {
+    expect(isAlphabetic('ABCD')).toBe(true)
+    expect(isAlphabetic('abcd')).toBe(true)
+    expect(isAlphabetic('ABCD321')).toBe(false)
+  })
+  it('isAlphanumeric', () => {
+    expect(isAlphanumeric('ABCD123')).toBe(true)
+    expect(isAlphanumeric('abcd123')).toBe(true)
+    expect(isAlphanumeric('abcd')).toBe(true)
+    expect(isAlphanumeric('ABCD')).toBe(true)
+    expect(isAlphanumeric('ABCD312321@-')).toBe(false)
   })
   it('validURL', () => {
     expect(validURL('https://github.com/PanJiaChen/vue-element-admin')).toBe(true)

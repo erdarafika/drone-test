@@ -52,7 +52,7 @@
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
-import { requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'InvestmentType',
@@ -81,10 +81,7 @@ export default {
         code: undefined,
         description: undefined
       },
-      rules: {
-        name: [requiredValidator],
-        code: [requiredValidator]
-      },
+      rules,
       dialogFormVisible: false,
       dialogStatus: ''
     }

@@ -25,7 +25,7 @@ div
 
 <script>
 import { fetchDplkInformation, updateDplkInformation } from '@/api/dplk-information'
-import { requiredValidator, emailValidator } from '@/global-function/formValidator'
+import rules from './validation-tules'
 
 export default {
   name: 'DplkInformation',
@@ -39,23 +39,7 @@ export default {
         telp: undefined,
         fax: undefined
       },
-      rules: {
-        name: [
-          requiredValidator
-        ],
-        website: [
-          requiredValidator
-        ],
-        email: [
-          requiredValidator, emailValidator
-        ],
-        telp: [
-          requiredValidator
-        ],
-        fax: [
-          requiredValidator
-        ]
-      },
+      rules,
       isLoading: false
     }
   },
