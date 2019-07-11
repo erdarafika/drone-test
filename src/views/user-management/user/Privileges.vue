@@ -8,6 +8,8 @@ app-container
   div.back-button
     el-button(size='small', @click="$router.push({name: 'User'})")
       | {{$t('table.back')}}
+
+  el-alert(title='Informasi', description='Tampilan Dibawah Belum Terhubung ke API', type='info', show-icon='', style='font-size:16px')
   el-row
     el-col(:span='8')
       PrivilegesBox(:numOfItem='4')
