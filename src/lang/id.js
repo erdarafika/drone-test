@@ -75,6 +75,7 @@ export default {
     no: 'Tidak'
   },
   table: {
+    filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Halaman Sebelumnya',
     type: 'Tipe',

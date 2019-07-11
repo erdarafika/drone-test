@@ -74,6 +74,7 @@ export default {
     no: 'No'
   },
   table: {
+    filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Back',
     approve: 'Approve',

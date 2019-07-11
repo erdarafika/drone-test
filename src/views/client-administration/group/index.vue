@@ -1,9 +1,27 @@
 <template lang="pug">
 app-container
-  .filter-container
-    el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
-      | {{ $t('table.add') }}
+  .table-header
+    el-row
+      el-col(:span='20')
+        h2.title  List Of Groups
+      el-col(:span='4')
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+          | {{ $t('table.add') }}
+  .complex-filter-container
+    .complex-filter-item
+      .title | {{ $t('table.filter') }}
+      el-form(label-position='left')
+        el-form-item(:label="$t('table.status')")
+          el-radio-group(v-model='listQuery.status')
+            el-radio(v-for='option in statusOptions'  :key='option.value' :label='option.value') {{ option.label }}
+      el-form(:inline='true')
+        el-form-item(:label="$t('groupMaintenance.name')")
+          el-input.filter-item(v-model='listQuery.name', prefix-icon='el-icon-search' style='width: 200px;')
+        el-form-item(:label="$t('groupMaintenance.productType')")
+          el-select(placeholder='Select' v-model='listQuery.productType' name='productTypeId')
+            el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+        el-form-item(:label="$t('groupMaintenance.code')")
+          el-input.filter-item(v-model='listQuery.code', prefix-icon='el-icon-search', style='width: 200px;')
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('groupMaintenance.name')", align='left')
       template(slot-scope='scope')
@@ -43,7 +61,7 @@ app-container
 
 <script>
 import { fetchList } from '@/api/group-maintenance'
-
+import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -54,24 +72,44 @@ export default {
       dateFormat: 'dd-MM-yyyy',
       tableKey: 0,
       list: [],
+      productTypeOptions: [],
+      statusOptions: [
+        { label: 'Show All', value: '' },
+        { label: 'Active', value: 'active' },
+        { label: 'Draft', value: 'draft' },
+        { label: 'Pending', value: 'pending' },
+        { label: 'Rejected', value: 'rejected' },
+        { label: 'Terminated', value: 'terminated' }
+      ],
       total: 0,
       listLoading: true,
       listQuery: {
         page: 1,
         limit: 20,
-        q: undefined
+        status: '',
+        productType: undefined,
+        code: undefined,
+        name: undefined
       }
     }
   },
   computed: {
     filterredList() {
-      const { q, limit, page } = this.listQuery
-      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const { status, name, productType, code, limit, page } = this.listQuery
+      let listAfterSearch = this.list
+      listAfterSearch = listAfterSearch.filter(data => !name || String(data.name).toLowerCase().includes(name.toLowerCase()))
+      listAfterSearch = listAfterSearch.filter(data => !status || String(data.status).toLowerCase().includes(status.toLowerCase()))
+      listAfterSearch = listAfterSearch.filter(data => !productType || String(data.productType.name).toLowerCase() === productType.toLowerCase())
+      listAfterSearch = listAfterSearch.filter(data => !code || String(data.code).toLowerCase().includes(code.toLowerCase()))
+
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
     }
   },
   created() {
+    fetchProductType().then(res => {
+      this.productTypeOptions = res.map(productType => ({ value: productType.name, label: productType.name }))
+    })
     this.getList()
   },
   methods: {

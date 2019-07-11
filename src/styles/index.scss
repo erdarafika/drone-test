@@ -331,3 +331,11 @@ span.label-disable {
     }
   } 
 }
+.table-header {
+  padding-left: 70px;
+  .title {
+    font-weight: lighter;
+    color: #606171;
+    font-size: 16px;
+  }
+}

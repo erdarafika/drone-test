@@ -9,7 +9,7 @@ app-container
           | {{ $t('table.add') }}
   .complex-filter-container
     .complex-filter-item
-      .title Filter
+      .title | {{ $t('table.filter') }}
       el-form(label-position='left')
         el-form-item(:label="$t('table.status')")
           el-radio-group(v-model='listQuery.status')
@@ -50,15 +50,6 @@ app-container
 </template>
 
 <style lang='scss'>
-.table-header {
-  padding-left: 70px;
-  .title {
-    font-weight: lighter;
-    color: #606171;
-    font-size: 16px;
-  }
-}
-
 .multi-form {
   padding: 10px;
 }
