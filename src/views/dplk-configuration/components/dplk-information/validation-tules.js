@@ -1,8 +1,8 @@
-import { requiredValidator, emailValidator } from '@/global-function/formValidator'
+import { requiredValidator, emailValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: [
-    requiredValidator
+    requiredValidator, alphabeticValidator
   ],
   website: [
     requiredValidator
@@ -11,9 +11,9 @@ export default {
     requiredValidator, emailValidator
   ],
   telp: [
-    requiredValidator
+    requiredValidator, numberValidator
   ],
   fax: [
-    requiredValidator
+    requiredValidator, numberValidator
   ]
 }

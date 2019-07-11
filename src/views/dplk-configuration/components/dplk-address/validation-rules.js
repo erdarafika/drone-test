@@ -1,4 +1,4 @@
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: [requiredValidator],
@@ -6,6 +6,6 @@ export default {
   countryId: [requiredValidator],
   cityId: [requiredValidator],
   provinceId: [requiredValidator],
-  postalCode: [requiredValidator],
+  postalCode: [requiredValidator, numberValidator],
   isDefault: [requiredValidator]
 }
