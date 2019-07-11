@@ -41,7 +41,7 @@ app-container
 <script>
 import { fetchList, createDepartment, updateDepartment, deleteDepartment } from '@/api/department'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphanumericValidator, alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Department',
@@ -57,6 +57,7 @@ export default {
         limit: 20,
         q: undefined
       },
+      rules,
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
       temp: {
         code: undefined,
@@ -68,13 +69,6 @@ export default {
     }
   },
   computed: {
-    rules() {
-      return {
-        code: [requiredValidator, alphanumericValidator],
-        name: [requiredValidator, alphabeticValidator],
-        description: [alphabeticValidator]
-      }
-    },
     filterredList() {
       const { q, limit, page } = this.listQuery
       const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))

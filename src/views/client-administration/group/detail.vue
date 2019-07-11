@@ -7,6 +7,7 @@ app-container
       el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
         | {{ $t('table.save') }}
       RequestApproval(:callback="requestApproval")
+
   el-tabs(type='border-card' v-model='activeTab')
     el-tab-pane(label='Information' name='Information')
       el-form.company-information-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')

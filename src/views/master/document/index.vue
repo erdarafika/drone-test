@@ -47,7 +47,7 @@ app-container
 import { fetchList, createDocument, updateDocument, deleteDocument } from '@/api/document'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewDocument from './components/view-document/index'
-import { alphabeticValidator, alphanumericValidator, requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Document',
@@ -73,10 +73,7 @@ export default {
       dialogFormVisible: false,
       viewRecordVisible: false,
       dialogStatus: '',
-      rules: {
-        name: [requiredValidator, alphabeticValidator],
-        code: [requiredValidator, alphanumericValidator]
-      }
+      rules
     }
   },
   computed: {

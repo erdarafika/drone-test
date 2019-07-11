@@ -41,7 +41,7 @@ app-container
 <script>
 import { fetchList } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Department',
@@ -64,17 +64,11 @@ export default {
         description: undefined
       },
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      rules
     }
   },
   computed: {
-    rules() {
-      return {
-        code: [requiredValidator],
-        name: [requiredValidator],
-        description: []
-      }
-    },
     filterredList() {
       const { q, limit, page } = this.listQuery
       const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))

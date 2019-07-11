@@ -50,7 +50,7 @@ import { fetchList, createEmailConfig, updateEmailConfig, deleteEmailConfig } fr
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Tinymce from '@/components/Tinymce'
 import Attachments from './components/Attachments'
-import { requiredValidator, alphabeticValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'EmailConfig',
@@ -77,10 +77,7 @@ export default {
       dialogFormVisible: false,
       attachmentsTableVisible: false,
       dialogStatus: '',
-      rules: {
-        subject: [requiredValidator, alphabeticValidator],
-        htmlBody: [requiredValidator]
-      }
+      rules
     }
   },
   created() {

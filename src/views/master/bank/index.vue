@@ -55,7 +55,7 @@ app-container
 import { fetchList, createBank, updateBank, deleteBank, updateStatusBank } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ViewBank from './components/view-bank/index'
-import { requiredValidator, alphanumericValidator, numberValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Bank',
@@ -80,11 +80,7 @@ export default {
       dialogFormVisible: false,
       viewRecordVisible: false,
       dialogStatus: '',
-      rules: {
-        bankName: [requiredValidator],
-        swiftCode: [requiredValidator, alphanumericValidator],
-        transferCode: [requiredValidator, numberValidator]
-      },
+      rules,
       downloadLoading: false
     }
   },

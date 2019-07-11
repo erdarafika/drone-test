@@ -58,7 +58,7 @@ app-container
 <script>
 import { fetchList, createHoliday, updateHoliday, deleteHoliday } from '@/api/holiday'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'Document',
@@ -83,10 +83,7 @@ export default {
       ],
       dialogFormVisible: false,
       dialogStatus: '',
-      rules: {
-        date: [requiredValidator],
-        description: [requiredValidator, alphabeticValidator]
-      }
+      rules
     }
   },
   computed: {

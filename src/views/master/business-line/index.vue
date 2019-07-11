@@ -46,7 +46,7 @@ app-container
 <script>
 import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine, updateStatusBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'BusinessLine',
@@ -68,10 +68,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      rules: {
-        name: [requiredValidator, alphabeticValidator],
-        code: [requiredValidator, numberValidator]
-      },
+      rules,
       downloadLoading: false
     }
   },

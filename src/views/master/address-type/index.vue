@@ -50,7 +50,7 @@ app-container
 <script>
 import { fetchList, createAddressType, updateAddressType, deleteAddressType, updateStatusAddressType } from '@/api/address-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { alphanumericValidator, requiredValidator } from '@/global-function/formValidator'
+import rules from './validation-rules'
 
 export default {
   name: 'AddressType',
@@ -74,11 +74,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      rules: {
-        type: [requiredValidator, alphanumericValidator],
-        isMemberAddress: [requiredValidator],
-        isCompanyAddress: [requiredValidator]
-      }
+      rules
     }
   },
   computed: {
