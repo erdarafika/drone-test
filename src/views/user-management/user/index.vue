@@ -23,39 +23,11 @@ app-container
           | {{ scope.row.enabled? 'Enable': 'Disable' }}
     el-table-column(label='', align='right', class-name='small-padding' width='150px')
       template(slot-scope='{row}')
-        Detail(:data='row' :action='handleDetail')
-        Authorization(:data='row' :action='handleUpdateRole')
+        //- Detail(:data='row' :action='handleDetail')
+        Authorization(:data='row' :action='handleUpdatePrivileges')
         Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
-    el-table-column(label='', align='right', class-name='small-padding' width='90px')
-      template(slot-scope='{row}')
-        el-button(type='warning', size='mini', @click='handleUpdateMenu(row)')
-          | {{ $t('user.updateMenu') }}
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
-
-  el-dialog(:title='`Detail`', :visible.sync='dialogDetailVisible')
-    el-form(:model='viewTemp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('user.username')")
-        | {{ viewTemp.username }}
-      el-form-item(:label="$t('user.role')")
-        | {{ viewTemp.role }}
-      el-form-item(:label="$t('user.email')")
-        | {{ viewTemp.email }}
-      el-form-item(:label="$t('user.status')")
-        span(:class="viewTemp.status?'label-enable':'label-disable'")
-          | {{ viewTemp.status? 'Enable': 'Disable' }}
-      el-form-item(:label="$t('user.authorities')")
-        span(v-for="authority in authoritiesList"  :class="viewTemp.authorities.includes(authority)?'label-enable':'label-disable'" v-if='viewTemp.authorities')
-          | {{ authority }} &nbsp;
-          br
-      el-form-item(:label="$t('user.menu')")
-        span(v-for="menu in menuList"  :class="viewTemp.menu.includes(menu.toLowerCase())?'label-enable':'label-disable'" v-if='viewTemp.menu')
-          | {{ menu }} &nbsp;
-          br
-
-  updateMenuDialog(:visible='dialogUpdateMenuVisible' :closeDialog='closeUpdateMenuDialog' :menuData='tempUpdateMenu' :submitData='handleSubmitUpdateMenu')
-
-  updateRoleDialog(:visible='dialogUpdateRoleVisible' :closeDialog='closeUpdateRoleDialog' :roleData='tempUpdateRole' :submitData='handleSubmitUpdateRole')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -69,17 +41,6 @@ app-container
       el-form-item(:label="$t('user.status')")
         el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
-      el-form-item(:label="$t('user.authorities')" prop='roles')
-        el-checkbox(:indeterminate='authoritiesIsIndeterminate', v-model='authoritiesCheckAll', @change='handleCheckAllAuthoritiesChange') Check all
-        div(style='margin: 15px 0;')
-        el-checkbox-group(v-model='temp.roles', @change='handleCheckedAuthoritiesChange')
-          el-checkbox(v-for='authority in authoritiesList', :label='authority', :key='authority') {{authority}}
-
-      el-form-item(:label="$t('user.menu')" prop='menus')
-        el-checkbox(:indeterminate='menuIsIndeterminate', v-model='menuCheckAll', @change='handleCheckAllMenusChange') Check all
-        div(style='margin: 15px 0;')
-        el-checkbox-group(v-model='temp.menus', @change='handleCheckedMenusChange')
-          el-checkbox(v-for='menu in menuList', :label='menu', :key='menu') {{menu}}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -89,22 +50,15 @@ app-container
 </template>
 
 <script>
-import { fetchList, createUser, updateUserMenu, disableUser, updateUserRole } from '@/api/user-management'
-import { fetchAuthorities, fetchMenus } from '@/api/app-const'
+import { fetchList, createUser, disableUser } from '@/api/user-management'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import updateMenuDialog from './component/updateMenuDialog'
-import updateRoleDialog from './component/updateRoleDialog'
 
 export default {
   name: 'AddressType',
-  components: { Pagination, updateMenuDialog, updateRoleDialog },
+  components: { Pagination },
   data() {
     return {
-      authoritiesCheckAll: false,
-      authoritiesIsIndeterminate: false,
-      menuCheckAll: false,
-      menuIsIndeterminate: false,
       tableKey: 0,
       list: [],
       total: 0,
@@ -123,30 +77,8 @@ export default {
         menus: [],
         roles: []
       },
-      viewTemp: {
-        username: undefined,
-        name: undefined,
-        role: undefined,
-        email: undefined,
-        status: undefined,
-        authorities: undefined,
-        menu: undefined
-      },
-      tempUpdateMenu: {
-        menus: [],
-        id: undefined
-      },
-      tempUpdateRole: {
-        roles: [],
-        id: undefined
-      },
-      authoritiesList: [],
-      menuList: [],
       staffOptions: [],
       dialogFormVisible: false,
-      dialogDetailVisible: false,
-      dialogUpdateMenuVisible: false,
-      dialogUpdateRoleVisible: false,
       dialogStatus: ''
     }
   },
@@ -170,73 +102,21 @@ export default {
   },
   created() {
     this.getList()
-    this.authoritiesList = fetchAuthorities()
-    this.menuList = fetchMenus()
     fetchStaffList().then(res => {
       this.staffOptions = res.map(staff => ({ value: staff.id, label: staff.name }))
     })
   },
   methods: {
+    handleUpdatePrivileges(row) {
+      this.$router.push({ name: 'userPrivileges', query: { id: row.id }})
+    },
     handleDisable(row) {
       disableUser(row).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
           this.successNotifier()
           this.getList()
         }
-        this.dialogUpdateMenuVisible = false
       })
-    },
-    handleSubmitUpdateMenu(data) {
-      updateUserMenu(data).then((response) => {
-        if (response.status_code >= 200 && response.status_code <= 300) {
-          this.successNotifier()
-          this.getList()
-        }
-        this.dialogUpdateMenuVisible = false
-      })
-    },
-    handleUpdateMenu(row) {
-      this.dialogUpdateMenuVisible = true
-      this.tempUpdateMenu.menus = row.menus ? row.menus.map(menu => menu.menu.toLowerCase()) : [] // FIXME: lowerCase should not been used
-      this.tempUpdateMenu.id = row.id
-    },
-    closeUpdateMenuDialog() {
-      this.dialogUpdateMenuVisible = false
-    },
-    closeUpdateRoleDialog() {
-      this.dialogUpdateRoleVisible = false
-    },
-    handleSubmitUpdateRole(data) {
-      updateUserRole(data).then((response) => {
-        if (response.status_code >= 200 && response.status_code <= 300) {
-          this.successNotifier()
-          this.getList()
-        }
-        this.dialogUpdateRoleVisible = false
-      })
-    },
-    handleUpdateRole(row) {
-      this.dialogUpdateRoleVisible = true
-      this.tempUpdateRole.roles = row.authorities ? row.authorities.map(role => role.role.toLowerCase()) : [] // FIXME: lowerCase should not been used
-      this.tempUpdateRole.id = row.id
-    },
-    handleCheckAllAuthoritiesChange(val) {
-      this.temp.roles = val ? this.authoritiesList : []
-      this.authoritiesIsIndeterminate = false
-    },
-    handleCheckedAuthoritiesChange(value) {
-      const checkedCount = value.length
-      this.authoritiesCheckAll = checkedCount === this.authoritiesList.length
-      this.authoritiesIsIndeterminate = checkedCount > 0 && checkedCount < this.authoritiesList.length
-    },
-    handleCheckAllMenusChange(val) {
-      this.temp.menus = val ? this.menuList : []
-      this.menuIsIndeterminate = false
-    },
-    handleCheckedMenusChange(value) {
-      const checkedCount = value.length
-      this.menuCheckAll = checkedCount === this.menuList.length
-      this.menuIsIndeterminate = checkedCount > 0 && checkedCount < this.menuList.length
     },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
@@ -246,16 +126,7 @@ export default {
       }
     },
     handleDetail(row) {
-      this.dialogDetailVisible = true
-      this.viewTemp = {
-        username: row.username,
-        name: row.dplkStaff.name,
-        role: row.role,
-        email: row.dplkStaff.email,
-        status: row.enabled,
-        authorities: row.authorities ? row.authorities.map(authority => authority.role) : [],
-        menu: row.menus ? row.menus.map(menu => menu.menu.toLowerCase()) : []
-      }
+      console.log('detail')
     },
     getList() {
       this.listLoading = true

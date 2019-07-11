@@ -18,6 +18,18 @@ export default {
         title: 'userManagement',
         pensionMenu: 'user-maintenance'
       }
+    },
+    {
+      path: 'user/privileges',
+      name: 'userPrivileges',
+      component: () => import('@/views/user-management/user/Privileges'),
+      meta: {
+        title: 'detail',
+        noCache: true,
+        breadcrumb: false,
+        pensionMenu: 'user-maintenance'
+      },
+      hidden: true
     }
   ]
 }
