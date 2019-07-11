@@ -103,6 +103,7 @@ export const asyncRoutes = [
   {
     path: '/import-data',
     component: Layout,
+    hidden: true,
     redirect: '/import/import-excel',
     name: 'ImportData',
     meta: {
