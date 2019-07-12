@@ -13,9 +13,9 @@ describe('Utils:validate', () => {
     expect(isAlphanumeric('ABCD312321@-')).toBe(false)
   })
   it('validURL', () => {
-    expect(validURL('https://github.com/PanJiaChen/vue-element-admin')).toBe(true)
-    expect(validURL('http://github.com/PanJiaChen/vue-element-admin')).toBe(true)
-    expect(validURL('github.com/PanJiaChen/vue-element-admin')).toBe(false)
+    expect(validURL('https://www.google.com/')).toBe(true)
+    expect(validURL('https://www.facebook.com/')).toBe(true)
+    expect(validURL('google.com')).toBe(false)
   })
   it('validLowerCase', () => {
     expect(validLowerCase('abc')).toBe(true)

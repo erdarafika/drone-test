@@ -1,5 +1,5 @@
 {
-  "name": "vue-element-admin",
+  "name": "code-coffee-creative",
   "version": "4.0.1",
   "description": "Pensiun App, DPLK App using Vue",
   "author": "Naufal Afif <naufalafif58@gmail> using element admin template made by Pan <panfree23@gmail.com>",
@@ -37,10 +37,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
+    "url": "git@gitlab.com:CodeCoffeeCreative/dplk/webapp.git"
   },
   "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+    "url": "git@gitlab.com:CodeCoffeeCreative/dplk/webapp.git"
   },
   "dependencies": {
     "@sentry/browser": "^5.4.0",
