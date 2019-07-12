@@ -22,9 +22,9 @@ export function createUser(data) {
   })
 }
 
-export function updateUserMenu(data) {
+export function updateUserPrivileges(data) {
   return request({
-    url: `/user/${data.id}/update-menu/`,
+    url: `/user/${data.id}/update-previleges`,
     method: 'post',
     data
   })
@@ -37,10 +37,3 @@ export function disableUser(data) {
   })
 }
 
-export function updateUserRole(data) {
-  return request({
-    url: `/user/${data.id}/update-role/`,
-    method: 'post',
-    data
-  })
-}

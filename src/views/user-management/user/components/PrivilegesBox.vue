@@ -12,32 +12,41 @@
             el-col.option-privileges.maker(:span='4')
               | Maker
         .content
-          .head {{ privileges.menu }}
+          .head {{title}}
           el-form(ref='form' label-position='top' label-width='120px')
             el-form-item(v-for='(privilegeItem, index) in privileges' :key='index')
               el-row
                 el-col.menu-privileges(:span='12')
                   el-checkbox(v-model='privilegeItem.menuChecked' @change='cleanPrivileges(index)') {{ privilegeItem.menu }}
-                el-col.option-privileges(:span='4')
-                  el-radio(v-model='privilegeItem.privilege', label='checker' :disabled='!privilegeItem.menuChecked').checker
-                el-col.option-privileges.border(:span='4')
-                  el-radio(v-model='privilegeItem.privilege', label='approver' :disabled='!privilegeItem.menuChecked').approver
-                el-col.option-privileges.maker(:span='4')
-                  el-radio(v-model='privilegeItem.privilege', label='maker' :disabled='!privilegeItem.menuChecked').maker
+                el-radio-group.privilege-group(v-model='checkedPrivilege[index]'   @change='changePrivileges(index, privilegeItem.menu)')
+                  el-col.option-privileges(:span='4')
+                    el-radio(label='checker' :disabled='!privilegeItem.menuChecked').checker
+                  el-col.option-privileges.border(:span='4')
+                    el-radio(label='approver' :disabled='!privilegeItem.menuChecked').approver
+                  el-col.option-privileges.maker(:span='4')
+                    el-radio(label='maker' :disabled='!privilegeItem.menuChecked').maker
 
 </template>
 
 <script>
 export default {
-  props: ['privileges'],
-  watch: {
-    privileges(val) {
-      console.log(val)
+  props: ['privileges', 'title', 'handleChange', 'parent'],
+  data() {
+    return {
+      checkedPrivilege: [
+
+      ]
     }
+  },
+  created() {
+    this.checkedPrivilege = this.privileges.map(item => undefined)
   },
   methods: {
     cleanPrivileges(index) {
       this.privileges[index].privilege = this.privileges[index].menuChecked ? 'checker' : undefined
+    },
+    changePrivileges(index, menu) {
+      this.handleChange({ parent: this.parent, menu, index, value: this.checkedPrivilege[index] })
     }
   }
 }
@@ -73,6 +82,12 @@ export default {
         color: #65656b;
         font-size: 14px;
         margin-bottom: 10px;
+      }
+      .privilege-group {
+        display: inherit;
+        line-height: inherit;
+        vertical-align: unset;
+        font-size: inherit;
       }
     }
   }
