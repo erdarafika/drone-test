@@ -74,8 +74,16 @@ export default {
         password: undefined,
         confirmPassword: undefined,
         enabled: true,
-        menus: [],
-        roles: []
+        userPrevileges: {
+          data: [
+            {
+              menu: 'dashboard',
+              previleges: [
+                'checker'
+              ]
+            }
+          ]
+        }
       },
       staffOptions: [],
       dialogFormVisible: false,
@@ -88,9 +96,7 @@ export default {
       return {
         dplkStaffId: [{ required: true, message }],
         password: [{ required: true, message }],
-        confirmPassword: [{ required: true, message }],
-        menus: [{ required: true, message }],
-        roles: [{ required: true, message }]
+        confirmPassword: [{ required: true, message }]
       }
     },
     filterredList() {
@@ -142,8 +148,16 @@ export default {
         password: undefined,
         confirmPassword: undefined,
         enabled: true,
-        menus: [],
-        roles: []
+        userPrevileges: {
+          data: [
+            {
+              menu: 'dashboard',
+              previleges: [
+                'checker'
+              ]
+            }
+          ]
+        }
       }
     },
     handleCreate() {
