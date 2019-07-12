@@ -12,24 +12,34 @@
             el-col.option-privileges.maker(:span='4')
               | Maker
         .content
-          .head Menu Title
+          .head {{ privileges.menu }}
           el-form(ref='form' label-position='top' label-width='120px')
-            el-form-item(v-for='o in numOfItem' :key='o')
+            el-form-item(v-for='(privilegeItem, index) in privileges' :key='index')
               el-row
                 el-col.menu-privileges(:span='12')
-                  el-checkbox(:checked='true') Sub Menu {{o}}
+                  el-checkbox(v-model='privilegeItem.menuChecked' @change='cleanPrivileges(index)') {{ privilegeItem.menu }}
                 el-col.option-privileges(:span='4')
-                  el-checkbox(:checked='true').checker
+                  el-radio(v-model='privilegeItem.privilege', label='checker' :disabled='!privilegeItem.menuChecked').checker
                 el-col.option-privileges.border(:span='4')
-                  el-checkbox(:checked='true').approver
+                  el-radio(v-model='privilegeItem.privilege', label='approver' :disabled='!privilegeItem.menuChecked').approver
                 el-col.option-privileges.maker(:span='4')
-                  el-checkbox(:checked='true').maker
+                  el-radio(v-model='privilegeItem.privilege', label='maker' :disabled='!privilegeItem.menuChecked').maker
 
 </template>
 
 <script>
 export default {
-  props: ['numOfItem']
+  props: ['privileges'],
+  watch: {
+    privileges(val) {
+      console.log(val)
+    }
+  },
+  methods: {
+    cleanPrivileges(index) {
+      this.privileges[index].privilege = this.privileges[index].menuChecked ? 'checker' : undefined
+    }
+  }
 }
 </script>
 
@@ -79,27 +89,26 @@ export default {
   }
   .option-privileges {
     text-align: center;
-    .el-checkbox__inner {
-      border-radius: 20px;
-      border: 1px solid #a1a3a7;
+    .el-radio__label {
+        display: none;
     }
 
     .checker {
-      .el-checkbox__input.is-checked .el-checkbox__inner {
+      .el-radio__input.is-checked .el-radio__inner {
           background-color: #68e642;
           border-color: #68e642;
       }
     }
 
     .approver {
-      .el-checkbox__input.is-checked .el-checkbox__inner {
+      .el-radio__input.is-checked .el-radio__inner {
           background-color: #e9c31b;
           border-color: #e9c31b;
       }
     }
 
     .maker {
-      .el-checkbox__input.is-checked .el-checkbox__inner {
+      .el-radio__input.is-checked .el-radio__inner {
           background-color: #e64242;
           border-color: #e64242;
       }

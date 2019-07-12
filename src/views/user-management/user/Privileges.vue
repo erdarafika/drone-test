@@ -6,23 +6,21 @@ app-container
   el-alert(title='Informasi', description='Tampilan Dibawah Belum Terhubung ke API', type='info', show-icon='', style='font-size:16px')
   el-row
     el-col(:span='8')
-      PrivilegesBox(:numOfItem='4')
-      PrivilegesBox(:numOfItem='3')
-      PrivilegesBox(:numOfItem='2')
+      PrivilegesBox(title='Master Setup' :numOfItem='4' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='3' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
     el-col(:span='8')
-      PrivilegesBox(:numOfItem='2')
-      PrivilegesBox(:numOfItem='5')
-      PrivilegesBox(:numOfItem='4')
+      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='5' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='4' :privileges='userPrivileges["master-setup"]')
     el-col(:span='8')
-      PrivilegesBox(:numOfItem='7')
-      PrivilegesBox(:numOfItem='2')
-      PrivilegesBox(:numOfItem='2')
+      PrivilegesBox(title='Master Setup' :numOfItem='7' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
 
 </template>
 
 <script>
-// import { fetchGroupMaintanance as fetchRecord, createGroupMaintanance, updateGroupMaintanance } from '@/api/group-maintenance'
-// import { requiredValidator } from '@/global-function/formValidator'
 import PrivilegesBox from './components/PrivilegesBox'
 
 export default {
@@ -30,6 +28,15 @@ export default {
   components: { PrivilegesBox },
   data() {
     return {
+      userPrivileges: {
+        'master-setup': [
+          {
+            menu: 'Address Type',
+            menuChecked: false,
+            privilege: undefined
+          }
+        ]
+      },
       listLoading: true,
       temp: {
       },

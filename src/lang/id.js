@@ -271,7 +271,7 @@ export default {
   },
   dplkInformation: {
     name: 'Nama DPLK',
-    website: 'Situs',
+    website: 'Website',
     email: 'Email',
     telpNumber: 'Nomor Telepon',
     fax: 'Fax'

@@ -34,9 +34,19 @@ const alphabeticValidatorFunc = (rule, value, callback) => {
   }
 }
 
-const requiredValidator = { required: true, message: `this field is required` }
+const numberValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (isNaN(value)) {
+    callback(new Error('This field only accept number'))
+  } else {
+    callback()
+  }
+}
 
-const emailValidator = { type: 'email', message: 'please write valid email', trigger: 'blur' }
+const requiredValidator = { required: true, message: `This field is required` }
+
+const emailValidator = { type: 'email', message: 'Please write valid email', trigger: 'blur' }
 
 const alphabeticValidator = { validator: alphabeticValidatorFunc, trigger: 'change' }
 
@@ -44,7 +54,7 @@ const alphanumericValidator = { validator: alphanumericValidatorFunc, trigger: '
 
 const alphanumericLineValidator = { validator: alphanumericLineValidatorFunc, trigger: 'change' }
 
-const numberValidator = { type: 'number', message: 'this field only accept number', trigger: 'change' }
+const numberValidator = { validator: numberValidatorFunc, trigger: 'change' }
 
 export {
   numberValidator,
