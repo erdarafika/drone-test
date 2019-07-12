@@ -7,7 +7,7 @@ export function fetchList() {
   })
 }
 
-export function fetchUser(id) {
+export function fetchRecord(id) {
   return request({
     url: `/user/${id}`,
     method: 'get'

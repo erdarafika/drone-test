@@ -3,93 +3,93 @@ export default {
     {
       menu: 'address-type',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'location',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'bank',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'department',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'holiday',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'document',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'tolerance',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'email',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'fee-type',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'benefit-type',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'business-line',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'product-type',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     }
   ],
   'dplk-configuration': [
     {
       menu: 'dplk-configuration',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     }
   ],
   'fund-administration': [
     {
       menu: 'investment-type',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'unit-price',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     }
   ],
   'client-administration': [
     {
       menu: 'company',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     },
     {
       menu: 'group',
       menuChecked: false,
-      privilege: undefined
+      privilege: []
     }
   ]
 }

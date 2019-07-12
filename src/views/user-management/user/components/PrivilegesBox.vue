@@ -29,24 +29,33 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers'
 export default {
   props: ['privileges', 'title', 'handleChange', 'parent'],
   data() {
     return {
-      checkedPrivilege: [
-
-      ]
+      checkedPrivilege: []
     }
   },
   created() {
-    this.checkedPrivilege = this.privileges.map(item => undefined)
+    setTimeout(() => {
+      this.checkedPrivilege = this.privileges.map(item => {
+        if (item.privilege.includes('approver')) { return 'approver' } else if (item.privilege.includes('maker')) { return 'maker' } else if (item.privilege.includes('checker')) { return 'checker' } else { return undefined }
+      })
+    }, 2000)
   },
   methods: {
     cleanPrivileges(index) {
-      this.privileges[index].privilege = this.privileges[index].menuChecked ? 'checker' : undefined
+      this.privileges[index].privilege = undefined
     },
     changePrivileges(index, menu) {
-      this.handleChange({ parent: this.parent, menu, index, value: this.checkedPrivilege[index] })
+      const currentValue = this.checkedPrivilege[index]
+      let value
+
+      if (currentValue === 'checker') value = ['checker']
+      else if (currentValue === 'maker') value = ['checker', 'maker']
+      else value = ['checker', 'approver']
+      this.handleChange({ parent: this.parent, menu, index, value })
     }
   }
 }
