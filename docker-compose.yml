@@ -4,6 +4,8 @@ services:
 
   dplk-webapp:
     image: dplk-webapp
+    networks:
+      appnet
     ports:
       - '8002:80'
     deploy:
@@ -12,5 +14,10 @@ services:
       placement:
         constraints:
           - node.hostname == pensiuncore
+
+networks:
+  appnet:
+    driver: overlay
+    external: true
 
 
