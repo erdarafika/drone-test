@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   dplk-webapp:
-    image:dplk-webapp
+    image: dplk-webapp
     ports:
       - '8002:80'
     deploy:
