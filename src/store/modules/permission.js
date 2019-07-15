@@ -55,12 +55,12 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, { menus, roles }) {
     return new Promise(resolve => {
-      let accessedRoutes
-      if (roles.includes('SUPERUSER')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
-      }
+      const accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
+      // if (roles.includes('SUPERUSER')) {
+      //   accessedRoutes = asyncRoutes || []
+      // } else {
+      //   accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
+      // }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
