@@ -5,7 +5,7 @@ services:
   dplk-webapp:
     image: dplk-webapp
     networks:
-      appnet
+      - appnet
     ports:
       - '8002:80'
     deploy:
