@@ -5,7 +5,7 @@ staging:
   environment: staging
   stage: staging
   tags:
-    - dplk
+    - webapp
   only:
     - staging
   script:
