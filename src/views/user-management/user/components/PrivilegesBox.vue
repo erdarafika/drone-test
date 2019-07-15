@@ -116,7 +116,9 @@ export default {
     .el-radio__label {
         display: none;
     }
-
+    .el-radio__inner {
+        border: 1px solid #828282;
+    }
     .checker {
       .el-radio__input.is-checked .el-radio__inner {
           background-color: #68e642;
