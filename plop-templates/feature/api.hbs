@@ -1,0 +1,39 @@
+import request from '@/utils/request'
+
+export function fetchList() {
+  return request({
+    url: '/master/',
+    method: 'get'
+  })
+}
+
+export function fetch{{ properCase name }}(id) {
+  return request({
+    url: '/address-type/address-type/${id}',
+    method: 'get',
+    params: { id }
+  })
+}
+
+export function create{{ properCase name }}(data) {
+  return request({
+    url: '/master/address-type',
+    method: 'post',
+    data
+  })
+}
+
+export function update{{ properCase name }}(data) {
+  return request({
+    url: `/master/address-type/${data.id}`,
+    method: 'post',
+    data
+  })
+}
+
+export function delete{{ properCase name }}(data) {
+  return request({
+    url: `/master/address-type/${data.id}`,
+    method: 'delete'
+  })
+}

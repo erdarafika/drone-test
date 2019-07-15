@@ -9,6 +9,7 @@ const state = {
   introduction: '',
   position: '',
   roles: [],
+  authorities: [],
   // crud_level: [],
   menus: []
 }
@@ -37,6 +38,9 @@ const mutations = {
   },
   SET_POSITION: (state, position) => {
     state.position = position
+  },
+  SET_AUTHORITIES: (state, authorities) => {
+    state.authorities = authorities
   }
 }
 
@@ -72,6 +76,8 @@ const actions = {
         const name = data.dplkStaff.name
         const menus = data.authorities.map(item => item.menu)
         const position = data.dplkStaff.department.name
+        const authorities = data.authorities
+
         // roles must be a non-empty array
         // if (!roles || roles.length <= 0) {
         //   reject('getInfo: roles must be a non-null array!')
@@ -82,6 +88,8 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_MENUS', menus)
         commit('SET_POSITION', position)
+        commit('SET_AUTHORITIES', authorities)
+
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
         resolve({ name, roles, menus })

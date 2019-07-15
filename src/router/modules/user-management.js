@@ -7,7 +7,8 @@ export default {
   name: 'UserManagement',
   meta: {
     title: 'userManagement',
-    icon: 'user-management'
+    icon: 'user-management',
+    noCache: true
   },
   children: [
     {

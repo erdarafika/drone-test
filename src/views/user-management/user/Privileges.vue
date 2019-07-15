@@ -2,89 +2,92 @@
 app-container
   template(v-slot:header-left)
     Back(:action="()=> { $router.push({name: 'User'}) }")
+  template(v-slot:header)
+    .action-button
+      el-button.save(size='small' @click="updateData()")
+        | {{ $t('table.save') }}
 
-  el-alert(title='Informasi', description='Tampilan Dibawah Belum Terhubung ke API', type='info', show-icon='', style='font-size:16px')
-  el-row
+  el-row(v-loading="loading")
     el-col(:span='8')
-      PrivilegesBox(title='Master Setup' :numOfItem='4' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='3' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' parent='master-setup' :handleChange='handlePrivileges' :privileges='userPrivileges["master-setup"]')
     el-col(:span='8')
-      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='5' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='4' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
+      PrivilegesBox(title='Fund Administration' parent='fund-administration' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-administration"]')
     el-col(:span='8')
-      PrivilegesBox(title='Master Setup' :numOfItem='7' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Master Setup' :numOfItem='2' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Client Administration' parent='client-administration' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
+      PrivilegesBox(title='User Management' parent='user-maintenance' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
+      PrivilegesBox(title='Task Management' parent='task-management' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
 
 </template>
 
 <script>
 import PrivilegesBox from './components/PrivilegesBox'
+import privileges from './privileges'
+import { updateUserPrivileges, fetchRecord } from '@/api/user-management'
+import { setTimeout } from 'timers'
 
 export default {
   name: 'Privileges',
   components: { PrivilegesBox },
   data() {
     return {
-      userPrivileges: {
-        'master-setup': [
-          {
-            menu: 'Address Type',
-            menuChecked: false,
-            privilege: undefined
-          }
-        ]
-      },
+      userPrivileges: {},
       listLoading: true,
-      temp: {
-      },
+      id: undefined,
       dialogStatus: 'create',
-      rules: {
-      }
+      loading: true
     }
   },
-  computed: {
-    // dialogNotCreate() {
-    //   return this.dialogStatus !== 'create'
-    // },
-    // dialogIsDetail() {
-    //   return this.dialogStatus === 'detail'
-    // }
-  },
   created() {
-    // this.resetTemp()
-    // this.dialogStatus = this.$route.params.action
-    // if ('id' in this.$route.query) {
-    //   this.temp.id = this.$route.query.id
-    //   this.getRecord()
-    // }
+    this.userPrivileges = JSON.parse(JSON.stringify(privileges))
+    setTimeout(() => {
+      this.loading = false
+    }, 2000)
+    if ('id' in this.$route.query) {
+      this.id = this.$route.query.id
+      this.getRecord()
+    }
   },
   methods: {
-    // getRecord() {
-    //   // fetchRecord(this.temp.id).then(response => {
-    //   //   this.temp = response
-    //   //   this.listLoading = false
-    //   // })
-    // },
-    // resetTemp() {
-    //   this.temp = {
-    //   }
-    // }
-    // updateData() {
-    //   this.$refs['dataForm'].validate((valid) => {
-    //     if (valid) {
-    //       updateGroupMaintanance(this.temp).then((response) => {
-    //         this.dialogFormVisible = false
-    //         if (response.status_code >= 200 && response.status_code <= 300) {
-    //           this.successNotifier()
-    //           this.getRecord()
-    //         }
-    //       })
-    //     }
-    //   })
-    // }
+    handlePrivileges({ parent, menu, index, value }) {
+      this.userPrivileges[parent][index].privilege = value
+    },
+    updateData() {
+      const userPrivilegesValues = Object.values(this.userPrivileges)
+      let allMenusPrivileges = userPrivilegesValues.flatMap(item => item)
+      allMenusPrivileges = allMenusPrivileges.filter(item => item.menuChecked)
+      allMenusPrivileges = allMenusPrivileges.map(item => ({ menu: item.menu, previleges: item.privilege }))
+      const payload = { data: allMenusPrivileges, id: this.id }
+
+      updateUserPrivileges(payload).then((response) => {
+        this.dialogFormVisible = false
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+        }
+      })
+    },
+    getRecord() {
+      fetchRecord(this.id).then(response => {
+        const filterredPrevileges = response.authorities.map(item => ({ menu: item.menu, previleges: item.previleges.flatMap(item => item.previlege) }))
+        let objectFilterredPrevileges = {}
+        objectFilterredPrevileges = filterredPrevileges.reduce((obj, item) => {
+          obj[item.menu] = item
+          return obj
+        }, {})
+
+        const userPrivilegesKey = Object.keys(this.userPrivileges)
+
+        userPrivilegesKey.forEach(parent => {
+          this.userPrivileges[parent] = this.userPrivileges[parent].map(item => {
+            if (objectFilterredPrevileges.hasOwnProperty(item.menu)) {
+              if (objectFilterredPrevileges[item.menu].previleges.length) { item.menuChecked = true }
+              item.privilege = objectFilterredPrevileges[item.menu].previleges
+            }
+            return item
+          })
+        })
+      })
+    }
   }
 }
 </script>

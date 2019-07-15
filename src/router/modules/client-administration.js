@@ -51,6 +51,15 @@ export default {
         pensionMenu: 'group'
       },
       hidden: true
+    },
+    {
+      path: 'member-maintenance',
+      name: 'MemberMaintenance',
+      component: () => import('@/views/client-administration/member/index'),
+      meta: {
+        title: 'memberMaintenance',
+        pensionMenu: 'member'
+      }
     }
   ]
 }
