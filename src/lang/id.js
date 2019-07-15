@@ -43,6 +43,7 @@ export default {
     company: 'Pengelolaan Perusahaan',
     userManagement: 'Manajamen Pengguna',
     groupMaintenance: 'Pengelolaan Grup',
+    memberMaintenance: 'Pengelolaan Member',
     clientAdministration: 'Administrasi Klien',
     importData: 'Import Data',
     importExcel: 'Import Excel',

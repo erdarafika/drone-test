@@ -41,8 +41,9 @@ export default {
     moneySource: 'Money Source',
     clientAdministration: 'Client Administration',
     company: 'Company Maintenance',
-    userManagement: 'User Management',
     groupMaintenance: 'Group Maintenance',
+    memberMaintenance: 'Member Maintenance',
+    userManagement: 'User Management',
     importData: 'Import Data',
     importExcel: 'Import Excel',
     taskManagement: 'Task Management'

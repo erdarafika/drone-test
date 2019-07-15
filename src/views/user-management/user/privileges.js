@@ -91,5 +91,19 @@ export default {
       menuChecked: false,
       privilege: []
     }
+  ],
+  'user-maintenance': [
+    {
+      menu: 'user-maintenance',
+      menuChecked: false,
+      privilege: []
+    }
+  ],
+  'task-management': [
+    {
+      menu: 'task-management',
+      menuChecked: false,
+      privilege: []
+    }
   ]
 }
