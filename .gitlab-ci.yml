@@ -1,0 +1,14 @@
+stages:
+  - staging
+
+staging:
+  environment: staging
+  stage: staging
+  tags:
+    - dplk
+  only:
+    - staging
+  script:
+    - docker build -t dplk-webapp -f Dockerfile-staging .
+    - docker stack rm dplk-webapp
+    - docker stack deploy -c docker-compose.yml dplk-webapp
