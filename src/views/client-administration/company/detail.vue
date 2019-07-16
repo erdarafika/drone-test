@@ -99,7 +99,8 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import Address from './components/address'
 import ContactPerson from './components/contactPerson'
 import BankAccount from './components/bankAccount'
-import { requiredValidator, emailValidator } from '@/global-function/formValidator'
+
+import rules from './validation-rules'
 
 export default {
   name: 'Company',
@@ -152,36 +153,7 @@ export default {
         isDraft: 1
       },
       dialogStatus: 'create',
-      rules: {
-        name: [requiredValidator],
-        code: [],
-        email: [emailValidator],
-        website: [],
-        businessLineId: [],
-        businessEntity: [],
-        npwp: [],
-        deedEstablishmentNumber: [],
-        articleAssociationNumber: [],
-        latestAmendmentArticleAssociationNumber: [],
-        companyNumberRegistrationNumber: [],
-        domicilieCertificateNumber: [],
-
-        domicilieCertificateNumberExpiredDate: [],
-        deedEstablishmentDate: [],
-        articleAssociationDate: [],
-        latestAmendmentArticleAssociationDate: [],
-        companyNumberRegistrationExpiredDate: [],
-
-        asset: [],
-        grossIncomePerYear: [],
-        pensionProgramSubmissionPurpose: [],
-        moneySource: [],
-
-        office: [],
-        office2: [],
-        fax: [],
-        home: []
-      }
+      rules
     }
   },
   computed: {
