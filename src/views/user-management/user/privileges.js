@@ -98,12 +98,12 @@ export default {
       menuChecked: false,
       privilege: []
     }
+  ],
+  'task-management': [
+    {
+      menu: 'task-management',
+      menuChecked: false,
+      privilege: ['maker']
+    }
   ]
-  // 'task-management': [
-  //   {
-  //     menu: 'task-management',
-  //     menuChecked: false,
-  //     privilege: []
-  //   }
-  // ]
 }
