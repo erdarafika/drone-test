@@ -18,6 +18,7 @@ import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
 
+import crudPermission from '@/directive/crud-permission/index.js'
 import * as filters from './filters' // global filters
 
 import * as Sentry from '@sentry/browser'
@@ -53,6 +54,7 @@ Vue.component('SettingPassword', SettingPassword)
 Vue.component('Status', Status)
 Vue.component('AppContainer', AppContainer)
 
+Vue.use(crudPermission)
 const moment = require('moment')
 require('moment/locale/id')
 import money from 'v-money'
