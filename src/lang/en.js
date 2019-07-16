@@ -354,7 +354,8 @@ export default {
     menu: 'Menu',
     updateMenu: 'Menu',
     updateRole: 'Role',
-    updatePassword: 'Update Password'
+    updatePassword: 'Update Password',
+    taskManagementMessage: 'this field value is auto generated'
   },
   companyAddress: {
     addressType: 'Address Type',
