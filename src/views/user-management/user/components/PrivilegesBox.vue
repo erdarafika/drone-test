@@ -18,20 +18,27 @@
               el-row
                 el-col.menu-privileges(:span='12')
                   el-checkbox(v-model='privilegeItem.menuChecked' @change='cleanPrivileges(index)') {{ privilegeItem.menu }}
-                el-radio-group.privilege-group(v-model='checkedPrivilege[index]'   @change='changePrivileges(index, privilegeItem.menu)')
-                  el-col.option-privileges(:span='4')
-                    el-radio(label='checker' :disabled='!privilegeItem.menuChecked').checker
-                  el-col.option-privileges.border(:span='4')
-                    el-radio(label='approver' :disabled='!privilegeItem.menuChecked').approver
-                  el-col.option-privileges.maker(:span='4')
-                    el-radio(label='maker' :disabled='!privilegeItem.menuChecked').maker
+                el-radio-group.privilege-group(v-model='checkedPrivilege[index]' :max='1'  @change='changePrivileges(index, privilegeItem.menu)')
+                  el-col.option-privileges(:span='4' v-for='(option, index) in options' :key='option')
+                    el-radio(:label='option' :disabled='!privilegeItem.menuChecked' :class='option' v-if='option')
+                    span(v-else)
+                      | -
 
 </template>
 
 <script>
 import { setTimeout } from 'timers'
 export default {
-  props: ['privileges', 'title', 'handleChange', 'parent'],
+  props: {
+    'privileges': Array,
+    'title': String,
+    'handleChange': Function,
+    'parent': String,
+    'options': {
+      default: () => ['checker', 'approver', 'maker'],
+      type: Array
+    }
+  },
   data() {
     return {
       checkedPrivilege: []
@@ -47,6 +54,7 @@ export default {
   methods: {
     cleanPrivileges(index) {
       this.privileges[index].privilege = undefined
+      this.checkedPrivilege[index] = undefined
     },
     changePrivileges(index, menu) {
       const currentValue = this.checkedPrivilege[index]
