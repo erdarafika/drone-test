@@ -5,7 +5,7 @@ app-container
     el-form-item(label='Amount' prop="amount")
       .el-input(data-children-count='1')
         money.el-input__inner(v-model='tolerance.amount', name='amount' v-bind='moneyConfig' )
-    el-form-item
+    el-form-item(v-crud-permission="['maker']")
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
 
 </template>

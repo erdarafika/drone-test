@@ -3,7 +3,7 @@
   app-container
     .filter-container
       el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-      el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
         | {{ $t('table.add') }}
 
     el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
@@ -27,8 +27,8 @@
           | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
-          Edit(:data='row' :action='handleUpdate')
-          Delete(:data='row' :action='handleDelete')
+          Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
+          Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -45,7 +45,7 @@
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
           | {{ $t('table.confirm') }}
 
-        RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"')
+        RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"' v-crud-permission="['maker']")
 
   </template>
 

@@ -12,7 +12,7 @@ div
         el-input(v-model.number='dplkInformation.telp'  name='help')
     el-form-item(:label="$t('dplkInformation.fax')" prop="fax")
         el-input(v-model.number='dplkInformation.fax'  name='fax')
-    el-form-item
+    el-form-item(v-crud-permission="['maker']")
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
 
 </template>

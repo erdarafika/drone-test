@@ -5,7 +5,7 @@ app-container
       el-col(:span='20')
         h2.title List Of Companies
       el-col(:span='4')
-        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
           | {{ $t('table.add') }}
   .complex-filter-container
     .complex-filter-item
@@ -44,7 +44,7 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
-        Edit(:data='row' :action='handleUpdate')
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
 </template>
