@@ -354,7 +354,8 @@ export default {
     authorities: 'Otoritas',
     menu: 'Menu',
     updateMenu: 'Menu',
-    updateRole: 'Jabatan'
+    updateRole: 'Jabatan',
+    updatePassword: 'Ubah Password'
   },
   companyAddress: {
     addressType: 'Address Type',

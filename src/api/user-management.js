@@ -32,8 +32,15 @@ export function updateUserPrivileges(data) {
 
 export function disableUser(data) {
   return request({
-    url: `/user/${data.id}/disable-user/`,
+    url: `/user/${data.id}/disable-user`,
     method: 'post'
   })
 }
 
+export function updateUserPassword(data) {
+  return request({
+    url: `/user/${data.id}/update-password`,
+    method: 'post',
+    data
+  })
+}

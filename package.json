@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test:ci"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -55,7 +55,6 @@
     "faker": "^4.1.0",
     "file-saver": "2.0.1",
     "fuse.js": "3.4.4",
-    "inputmask": "^4.0.8",
     "js-cookie": "2.2.0",
     "jsonlint": "1.6.3",
     "jszip": "3.2.1",

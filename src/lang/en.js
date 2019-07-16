@@ -353,7 +353,8 @@ export default {
     authorities: 'Authorities',
     menu: 'Menu',
     updateMenu: 'Menu',
-    updateRole: 'Role'
+    updateRole: 'Role',
+    updatePassword: 'Update Password'
   },
   companyAddress: {
     addressType: 'Address Type',

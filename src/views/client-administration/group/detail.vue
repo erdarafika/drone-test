@@ -6,7 +6,7 @@ app-container
     .action-button(v-if='!dialogIsDetail')
       el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
         | {{ $t('table.save') }}
-      RequestApproval(:callback="requestApproval")
+      RequestApproval(:callback="requestApproval" v-if='temp.status && (temp.status === "draft" || temp.status === "rejected" ) ')
 
   el-tabs(type='border-card' v-model='activeTab')
     el-tab-pane(label='Information' name='Information')
@@ -83,7 +83,7 @@ app-container
 </style>
 
 <script>
-import { fetchGroupMaintanance as fetchRecord, createGroupMaintanance, updateGroupMaintanance } from '@/api/group-maintenance'
+import { fetchGroupMaintanance as fetchRecord, createGroupMaintanance, updateGroupMaintanance, approveGroupMaintanance } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -169,7 +169,12 @@ export default {
   },
   methods: {
     requestApproval() {
-      console.log('Request Approval')
+      approveGroupMaintanance(this.temp.id).then(response => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+        }
+        this.$router.push({ name: 'Company' })
+      })
     },
     reFormatDate(date) {
       if (!date) { return null }
