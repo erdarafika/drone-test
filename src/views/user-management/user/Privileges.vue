@@ -16,9 +16,21 @@ app-container
     el-col(:span='8')
       PrivilegesBox(title='Client Administration' parent='client-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
       PrivilegesBox(title='User Management' parent='user-maintenance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
-      //- PrivilegesBox(title='Task Management' parent='task-management' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
-
+      PrivilegesBox.noClick(title='Task Management' parent='task-management' :options='[]' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
+        template(slot='content')
+          el-alert(:title="$t('user.taskManagementMessage')" type="info" show-icon)
 </template>
+
+<style lang='scss'>
+.noClick {
+   pointer-events: none;
+   .el-alert {
+      margin-bottom: 29px;
+      background: #9e9e9e !important;
+      color: white;
+   }
+}
+</style>
 
 <script>
 import PrivilegesBox from './components/PrivilegesBox'
@@ -51,6 +63,9 @@ export default {
   methods: {
     handlePrivileges({ parent, menu, index, value }) {
       this.userPrivileges[parent][index].privilege = value
+      this.userPrivileges['task-management'][0].menuChecked = Object.keys(this.userPrivileges).some(menu => {
+        return this.userPrivileges[menu].some(subMenu => subMenu.privilege.includes('approver'))
+      })
     },
     updateData() {
       const userPrivilegesValues = Object.values(this.userPrivileges)
@@ -58,12 +73,12 @@ export default {
       allMenusPrivileges = allMenusPrivileges.filter(item => item.menuChecked)
       allMenusPrivileges = allMenusPrivileges.map(item => ({ menu: item.menu, previleges: item.privilege }))
       const payload = { data: allMenusPrivileges, id: this.id }
-      if (Object.values(payload.data).some(menu => menu.previleges.includes('approver'))) {
-        payload.data.push({
-          menu: 'task-management',
-          previleges: ['maker']
-        })
-      }
+      // if (Object.values(payload.data).some(menu => menu.previleges.includes('approver'))) {
+      //   payload.data.push({
+      //     menu: 'task-management',
+      //     previleges: ['maker']
+      //   })
+      // }
       updateUserPrivileges(payload).then((response) => {
         this.dialogFormVisible = false
         if (response.status_code >= 200 && response.status_code <= 300) {

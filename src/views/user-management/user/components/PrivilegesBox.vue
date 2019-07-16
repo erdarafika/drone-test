@@ -5,20 +5,21 @@
           el-row.head()
             el-col(:span='12' style='font-size: 14px;')
               | Features
-            el-col.option-privileges(:span='4')
+            el-col.option-privileges(:span='4'  v-if='options.length')
               | Checker
-            el-col.option-privileges.border(:span='4')
+            el-col.option-privileges.border(:span='4' v-if='options.length')
               | Approver
-            el-col.option-privileges.maker(:span='4')
+            el-col.option-privileges.maker(:span='4'  v-if='options.length')
               | Maker
         .content
+          slot(name='content')
           .head {{title}}
           el-form(ref='form' label-position='top' label-width='120px')
             el-form-item(v-for='(privilegeItem, index) in privileges' :key='index')
               el-row
                 el-col.menu-privileges(:span='12')
                   el-checkbox(v-model='privilegeItem.menuChecked' @change='cleanPrivileges(index)') {{ privilegeItem.menu }}
-                el-radio-group.privilege-group(v-model='checkedPrivilege[index]' :max='1'  @change='changePrivileges(index, privilegeItem.menu)')
+                el-radio-group.privilege-group(v-model='checkedPrivilege[index]' :max='1'  @change='changePrivileges(index, privilegeItem.menu)' v-if='options.length')
                   el-col.option-privileges(:span='4' v-for='(option, index) in options' :key='option')
                     el-radio(:label='option' :disabled='!privilegeItem.menuChecked' :class='option' v-if='option')
                     span(v-else)
