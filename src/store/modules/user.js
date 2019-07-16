@@ -81,7 +81,8 @@ const actions = {
         const roles = [data.role]
         // const roles = data.authorities.map(item => item.role)
         const name = data.dplkStaff.name
-        const menus = data.authorities.map(item => item.menu)
+        // eslint-disable-next-line prefer-const
+        let menus = data.authorities.map(item => item.menu)
         const position = data.dplkStaff.department.name
         let authorities = data.authorities
 
@@ -89,6 +90,12 @@ const actions = {
           obj[item.menu] = item.previleges.map(item => item.previlege)
           return obj
         }, {})
+
+        if (!menus.some(menu => menu === 'task-management')) {
+          if (Object.values(authorities).some(menu => menu.includes('approver'))) {
+            menus.push('task-management')
+          }
+        }
 
         // roles must be a non-empty array
         // if (!roles || roles.length <= 0) {
