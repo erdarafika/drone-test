@@ -16,7 +16,7 @@ app-container
     el-col(:span='8')
       PrivilegesBox(title='Client Administration' parent='client-administration' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
       PrivilegesBox(title='User Management' parent='user-maintenance' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
-      PrivilegesBox(title='Task Management' parent='task-management' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
+      //- PrivilegesBox(title='Task Management' parent='task-management' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
 
 </template>
 
