@@ -9,13 +9,13 @@ app-container
 
   el-row(v-loading="loading")
     el-col(:span='8')
-      PrivilegesBox(title='Master Setup' parent='master-setup' :handleChange='handlePrivileges' :privileges='userPrivileges["master-setup"]')
+      PrivilegesBox(title='Master Setup' parent='master-setup' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["master-setup"]')
     el-col(:span='8')
-      PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
-      PrivilegesBox(title='Fund Administration' parent='fund-administration' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-administration"]')
+      PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
+      PrivilegesBox(title='Fund Administration' parent='fund-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-administration"]')
     el-col(:span='8')
-      PrivilegesBox(title='Client Administration' parent='client-administration' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
-      PrivilegesBox(title='User Management' parent='user-maintenance' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
+      PrivilegesBox(title='Client Administration' parent='client-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
+      PrivilegesBox(title='User Management' parent='user-maintenance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
       //- PrivilegesBox(title='Task Management' parent='task-management' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
 
 </template>
@@ -58,7 +58,12 @@ export default {
       allMenusPrivileges = allMenusPrivileges.filter(item => item.menuChecked)
       allMenusPrivileges = allMenusPrivileges.map(item => ({ menu: item.menu, previleges: item.privilege }))
       const payload = { data: allMenusPrivileges, id: this.id }
-
+      if (Object.values(payload.data).some(menu => menu.previleges.includes('approver'))) {
+        payload.data.push({
+          menu: 'task-management',
+          previleges: ['maker']
+        })
+      }
       updateUserPrivileges(payload).then((response) => {
         this.dialogFormVisible = false
         if (response.status_code >= 200 && response.status_code <= 300) {
