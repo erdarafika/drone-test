@@ -3,7 +3,7 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-row
     el-col(:span='12')
@@ -22,7 +22,7 @@ app-container
             | {{ scope.row.description }}
         el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
           template(slot-scope='{row}')
-            Edit(:data='row' :action='handleUpdate')
+            Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
             //- Delete(:data='row' :action='handleDelete')
       pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')

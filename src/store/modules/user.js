@@ -11,7 +11,8 @@ const state = {
   roles: [],
   authorities: [],
   // crud_level: [],
-  menus: []
+  menus: [],
+  currentRoute: undefined
 }
 
 const mutations = {
@@ -20,6 +21,9 @@ const mutations = {
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
+  },
+  SET_CURRENT_ROUTE: (state, route) => {
+    state.currentRoute = route
   },
   // SET_CRUD_LEVEL(state, crud_level) {
   //   state.crud_level = crud_level
@@ -45,6 +49,9 @@ const mutations = {
 }
 
 const actions = {
+  setCurrentRoute({ commit }, route) {
+    commit('SET_CURRENT_ROUTE', route)
+  },
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
@@ -76,7 +83,12 @@ const actions = {
         const name = data.dplkStaff.name
         const menus = data.authorities.map(item => item.menu)
         const position = data.dplkStaff.department.name
-        const authorities = data.authorities
+        let authorities = data.authorities
+
+        authorities = authorities.reduce(function(obj, item) {
+          obj[item.menu] = item.previleges.map(item => item.previlege)
+          return obj
+        }, {})
 
         // roles must be a non-empty array
         // if (!roles || roles.length <= 0) {

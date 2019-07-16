@@ -1,6 +1,6 @@
 <template lang="pug">
   .bank-detail
-    el-button(type='danger', size='mini' @click="documentDelete(data)")
+    el-button(type='danger', size='mini' @click="documentDelete(data)" v-crud-permission="['maker']")
       | {{ $t('table.delete') }} {{$t('route.bank')}}
     el-row
       el-col(:span='10')
@@ -19,7 +19,7 @@
             tr
               th {{ $t('table.createdDate') }}
               td {{ data.created_at | moment("Do MMMM, YYYY") }}
-      el-col.branch-block(:span='14 ')
+      el-col.branch-block(:span='14 ' v-crud-permission="['maker']")
         h3 {{$t('bank.branch')}}
         el-form(:model='temp',  :rules='rules', ref='dataForm', label-width='100px')
           el-form-item(:label='$t("bank.branchName")', prop='bankBranch')
@@ -43,7 +43,7 @@
           span {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', width="90")
         template(slot-scope="scope")
-          Delete(:data='scope.row' :action='handleDelete')
+          Delete(:data='scope.row' :action='handleDelete' v-crud-permission="['maker']")
 
 </template>
 <style lang="scss">

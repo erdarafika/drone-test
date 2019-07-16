@@ -4,9 +4,9 @@ app-container
     Back(:action="()=> { $router.push({name: 'GroupMaintenance'}) }")
   template(v-slot:header)
     .action-button(v-if='!dialogIsDetail')
-      el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
+      el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()" v-crud-permission="['maker']")
         | {{ $t('table.save') }}
-      RequestApproval(:callback="requestApproval" v-if='temp.status && (temp.status === "draft" || temp.status === "rejected" ) ')
+      RequestApproval(:callback="requestApproval" v-if='temp.status && (temp.status === "draft" || temp.status === "rejected" ) ' v-crud-permission="['maker']")
 
   el-tabs(type='border-card' v-model='activeTab')
     el-tab-pane(label='Information' name='Information')

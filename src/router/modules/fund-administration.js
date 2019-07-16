@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/fund-administration/investment-type/index'),
       meta: {
         title: 'investmentType',
-        pensionMenu: 'investment_type'
+        pensionMenu: 'investment-type'
       }
     },
     {

@@ -1,6 +1,6 @@
 <template lang="pug">
   .document-detail
-    el-form(:model='temp', :inline='true' :rules='rules', ref='dataForm', label-width='100px')
+    el-form(:model='temp', :inline='true' :rules='rules', ref='dataForm', label-width='100px' v-crud-permission="['maker']")
       el-form-item(label='Name', prop='name')
         el-input(v-model='temp.name', autocomplete='off' name='name')
       el-form-item
@@ -12,7 +12,7 @@
     el-table(:data='attachments' v-loading='listLoading')
       el-table-column(property='name', label='Name' width="100px")
       el-table-column(property='file', label='File')
-      el-table-column(label='', width="90")
+      el-table-column(label='', width="90" v-crud-permission="['maker']")
         template(slot-scope="scope")
           el-button(type='danger', size='mini' @click="handleDelete(scope.row)")
             | {{ $t('table.delete') }}

@@ -2,8 +2,15 @@ import store from '@/store'
 
 export default {
   inserted(el, binding, vnode) {
+    const route = store.getters.route
+
+    if (!route.meta.hasOwnProperty('pensionMenu')) {
+      throw new Error(`pensionMenu Permission is not setup yet`)
+    }
     const { value } = binding
-    const crud_level = store.getters && store.getters.crud_level
+
+    let crud_level = store.getters && store.getters.authorities
+    crud_level = crud_level[route.meta.pensionMenu]
 
     if (value && value instanceof Array && value.length > 0) {
       const permissionCrud = value
