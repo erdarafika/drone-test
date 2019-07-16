@@ -25,34 +25,36 @@ app-container
       template(slot-scope='{row}')
         //- Detail(:data='row' :action='handleDetail')
         Authorization(:data='row' :action='handleUpdatePrivileges')
+        SettingPassword(:data='row' :action='handleUpdatePassword')
         Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
+      el-form-item(:label="$t('user.staff')" prop='dplkStaffId' v-if='dialogStatus==="create"')
         el-select(v-model='temp.dplkStaffId', name='dplkStaffId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('user.password')" prop='password')
         el-input(v-model.number='temp.password', name='password' type='password')
       el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
         el-input(v-model.number='temp.confirmPassword', name='confirmPassword' type='password')
-      el-form-item(:label="$t('user.status')")
+      el-form-item(:label="$t('user.status')" v-if='dialogStatus==="create"')
         el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
-      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updatePassword()")
         | {{ $t('table.confirm') }}
 
 </template>
 
 <script>
-import { fetchList, createUser, disableUser } from '@/api/user-management'
+import { fetchList, createUser, disableUser, updateUserPassword } from '@/api/user-management'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'AddressType',
@@ -92,11 +94,17 @@ export default {
   },
   computed: {
     rules() {
-      const message = 'this field is required'
-      return {
-        dplkStaffId: [{ required: true, message }],
-        password: [{ required: true, message }],
-        confirmPassword: [{ required: true, message }]
+      if (this.dialogStatus === 'create') {
+        return {
+          dplkStaffId: [requiredValidator],
+          password: [requiredValidator],
+          confirmPassword: [requiredValidator]
+        }
+      } else {
+        return {
+          password: [requiredValidator],
+          confirmPassword: [requiredValidator]
+        }
       }
     },
     filterredList() {
@@ -113,6 +121,24 @@ export default {
     })
   },
   methods: {
+    handleUpdatePassword(row) {
+      this.resetTemp()
+      this.temp.id = row.id
+      this.dialogStatus = 'updatePassword'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    updatePassword() {
+      updateUserPassword(this.temp).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+          this.getList()
+          this.dialogFormVisible = false
+        }
+      })
+    },
     handleUpdatePrivileges(row) {
       this.$router.push({ name: 'userPrivileges', query: { id: row.id }})
     },
@@ -125,8 +151,8 @@ export default {
       })
     },
     getDialogHeader(dialogStatus) {
-      if (dialogStatus === 'update') {
-        return this.$t('modal.editModalHeader')
+      if (dialogStatus === 'updatePassword') {
+        return this.$t('user.updatePassword')
       } else {
         return this.$t('modal.addModalHeader')
       }
