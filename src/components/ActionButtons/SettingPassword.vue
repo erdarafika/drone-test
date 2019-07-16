@@ -1,5 +1,5 @@
 <template lang="pug">
-el-tooltip(:content="$t('table.delete')" placement='top')
+el-tooltip(:content="$t('user.updatePassword')" placement='top')
   svg-icon.actionButton(icon-class='setting-password' @click='handleAction')
 </template>
 
