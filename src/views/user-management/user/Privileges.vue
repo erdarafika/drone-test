@@ -64,7 +64,7 @@ export default {
     handlePrivileges({ parent, menu, index, value }) {
       this.userPrivileges[parent][index].privilege = value
       this.userPrivileges['task-management'][0].menuChecked = Object.keys(this.userPrivileges).some(menu => {
-        return this.userPrivileges[menu].some(subMenu => subMenu.privilege.includes('approver'))
+        return this.userPrivileges[menu].some(subMenu => (subMenu.menuChecked && subMenu.privilege.includes('approver')))
       })
     },
     updateData() {

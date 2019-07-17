@@ -56,6 +56,7 @@ export default {
     cleanPrivileges(index) {
       this.privileges[index].privilege = undefined
       this.checkedPrivilege[index] = undefined
+      this.changePrivileges(index, this.privileges[index].menu)
     },
     changePrivileges(index, menu) {
       const currentValue = this.checkedPrivilege[index]
@@ -63,7 +64,8 @@ export default {
 
       if (currentValue === 'checker') value = ['checker']
       else if (currentValue === 'maker') value = ['checker', 'maker']
-      else value = ['checker', 'approver']
+      else if (currentValue === 'approver') value = ['checker', 'approver']
+      else value = []
       this.handleChange({ parent: this.parent, menu, index, value })
     }
   }
