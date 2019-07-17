@@ -430,6 +430,9 @@ export default {
     status: 'Status',
     issuer: 'Issuer',
     description: 'Deskripsi',
-    taskType: 'Tipe Tugas'
+    taskType: 'Tipe Tugas',
+    showApproved: 'Tampilkan Tersetejui',
+    showRejected: 'Tampilkan Tertolak',
+    reason: 'Alasan'
   }
 }

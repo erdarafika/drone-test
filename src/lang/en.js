@@ -426,6 +426,9 @@ export default {
     dplkBankId: 'DPLK Bank'
   },
   taskManagement: {
+    showApproved: 'Show Approved',
+    showRejected: 'Show Rejected',
+    reason: 'Reason',
     status: 'Status',
     issuer: 'Issuer',
     description: 'Description',

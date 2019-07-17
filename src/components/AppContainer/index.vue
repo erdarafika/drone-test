@@ -1,6 +1,6 @@
 <template lang="pug">
 .app-container
-  .header
+  .header(v-show='show')
     el-row
       el-col(:span='1')
         slot(name='header-left')
@@ -14,6 +14,12 @@
 
 <script>
 export default {
+  props: {
+    show: {
+      type: Boolean,
+      default: true
+    }
+  },
   computed: {
     title() {
       const routeTitle = this.$route.meta.title

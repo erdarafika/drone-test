@@ -27,7 +27,7 @@
           | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
-          Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
+          Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" v-if='row.status === "draft" || row.status === "rejected"')
           Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')

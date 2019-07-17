@@ -1,5 +1,5 @@
 <template lang="pug">
-app-container
+app-container(:show='!objectId')
   template(v-slot:header-left)
     Back(:action="()=> { $router.push({name: 'Company'}) }")
   template(v-slot:header)
@@ -105,6 +105,7 @@ import rules from './validation-rules'
 export default {
   name: 'Company',
   components: { Pagination, Address, ContactPerson, BankAccount },
+  props: ['objectId'],
   data() {
     return {
       activeTab: 'Information',
@@ -167,11 +168,16 @@ export default {
   created() {
     this.resetTemp()
     this.dialogStatus = this.$route.params.action
-
-    if ('id' in this.$route.query) {
-      this.temp.id = this.$route.query.id
+    if (this.objectId) {
+      this.temp.id = this.objectId
       this.getRecord()
+    } else {
+      if ('id' in this.$route.query) {
+        this.temp.id = this.$route.query.id
+        this.getRecord()
+      }
     }
+
     fetchBusinessLine().then(res => {
       this.businessLineOptions = res.map(businessLine => ({ value: businessLine.id, label: businessLine.name }))
     })
