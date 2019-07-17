@@ -4,7 +4,7 @@ el-popover(placement='left', width='100', v-model='visible')
   div(style='text-align: right; margin: 0')
     el-button(size='mini', type='text', @click='visible = false') {{ $t('message.no') }}
     el-button(type='primary', size='mini', @click='handleAction') {{ $t('message.yes') }}
-  el-button(slot='reference'  size='small' type='danger')
+  el-button(slot='reference'  size='small' type='danger' :disabled='disabled')
     | {{ $t('table.reject') }}
 </template>
 
@@ -16,7 +16,7 @@ el-popover(placement='left', width='100', v-model='visible')
 
 <script>
 export default {
-  props: ['callback', 'data'],
+  props: ['callback', 'data', 'disabled'],
   data() {
     return {
       visible: false
