@@ -4,8 +4,8 @@ el-popover(placement='left', width='100', v-model='visible')
   div(style='text-align: right; margin: 0')
     el-button.yesButton(size='mini', type='text', @click='visible = false') {{ $t('message.no') }}
     el-button.noButton(type='primary', size='mini', @click='handleAction') {{ $t('message.yes') }}
-  el-tooltip(:content="$t('table.disable')" placement='top')
-    svg-icon.actionButton(icon-class='terminate' slot='reference')
+  el-tooltip(:content="$t('table.disable')" placement='top' slot='reference')
+    svg-icon.actionButton(icon-class='terminate' )
 </template>
 
 <style lang='scss'>
