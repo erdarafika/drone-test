@@ -5,7 +5,7 @@ app-container
       el-col(:span='20')
         h2.title  List Of Groups
       el-col(:span='4')
-        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
           | {{ $t('table.add') }}
   .complex-filter-container
     .complex-filter-item

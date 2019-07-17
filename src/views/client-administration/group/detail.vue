@@ -1,5 +1,5 @@
 <template lang="pug">
-app-container
+app-container(:show='!objectId')
   template(v-slot:header-left)
     Back(:action="()=> { $router.push({name: 'GroupMaintenance'}) }")
   template(v-slot:header)
@@ -96,6 +96,7 @@ import { requiredValidator } from '@/global-function/formValidator'
 export default {
   name: 'Company',
   components: { Pagination, ClassPlan, Billing, Withdrawal },
+  props: ['objectId'],
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',
@@ -156,9 +157,14 @@ export default {
   created() {
     this.resetTemp()
     this.dialogStatus = this.$route.params.action
-    if ('id' in this.$route.query) {
-      this.temp.id = this.$route.query.id
+    if (this.objectId) {
+      this.temp.id = this.objectId
       this.getRecord()
+    } else {
+      if ('id' in this.$route.query) {
+        this.temp.id = this.$route.query.id
+        this.getRecord()
+      }
     }
     fetchCompany().then(res => {
       this.companyOptions = res.map(company => ({ value: company.id, label: company.name }))
