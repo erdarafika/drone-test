@@ -19,6 +19,17 @@ export default {
         title: 'taskManagement',
         pensionMenu: 'task-management'
       }
+    },
+    {
+      path: 'task/:action',
+      name: 'TaskDetail',
+      hidden: true,
+      component: () => import('@/views/task-management/task/Detail'),
+      meta: {
+        title: 'detail',
+        pensionMenu: 'task-management'
+      }
     }
+
   ]
 }
