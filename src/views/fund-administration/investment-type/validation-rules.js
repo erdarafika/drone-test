@@ -3,5 +3,5 @@ import { requiredValidator, alphanumericLineValidator, alphabeticValidator } fro
 export default {
   name: [requiredValidator, alphabeticValidator],
   code: [requiredValidator, alphanumericLineValidator],
-  description: []
+  description: [requiredValidator, alphabeticValidator]
 }
