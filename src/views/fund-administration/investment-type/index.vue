@@ -43,7 +43,7 @@
           el-input(v-model='temp.name',  name='name' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-form-item(:label="$t('investmentType.code')", prop='code')
           el-input(v-model.number='temp.code',  name='code' type='input')
-        el-form-item(:label="$t('investmentType.description')")
+        el-form-item(:label="$t('investmentType.description')" prop='description')
           el-input(v-model='temp.description',  name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
 
       .dialog-footer(slot='footer')
