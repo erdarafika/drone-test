@@ -2,7 +2,7 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('user.username')", align='left')
@@ -24,9 +24,9 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding' width='150px')
       template(slot-scope='{row}')
         //- Detail(:data='row' :action='handleDetail')
-        Authorization(:data='row' :action='handleUpdatePrivileges')
-        SettingPassword(:data='row' :action='handleUpdatePassword')
-        Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
+        Authorization(:data='row' :action='handleUpdatePrivileges' v-crud-permission="['maker']")
+        SettingPassword(:data='row' :action='handleUpdatePassword' v-crud-permission="['maker']")
+        Terminate(:data='row' :action='handleDisable' v-show='row.enabled' v-crud-permission="['maker']")
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
