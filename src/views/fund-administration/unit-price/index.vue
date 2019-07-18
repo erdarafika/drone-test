@@ -9,12 +9,12 @@ app-container
 
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :model='temp', label-position='top', label-width='200px', style='width: 80%; margin-left:50px;')
-        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="{required: true, message: 'this field is required', trigger: 'blur'}")
+        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="rules.requiredValidator")
           el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' )
         el-form-item
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
-        el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
+        el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label" :rules="[rules.requiredValidator, rules.numberValidator]")
           el-input(v-model='domain.value')
             template(slot='prepend') {{$t('investmentType.price')}}
         el-form-item
@@ -47,7 +47,8 @@ app-container
 <script>
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
-import rules from './validation-rules'
+import { requiredValidator, numberValidator } from '@/global-function/formValidator'
+// import rules from './validation-rules'
 
 export default {
   name: 'UnitPrice',
@@ -68,7 +69,10 @@ export default {
         effectiveDate: undefined,
         data: []
       },
-      rules,
+      rules: {
+        requiredValidator,
+        numberValidator
+      },
       investmentTypePrice: [],
       dialogFormVisible: false,
       dialogStatus: ''
