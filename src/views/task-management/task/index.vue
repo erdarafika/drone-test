@@ -2,8 +2,8 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    //- el-checkbox.filter-item(v-model='listQuery.showApproved' style='margin-left:20px') {{ $t('taskManagement.showApproved') }}
-    //- el-checkbox.filter-item(v-model='listQuery.showRejected' style='margin-left:20px') {{ $t('taskManagement.showRejected') }}
+    el-checkbox.filter-item(v-model='listQuery.showApproved' style='margin-left:20px') {{ $t('taskManagement.showApproved') }}
+    el-checkbox.filter-item(v-model='listQuery.showRejected' style='margin-left:20px') {{ $t('taskManagement.showRejected') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('taskManagement.taskType')", align='left')

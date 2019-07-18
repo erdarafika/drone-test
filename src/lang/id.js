@@ -260,7 +260,7 @@ export default {
     effectiveDate: 'Tanggal Efektif',
     lastPrice: 'Harga Terakhir',
     addMultipleFundPrice: 'Tambah Semua Harga Dana',
-    description: 'Deskripri',
+    description: 'Deskripsi',
     pricing: 'Harga',
     price: 'Harga',
     unavailableMessage: 'Semua Status adalah UNAVAILABLE'
