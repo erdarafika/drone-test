@@ -20,6 +20,18 @@ export default {
       }
     },
     {
+      path: 'investment-type/:action',
+      name: 'InvestmentTypeDetail',
+      component: () => import('@/views/fund-administration/investment-type/Detail'),
+      meta: {
+        title: 'detail',
+        noCache: true,
+        breadcrumb: false,
+        pensionMenu: 'investment-type'
+      },
+      hidden: true
+    },
+    {
       path: 'unit-price',
       name: 'UnitPrice',
       component: () => import('@/views/fund-administration/unit-price/index'),
