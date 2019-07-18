@@ -109,8 +109,9 @@ export default {
     handleDetail(row) {
       this.$router.push({ name: 'InvestmentTypeDetail', params: { action: 'detail' }, query: { id: row.id }})
     },
-    requestApproval() {
-      approveInvestmentType(this.temp.id).then(res => {
+    requestApproval(id) {
+      const payoad_id = id || this.temp.id
+      approveInvestmentType(payoad_id).then(res => {
         this.successNotifier()
         this.getList()
         this.dialogFormVisible = false
@@ -128,7 +129,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList().then(response => {
-        this.list = response
+        this.list = response.filter(item => item.status !== 'draft') // TODO: Remove Filter after backend fo filter
         this.total = response.length
         this.listLoading = false
       })
@@ -166,8 +167,10 @@ export default {
         if (valid) {
           createInvestmentType(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
+              this.requestApproval(response.id).then(res => {
+                this.successNotifier()
+                this.getList()
+              })
             }
             this.dialogFormVisible = false
           })
