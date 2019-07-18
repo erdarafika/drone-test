@@ -31,6 +31,11 @@ export default {
     if (this.objectId) {
       this.temp.id = this.objectId
       this.getRecord()
+    } else {
+      if ('id' in this.$route.query) {
+        this.temp.id = this.$route.query.id
+        this.getRecord()
+      }
     }
   },
   methods: {
