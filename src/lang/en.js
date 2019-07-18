@@ -75,6 +75,7 @@ export default {
     no: 'No'
   },
   table: {
+    createdBy: 'Created By',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Back',
@@ -252,7 +253,7 @@ export default {
     transactionType: 'Transaction Type'
   },
   investmentType: {
-    fundName: 'Fund Name',
+    fundName: 'Investment Name',
     code: 'Code',
     status: 'Status',
     effectiveDate: 'Effective Date',

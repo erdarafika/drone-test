@@ -76,6 +76,7 @@ export default {
     no: 'Tidak'
   },
   table: {
+    createdBy: 'Dibuat Oleh',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Halaman Sebelumnya',
@@ -253,7 +254,7 @@ export default {
     transactionType: 'Jenis Transaksi'
   },
   investmentType: {
-    fundName: 'Nama Dana',
+    fundName: 'Nama Investasi',
     code: 'Kode',
     status: 'Status',
     effectiveDate: 'Tanggal Efektif',
