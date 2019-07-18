@@ -4,7 +4,7 @@ app-container(:show='!objectId')
     Back(:action="()=> { $router.push({name: 'UnitPrice'}) }")
   el-form(ref='dataForm'  label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
     el-form-item(:label="$t('investmentType.effectiveDate')")
-      el-input(v-model='temp.effectiveDate' type='textarea', :autosize='{ minRows: 2, maxRows: 4}' disabled)
+      el-input(v-model='processedEffectiveDate' type='textarea', :autosize='{ minRows: 2, maxRows: 4}' disabled)
     el-form-item(:label="$t('unitPrice.fundName')")
       el-input(v-model='temp.investmentType.name' type='input' disabled)
     el-form-item(:label="$t('unitPrice.price')", prop='code')
@@ -14,7 +14,6 @@ app-container(:show='!objectId')
 <script>
 
 import { fetchUnitPrice } from '@/api/investment-type'
-
 export default {
   props: ['objectId'],
   data() {
@@ -26,8 +25,12 @@ export default {
         investmentType: {
           name: undefined
         }
-
       }
+    }
+  },
+  computed: {
+    processedEffectiveDate() {
+      return this.temp.effectiveDate ? this.$moment(this.temp.effectiveDate).format('Do MMMM, YYYY') : null
     }
   },
   created() {
