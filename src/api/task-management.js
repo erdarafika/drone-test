@@ -21,9 +21,10 @@ export function approveTask(id) {
   })
 }
 
-export function rejectTask(id) {
+export function rejectTask(data) {
   return request({
-    url: `/task/${id}/reject`,
-    method: 'patch'
+    url: `/task/${data.id}/reject`,
+    method: 'patch',
+    data
   })
 }

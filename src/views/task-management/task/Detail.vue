@@ -88,7 +88,7 @@ export default {
       })
     },
     handleReject(row) {
-      rejectTask(row.id).then((response) => {
+      rejectTask({ id: row.id, reason: this.reason }).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
           this.successNotifier()
           this.back()
