@@ -10,7 +10,7 @@ app-container
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :model='temp', label-position='top', label-width='200px', style='width: 80%; margin-left:50px;')
         el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="rules.requiredValidator")
-          el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' )
+          el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :picker-options="pickerOptions" )
         el-form-item
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
@@ -23,7 +23,7 @@ app-container
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+          | {{ $t('table.requestApproval') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('unitPrice.fundName')", align='left')
@@ -47,6 +47,7 @@ app-container
 <script>
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
+import { fetchList as fetchHoliday } from '@/api/holiday'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 // import rules from './validation-rules'
 
@@ -65,6 +66,7 @@ export default {
         q: undefined,
         date: undefined
       },
+      holiday: [],
       temp: {
         effectiveDate: undefined,
         data: []
@@ -75,12 +77,13 @@ export default {
       },
       investmentTypePrice: [],
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      dateFormat: 'Do MMMM YYYY'
     }
   },
   computed: {
     filterredList() {
-      const dateFormat = 'Do MMMM YYYY'
+      const dateFormat = this.dateFormat
       const { q, limit, page, date } = this.listQuery
       const formattedDate = date ? this.$moment(date).format(dateFormat) : date
 
@@ -88,9 +91,25 @@ export default {
       listAfterSearch = listAfterSearch.filter(data => !date || this.$moment(data.effectiveDate).format(dateFormat) === formattedDate)
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
+    },
+    pickerOptions() {
+      const self = this
+      return {
+        disabledDate(time) {
+          return time.getTime() >= Date.now() || self.holiday.includes(self.$moment(time.getTime()).format(self.dateFormat))
+        }
+      }
+    }
+  },
+  watch: {
+    effectiveDate() {
+
     }
   },
   created() {
+    fetchHoliday().then(res => {
+      this.holiday = res.map(item => this.$moment(item.date).format(this.dateFormat))
+    })
     this.getInvestmentTypePrice()
     this.getList()
   },
