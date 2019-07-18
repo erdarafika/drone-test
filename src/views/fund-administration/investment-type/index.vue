@@ -10,25 +10,32 @@
       el-table-column(:label="$t('investmentType.fundName')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.name }}
-      el-table-column(:label="$t('investmentType.code')", align='left', width='120')
+      el-table-column(:label="$t('investmentType.code')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.code }}
-      el-table-column(:label="$t('investmentType.status')", align='left', width='120')
+      el-table-column(:label="$t('investmentType.description')", align='left')
+        template(slot-scope='scope')
+          span {{ scope.row.description }}
+      el-table-column(:label="$t('investmentType.status')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.status  }}
-      el-table-column(:label="$t('investmentType.lastPrice')", align='left', width='120')
+      el-table-column(:label="$t('table.createdBy')", align='left')
         template(slot-scope='scope')
-          span {{ scope.row.lastPrice  }}
-      el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
-        template(slot-scope='scope')
-          span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
-      el-table-column(:label="$t('table.createdDate')", align='left')
-        template(slot-scope='scope')
-          | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+          span {{ scope.row.created_by  }}
+      //- el-table-column(:label="$t('investmentType.lastPrice')", align='left')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.lastPrice  }}
+      //- el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
+      //- el-table-column(:label="$t('table.createdDate')", align='left')
+      //-   template(slot-scope='scope')
+      //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
-          Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" v-if='row.status === "draft" || row.status === "rejected"')
-          Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
+          Detail(:data='row' :action='handleDetail')
+          //- Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" v-if='row.status === "draft" || row.status === "rejected"')
+          //- Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -99,6 +106,9 @@ export default {
     this.getList()
   },
   methods: {
+    handleDetail(row) {
+      this.$router.push({ name: 'InvestmentTypeDetail', params: { action: 'detail' }, query: { id: row.id }})
+    },
     requestApproval() {
       approveInvestmentType(this.temp.id).then(res => {
         this.successNotifier()
