@@ -50,7 +50,7 @@
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+          | {{ $t('table.requestApproval') }}
 
         RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"' v-crud-permission="['maker']")
 
