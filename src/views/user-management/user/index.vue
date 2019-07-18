@@ -2,7 +2,7 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('user.username')", align='left')
@@ -24,37 +24,36 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding' width='150px')
       template(slot-scope='{row}')
         //- Detail(:data='row' :action='handleDetail')
-        Authorization(:data='row' :action='handleUpdatePrivileges' v-crud-permission="['maker']")
-        SettingPassword(:data='row' :action='handleUpdatePassword' v-crud-permission="['maker']")
-        Terminate(:data='row' :action='handleDisable' v-show='row.enabled' v-crud-permission="['maker']")
+        Authorization(:data='row' :action='handleUpdatePrivileges')
+        SettingPassword(:data='row' :action='handleResetPassword')
+        Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('user.staff')" prop='dplkStaffId' v-if='dialogStatus==="create"')
+      el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
         el-select(v-model='temp.dplkStaffId', name='dplkStaffId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('user.password')" prop='password')
         el-input(v-model.number='temp.password', name='password' type='password')
       el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
         el-input(v-model.number='temp.confirmPassword', name='confirmPassword' type='password')
-      el-form-item(:label="$t('user.status')" v-if='dialogStatus==="create"')
+      el-form-item(:label="$t('user.status')")
         el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
-      el-button(type='primary', @click="dialogStatus==='create'?createData():updatePassword()")
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
 
 </template>
 
 <script>
-import { fetchList, createUser, disableUser, updateUserPassword } from '@/api/user-management'
+import { fetchList, createUser, disableUser, resetUserPassword } from '@/api/user-management'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'AddressType',
@@ -94,17 +93,11 @@ export default {
   },
   computed: {
     rules() {
-      if (this.dialogStatus === 'create') {
-        return {
-          dplkStaffId: [requiredValidator],
-          password: [requiredValidator],
-          confirmPassword: [requiredValidator]
-        }
-      } else {
-        return {
-          password: [requiredValidator],
-          confirmPassword: [requiredValidator]
-        }
+      const message = 'this field is required'
+      return {
+        dplkStaffId: [{ required: true, message }],
+        password: [{ required: true, message }],
+        confirmPassword: [{ required: true, message }]
       }
     },
     filterredList() {
@@ -121,21 +114,11 @@ export default {
     })
   },
   methods: {
-    handleUpdatePassword(row) {
-      this.resetTemp()
-      this.temp.id = row.id
-      this.dialogStatus = 'updatePassword'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    updatePassword() {
-      updateUserPassword(this.temp).then((response) => {
+    handleResetPassword(row) {
+      resetUserPassword(row).then((response) => {
         if (response.status_code >= 200 && response.status_code <= 300) {
           this.successNotifier()
           this.getList()
-          this.dialogFormVisible = false
         }
       })
     },
@@ -151,8 +134,8 @@ export default {
       })
     },
     getDialogHeader(dialogStatus) {
-      if (dialogStatus === 'updatePassword') {
-        return this.$t('user.updatePassword')
+      if (dialogStatus === 'update') {
+        return this.$t('modal.editModalHeader')
       } else {
         return this.$t('modal.addModalHeader')
       }

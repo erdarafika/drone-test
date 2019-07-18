@@ -37,9 +37,9 @@ export function disableUser(data) {
   })
 }
 
-export function updateUserPassword(data) {
+export function resetUserPassword(data) {
   return request({
-    url: `/user/${data.id}/update-password`,
+    url: `/user/${data.id}/reset-password`,
     method: 'post',
     data
   })

@@ -70,6 +70,7 @@ export default {
     }
   },
   message: {
+    confirm: 'Are You Sure ?',
     requestApprovalConfirm: 'Are You Sure ?',
     yes: 'Yes',
     no: 'No'
@@ -355,7 +356,7 @@ export default {
     menu: 'Menu',
     updateMenu: 'Menu',
     updateRole: 'Role',
-    updatePassword: 'Update Password',
+    resetPassword: 'Reset Password',
     taskManagementMessage: 'this field value is auto generated'
   },
   companyAddress: {

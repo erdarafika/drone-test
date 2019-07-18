@@ -356,7 +356,7 @@ export default {
     menu: 'Menu',
     updateMenu: 'Menu',
     updateRole: 'Jabatan',
-    updatePassword: 'Ubah Password',
+    resetPassword: 'Setel Ulang Password',
     taskManagementMessage: 'field ini akan terisi secara otomatis'
   },
   companyAddress: {
