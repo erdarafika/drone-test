@@ -3,7 +3,7 @@ app-container
   template(v-slot:header-left)
     Back(:action="back")
 
-  .task-form
+  .task-form(v-if='temp.status !== "approved" ')
     el-form(ref='dataForm' :model='temp', label-position='left', label-width='200px' )
       el-form-item
         Reject.pull-right(:data='temp' :callback='handleReject' :disabled='!reason' style='margin-left:10px;')
@@ -14,6 +14,7 @@ app-container
       el-form-item(:label="$t('taskManagement.reason')")
         el-input(v-model='reason', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='reason')
 
+  el-alert(v-else title='Information', :description='`Status ${temp.status}`' type='success', show-icon='')
   .task-object
     component(:is='object' :objectId='temp.objectId')
 
