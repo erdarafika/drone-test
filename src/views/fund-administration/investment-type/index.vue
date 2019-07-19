@@ -19,10 +19,10 @@
       el-table-column(:label="$t('investmentType.status')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.status  }}
-      el-table-column(:label="$t('table.createdBy')", align='left')
-        template(slot-scope='scope')
-          span {{ scope.row.created_by  }}
-      //- el-table-column(:label="$t('investmentType.lastPrice')", align='left')
+      //- el-table-column(:label="$t('table.createdBy')", align='left')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.created_by  }}
+      //- //- el-table-column(:label="$t('investmentType.lastPrice')", align='left')
       //-   template(slot-scope='scope')
       //-     span {{ scope.row.lastPrice  }}
       //- el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
@@ -58,6 +58,7 @@
 
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
+// import { fetchList as fetchTaskList } from '@/api/task-management'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
 import rules from './validation-rules'
 
@@ -189,11 +190,13 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateInvestmentType(this.temp).then((response) => {
-            this.dialogFormVisible = false
-            if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
-            }
+            approveInvestmentType(this.temp.id).then(res => {
+              this.dialogFormVisible = false
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.successNotifier()
+                this.getList()
+              }
+            })
           })
         }
       })
