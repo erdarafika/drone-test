@@ -190,11 +190,13 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateInvestmentType(this.temp).then((response) => {
-            this.dialogFormVisible = false
-            if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
-            }
+            approveInvestmentType(this.temp.id).then(res => {
+              this.dialogFormVisible = false
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.successNotifier()
+                this.getList()
+              }
+            })
           })
         }
       })
