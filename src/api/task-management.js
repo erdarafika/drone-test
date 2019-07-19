@@ -1,9 +1,11 @@
 import request from '@/utils/request'
 
-export function fetchList() {
+export function fetchList(query) {
+  console.log('query', query)
   return request({
     url: '/task',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
