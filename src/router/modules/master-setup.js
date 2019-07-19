@@ -22,10 +22,43 @@ export default {
       path: 'location',
       name: 'Location',
       component: () => import('@/views/master/location/index'),
+      redirect: '/master/location/country',
       meta: {
         title: 'location',
         pensionMenu: 'location'
-      }
+      },
+      children: [
+        {
+          path: 'country',
+          name: 'LocationCountry',
+          component: () => import('@/views/master/location/Country'),
+          meta: {
+            title: 'locationCountry',
+            pensionMenu: 'location'
+          },
+          hidden: true
+        },
+        {
+          path: 'country/:id/province',
+          name: 'LocationProvince',
+          component: () => import('@/views/master/location/Province'),
+          meta: {
+            title: 'locationProvince',
+            pensionMenu: 'location'
+          },
+          hidden: true
+        },
+        {
+          path: 'country/:id/province/:provinceId/city',
+          name: 'LocationCity',
+          component: () => import('@/views/master/location/City'),
+          meta: {
+            title: 'locationCity',
+            pensionMenu: 'location'
+          },
+          hidden: true
+        }
+      ]
     },
     {
       path: 'bank',
