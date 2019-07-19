@@ -46,12 +46,19 @@ export default {
     userManagement: 'User Management',
     importData: 'Import Data',
     importExcel: 'Import Excel',
-    taskManagement: 'Task Management'
+    taskManagement: 'Task Management',
+    config: 'Pengaturan'
   },
   // GLOBAL
   validatorMessage: {
     isRequired: 'is required',
     isNumber: 'must be number'
+  },
+  config: {
+    general: 'General',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    currentPassword: 'Current Password'
   },
   navbar: {
     notification: 'Notification',
@@ -67,7 +74,8 @@ export default {
       medium: 'medium',
       small: 'small',
       mini: 'mini'
-    }
+    },
+    changePassword: 'Change Password'
   },
   message: {
     confirm: 'Are You Sure ?',

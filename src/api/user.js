@@ -34,6 +34,14 @@ export function getInfo(token) {
   })
 }
 
+export function updatePassword(data) {
+  return request({
+    url: '/user/me/change-password',
+    method: 'post',
+    data
+  })
+}
+
 export function logout() {
   return new Promise((resolve, reject) => {
     resolve(

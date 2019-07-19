@@ -101,6 +101,24 @@ export const asyncRoutes = [
   userManagement,
   taskManagement,
   {
+    path: '/config',
+    component: Layout,
+    hidden: true,
+    redirect: '/config/index',
+    name: 'ImportData',
+    meta: {
+      title: 'ImportData'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/config'),
+        name: 'Config',
+        meta: { title: 'config' }
+      }
+    ]
+  },
+  {
     path: '/import-data',
     component: Layout,
     hidden: true,

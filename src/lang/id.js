@@ -47,12 +47,19 @@ export default {
     clientAdministration: 'Administrasi Klien',
     importData: 'Import Data',
     importExcel: 'Import Excel',
-    taskManagement: 'Manajemen Tugas'
+    taskManagement: 'Manajemen Tugas',
+    config: 'Pengaturan'
   },
   // GLOBAL
   validatorMessage: {
     isRequired: 'wajib diisi',
     isNumber: 'harus berupa angka'
+  },
+  config: {
+    general: 'Umum',
+    password: 'Password',
+    confirmPassword: 'Konfirmasi Password',
+    currentPassword: 'Password Sekarang'
   },
   navbar: {
     notification: 'Notifikasi',
@@ -68,7 +75,8 @@ export default {
       medium: 'sedang',
       small: 'kecil',
       mini: 'sangat kecil'
-    }
+    },
+    changePassword: 'Ubah Password'
   },
   message: {
     requestApprovalConfirm: 'Apa Anda Yakin ?',
