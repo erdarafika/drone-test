@@ -35,10 +35,6 @@ app-container
       el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
         el-select(v-model='temp.dplkStaffId', name='dplkStaffId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('user.password')" prop='password')
-        el-input(v-model.number='temp.password', name='password' type='password')
-      el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
-        el-input(v-model.number='temp.confirmPassword', name='confirmPassword' type='password')
       el-form-item(:label="$t('user.status')")
         el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
@@ -95,9 +91,7 @@ export default {
     rules() {
       const message = 'this field is required'
       return {
-        dplkStaffId: [{ required: true, message }],
-        password: [{ required: true, message }],
-        confirmPassword: [{ required: true, message }]
+        dplkStaffId: [{ required: true, message }]
       }
     },
     filterredList() {
