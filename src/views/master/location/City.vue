@@ -1,18 +1,17 @@
 
 <template lang="pug">
-div
+app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.go(-1) }")
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list.filter(data => !listQuery.q || data.name.toLowerCase().includes(listQuery.q.toLowerCase()))', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('location.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name | moment("Do MMMM, YYYY") }}
-    el-table-column(:label="$t('location.province')", align='left')
-      template(slot-scope='scope')
-        span {{ provinceOptions.filter(i => i.value === scope.row.provinceId)[0].label }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -25,9 +24,6 @@ div
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('location.name')", prop='name')
         el-input(v-model='temp.name' name='name')
-      el-form-item(:label="$t('location.province')", prop='provinceId')
-        el-select(v-model='temp.provinceId', name='provinceId' placeholder='Select', filterable, default-first-option :disabled="dialogStatus==='update'")
-          el-option(v-for='item in provinceOptions', :key='item.value', :label='item.label', :value='item.value')
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
@@ -38,7 +34,7 @@ div
 </template>
 
 <script>
-import { fetchCityList, fetchProvinceList, fetchCountryList, createCity, updateCity, deleteCity } from '@/api/location'
+import { fetchCityList, createCity, updateCity, deleteCity } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
 
@@ -47,9 +43,10 @@ export default {
   components: { Pagination },
   data() {
     return {
+      id: undefined,
       tableKey: 0,
       list: [],
-      provinceOptions: null,
+      countryOptions: null,
       total: 0,
       listLoading: true,
       listQuery: {
@@ -57,19 +54,17 @@ export default {
         limit: 20,
         q: undefined
       },
+      countryIdList: null,
       temp: {
+        countryId: undefined,
         provinceId: undefined,
-        name: undefined,
-        countryId: undefined
+        name: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [requiredValidator, alphabeticValidator],
-        provinceId: [requiredValidator]
-      },
-      provinceIdList: null,
-      countryIdList: null
+        name: [requiredValidator, alphabeticValidator]
+      }
     }
   },
   computed: {
@@ -81,24 +76,15 @@ export default {
     }
   },
   created() {
-    this.$eventBus.$on('update-location', (data) => {
-      this.getCountryProvinceOptions()
-    })
-    this.listLoading = true
-    this.getCountryProvinceOptions()
+    if (this.$route.params.hasOwnProperty('id') && this.$route.params.hasOwnProperty('provinceId')) {
+      this.id = this.$route.params.id
+      this.provinceId = this.$route.params.provinceId
+      this.temp.countryId = this.id
+      this.temp.provinceId = this.provinceId
+      this.getList()
+    }
   },
   methods: {
-    getCountryProvinceOptions() {
-      fetchCountryList().then(response => {
-        this.countryIdList = response.map(i => i.id)
-        fetchProvinceList(this.countryIdList).then(response => {
-          response = [].concat.apply([], response)
-          this.provinceIdList = response.map(i => ({ provinceId: i.id, countryId: i.countryId }))
-          this.provinceOptions = response.map(({ id, name }) => ({ label: name, value: id }))
-          this.getList()
-        })
-      })
-    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -108,8 +94,7 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchCityList(this.provinceIdList).then(response => {
-        response = [].concat.apply([], response)
+      fetchCityList(this.id, this.provinceId).then(response => {
         this.list = response
         this.total = response.length
         this.listLoading = false
@@ -117,13 +102,11 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.$eventBus.$emit('update-location')
     },
     resetTemp() {
       this.temp = {
         name: undefined,
-        provinceId: undefined,
-        countryId: undefined
+        countryId: this.id
       }
     },
     handleCreate() {
@@ -138,12 +121,10 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         console.log('valid', valid)
         if (valid) {
-          this.temp.countryId = this.provinceIdList.filter(i => i.provinceId === this.temp.provinceId)[0].countryId
-
-          createCity(this.temp).then((response) => {
+          createCity({ ...this.temp, countryId: this.id, provinceId: this.provinceId }).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
-              this.$eventBus.$emit('update-location')
+              this.getList()
             }
             this.dialogFormVisible = false
           })
@@ -163,13 +144,11 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.temp.countryId = this.provinceIdList.filter(i => i.provinceId === this.temp.provinceId)[0].countryId
-          const tempData = Object.assign({}, this.temp)
-          updateCity(tempData).then((response) => {
+          updateCity({ ...this.temp, countryId: this.id, provinceId: this.provinceId }).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
-              this.$eventBus.$emit('update-location')
+              this.getList()
             }
           })
         }
@@ -179,10 +158,10 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteCity(row).then((response) => {
+        deleteCity({ ...this.temp, countryId: this.id, provinceId: this.provinceId }).then((response) => {
           this.dialogFormVisible = false
           this.successNotifier()
-          this.$eventBus.$emit('update-location')
+          this.getList()
         })
       }
 

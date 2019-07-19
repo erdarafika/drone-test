@@ -21,41 +21,20 @@ export function fetchCityListById({ countryId, provinceId }) {
   })
 }
 
-export function fetchProvinceList(countryIdList) {
-  return Promise.all(countryIdList.map(countryId => {
-    return request({
-      url: `/master/country/${countryId}/province`,
-      method: 'get'
-    }).then((res) => {
-      res = res.map(i => {
-        i['countryId'] = countryId
-        return i
-      })
-      return res
-    }).catch(err => {
-      console.log(`fail to fetch on country id : ${countryId}`, err)
-    })
-  }))
+export function fetchProvinceList(countryId) {
+  return request({
+    url: `/master/country/${countryId}/province`,
+    method: 'get'
+  })
 }
-export function fetchCityList(provinceIdList) {
-  console.log(provinceIdList)
 
-  return Promise.all(provinceIdList.map(({ countryId, provinceId }) => {
-    return request({
-      url: `/master/country/${countryId}/province/${provinceId}/city`,
-      method: 'get'
-    }).then((res) => {
-      res = res.map(i => {
-        i['countryId'] = countryId
-        i['provinceId'] = provinceId
-        return i
-      })
-      return res
-    }).catch(err => {
-      console.log(`fail to fetch on country id : ${provinceId}`, err)
-    })
-  }))
+export function fetchCityList(countryId, provinceId) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city`,
+    method: 'get'
+  })
 }
+
 export function createCountry(data) {
   return request({
     url: '/master/country',

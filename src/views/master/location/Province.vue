@@ -1,12 +1,14 @@
 
 <template lang="pug">
-div
+app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.go(-1) }")
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
-  el-table(:key='tableKey', v-loading='listLoading', :data='list.filter(data => !listQuery.q || data.name.toLowerCase().includes(listQuery.q.toLowerCase()))', fit='', highlight-current-row='', style='width: 100%;')
+  el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('location.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name | moment("Do MMMM, YYYY") }}
@@ -17,6 +19,7 @@ div
       template(slot-scope='{row}')
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
+        Detail(:data='row' :action='handleDetail')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 80%; margin-left:50px;')
@@ -32,7 +35,7 @@ div
 </template>
 
 <script>
-import { fetchCountryList, createCountry, updateCountry, deleteCountry } from '@/api/location'
+import { fetchProvinceList, createProvince, updateProvince, deleteProvince } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
 
@@ -41,8 +44,10 @@ export default {
   components: { Pagination },
   data() {
     return {
+      id: undefined,
       tableKey: 0,
       list: [],
+      countryOptions: null,
       total: 0,
       listLoading: true,
       listQuery: {
@@ -50,7 +55,9 @@ export default {
         limit: 20,
         q: undefined
       },
+      countryIdList: null,
       temp: {
+        countryId: undefined,
         name: undefined
       },
       dialogFormVisible: false,
@@ -69,12 +76,16 @@ export default {
     }
   },
   created() {
-    this.$eventBus.$on('update-location', (data) => {
+    if (this.$route.params.hasOwnProperty('id')) {
+      this.id = this.$route.params.id
+      this.temp.countryId = this.id
       this.getList()
-    })
-    this.getList()
+    }
   },
   methods: {
+    handleDetail(row) {
+      this.$router.push({ name: 'LocationCity', params: { id: this.id, provinceId: row.id }})
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -84,16 +95,19 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchCountryList(this.listQuery).then(response => {
+      fetchProvinceList(this.id).then(response => {
         this.list = response
         this.total = response.length
         this.listLoading = false
       })
     },
+    handleFilter() {
+      this.listQuery.page = 1
+    },
     resetTemp() {
       this.temp = {
-        id: undefined,
-        name: undefined
+        name: undefined,
+        countryId: this.id
       }
     },
     handleCreate() {
@@ -106,11 +120,12 @@ export default {
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
+        console.log('valid', valid)
         if (valid) {
-          createCountry(this.temp).then((response) => {
+          createProvince({ ...this.temp, countryId: this.id }).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
-              this.$eventBus.$emit('update-location')
+              this.getList()
             }
             this.dialogFormVisible = false
           })
@@ -118,7 +133,9 @@ export default {
       })
     },
     handleUpdate(row) {
+      console.log(row)
       this.temp = Object.assign({}, row) // copy obj
+      this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -128,12 +145,11 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateCountry(tempData).then((response) => {
+          updateProvince({ ...this.temp, countryId: this.id }).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
-              this.$eventBus.$emit('update-location')
+              this.getList()
             }
           })
         }
@@ -143,10 +159,10 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteCountry(row).then((response) => {
+        deleteProvince({ ...this.temp, countryId: this.id }).then((response) => {
           this.dialogFormVisible = false
           this.successNotifier()
-          this.$eventBus.$emit('update-location')
+          this.getList()
         })
       }
 
