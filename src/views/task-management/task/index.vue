@@ -111,9 +111,9 @@ export default {
     getList() {
       this.listLoading = true
       fetchList().then(response => {
-        this.list = response.filter(item => { return item.status !== 'approved' && item.status !== 'rejected' })
+        this.list = response.filter(item => { return item.status !== 'approved' && item.status !== 'rejected' }).reverse()
         this.total = this.list.length
-        this.listHistory = response.filter(item => { return item.status === 'approved' || item.status === 'rejected' })
+        this.listHistory = response.filter(item => { return item.status === 'approved' || item.status === 'rejected' }).reverse()
         this.totalHistory = this.listHistory.length
         console.log(this.listHistory)
 
