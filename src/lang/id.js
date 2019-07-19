@@ -103,7 +103,8 @@ export default {
     createdDate: 'Tanggal dibuat',
     setDefault: 'Atur sebagai Default',
     clientAdministration: 'Client Administration',
-    company: 'Company'
+    company: 'Company',
+    history: 'Riwayat'
   },
   settings: {
     title: 'Pengaturan Tampilan',

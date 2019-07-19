@@ -103,7 +103,8 @@ export default {
     cancelTitle: 'Operation Cancelled',
     searchPlaceholder: 'Find something',
     createdDate: 'Created Date',
-    setDefault: 'Set as Default'
+    setDefault: 'Set as Default',
+    history: 'History'
   },
   settings: {
     title: 'Page style setting',
