@@ -2,5 +2,6 @@ import { requiredValidator, alphabeticValidator } from '@/global-function/formVa
 
 export default {
   subject: [requiredValidator, alphabeticValidator],
-  htmlBody: [requiredValidator]
+  htmlBody: [requiredValidator],
+  type: [requiredValidator]
 }

@@ -22,8 +22,14 @@ app-container
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog.emailconfig-form(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 90%; margin-left:50px;')
-      el-form-item(:label="$t('emailConfig.subject')", prop='subject')
-        el-input(v-model='temp.subject', name='subject' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+      el-row(:gutter='20')
+        el-col(:span='12')
+          el-form-item(:label="$t('emailConfig.subject')", prop='subject')
+            el-input(v-model='temp.subject', name='subject' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-col(:span='12')
+          el-form-item(:label="$t('emailConfig.type')", prop='type' label-width='200')
+            el-select(v-model='temp.type', name='type' placeholder='Select', filterable, default-first-option)
+              el-option(v-for='item in typeOptions', :key='item', :label='item', :value='item')
       el-form-item(label='', prop='htmlBody')
         tinymce(v-model='temp.htmlBody', :height='300')
 
@@ -66,12 +72,13 @@ export default {
         limit: 20,
         q: undefined
       },
+      typeOptions: ['alert_unit_price', 'alert_reset_password', 'alert_new_user', 'billing_notification', 'invoice', 'just_billing_notification', 'notif_batch_scheduler', 'surat_jatuh_tempo_ppip_mandiri', 'surat_jatuh_tempo_ppip_pemberi_kerja', 'surat_jatuh_tempo_ppukp', 'welcome_kit_ppip_pemberi_kerja', 'welcome_kit_ppip_mandiri', 'welcome_kit_ppukp'],
       temp: {
         id: undefined,
         subject: undefined,
         htmlBody: undefined,
         textBody: undefined,
-        type: 'welcome_kit_ppukp'
+        type: undefined
       },
       attachments: undefined,
       dialogFormVisible: false,
@@ -109,7 +116,7 @@ export default {
         subject: undefined,
         htmlBody: undefined,
         textBody: undefined,
-        type: 'welcome_kit_ppukp'
+        type: undefined
       }
     },
     handleCreate() {

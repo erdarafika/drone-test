@@ -201,7 +201,8 @@ export default {
     attachments: 'Lampiran',
     subject: 'Judul',
     selectFile: 'Pilih Berkas',
-    name: 'Nama Lampiran'
+    name: 'Nama Lampiran',
+    type: 'Jenis Transaksi Email'
   },
   feeType: {
     name: 'Nama',

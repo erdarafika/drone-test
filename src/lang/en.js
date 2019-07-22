@@ -201,7 +201,8 @@ export default {
     attachments: 'Attachments',
     subject: 'Subject',
     selectFile: 'Select File',
-    name: 'Attachment Name'
+    name: 'Attachment Name',
+    type: 'Mail Transaction Type'
   },
   feeType: {
     name: 'Name',
