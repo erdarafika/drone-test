@@ -10,9 +10,9 @@ app-container
     el-table-column(:label="$t('emailConfig.subject')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.subject }}
-    el-table-column(:label="$t('table.createdDate')", fixed-width align='left', width='200')
-      template(slot-scope='scope')
-        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    //- el-table-column(:label="$t('table.createdDate')", fixed-width align='left', width='200')
+    //-   template(slot-scope='scope')
+    //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding', width='250')
       template(slot-scope='{row}')
         el-button(type='primary', size='mini', @click='handleUpdate(row)' v-crud-permission="['maker']")

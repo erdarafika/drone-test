@@ -33,7 +33,7 @@ export default {
           name: 'LocationCountry',
           component: () => import('@/views/master/location/Country'),
           meta: {
-            title: 'locationCountry',
+            title: 'location',
             pensionMenu: 'location'
           },
           hidden: true
@@ -43,7 +43,7 @@ export default {
           name: 'LocationProvince',
           component: () => import('@/views/master/location/Province'),
           meta: {
-            title: 'locationProvince',
+            title: 'location',
             pensionMenu: 'location'
           },
           hidden: true
@@ -53,7 +53,7 @@ export default {
           name: 'LocationCity',
           component: () => import('@/views/master/location/City'),
           meta: {
-            title: 'locationCity',
+            title: 'location',
             pensionMenu: 'location'
           },
           hidden: true
