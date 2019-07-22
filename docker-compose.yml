@@ -1,31 +1,21 @@
-version: "3.3"
+version: '3.7'
+
 services:
- staging:
-    image: cccweb
-    environment:
-      - SET_CONTAINER_TIMEZONE=true
-      - CONTAINER_TIMEZONE=Asia/Jakarta
-    # ports:
-    #   - "8001:80"
-    labels:
-      - traefik.enable=true
-      - traefik.frontend.rule=Host:codecoffeecreative.com
-      - traefik.port=80
-      - traefik.tags=traefik-public
-      - traefik.docker.network=appnet
-      # Traefik service that listens to HTTP
-      - traefik.redirectorservice.frontend.entryPoints=http
-      - traefik.redirectorservice.frontend.redirect.entryPoint=https
-      # Traefik service that listens to HTTPS
-      - traefik.webservice.frontend.entryPoints=https
+
+  dplk-webapp:
+    image: dplk-webapp
+    networks:
+      - appnet
+    ports:
+      - '8002:80'
     deploy:
-        restart_policy:
-          condition: on-failure
-        placement:
-          constraints:
-            - node.hostname == ccc
-            
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.hostname == pensiuncore
+
 networks:
-  webgateway:
+  appnet:
     driver: overlay
     external: true
