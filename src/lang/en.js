@@ -278,7 +278,7 @@ export default {
     unavailableMessage: 'All Status is UNAVAILABLE'
   },
   unitPrice: {
-    fundName: 'Fund Name',
+    fundName: 'Investment Name',
     effectiveDate: 'Effective Date',
     price: 'Price',
     status: 'Status'

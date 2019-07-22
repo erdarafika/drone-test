@@ -278,7 +278,7 @@ export default {
     unavailableMessage: 'Semua Status adalah UNAVAILABLE'
   },
   unitPrice: {
-    fundName: 'Nama Dana',
+    fundName: 'Nama Investasi',
     effectiveDate: 'Tanggal Efektif',
     price: 'Harga',
     status: 'Status'

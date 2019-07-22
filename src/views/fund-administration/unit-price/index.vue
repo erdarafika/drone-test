@@ -27,15 +27,15 @@ app-container
     el-table-column(:label="$t('unitPrice.fundName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.investmentType.name }}
+    el-table-column(:label="$t('unitPrice.effectiveDate')", align='left' width="150")
+      template(slot-scope='scope')
+        span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('unitPrice.price')", align='left' width="130")
       template(slot-scope='scope')
         span {{ scope.row.price }}
     el-table-column(:label="$t('unitPrice.status')", align='left' width="130")
       template(slot-scope='scope')
         span {{ scope.row.status }}
-    el-table-column(:label="$t('unitPrice.effectiveDate')", align='left' width="150")
-      template(slot-scope='scope')
-        span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('table.createdDate')", align='left' width="150")
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
