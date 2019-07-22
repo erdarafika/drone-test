@@ -6,3 +6,11 @@ export function fetchList() {
     method: 'get'
   })
 }
+
+export function updateStatus(data) {
+  return request({
+    url: `/fee/type/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}
