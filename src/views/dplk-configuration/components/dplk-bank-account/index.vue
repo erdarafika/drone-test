@@ -17,12 +17,12 @@ div
     el-table-column(:label="$t('dplkBankAccount.bank')", align='left',)
       template(slot-scope='scope')
         span {{ scope.row.bank.bankName }}
-    el-table-column(:label="$t('dplkBankAccount.bankBranch')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.branch.bankBranch  }}
-    el-table-column(:label="$t('dplkBankAccount.bankCountry')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.branch.country }}
+    //- el-table-column(:label="$t('dplkBankAccount.bankBranch')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.branch.bankBranch  }}
+    //- el-table-column(:label="$t('dplkBankAccount.bankCountry')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.branch.country }}
     el-table-column(:label="$t('table.createdDate')", align='left')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -184,7 +184,7 @@ export default {
         accountName: row.accountName,
         accountNumber: row.accountNumber,
         bankId: row.bank.id,
-        branchId: row.branch.id,
+        // branchId: row.branch.id,
         defaultBank: row.defaultBank
       } // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
