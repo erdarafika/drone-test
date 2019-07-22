@@ -186,7 +186,7 @@ export default {
       hidden: true,
       meta: {
         title: 'subBenefit',
-        pensionMenu: 'sub-benefit-type'
+        pensionMenu: 'benefit-type'
       }
     },
     // {
