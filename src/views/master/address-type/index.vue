@@ -19,13 +19,13 @@ app-container
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(:label="$t('table.status')", align='left')
-      template(slot-scope='scope')
-        span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
-          | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
+    //- el-table-column(:label="$t('table.status')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
+    //-       | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
-        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
+        //- Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
