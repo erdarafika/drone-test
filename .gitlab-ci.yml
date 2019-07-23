@@ -42,7 +42,7 @@ dockerize:
   only:
     - staging
   script:
-    - docker build -t dplk-webapp -f Dockerfile-staging .
+    - docker build --no-cache -t dplk-webapp -f Dockerfile-staging .
   dependencies:
     - build
 
