@@ -16,9 +16,6 @@ install_dependencies:
     - staging
   script:
     - npm install
-  only:
-    changes:
-      - package-lock.json
 
 build:
   stage: build
