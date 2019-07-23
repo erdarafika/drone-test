@@ -14,7 +14,7 @@ app-container
         el-form-item
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
-        el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label" :rules="[rules.requiredValidator, rules.numberValidator]")
+        el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
           el-input-number(v-model.number='domain.value' :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
           el-alert(v-if='domain.status' :title='domain.status', :type='unitPriceColor(domain.status)', show-icon :closable='false' style='display: initial; margin-left:20px')
       .dialog-footer(slot='footer')

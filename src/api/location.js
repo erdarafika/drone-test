@@ -1,36 +1,10 @@
 import request from '@/utils/request'
 
+// ---------------- COUNTRY Section
+
 export function fetchCountryList() {
   return request({
     url: '/master/country',
-    method: 'get'
-  })
-}
-
-export function fetchProvinceListById(countryId) {
-  return request({
-    url: `/master/country/${countryId}/province`,
-    method: 'get'
-  })
-}
-
-export function fetchCityListById({ countryId, provinceId }) {
-  return request({
-    url: `/master/country/${countryId}/province/${provinceId}/city`,
-    method: 'get'
-  })
-}
-
-export function fetchProvinceList(countryId) {
-  return request({
-    url: `/master/country/${countryId}/province`,
-    method: 'get'
-  })
-}
-
-export function fetchCityList(countryId, provinceId) {
-  return request({
-    url: `/master/country/${countryId}/province/${provinceId}/city`,
     method: 'get'
   })
 }
@@ -42,48 +16,12 @@ export function createCountry(data) {
     data
   })
 }
-export function createProvince({ name, countryId }) {
-  return request({
-    url: `/master/country/${countryId}/province`,
-    method: 'post',
-    data: {
-      name
-    }
-  })
-}
-export function createCity({ name, countryId, provinceId }) {
-  return request({
-    url: `/master/country/${countryId}/province/${provinceId}/city`,
-    method: 'post',
-    data: {
-      name
-    }
-  })
-}
 
 export function updateCountry(data) {
   return request({
     url: `/master/country/${data.id}`,
     method: 'post',
     data
-  })
-}
-export function updateProvince({ id, name, countryId }) {
-  return request({
-    url: `/master/country/${countryId}/province/${id}`,
-    method: 'post',
-    data: {
-      name
-    }
-  })
-}
-export function updateCity({ name, countryId, provinceId, id }) {
-  return request({
-    url: `/master/country/${countryId}/province/${provinceId}/city/${id}`,
-    method: 'post',
-    data: {
-      name
-    }
   })
 }
 
@@ -94,10 +32,46 @@ export function deleteCountry({ id }) {
   })
 }
 
-export function deleteProvince({ countryId, id }) {
+export function updateStatusCountry(data) {
   return request({
-    url: `/master/country/${countryId}/province/${id}`,
-    method: 'delete'
+    url: `/master/country/${data.id}/update-status`,
+    method: 'post',
+    data
+  })
+}
+
+// ---------------- CITY Section
+
+export function fetchCityListById({ countryId, provinceId }) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city`,
+    method: 'get'
+  })
+}
+export function fetchCityList(countryId, provinceId) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city`,
+    method: 'get'
+  })
+}
+
+export function createCity({ name, countryId, provinceId }) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city`,
+    method: 'post',
+    data: {
+      name
+    }
+  })
+}
+
+export function updateCity({ name, countryId, provinceId, id }) {
+  return request({
+    url: `/master/country/${countryId}/province/${provinceId}/city/${id}`,
+    method: 'post',
+    data: {
+      name
+    }
   })
 }
 
@@ -108,17 +82,61 @@ export function deleteCity({ countryId, provinceId, id }) {
   })
 }
 
-export function fetchProvince(id) {
+export function updateStatusCity(data) {
   return request({
-    url: '/province/detail',
-    method: 'get',
-    params: { id }
+    url: `/master/country/${data.countryId}/province/${data.provinceId}/city/${data.id}/update-status`,
+    method: 'post',
+    data
   })
 }
-export function fetchCountry(id) {
+
+// ---------------- PROVINCE Section
+
+export function fetchProvinceListById(countryId) {
   return request({
-    url: '/country/detail',
-    method: 'get',
-    params: { id }
+    url: `/master/country/${countryId}/province`,
+    method: 'get'
+  })
+}
+
+export function fetchProvinceList(countryId) {
+  return request({
+    url: `/master/country/${countryId}/province`,
+    method: 'get'
+  })
+}
+
+export function createProvince({ name, countryId }) {
+  return request({
+    url: `/master/country/${countryId}/province`,
+    method: 'post',
+    data: {
+      name
+    }
+  })
+}
+
+export function updateProvince({ id, name, countryId }) {
+  return request({
+    url: `/master/country/${countryId}/province/${id}`,
+    method: 'post',
+    data: {
+      name
+    }
+  })
+}
+
+export function deleteProvince({ countryId, id }) {
+  return request({
+    url: `/master/country/${countryId}/province/${id}`,
+    method: 'delete'
+  })
+}
+
+export function updateStatusProvince(data) {
+  return request({
+    url: `/master/country/${data.countryId}/province/${data.id}/update-status`,
+    method: 'post',
+    data
   })
 }

@@ -13,8 +13,9 @@ app-container
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
+    el-table-column(label='', align='right', class-name='small-padding fixed-width', width='200')
       template(slot-scope='{row}')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
         Detail(:data='row' :action='handleDetail')
@@ -33,7 +34,7 @@ app-container
 </template>
 
 <script>
-import { fetchCountryList, createCountry, updateCountry, deleteCountry } from '@/api/location'
+import { fetchCountryList, createCountry, updateCountry, deleteCountry, updateStatusCountry } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { alphabeticValidator, requiredValidator } from '@/global-function/formValidator'
 
@@ -73,6 +74,19 @@ export default {
     this.getList()
   },
   methods: {
+    handleUpdateStatus(row) {
+      const payload = {
+        id: row.id,
+        isActive: !row.isActive
+      }
+      updateStatusCountry(payload).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+          this.getList()
+        }
+        this.dialogFormVisible = false
+      })
+    },
     handleDetail(row) {
       this.$router.push({ name: 'LocationProvince', params: { id: row.id }})
     },
