@@ -10,15 +10,8 @@ install_dependencies:
     - webapp
   only:
     - staging
-  cache: 
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    paths:
-      - node_modules/
   script:
-    - npm ci
-  only:
-    changes:
-      - package-lock.json
+    - npm install
 
 build:
   stage: build
