@@ -37,7 +37,7 @@ build:
     paths:
       - build
 
-assemble:
+dockerize:
   environment: staging
   stage: dockerize
   tags:
@@ -47,7 +47,7 @@ assemble:
   script:
     - docker build -t dplk-webapp -f Dockerfile-staging .
 
-deploy_staging_to_swarm:
+swarmit:
   environment: staging
   stage: swarmit
   tags:
