@@ -199,7 +199,7 @@ export default {
     editTemplate: 'Edit Template',
     template: 'Template',
     attachments: 'Attachments',
-    subject: 'Subject',
+    subject: 'Mail Transaction',
     selectFile: 'Select File',
     name: 'Attachment Name',
     type: 'Mail Transaction Type'

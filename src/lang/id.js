@@ -199,7 +199,7 @@ export default {
     editTemplate: 'Ubah Templat',
     template: 'Templat',
     attachments: 'Lampiran',
-    subject: 'Judul',
+    subject: 'Transaksi Email',
     selectFile: 'Pilih Berkas',
     name: 'Nama Lampiran',
     type: 'Jenis Transaksi Email'
