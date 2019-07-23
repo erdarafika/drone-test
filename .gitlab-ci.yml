@@ -1,14 +1,58 @@
 stages:
-  - staging
+  - install_dependencies
+  - build
+  - dockerize
+  - swarmit
 
-staging:
+install_dependencies:
+  stage: install_dependencies
+  tags:
+    - webapp
+  only:
+    - staging
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+  only:
+    changes:
+      - package-lock.json
+
+build:
+  stage: build
+  tags:
+    - webapp
+  only:
+    - staging
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - npm run build:stage
+  artifacts:
+    paths:
+      - build
+
+assemble:
   environment: staging
-  stage: staging
+  stage: dockerize
   tags:
     - webapp
   only:
     - staging
   script:
     - docker build -t dplk-webapp -f Dockerfile-staging .
-    - docker stack rm dplk-webapp
+
+deploy_staging_to_swarm:
+  environment: staging
+  stage: swarmit
+  tags:
+    - webapp
+  only:
+    - staging
+  script:
     - docker stack deploy -c docker-compose.yml dplk-webapp
