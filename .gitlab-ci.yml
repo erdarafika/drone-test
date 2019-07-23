@@ -4,6 +4,11 @@ stages:
   - dockerize
   - swarmit
 
+cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+
 install_dependencies:
   stage: install_dependencies
   tags:
@@ -11,7 +16,10 @@ install_dependencies:
   only:
     - staging
   script:
-    - npm install
+    - npm ci
+  only:
+    changes:
+      - package-lock.json
 
 build:
   stage: build
