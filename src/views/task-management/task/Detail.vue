@@ -45,13 +45,13 @@ app-container
 
 <script>
 import { fetchTask, approveTask, rejectTask } from '@/api/task-management'
-import approverCompany from '@/views/client-administration/company/detail'
+import approveCompany from '@/views/client-administration/company/detail'
 import approveInvestmentType from '@/views/fund-administration/investment-type/Detail'
 import approveUnitPrice from '@/views/fund-administration/unit-price/Detail'
 import { camelCase } from 'lodash/string'
 
 export default {
-  components: { approverCompany, approveInvestmentType, approveUnitPrice },
+  components: { approveCompany, approveInvestmentType, approveUnitPrice },
   data() {
     return {
       temp: {
