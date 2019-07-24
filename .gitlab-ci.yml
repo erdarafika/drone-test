@@ -1,57 +1,79 @@
 stages:
-  - install_dependencies
-  - build
-  - dockerize
-  - swarmit
+  - staging
+  - deploy_to_prod
 
-install_dependencies:
-  stage: install_dependencies
-  cache: 
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    paths:
-      - node_modules/
+deploy_to_staging:
+  stage: staging
   tags:
     - webapp
   only:
     - staging
   script:
-    - npm install
-
-build:
-  stage: build
-  tags:
-    - webapp
-  only:
-    - staging
-  cache: 
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    paths:
-      - node_modules/
-    policy: pull
-  script:
-    - npm run build:stage
-  artifacts:
-    paths:
-      - dist
-
-dockerize:
-  environment: staging
-  stage: dockerize
-  tags:
-    - webapp
-  only:
-    - staging
-  script:
-    - docker build --no-cache -t dplk-webapp -f Dockerfile-staging .
-  dependencies:
-    - build
-
-swarmit:
-  environment: staging
-  stage: swarmit
-  tags:
-    - webapp
-  only:
-    - staging
-  script:
+    - docker build -t dplk-webapp -f Dockerfile-staging .
+    - docker stack rm dplk-webapp
     - docker stack deploy -c docker-compose.yml dplk-webapp
+
+click_to_deploy_to_prod:
+  stage: deploy_to_prod
+  script:
+    - node -v
+  when: manual
+  allow_failure: false
+
+# stages:
+#   - install_dependencies
+#   - build
+#   - dockerize
+#   - swarmit
+
+# install_dependencies:
+#   stage: install_dependencies
+#   cache: 
+#     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+#     paths:
+#       - node_modules/
+#   tags:
+#     - webapp
+#   only:
+#     - staging
+#   script:
+#     - npm install
+
+# build:
+#   stage: build
+#   tags:
+#     - webapp
+#   only:
+#     - staging
+#   cache: 
+#     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+#     paths:
+#       - node_modules/
+#     policy: pull
+#   script:
+#     - npm run build:stage
+#   artifacts:
+#     paths:
+#       - dist
+
+# dockerize:
+#   environment: staging
+#   stage: dockerize
+#   tags:
+#     - webapp
+#   only:
+#     - staging
+#   script:
+#     - docker build --no-cache -t dplk-webapp -f Dockerfile-staging .
+#   dependencies:
+#     - build
+
+# swarmit:
+#   environment: staging
+#   stage: swarmit
+#   tags:
+#     - webapp
+#   only:
+#     - staging
+#   script:
+#     - docker stack deploy -c docker-compose.yml dplk-webapp
