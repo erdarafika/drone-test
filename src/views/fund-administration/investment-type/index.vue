@@ -58,7 +58,7 @@
 
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
-// import { fetchList as fetchTaskList } from '@/api/task-management'
+import { fetchList as fetchTaskList } from '@/api/task-management'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
 import rules from './validation-rules'
 
@@ -182,6 +182,11 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
+
+      fetchTaskList().then(res => {
+        console.log(res, row)
+      })
+
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })

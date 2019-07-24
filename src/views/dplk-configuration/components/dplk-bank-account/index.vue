@@ -17,12 +17,9 @@ div
     el-table-column(:label="$t('dplkBankAccount.bank')", align='left',)
       template(slot-scope='scope')
         span {{ scope.row.bank.bankName }}
-    //- el-table-column(:label="$t('dplkBankAccount.bankBranch')", align='left')
-    //-   template(slot-scope='scope')
-    //-     span {{ scope.row.branch.bankBranch  }}
-    //- el-table-column(:label="$t('dplkBankAccount.bankCountry')", align='left')
-    //-   template(slot-scope='scope')
-    //-     span {{ scope.row.branch.country }}
+    el-table-column(:label="$t('dplkBankAccount.bankBranch')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.branchName  }}
     el-table-column(:label="$t('table.createdDate')", align='left')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -50,9 +47,8 @@ div
       el-form-item(:label="$t('dplkBankAccount.bank')", prop='bankId')
         el-select(v-model='temp.bankId', name='bankId' placeholder='Select', filterable, default-first-option @change='getBranchOptions')
           el-option(v-for='item in bankOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('dplkBankAccount.bankBranch')", prop='branchId')
-        el-select(v-model='temp.branchId', name='branchId' placeholder='Select', filterable, default-first-option :disabled="temp.bankId === undefined")
-          el-option(v-for='item in bankBranchOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('dplkBankAccount.bankBranch')", prop='branchName')
+        el-input(v-model.number='temp.branchName',  name='branchName' type='input')
       el-form-item(:label="$t('table.setDefault')" prop="isCompanyAddress")
         el-switch(v-model='temp.defaultBank'  name='defaultBank')
         span.switch-status {{ temp.defaultBank?'Default':'not Default' }}
@@ -66,7 +62,7 @@ div
 
 <script>
 import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBankAccount, updateStatusDplkBankAccount } from '@/api/dplk-bank-account'
-import { fetchList as fetchBankList, fetchBranch } from '@/api/bank'
+import { fetchList as fetchBankList } from '@/api/bank'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import rules from './validation-tules'
@@ -85,12 +81,11 @@ export default {
         limit: 20
       },
       bankOptions: [],
-      bankBranchOptions: [],
       temp: {
         accountName: undefined,
         accountNumber: undefined,
         bankId: undefined,
-        branchId: undefined,
+        branchName: undefined,
         defaultBank: false
       },
       dialogFormVisible: false,
@@ -126,12 +121,6 @@ export default {
         this.dialogFormVisible = false
       })
     },
-    getBranchOptions() {
-      const bankId = this.temp.bankId
-      fetchBranch(bankId).then(res => {
-        this.bankBranchOptions = res.map(branch => ({ value: branch.id, label: branch.bankBranch }))
-      })
-    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
@@ -152,7 +141,7 @@ export default {
         accountName: undefined,
         accountNumber: undefined,
         bankId: undefined,
-        branchId: undefined,
+        branchName: undefined,
         defaultBank: false
       }
     },
@@ -184,7 +173,7 @@ export default {
         accountName: row.accountName,
         accountNumber: row.accountNumber,
         bankId: row.bank.id,
-        // branchId: row.branch.id,
+        branchName: row.branchName,
         defaultBank: row.defaultBank
       } // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
