@@ -15,6 +15,10 @@ deploy_to_staging:
 
 click_to_deploy_to_prod:
   stage: deploy_to_prod
+  tags:
+    - webapp
+  only:
+    - staging
   script:
     - node -v
   when: manual
