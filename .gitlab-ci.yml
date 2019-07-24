@@ -1,9 +1,8 @@
 stages:
-  - staging
-  # - deploy_to_prod
+  - deploy
 
 deploy_to_staging:
-  stage: staging
+  stage: deploy
   tags:
     - webapp
   only:
@@ -13,16 +12,15 @@ deploy_to_staging:
     - docker stack rm dplk-webapp
     - docker stack deploy -c docker-compose.yml dplk-webapp
 
-# click_to_deploy_to_prod:
-#   stage: deploy_to_prod
-#   tags:
-#     - webapp
-#   only:
-#     - staging
-#   script:
-#     - node -v
-#   when: manual
-#   allow_failure: false
+deploy_to_prod:
+  stage: deploy
+  tags:
+    - webapp
+  only:
+    - master
+  script:
+    - node -v
+
 
 # stages:
 #   - install_dependencies
