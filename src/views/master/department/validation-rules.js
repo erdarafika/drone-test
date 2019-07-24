@@ -3,5 +3,5 @@ import { alphanumericValidator, alphabeticValidator, requiredValidator } from '@
 export default {
   code: [requiredValidator, alphanumericValidator],
   name: [requiredValidator, alphabeticValidator],
-  description: [alphabeticValidator]
+  description: [requiredValidator, alphabeticValidator]
 }
