@@ -2,6 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 import request from '@/utils/request'
 
+const authUrl = process.env.VUE_APP_BASE_API.replace('/v1', '')
+
 export function loginOauth2({ username, password }) {
   const data = qs.stringify({
     username,
@@ -15,7 +17,7 @@ export function loginOauth2({ username, password }) {
   }
 
   return axios.post(
-    'http://api.pensioncore.com/oauth/token',
+    `${authUrl}/oauth/token`,
     data,
     {
       headers: {
@@ -29,6 +31,14 @@ export function getInfo(token) {
   return request({
     url: '/user/me',
     method: 'get'
+  })
+}
+
+export function updatePassword(data) {
+  return request({
+    url: '/user/me/change-password',
+    method: 'post',
+    data
   })
 }
 

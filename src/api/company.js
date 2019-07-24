@@ -14,6 +14,13 @@ export function fetchCompany(id) {
   })
 }
 
+export function approveCompany(id) {
+  return request({
+    url: `/company/${id}/request-approval`,
+    method: 'post'
+  })
+}
+
 export function createCompany(data) {
   return request({
     url: '/company',

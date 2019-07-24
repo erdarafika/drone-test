@@ -1,12 +1,12 @@
 <template lang="pug">
-app-container
+app-container(:show='!objectId')
   template(v-slot:header-left)
     Back(:action="()=> { $router.push({name: 'Company'}) }")
   template(v-slot:header)
     .action-button(v-if='!dialogIsDetail')
-      el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()")
+      el-button.save(size='small' @click="dialogNotCreate ? updateData() : createData()" v-crud-permission="['maker']")
         | {{ $t('table.save') }}
-      RequestApproval(:callback="requestApproval")
+      RequestApproval(:callback="requestApproval" v-if='temp.status && (temp.status === "draft" || temp.status === "rejected" ) ' v-crud-permission="['maker']")
 
   el-tabs(type='border-card' v-model='activeTab')
     el-tab-pane(label='Information' name='Information')
@@ -93,17 +93,19 @@ app-container
 </style>
 
 <script>
-import { fetchCompany as fetchRecord, createCompany, updateCompany } from '@/api/company'
+import { fetchCompany as fetchRecord, createCompany, updateCompany, approveCompany } from '@/api/company'
 import { fetchList as fetchBusinessLine } from '@/api/business-line'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import Address from './components/address'
 import ContactPerson from './components/contactPerson'
 import BankAccount from './components/bankAccount'
-import { requiredValidator, emailValidator } from '@/global-function/formValidator'
+
+import rules from './validation-rules'
 
 export default {
   name: 'Company',
   components: { Pagination, Address, ContactPerson, BankAccount },
+  props: ['objectId'],
   data() {
     return {
       activeTab: 'Information',
@@ -152,36 +154,7 @@ export default {
         isDraft: 1
       },
       dialogStatus: 'create',
-      rules: {
-        name: [requiredValidator],
-        code: [],
-        email: [emailValidator],
-        website: [],
-        businessLineId: [],
-        businessEntity: [],
-        npwp: [],
-        deedEstablishmentNumber: [],
-        articleAssociationNumber: [],
-        latestAmendmentArticleAssociationNumber: [],
-        companyNumberRegistrationNumber: [],
-        domicilieCertificateNumber: [],
-
-        domicilieCertificateNumberExpiredDate: [],
-        deedEstablishmentDate: [],
-        articleAssociationDate: [],
-        latestAmendmentArticleAssociationDate: [],
-        companyNumberRegistrationExpiredDate: [],
-
-        asset: [],
-        grossIncomePerYear: [],
-        pensionProgramSubmissionPurpose: [],
-        moneySource: [],
-
-        office: [],
-        office2: [],
-        fax: [],
-        home: []
-      }
+      rules
     }
   },
   computed: {
@@ -195,18 +168,28 @@ export default {
   created() {
     this.resetTemp()
     this.dialogStatus = this.$route.params.action
-
-    if ('id' in this.$route.query) {
-      this.temp.id = this.$route.query.id
+    if (this.objectId) {
+      this.temp.id = this.objectId
       this.getRecord()
+    } else {
+      if ('id' in this.$route.query) {
+        this.temp.id = this.$route.query.id
+        this.getRecord()
+      }
     }
+
     fetchBusinessLine().then(res => {
       this.businessLineOptions = res.map(businessLine => ({ value: businessLine.id, label: businessLine.name }))
     })
   },
   methods: {
     requestApproval() {
-      console.log('Request Approval')
+      approveCompany(this.temp.id).then(response => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+        }
+        this.$router.push({ name: 'Company' })
+      })
     },
     reFormatDate(date) {
       if (!date) { return null }

@@ -3,7 +3,7 @@
 div
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
@@ -37,8 +37,8 @@ div
         //- el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" )
         //-   | {{ $t('dplkAddress.setDefault')  }}
 
-        Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
+        Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
@@ -61,7 +61,7 @@ div
         el-select(v-model='temp.cityId', name='cityId'  placeholder='Select', filterable, default-first-option  :disabled='temp.provinceId === undefined')
           el-option(v-for='item in cityOptions', :key='item.value', :label='item.label', :value='item.value')
 
-    .dialog-footer(slot='footer')
+    .dialog-footer(slot='footer' )
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")

@@ -36,3 +36,10 @@ export function deleteGroupMaintanance(data) {
     method: 'delete'
   })
 }
+
+export function approveGroupMaintanance(id) {
+  return request({
+    url: `/company/group/${id}/request-approval`,
+    method: 'post'
+  })
+}

@@ -20,7 +20,7 @@ div
     el-form-item(:label="$t('groupWithdrawal.earlyRetireAge')" prop="earlyRetireAge")
       el-input-number(v-model.number='groupWithdrawal.earlyRetireAge' :min="30" name='earlyRetireAge')
 
-    el-form-item
+    el-form-item(v-crud-permission="['maker']")
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
 
 </template>

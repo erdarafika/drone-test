@@ -72,3 +72,10 @@ export function fetchUnitPriceList() {
     method: 'get'
   })
 }
+
+export function fetchUnitPrice(id) {
+  return request({
+    url: `/portfolio/daily-unit-price/${id}`,
+    method: 'get'
+  })
+}

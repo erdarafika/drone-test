@@ -2,8 +2,8 @@
 el-popover(placement='left', width='100', v-model='visible')
   p  {{ $t('message.requestApprovalConfirm') }}
   div(style='text-align: right; margin: 0')
-    el-button(size='mini', type='text', @click='visible = false') {{ $t('message.no') }}
-    el-button(type='primary', size='mini', @click='handleAction') {{ $t('message.yes') }}
+    el-button.yesButton(size='mini', type='text', @click='visible = false') {{ $t('message.no') }}
+    el-button.noButton(type='primary', size='mini', @click='handleAction') {{ $t('message.yes') }}
   el-button(slot='reference' size='small' type='primary')
     | {{ $t('table.approve') }}
 </template>

@@ -7,7 +7,7 @@ export function fetchList() {
   })
 }
 
-export function fetchUser(id) {
+export function fetchRecord(id) {
   return request({
     url: `/user/${id}`,
     method: 'get'
@@ -22,9 +22,9 @@ export function createUser(data) {
   })
 }
 
-export function updateUserMenu(data) {
+export function updateUserPrivileges(data) {
   return request({
-    url: `/user/${data.id}/update-menu/`,
+    url: `/user/${data.id}/update-previleges`,
     method: 'post',
     data
   })
@@ -32,14 +32,14 @@ export function updateUserMenu(data) {
 
 export function disableUser(data) {
   return request({
-    url: `/user/${data.id}/disable-user/`,
+    url: `/user/${data.id}/disable-user`,
     method: 'post'
   })
 }
 
-export function updateUserRole(data) {
+export function resetUserPassword(data) {
   return request({
-    url: `/user/${data.id}/update-role/`,
+    url: `/user/${data.id}/reset-password`,
     method: 'post',
     data
   })

@@ -3,32 +3,39 @@
   app-container
     .filter-container
       el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-      el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+      el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
         | {{ $t('table.add') }}
 
     el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
       el-table-column(:label="$t('investmentType.fundName')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.name }}
-      el-table-column(:label="$t('investmentType.code')", align='left', width='120')
+      el-table-column(:label="$t('investmentType.code')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.code }}
-      el-table-column(:label="$t('investmentType.status')", align='left', width='120')
+      el-table-column(:label="$t('investmentType.description')", align='left')
+        template(slot-scope='scope')
+          span {{ scope.row.description }}
+      el-table-column(:label="$t('investmentType.status')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.status  }}
-      el-table-column(:label="$t('investmentType.lastPrice')", align='left', width='120')
-        template(slot-scope='scope')
-          span {{ scope.row.lastPrice  }}
-      el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
-        template(slot-scope='scope')
-          span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
-      el-table-column(:label="$t('table.createdDate')", align='left')
-        template(slot-scope='scope')
-          | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+      //- el-table-column(:label="$t('table.createdBy')", align='left')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.created_by  }}
+      //- //- el-table-column(:label="$t('investmentType.lastPrice')", align='left')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.lastPrice  }}
+      //- el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
+      //-   template(slot-scope='scope')
+      //-     span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
+      //- el-table-column(:label="$t('table.createdDate')", align='left')
+      //-   template(slot-scope='scope')
+      //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
-          Edit(:data='row' :action='handleUpdate')
-          Delete(:data='row' :action='handleDelete')
+          Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" v-if='row.status === "rejected"')
+          Detail(:data='row' :action='handleDetail')
+          //- Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -36,21 +43,22 @@
           el-input(v-model='temp.name',  name='name' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-form-item(:label="$t('investmentType.code')", prop='code')
           el-input(v-model.number='temp.code',  name='code' type='input')
-        el-form-item(:label="$t('investmentType.description')")
+        el-form-item(:label="$t('investmentType.description')" prop='description')
           el-input(v-model='temp.description',  name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
 
       .dialog-footer(slot='footer')
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+          | {{ $t('table.requestApproval') }}
 
-        RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"')
+        RequestApproval(:callback="requestApproval" v-if='"status" in this.temp && this.temp.status === "draft"' v-crud-permission="['maker']")
 
   </template>
 
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
+// import { fetchList as fetchTaskList } from '@/api/task-management'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
 import rules from './validation-rules'
 
@@ -99,8 +107,12 @@ export default {
     this.getList()
   },
   methods: {
-    requestApproval() {
-      approveInvestmentType(this.temp.id).then(res => {
+    handleDetail(row) {
+      this.$router.push({ name: 'InvestmentTypeDetail', params: { action: 'detail' }, query: { id: row.id }})
+    },
+    requestApproval(id) {
+      const payoad_id = id || this.temp.id
+      approveInvestmentType(payoad_id).then(res => {
         this.successNotifier()
         this.getList()
         this.dialogFormVisible = false
@@ -118,7 +130,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList().then(response => {
-        this.list = response
+        this.list = response.filter(item => item.status !== 'draft') // TODO: Remove Filter after backend fo filter
         this.total = response.length
         this.listLoading = false
       })
@@ -156,8 +168,10 @@ export default {
         if (valid) {
           createInvestmentType(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
+              this.requestApproval(response.id).then(res => {
+                this.successNotifier()
+                this.getList()
+              })
             }
             this.dialogFormVisible = false
           })
@@ -176,11 +190,13 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateInvestmentType(this.temp).then((response) => {
-            this.dialogFormVisible = false
-            if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
-            }
+            approveInvestmentType(this.temp.id).then(res => {
+              this.dialogFormVisible = false
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.successNotifier()
+                this.getList()
+              }
+            })
           })
         }
       })

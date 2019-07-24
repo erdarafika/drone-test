@@ -1,7 +1,7 @@
-import { requiredValidator, alphanumericLineValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphanumericLineValidator, alphabeticValidator } from '@/global-function/formValidator'
 
 export default {
-  name: [requiredValidator],
+  name: [requiredValidator, alphabeticValidator],
   code: [requiredValidator, alphanumericLineValidator],
-  description: []
+  description: [requiredValidator, alphabeticValidator]
 }

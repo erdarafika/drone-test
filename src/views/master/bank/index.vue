@@ -3,21 +3,24 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
     el-button.filter-item(:loading='downloadLoading', style='margin-left:10px;float:right', type='primary', @click='handleDownload' size="mini")
       | {{ $t('table.export') }} Excel
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
+    el-table-column(:label="$t('bank.code')", align='left', width='180')
+      template(slot-scope='scope')
+        span {{ scope.row.code }}
     el-table-column(:label="$t('bank.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.bankName }}
-    el-table-column(:label="$t('bank.swiftCode')", align='left', width='180')
-      template(slot-scope='scope')
-        span {{ scope.row.swiftCode }}
     el-table-column(:label="$t('bank.transferCode')", align='left', width='180')
       template(slot-scope='scope')
         span {{ scope.row.transferCode }}
+    el-table-column(:label="$t('bank.swiftCode')", align='left', width='180')
+      template(slot-scope='scope')
+        span {{ scope.row.swiftCode }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -27,8 +30,8 @@ app-container
           | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
-        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
-        Edit(:data='row' :action='handleUpdate')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         //- Delete(:data='row' :action='handleDelete')
         Detail(:data='row' :action='handleView')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
@@ -36,6 +39,8 @@ app-container
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('bank.name')", prop='bankName')
         el-input(v-model='temp.bankName', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='bankName')
+      el-form-item(:label="$t('bank.code')", prop='code')
+        el-input(v-model='temp.code', type='input' name='code')
       el-form-item(:label="$t('bank.swiftCode')", prop='swiftCode')
         el-input(v-model='temp.swiftCode', type='input' name='swiftCode')
       el-form-item(:label="$t('bank.transferCode')", prop='transferCode')
@@ -74,7 +79,8 @@ export default {
       temp: {
         bankName: undefined,
         swiftCode: undefined,
-        transferCode: undefined
+        transferCode: undefined,
+        code: undefined
       },
       viewData: null,
       dialogFormVisible: false,
@@ -128,7 +134,8 @@ export default {
       this.temp = {
         bankName: undefined,
         swiftCode: undefined,
-        transferCode: undefined
+        transferCode: undefined,
+        code: undefined
       }
     },
     handleCreate() {

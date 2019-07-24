@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  dplk-webapp:
+    image: dplk-webapp
+    networks:
+      - webgateway
+    ports:
+      - '8002:8002'
+    deploy:
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.hostname == pensiuncore
+      labels:
+          - traefik.frontend.rule=Host:staging.pensioncore.com
+          - traefik.enable=true
+          - traefik.port=8002
+          - traefik.tags=traefik-public
+          - traefik.docker.network=webgateway
+          # Traefik service that listens to HTTP
+          - traefik.redirectorservice.frontend.entryPoints=http
+          - traefik.redirectorservice.frontend.redirect.entryPoint=https
+          # Traefik service that listens to HTTPS
+          - traefik.webservice.frontend.entryPoints=https
+
+networks:
+  webgateway:
+    driver: overlay
+    external: true

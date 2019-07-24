@@ -3,7 +3,7 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;', @keyup.native='handleFilter')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
@@ -21,9 +21,9 @@ app-container
         | {{ scope.row.created_at  | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding', width='220')
       template(slot-scope='{row}')
-        Edit(:data='row' :action='handleUpdate')
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         //- Delete(:data='row' :action='handleDelete')
-        Detail(:data='row' :action='handleView')
+        Detail(:data='row' :action='handleView' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')

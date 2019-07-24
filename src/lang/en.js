@@ -15,6 +15,9 @@ export default {
     page404: '404',
     documentMatrix: 'Document Matrix',
     location: 'Location',
+    // locationCountry: 'Country',
+    // locationProvince: 'Province',
+    // locationCity: 'City',
     tolerance: 'Tolerance',
     emailConfig: 'Email Config',
     feeType: 'Fee Type',
@@ -41,16 +44,24 @@ export default {
     moneySource: 'Money Source',
     clientAdministration: 'Client Administration',
     company: 'Company Maintenance',
-    userManagement: 'User Management',
     groupMaintenance: 'Group Maintenance',
+    memberMaintenance: 'Member Maintenance',
+    userManagement: 'User Management',
     importData: 'Import Data',
     importExcel: 'Import Excel',
-    taskManagement: 'Task Management'
+    taskManagement: 'Task Management',
+    config: 'Pengaturan'
   },
   // GLOBAL
   validatorMessage: {
     isRequired: 'is required',
     isNumber: 'must be number'
+  },
+  config: {
+    general: 'General',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    currentPassword: 'Current Password'
   },
   navbar: {
     notification: 'Notification',
@@ -66,14 +77,17 @@ export default {
       medium: 'medium',
       small: 'small',
       mini: 'mini'
-    }
+    },
+    changePassword: 'Change Password'
   },
   message: {
+    confirm: 'Are You Sure ?',
     requestApprovalConfirm: 'Are You Sure ?',
     yes: 'Yes',
     no: 'No'
   },
   table: {
+    createdBy: 'Created By',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Back',
@@ -100,7 +114,8 @@ export default {
     cancelTitle: 'Operation Cancelled',
     searchPlaceholder: 'Find something',
     createdDate: 'Created Date',
-    setDefault: 'Set as Default'
+    setDefault: 'Set as Default',
+    history: 'History'
   },
   settings: {
     title: 'Page style setting',
@@ -184,9 +199,10 @@ export default {
     editTemplate: 'Edit Template',
     template: 'Template',
     attachments: 'Attachments',
-    subject: 'Subject',
+    subject: 'Mail Transaction',
     selectFile: 'Select File',
-    name: 'Attachment Name'
+    name: 'Attachment Name',
+    type: 'Mail Transaction Type'
   },
   feeType: {
     name: 'Name',
@@ -206,7 +222,8 @@ export default {
     branchAddress: 'Address',
     branchCountry: 'Country',
     codeName: 'Code Name',
-    status: 'Status'
+    status: 'Status',
+    code: 'Bank Code'
   },
   dplkBank: {
     accountName: 'Account Name',
@@ -251,7 +268,7 @@ export default {
     transactionType: 'Transaction Type'
   },
   investmentType: {
-    fundName: 'Fund Name',
+    fundName: 'Investment Name',
     code: 'Code',
     status: 'Status',
     effectiveDate: 'Effective Date',
@@ -263,7 +280,7 @@ export default {
     unavailableMessage: 'All Status is UNAVAILABLE'
   },
   unitPrice: {
-    fundName: 'Fund Name',
+    fundName: 'Investment Name',
     effectiveDate: 'Effective Date',
     price: 'Price',
     status: 'Status'
@@ -352,7 +369,9 @@ export default {
     authorities: 'Authorities',
     menu: 'Menu',
     updateMenu: 'Menu',
-    updateRole: 'Role'
+    updateRole: 'Role',
+    resetPassword: 'Reset Password',
+    taskManagementMessage: 'this field value is auto generated'
   },
   companyAddress: {
     addressType: 'Address Type',
@@ -423,6 +442,9 @@ export default {
     dplkBankId: 'DPLK Bank'
   },
   taskManagement: {
+    showApproved: 'Show Approved',
+    showRejected: 'Show Rejected',
+    reason: 'Reason',
     status: 'Status',
     issuer: 'Issuer',
     description: 'Description',

@@ -1,6 +1,8 @@
 
   <template lang="pug">
   app-container
+    template(v-slot:header-left)
+      Back(:action="()=> { $router.push({name: 'BenefitType'}) }")
     .filter-container
       el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
 

@@ -16,6 +16,9 @@ export default {
     page404: '404',
     documentMatrix: 'Matriks Dokumen',
     location: 'Lokasi',
+    // locationCountry: 'Negara',
+    // locationProvince: 'Provinsi',
+    // locationCity: 'Kota',
     tolerance: 'Toleransi',
     emailConfig: 'Pengaturan Email',
     feeType: 'Tipe Biaya',
@@ -43,15 +46,23 @@ export default {
     company: 'Pengelolaan Perusahaan',
     userManagement: 'Manajamen Pengguna',
     groupMaintenance: 'Pengelolaan Grup',
+    memberMaintenance: 'Pengelolaan Member',
     clientAdministration: 'Administrasi Klien',
     importData: 'Import Data',
     importExcel: 'Import Excel',
-    taskManagement: 'Manajemen Tugas'
+    taskManagement: 'Manajemen Tugas',
+    config: 'Pengaturan'
   },
   // GLOBAL
   validatorMessage: {
     isRequired: 'wajib diisi',
     isNumber: 'harus berupa angka'
+  },
+  config: {
+    general: 'Umum',
+    password: 'Password',
+    confirmPassword: 'Konfirmasi Password',
+    currentPassword: 'Password Sekarang'
   },
   navbar: {
     notification: 'Notifikasi',
@@ -67,7 +78,8 @@ export default {
       medium: 'sedang',
       small: 'kecil',
       mini: 'sangat kecil'
-    }
+    },
+    changePassword: 'Ubah Password'
   },
   message: {
     requestApprovalConfirm: 'Apa Anda Yakin ?',
@@ -75,6 +87,7 @@ export default {
     no: 'Tidak'
   },
   table: {
+    createdBy: 'Dibuat Oleh',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Halaman Sebelumnya',
@@ -101,7 +114,8 @@ export default {
     createdDate: 'Tanggal dibuat',
     setDefault: 'Atur sebagai Default',
     clientAdministration: 'Client Administration',
-    company: 'Company'
+    company: 'Company',
+    history: 'Riwayat'
   },
   settings: {
     title: 'Pengaturan Tampilan',
@@ -185,9 +199,10 @@ export default {
     editTemplate: 'Ubah Templat',
     template: 'Templat',
     attachments: 'Lampiran',
-    subject: 'Judul',
+    subject: 'Transaksi Email',
     selectFile: 'Pilih Berkas',
-    name: 'Nama Lampiran'
+    name: 'Nama Lampiran',
+    type: 'Jenis Transaksi Email'
   },
   feeType: {
     name: 'Nama',
@@ -207,7 +222,8 @@ export default {
     branchAddress: 'Alamat',
     branchCountry: 'Negara',
     codeName: 'Kode Nama',
-    bank: 'Bank'
+    bank: 'Bank',
+    code: 'Kode Bank'
   },
   dplkBank: {
     accountName: 'Nama Pemilik',
@@ -252,19 +268,19 @@ export default {
     transactionType: 'Jenis Transaksi'
   },
   investmentType: {
-    fundName: 'Nama Dana',
+    fundName: 'Nama Investasi',
     code: 'Kode',
     status: 'Status',
     effectiveDate: 'Tanggal Efektif',
     lastPrice: 'Harga Terakhir',
     addMultipleFundPrice: 'Tambah Semua Harga Dana',
-    description: 'Deskripri',
+    description: 'Deskripsi',
     pricing: 'Harga',
     price: 'Harga',
     unavailableMessage: 'Semua Status adalah UNAVAILABLE'
   },
   unitPrice: {
-    fundName: 'Nama Dana',
+    fundName: 'Nama Investasi',
     effectiveDate: 'Tanggal Efektif',
     price: 'Harga',
     status: 'Status'
@@ -353,7 +369,9 @@ export default {
     authorities: 'Otoritas',
     menu: 'Menu',
     updateMenu: 'Menu',
-    updateRole: 'Jabatan'
+    updateRole: 'Jabatan',
+    resetPassword: 'Setel Ulang Password',
+    taskManagementMessage: 'field ini akan terisi secara otomatis'
   },
   companyAddress: {
     addressType: 'Address Type',
@@ -427,6 +445,9 @@ export default {
     status: 'Status',
     issuer: 'Issuer',
     description: 'Deskripsi',
-    taskType: 'Tipe Tugas'
+    taskType: 'Tipe Tugas',
+    showApproved: 'Tampilkan Tersetejui',
+    showRejected: 'Tampilkan Tertolak',
+    reason: 'Alasan'
   }
 }

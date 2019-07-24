@@ -25,6 +25,7 @@ app-container
       template(slot-scope='{row}')
         //- Detail(:data='row' :action='handleDetail')
         Authorization(:data='row' :action='handleUpdatePrivileges')
+        SettingPassword(:data='row' :action='handleResetPassword')
         Terminate(:data='row' :action='handleDisable' v-show='row.enabled')
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
@@ -34,10 +35,6 @@ app-container
       el-form-item(:label="$t('user.staff')" prop='dplkStaffId')
         el-select(v-model='temp.dplkStaffId', name='dplkStaffId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in staffOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('user.password')" prop='password')
-        el-input(v-model.number='temp.password', name='password' type='password')
-      el-form-item(:label="$t('user.confirmPassword')" prop='confirmPassword')
-        el-input(v-model.number='temp.confirmPassword', name='confirmPassword' type='password')
       el-form-item(:label="$t('user.status')")
         el-switch(v-model='temp.enabled' name='enabled')
         span.switch-status {{ temp.enabled?'Active':'Not Active' }}
@@ -50,7 +47,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createUser, disableUser } from '@/api/user-management'
+import { fetchList, createUser, disableUser, resetUserPassword } from '@/api/user-management'
 import { fetchList as fetchStaffList } from '@/api/dplk-staff'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
@@ -94,9 +91,7 @@ export default {
     rules() {
       const message = 'this field is required'
       return {
-        dplkStaffId: [{ required: true, message }],
-        password: [{ required: true, message }],
-        confirmPassword: [{ required: true, message }]
+        dplkStaffId: [{ required: true, message }]
       }
     },
     filterredList() {
@@ -113,6 +108,14 @@ export default {
     })
   },
   methods: {
+    handleResetPassword(row) {
+      resetUserPassword(row).then((response) => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+          this.getList()
+        }
+      })
+    },
     handleUpdatePrivileges(row) {
       this.$router.push({ name: 'userPrivileges', query: { id: row.id }})
     },

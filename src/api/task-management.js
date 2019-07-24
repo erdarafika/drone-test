@@ -1,9 +1,11 @@
 import request from '@/utils/request'
 
-export function fetchList() {
+export function fetchList(query) {
+  console.log('query', query)
   return request({
     url: '/task',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -21,9 +23,10 @@ export function approveTask(id) {
   })
 }
 
-export function rejectTask(id) {
+export function rejectTask(data) {
   return request({
-    url: `/task/${id}/reject`,
-    method: 'patch'
+    url: `/task/${data.id}/reject`,
+    method: 'patch',
+    data
   })
 }

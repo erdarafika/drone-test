@@ -3,7 +3,7 @@
 app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
     el-button.filter-item(:loading='downloadLoading', style='margin-left:10px;float:right', type='primary', @click='handleDownload' size="mini")
       | {{ $t('table.export') }} Excel
@@ -24,9 +24,9 @@ app-container
     //-       | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
-        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive')
-        Edit(:data='row' :action='handleUpdate')
-        Delete(:data='row' :action='handleDelete')
+        Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
+        Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
@@ -45,7 +45,7 @@ app-container
 
 <script>
 import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine, updateStatusBusinessLine } from '@/api/business-line'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
 import rules from './validation-rules'
 
 export default {

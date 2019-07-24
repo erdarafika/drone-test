@@ -4,40 +4,38 @@ app-container
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;',)
     el-date-picker.filter-item(v-model='listQuery.date', type='date', placeholder='Pick a day' style='margin-left:  30px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
+    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :model='temp', label-position='top', label-width='200px', style='width: 80%; margin-left:50px;')
-        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="{required: true, message: 'this field is required', trigger: 'blur'}")
-          el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' )
+        el-form-item(:label="$t('investmentType.effectiveDate')", prop='effectiveDate' :rules="rules.requiredValidator")
+          el-date-picker(v-model='temp.effectiveDate', type='date', placeholder='Pick a date' :picker-options="pickerOptions" :editable='false')
         el-form-item
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
         el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
-          el-input(v-model='domain.value')
-            template(slot='prepend') {{$t('investmentType.price')}}
-        el-form-item
-          el-alert(:title="$t('investmentType.unavailableMessage')", type='info', show-icon)
+          el-input-number(v-model.number='domain.value' :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
+          el-alert(v-if='domain.status' :title='domain.status', :type='unitPriceColor(domain.status)', show-icon :closable='false' style='display: initial; margin-left:20px')
       .dialog-footer(slot='footer')
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
         el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
-          | {{ $t('table.confirm') }}
+          | {{ $t('table.requestApproval') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('unitPrice.fundName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.investmentType.name }}
+    el-table-column(:label="$t('unitPrice.effectiveDate')", align='left' width="150")
+      template(slot-scope='scope')
+        span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('unitPrice.price')", align='left' width="130")
       template(slot-scope='scope')
         span {{ scope.row.price }}
     el-table-column(:label="$t('unitPrice.status')", align='left' width="130")
       template(slot-scope='scope')
         span {{ scope.row.status }}
-    el-table-column(:label="$t('unitPrice.effectiveDate')", align='left' width="150")
-      template(slot-scope='scope')
-        span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('table.createdDate')", align='left' width="150")
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -47,7 +45,9 @@ app-container
 <script>
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
-import rules from './validation-rules'
+import { fetchList as fetchHoliday } from '@/api/holiday'
+import { requiredValidator, numberValidator } from '@/global-function/formValidator'
+// import rules from './validation-rules'
 
 export default {
   name: 'UnitPrice',
@@ -64,19 +64,24 @@ export default {
         q: undefined,
         date: undefined
       },
+      holiday: [],
       temp: {
         effectiveDate: undefined,
         data: []
       },
-      rules,
+      rules: {
+        requiredValidator,
+        numberValidator
+      },
       investmentTypePrice: [],
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      dateFormat: 'Do MMMM YYYY'
     }
   },
   computed: {
     filterredList() {
-      const dateFormat = 'Do MMMM YYYY'
+      const dateFormat = this.dateFormat
       const { q, limit, page, date } = this.listQuery
       const formattedDate = date ? this.$moment(date).format(dateFormat) : date
 
@@ -84,15 +89,54 @@ export default {
       listAfterSearch = listAfterSearch.filter(data => !date || this.$moment(data.effectiveDate).format(dateFormat) === formattedDate)
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
+    },
+    pickerOptions() {
+      const self = this
+      return {
+        disabledDate(time) {
+          const today = self.$moment().subtract(1, 'days')
+          const timeToMoment = self.$moment(time)
+          return timeToMoment.isAfter(today) || self.holiday.includes(self.$moment(time.getTime()).format(self.dateFormat))
+        }
+      }
+    }
+  },
+  watch: {
+    'temp.effectiveDate': function(newDate) {
+      newDate = this.$moment(newDate).format(this.dateFormat)
+
+      const matchUnitPriceDate = this.list.filter(item => this.$moment(item.effectiveDate).format(this.dateFormat) === newDate)
+
+      this.investmentTypePrice.map(itemPrice => {
+        const matchInvestmentType = matchUnitPriceDate.findIndex(item => item.investmentType.id === itemPrice.key)
+        if (matchInvestmentType !== -1) {
+          itemPrice.status = matchUnitPriceDate[matchInvestmentType].status.toUpperCase()
+          itemPrice.value = matchUnitPriceDate[matchInvestmentType].price
+        } else {
+          itemPrice.status = ''
+          itemPrice.value = 0
+        }
+        return itemPrice
+      })
     }
   },
   created() {
+    fetchHoliday().then(res => {
+      this.holiday = res.map(item => this.$moment(item.date).format(this.dateFormat))
+    })
     this.getInvestmentTypePrice()
     this.getList()
   },
   methods: {
+    unitPriceColor(status) {
+      status = status.toLowerCase()
+      if (status === 'pending') return 'warning'
+      if (status === 'active' || status === 'approved') return 'success'
+      if (status === 'rejected') return 'error'
+      return 'info'
+    },
     getInvestmentTypePrice() {
-      const DEFAULT_STATUS = 'UNAVAILABLE'
+      const DEFAULT_STATUS = ''
       fetchInvestmentTypeList().then(response => {
         this.investmentTypePrice = response.map(i => ({ label: i.name, key: i.id, value: 0, status: DEFAULT_STATUS }))
       })
@@ -128,8 +172,8 @@ export default {
         console.log('valid', valid)
         if (valid) {
           this.temp.effectiveDate = this.$moment(this.temp.effectiveDate).format('DD-MM-YYYY')
-
-          createUnitPrice({ effectiveDate: this.temp.effectiveDate, data: this.investmentTypePrice }).then((response) => {
+          const dataPayload = this.investmentTypePrice.filter(item => !item.status)
+          createUnitPrice({ effectiveDate: this.temp.effectiveDate, data: dataPayload }).then((response) => {
             console.log(response)
 
             // if (response[0].status_code >= 200 && response.status_code[0] <= 300) {

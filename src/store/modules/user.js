@@ -9,8 +9,10 @@ const state = {
   introduction: '',
   position: '',
   roles: [],
+  authorities: [],
   // crud_level: [],
-  menus: []
+  menus: [],
+  currentRoute: undefined
 }
 
 const mutations = {
@@ -19,6 +21,9 @@ const mutations = {
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
+  },
+  SET_CURRENT_ROUTE: (state, route) => {
+    state.currentRoute = route
   },
   // SET_CRUD_LEVEL(state, crud_level) {
   //   state.crud_level = crud_level
@@ -37,10 +42,16 @@ const mutations = {
   },
   SET_POSITION: (state, position) => {
     state.position = position
+  },
+  SET_AUTHORITIES: (state, authorities) => {
+    state.authorities = authorities
   }
 }
 
 const actions = {
+  setCurrentRoute({ commit }, route) {
+    commit('SET_CURRENT_ROUTE', route)
+  },
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
@@ -70,8 +81,22 @@ const actions = {
         const roles = [data.role]
         // const roles = data.authorities.map(item => item.role)
         const name = data.dplkStaff.name
-        const menus = data.authorities.map(item => item.menu)
+        // eslint-disable-next-line prefer-const
+        let menus = data.authorities.map(item => item.menu)
         const position = data.dplkStaff.department.name
+        let authorities = data.authorities
+
+        authorities = authorities.reduce(function(obj, item) {
+          obj[item.menu] = item.previleges.map(item => item.previlege)
+          return obj
+        }, {})
+
+        if (!menus.some(menu => menu === 'task-management')) {
+          if (Object.values(authorities).some(menu => menu.includes('approver'))) {
+            menus.push('task-management')
+          }
+        }
+
         // roles must be a non-empty array
         // if (!roles || roles.length <= 0) {
         //   reject('getInfo: roles must be a non-null array!')
@@ -82,6 +107,8 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_MENUS', menus)
         commit('SET_POSITION', position)
+        commit('SET_AUTHORITIES', authorities)
+
         // commit('SET_AVATAR', avatar)
         // commit('SET_INTRODUCTION', introduction)
         resolve({ name, roles, menus })
