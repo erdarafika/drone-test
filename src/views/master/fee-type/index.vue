@@ -8,13 +8,13 @@
       el-table-column(:label="$t('feeType.name')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.name }}
-      el-table-column(:label="$t('feeType.status')", align='left', width='180')
-        template(slot-scope='scope')
-          span(:class="scope.row.status === 'enable' ? 'label-enable' : 'label-disable'")
-            | {{ scope.row.status }}
-      el-table-column(:label="$t('table.createdDate')", align='left', width='200')
-        template(slot-scope='scope')
-          | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+      //- el-table-column(:label="$t('feeType.status')", align='left', width='180')
+      //-   template(slot-scope='scope')
+      //-     span(:class="scope.row.status === 'enable' ? 'label-enable' : 'label-disable'")
+      //-       | {{ scope.row.status }}
+      //- el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+      //-   template(slot-scope='scope')
+      //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right' width='60')
         template(slot-scope='{row}')
           Status(:data='row' :action='handleUpdateStatus' :status='row.status === "enable"' v-crud-permission="['maker']")
