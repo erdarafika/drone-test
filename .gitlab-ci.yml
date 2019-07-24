@@ -20,7 +20,7 @@ deploy_to_prod:
     - master
   script:
     - docker build --no-cache -t dplk-webapp:prod -f Dockerfile-prod .
-    - docker stack deploy -c stack-staging.yml dplk-webapp-prod
+    - docker stack deploy -c stack-prod.yml dplk-webapp-prod
 
 
 # stages:
