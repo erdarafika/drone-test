@@ -1,25 +1,23 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
+export function fetchDocumentMatrix(id) {
   return request({
-    url: '/document-matrix/list',
-    method: 'get',
-    params: query
+    url: `/master/document-type/${id}/transaction`,
+    method: 'get'
   })
 }
 
 export function createDocumentMatrix(data) {
   return request({
-    url: '/document-matrix/create',
+    url: `/master/document-type/${data.id}/transaction`,
     method: 'post',
     data
   })
 }
 
-export function updateDocumentMatrix(data) {
+export function deleteDocumentMatrix(data) {
   return request({
-    url: '/document-matrix/update',
-    method: 'post',
-    data
+    url: `/master/document-type/${data.documentId}/transaction/${data.id}`,
+    method: 'delete'
   })
 }
