@@ -103,7 +103,8 @@ export default {
       meta: {
         title: 'document',
         pensionMenu: 'document'
-      }
+      },
+      hidden: true
     },
     {
       path: 'tolerance',
@@ -152,15 +153,15 @@ export default {
     //     pensionMenu: ''
     //   }
     // },
-    // {
-    //   path: 'withdrawal-rule',
-    //   component: () => import('@/views/master/withdrawal-rule/index'),
-    //   name: 'WithdrawalRule',
-    //   meta: {
-    //     title: 'withdrawalRule',
-    //     pensionMenu: ''
-    //   }
-    // },
+    {
+      path: 'withdrawal-rule',
+      component: () => import('@/views/master/withdrawal-rule/index'),
+      name: 'WithdrawalRule',
+      meta: {
+        title: 'withdrawalRule',
+        pensionMenu: 'benefit-rule'
+      }
+    },
     {
       path: 'fee-type',
       name: 'FeeType',
