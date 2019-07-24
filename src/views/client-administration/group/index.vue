@@ -41,7 +41,7 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
-        Edit(:data='row' :action='handleUpdate')
+        Edit(:data='row' :action='handleUpdate'  v-if='row.status === "draft" || row.status === "rejected"' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 </template>
 
