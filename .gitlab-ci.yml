@@ -8,9 +8,9 @@ deploy_to_staging:
   only:
     - staging
   script:
-    - docker build --no-cache -t dplk-webapp -f Dockerfile-staging .
+    - docker build --no-cache -t dplk-webapp:staging -f Dockerfile-staging .
     - docker stack rm dplk-webapp
-    - docker stack deploy -c docker-compose.yml dplk-webapp
+    - docker stack deploy -c stack-staging.yml dplk-webapp-staging
 
 deploy_to_prod:
   stage: deploy
@@ -19,7 +19,8 @@ deploy_to_prod:
   only:
     - master
   script:
-    - node -v
+    - docker build --no-cache -t dplk-webapp:prod -f Dockerfile-prod .
+    - docker stack deploy -c stack-staging.yml dplk-webapp-prod
 
 
 # stages:
