@@ -222,7 +222,8 @@ export default {
     branchAddress: 'Alamat',
     branchCountry: 'Negara',
     codeName: 'Kode Nama',
-    bank: 'Bank'
+    bank: 'Bank',
+    code: 'Kode Bank'
   },
   dplkBank: {
     accountName: 'Nama Pemilik',

@@ -222,7 +222,8 @@ export default {
     branchAddress: 'Address',
     branchCountry: 'Country',
     codeName: 'Code Name',
-    status: 'Status'
+    status: 'Status',
+    code: 'Bank Code'
   },
   dplkBank: {
     accountName: 'Account Name',
