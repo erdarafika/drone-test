@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 
-export function fetchWithdrawalRule(query) {
+export function fetchWithdrawalRule() {
   return request({
-    url: '/withdrawal-rule/detail',
-    method: 'get',
-    params: query
+    url: '/master/withdrawal-rule',
+    method: 'get'
   })
 }
 
 export function updateWithdrawalRule(data) {
   return request({
-    url: '/withdrawal-rule/update',
+    url: '/master/withdrawal-rule',
     method: 'post',
     data
   })
