@@ -45,7 +45,7 @@ app-container
 
 <script>
 import { fetchList, createBusinessLine, updateBusinessLine, deleteBusinessLine, updateStatusBusinessLine } from '@/api/business-line'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
 import rules from './validation-rules'
 
 export default {
