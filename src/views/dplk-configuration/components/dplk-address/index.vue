@@ -46,6 +46,14 @@ div
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('dplkAddress.name')", prop='name')
         el-input(v-model.number='temp.name', type='input' name='name')
+      el-form-item(:label="$t('dplkAddress.address1')", prop='address1' )
+        el-input(v-model='temp.address1',  name='address1' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address2')", prop='address2' )
+        el-input(v-model='temp.address2',  name='address2' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address3')", prop='address3' )
+        el-input(v-model='temp.address3',  name='address3' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address4')", prop='address4' )
+        el-input(v-model='temp.address4',  name='address4' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
       el-form-item(:label="$t('dplkAddress.postalCode')", prop='postalCode')
         el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
       el-form-item(:label="$t('dplkAddress.addressType')", prop='addressTypeId')
@@ -73,15 +81,11 @@ div
 import { fetchList, createDplkAddress, updateDplkAddress, deleteDplkAddress } from '@/api/dplk-address'
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-// import crudPermission from '@/directive/crud-permission/index.js'
-// import checkCrudPermission from '@/utils/crud-permission'
-// import RecordStatus from '@/components/RecordStatus'
+import Pagination from '@/components/Pagination'
 import rules from './validation-rules'
 
 export default {
   name: 'Document',
-  // directives: { crudPermission },
   components: { Pagination },
   data() {
     return {
@@ -104,7 +108,11 @@ export default {
         countryId: undefined,
         cityId: undefined,
         postalCode: undefined,
-        provinceId: undefined
+        provinceId: undefined,
+        address1: undefined,
+        address2: undefined,
+        address3: undefined,
+        address4: undefined
       },
       initialUpdate: false,
       dialogFormVisible: false,
@@ -151,9 +159,6 @@ export default {
 
   },
   created() {
-    this.$eventBus.$on('update-location', (data) => {
-      this.getCountryAddress()
-    })
     this.getCountryAddress()
   },
   methods: {
@@ -216,8 +221,11 @@ export default {
         countryId: undefined,
         cityId: undefined,
         postalCode: undefined,
-        provinceId: undefined
-
+        provinceId: undefined,
+        address1: undefined,
+        address2: undefined,
+        address3: undefined,
+        address4: undefined
       }
     },
     handleCreate() {
@@ -249,7 +257,11 @@ export default {
         countryId: row.country.id,
         provinceId: row.province.id,
         cityId: row.city.id,
-        addressTypeId: row.addressType.id
+        addressTypeId: row.addressType.id,
+        address1: row.address1,
+        address2: row.address2,
+        address3: row.address3,
+        address4: row.address4
       }
       this.initialUpdate = true
       this.dialogStatus = 'update'
