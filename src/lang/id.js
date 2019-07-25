@@ -303,7 +303,11 @@ export default {
     province: 'Provinsi',
     postalCode: 'Kode Pos',
     status: 'Status',
-    setDefault: 'Atur sebagai Default'
+    setDefault: 'Atur sebagai Default',
+    address1: 'Alamat 1',
+    address2: 'Alamat 2',
+    address3: 'Alamat 3',
+    address4: 'Alamat 4'
   },
   dplkBankAccount: {
     name: 'Nama Akun',

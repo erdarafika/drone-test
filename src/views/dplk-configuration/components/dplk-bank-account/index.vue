@@ -45,7 +45,7 @@ div
       el-form-item(:label="$t('dplkBankAccount.number')", prop='accountNumber')
         el-input(v-model.number='temp.accountNumber', name='accountNumber' type='input')
       el-form-item(:label="$t('dplkBankAccount.bank')", prop='bankId')
-        el-select(v-model='temp.bankId', name='bankId' placeholder='Select', filterable, default-first-option @change='getBranchOptions')
+        el-select(v-model='temp.bankId', name='bankId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in bankOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('dplkBankAccount.bankBranch')", prop='branchName')
         el-input(v-model.number='temp.branchName',  name='branchName' type='input')

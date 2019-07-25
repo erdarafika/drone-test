@@ -301,7 +301,11 @@ export default {
     province: 'Province',
     postalCode: 'Postal Code',
     status: 'Status',
-    setDefault: 'Set as Default'
+    setDefault: 'Set as Default',
+    address1: 'Address 1',
+    address2: 'Address 2',
+    address3: 'Address 3',
+    address4: 'Address 4'
   },
   dplkBankAccount: {
     name: 'Account Name',
