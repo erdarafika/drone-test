@@ -90,6 +90,7 @@ export default {
     createdBy: 'Created By',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
+    rejectionReason: 'Rejection Reason',
     back: 'Back',
     approve: 'Approve',
     reject: 'Reject',
@@ -199,7 +200,7 @@ export default {
     editTemplate: 'Edit Template',
     template: 'Template',
     attachments: 'Attachments',
-    subject: 'Mail Transaction',
+    subject: 'Email Subject',
     selectFile: 'Select File',
     name: 'Attachment Name',
     type: 'Mail Transaction Type'

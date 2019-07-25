@@ -7,9 +7,9 @@ app-container
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='list', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('emailConfig.subject')", align='left')
+    el-table-column(:label="$t('emailConfig.type')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.subject }}
+        span {{ scope.row.type }}
     el-table-column(:label="$t('table.createdDate')", fixed-width align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -21,11 +21,11 @@ app-container
           | {{ $t('emailConfig.attachments') }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog.emailconfig-form(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
-    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='100px', style='width: 90%; margin-left:50px;')
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 90%; margin-left:50px;')
       el-row(:gutter='20')
         el-col(:span='12')
           el-form-item(:label="$t('emailConfig.subject')", prop='subject')
-            el-input(v-model='temp.subject', name='subject' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+            el-input(v-model='temp.subject', name='subject' type='textarea', :autosize='{ minRows: 1, maxRows: 4}')
         el-col(:span='12')
           el-form-item(:label="$t('emailConfig.type')", prop='type' label-width='200')
             el-select(v-model='temp.type', name='type' placeholder='Select', filterable, default-first-option)
