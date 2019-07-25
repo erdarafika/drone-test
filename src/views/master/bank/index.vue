@@ -98,6 +98,11 @@ export default {
       return listAfterPagination
     }
   },
+  watch: {
+    'temp.code': function(val) {
+      this.temp.code = val.toUpperCase()
+    }
+  },
   created() {
     this.getList()
   },
