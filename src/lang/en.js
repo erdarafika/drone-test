@@ -90,6 +90,7 @@ export default {
     createdBy: 'Created By',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
+    rejectionReason: 'Rejection Reason',
     back: 'Back',
     approve: 'Approve',
     reject: 'Reject',
