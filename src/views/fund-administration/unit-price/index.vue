@@ -147,6 +147,7 @@ export default {
     getInvestmentTypePrice() {
       const DEFAULT_STATUS = ''
       fetchInvestmentTypeList().then(response => {
+        response = response.filter(item => item.status === 'active')
         this.investmentTypePrice = response.map(i => ({ label: i.name, key: i.id, value: 0, status: DEFAULT_STATUS }))
       })
     },
