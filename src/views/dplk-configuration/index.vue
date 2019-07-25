@@ -3,12 +3,12 @@ app-container
   el-tabs.pensiun-tab(type='border-card')
     el-tab-pane(:label='$t("route.dplkInformation")')
       Information
-    el-tab-pane(:label='$t("route.dplkStaff")')
-      Staff
     el-tab-pane(:label='$t("route.dplkAddress")')
       Address
     el-tab-pane(:label='$t("route.dplkBankAccount")')
       Bank
+    el-tab-pane(:label='$t("route.dplkStaff")')
+      Staff
 </template>
 
 <script>
