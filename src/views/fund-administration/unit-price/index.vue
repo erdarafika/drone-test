@@ -15,7 +15,10 @@ app-container
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
         el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
-          el-input-number(v-model.number='domain.value' :precision="configSeparator" :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend {{$t('investmentType.price')}}
+            money.el-input__inner(v-model='domain.value', name='amount' v-bind='configSeparator' :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
+          //- el-input-number(v-model.number='domain.value' :precision="configSeparator" :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
           el-alert(v-if='domain.status' :title='domain.status', :type='unitPriceColor(domain.status)', show-icon :closable='false' style='display: initial; margin-left:20px')
       .dialog-footer(slot='footer')
         el-button(@click='dialogFormVisible = false')
@@ -65,7 +68,14 @@ export default {
         q: undefined,
         date: undefined
       },
-      configSeparator: 0,
+      configSeparator: {
+        decimal: ',',
+        thousands: '.',
+        prefix: '',
+        suffix: '',
+        precision: 0,
+        masked: false /* doesn't work with directive */
+      },
       holiday: [],
       temp: {
         effectiveDate: undefined,
@@ -131,7 +141,7 @@ export default {
 
     fetchMathConfig({ code: 'unit_price', type: 'separator' }).then(res => {
       if (res.length) {
-        this.configSeparator = res[0].value
+        this.configSeparator.precision = res[0].value
       }
       console.log(this.configSeparator)
     })
