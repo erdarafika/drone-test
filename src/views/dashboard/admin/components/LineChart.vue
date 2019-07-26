@@ -88,7 +88,7 @@ export default {
           }
         },
         grid: {
-          left: 10,
+          left: 40,
           right: 120,
           bottom: 20,
           top: 30,
@@ -117,9 +117,9 @@ export default {
             normal: {
               color: '#FF005A',
               areaStyle: {
-                color: '#FF005A',
-                width: 2
-              }
+                opacity: 0.2
+              },
+              lineStyle: {}
             }
           },
           smooth: true,
@@ -136,11 +136,9 @@ export default {
             normal: {
               color: '#3888fa',
               areaStyle: {
-                color: '#3888fa',
-                width: 2
-              }
-              // areaStyle: {
-              //   color: '#f3f8ff'
+                opacity: 0.2
+              },
+              lineStyle: {}
               // }
             }
           },
