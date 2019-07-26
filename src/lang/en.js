@@ -136,6 +136,11 @@ export default {
     editModalHeader: 'Edit Data'
   },
   // SINGLE PAGE
+  dashboard: {
+    totalCompany: 'Total Company',
+    totalMember: 'Total Member',
+    totalStatus: 'User Status'
+  },
   addressType: {
     type: 'Name',
     displayOnMember: 'Display on Member',

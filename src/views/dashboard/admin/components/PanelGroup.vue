@@ -1,54 +1,41 @@
 <template>
   <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
-        <div class="card-panel-icon-wrapper icon-people">
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+      <div class="card-panel blue-card">
+        <!-- <div class="card-panel-icon-wrapper icon-people">
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
+        </div> -->
         <div class="card-panel-description">
           <div class="card-panel-text">
-            New Visits
+            {{ $t('dashboard.totalCompany') }}
           </div>
           <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
-        <div class="card-panel-icon-wrapper icon-message">
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+      <div class="card-panel brown-card">
+        <!-- <div class="card-panel-icon-wrapper icon-message">
           <svg-icon icon-class="message" class-name="card-panel-icon" />
-        </div>
+        </div> -->
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Messages
+            {{ $t('dashboard.totalMember') }}
           </div>
           <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
-        <div class="card-panel-icon-wrapper icon-money">
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+      <div class="card-panel green-card">
+        <!-- <div class="card-panel-icon-wrapper icon-money">
           <svg-icon icon-class="money" class-name="card-panel-icon" />
-        </div>
+        </div> -->
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Purchases
+            {{ $t('dashboard.totalStatus') }}
           </div>
           <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
-        <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="shopping" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            Shoppings
-          </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -61,11 +48,6 @@ import CountTo from 'vue-count-to'
 export default {
   components: {
     CountTo
-  },
-  methods: {
-    handleSetLineChartData(type) {
-      this.$emit('handleSetLineChartData', type)
-    }
   }
 }
 </script>
@@ -76,13 +58,23 @@ export default {
   .card-panel-col{
     margin-bottom: 32px;
   }
+  .brown-card {
+    background-color: #b6ab83 !important;
+  }
+  .blue-card {
+    background-color: #96b0eb !important;
+  }
+  .green-card {
+    background-color: #8ac9b8 !important;
+  }
+
   .card-panel {
-    height: 108px;
+    height: 140px;
     cursor: pointer;
     font-size: 12px;
     position: relative;
     overflow: hidden;
-    color: #666;
+    color: #fff;
     background: #fff;
     box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
     border-color: rgba(0, 0, 0, .05);
@@ -130,10 +122,11 @@ export default {
       float: right;
       font-weight: bold;
       margin: 26px;
+      text-align: right;
       margin-left: 0px;
       .card-panel-text {
         line-height: 18px;
-        color: rgba(0, 0, 0, 0.45);
+        // color: #fff;
         font-size: 16px;
         margin-bottom: 12px;
       }

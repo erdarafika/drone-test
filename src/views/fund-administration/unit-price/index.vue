@@ -106,6 +106,11 @@ export default {
       const self = this
       return {
         disabledDate(time) {
+          const dayKey = time.getDay()
+          if (dayKey === 6 || dayKey === 0) {
+            return true
+          }
+
           const today = self.$moment().subtract(1, 'days')
           const timeToMoment = self.$moment(time)
           return timeToMoment.isAfter(today) || self.holiday.includes(self.$moment(time.getTime()).format(self.dateFormat))

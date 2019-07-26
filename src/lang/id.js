@@ -138,6 +138,11 @@ export default {
     closeAll: 'Tutup Semua'
   },
   // SINGLE PAGE
+  dashboard: {
+    totalCompany: 'Total Perusahaan',
+    totalMember: 'Total Anggota',
+    totalStatus: 'Status Pengguna'
+  },
   page404: {
     title: 'OOPS!',
     subTitle: 'Maaf, Halamn Tidak Ditemukan...',
