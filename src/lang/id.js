@@ -141,7 +141,8 @@ export default {
   dashboard: {
     totalCompany: 'Total Perusahaan',
     totalMember: 'Total Anggota',
-    totalStatus: 'Status Pengguna'
+    totalStatus: 'Status Pengguna',
+    active: 'Aktif'
   },
   page404: {
     title: 'OOPS!',

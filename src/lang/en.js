@@ -139,7 +139,8 @@ export default {
   dashboard: {
     totalCompany: 'Total Company',
     totalMember: 'Total Member',
-    totalStatus: 'User Status'
+    totalStatus: 'User Status',
+    active: 'Active'
   },
   addressType: {
     type: 'Name',
