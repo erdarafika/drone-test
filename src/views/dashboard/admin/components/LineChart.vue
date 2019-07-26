@@ -89,7 +89,7 @@ export default {
         },
         grid: {
           left: 10,
-          right: 10,
+          right: 120,
           bottom: 20,
           top: 30,
           containLabel: true
@@ -107,13 +107,16 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['expected', 'actual'],
+          orient: 'vertical',
+          x: 'right',
+          top: 'middle'
         },
         series: [{
           name: 'expected', itemStyle: {
             normal: {
               color: '#FF005A',
-              lineStyle: {
+              areaStyle: {
                 color: '#FF005A',
                 width: 2
               }
@@ -132,13 +135,13 @@ export default {
           itemStyle: {
             normal: {
               color: '#3888fa',
-              lineStyle: {
+              areaStyle: {
                 color: '#3888fa',
                 width: 2
-              },
-              areaStyle: {
-                color: '#f3f8ff'
               }
+              // areaStyle: {
+              //   color: '#f3f8ff'
+              // }
             }
           },
           data: actualData,
