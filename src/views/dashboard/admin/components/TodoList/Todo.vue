@@ -23,6 +23,9 @@
 </template>
 
 <script>
+
+import { fetchList } from '@/api/todo.js'
+
 export default {
   name: 'Todo',
   directives: {
@@ -46,6 +49,12 @@ export default {
     return {
       editing: false
     }
+  },
+  created() {
+    fetchList().then(res => {
+      // console.log(res);
+
+    })
   },
   methods: {
     deleteTodo(todo) {
