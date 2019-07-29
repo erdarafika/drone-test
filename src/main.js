@@ -57,6 +57,7 @@ Vue.component('AppContainer', AppContainer)
 Vue.use(crudPermission)
 const moment = require('moment')
 require('moment/locale/id')
+require('twix')
 import money from 'v-money'
 
 Vue.use(money, { precision: 0 })
