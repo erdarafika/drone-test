@@ -9,7 +9,15 @@
         <todo-list />
       </el-col>
       <el-col :span="16">
-        <div style="background-color: white">
+        <div style="background-color: white; padding: 10px;">
+          <el-select v-model="selectedDataType" placeholder="Select">
+            <el-option
+              v-for="item in dataTypeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
           <line-chart />
         </div>
       </el-col>
@@ -29,6 +37,12 @@ export default {
     PanelGroup,
     LineChart,
     TodoList
+  },
+  data() {
+    return {
+      dataTypeOptions: [{ label: 'Last Month', value: 'month' }],
+      selectedDataType: 'month'
+    }
   }
 }
 </script>
