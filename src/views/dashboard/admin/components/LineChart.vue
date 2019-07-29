@@ -6,6 +6,8 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import { debounce } from '@/utils'
+import { fetchUnitPriceData } from '@/api/dashboard'
+import { getXAxis, generateSeries } from './lineChartType'
 
 export default {
   props: {
@@ -24,16 +26,21 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
-    },
-    chartData: {
-      type: Object,
-      required: true
     }
   },
   data() {
     return {
       chart: null,
-      sidebarElm: null
+      sidebarElm: null,
+      chartData: undefined,
+      xAxis: undefined,
+      selectedDataType: 'month'
+    }
+  },
+  computed: {
+    lang() {
+      return 'id'
+      // return this.$store.getters.language
     }
   },
   watch: {
@@ -44,7 +51,37 @@ export default {
       }
     }
   },
+  created() {
+    const start = '01-07-2019'
+    const end = '30-07-2019'
+
+    this.xAxis = getXAxis(this.selectedDataType, this.lang)
+    fetchUnitPriceData({ start, end }).then(res => {
+      delete res.status_code
+      const legend = Object.keys(res)
+      const chartData = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+      const chartDataToFill = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+
+      for (const key in res) {
+        chartData[key] = Object.values(res[key].map(unitPrice => {
+          unitPrice.effectiveDate = this.reformatDate(unitPrice.effectiveDate)
+          return unitPrice
+        }))
+
+        chartDataToFill[key] = this.xAxis.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+        for (const xAxis in chartDataToFill[key]) {
+          chartDataToFill[key][xAxis] = chartData[key].filter(item => item.effectiveDate === xAxis).length
+        }
+        chartDataToFill[key] = Object.values(chartDataToFill[key])
+      }
+
+      console.log(chartData, chartDataToFill)
+
+      this.chartData = chartDataToFill
+    })
+  },
   mounted() {
+    // this.$nextTick(function(){
     this.initChart()
     if (this.autoResize) {
       this.__resizeHandler = debounce(() => {
@@ -58,6 +95,7 @@ export default {
     // 监听侧边栏的变化
     this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
     this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)
+    // })
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -73,22 +111,38 @@ export default {
     this.chart = null
   },
   methods: {
+    reformatDate(date) {
+      const dataType = this.selectedDataType
+      if (dataType === 'week') {
+        return this.$moment(date).format('dddd')
+      }
+      if (dataType === 'month') {
+        const momentDate = this.$moment(date)
+        var nthOfMoth = Math.ceil(momentDate.date() / 7) // 1
+        return `Minggu ${nthOfMoth}`
+      }
+    },
     sidebarResizeHandler(e) {
       if (e.propertyName === 'width') {
         this.__resizeHandler()
       }
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions(data) {
+      const series = []
+      for (const key in data) {
+        series.push(generateSeries(key, data[key]))
+      }
+
       this.chart.setOption({
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: this.xAxis,
           boundaryGap: false,
           axisTick: {
             show: false
           }
         },
         grid: {
-          left: 40,
+          left: 10,
           right: 120,
           bottom: 20,
           top: 30,
@@ -107,45 +161,12 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual'],
           orient: 'vertical',
           x: 'right',
-          top: 'middle'
+          top: 'middle',
+          padding: 10
         },
-        series: [{
-          name: 'expected', itemStyle: {
-            normal: {
-              color: '#FF005A',
-              areaStyle: {
-                opacity: 0.2
-              },
-              lineStyle: {}
-            }
-          },
-          smooth: true,
-          type: 'line',
-          data: expectedData,
-          animationDuration: 2800,
-          animationEasing: 'cubicInOut'
-        },
-        {
-          name: 'actual',
-          smooth: true,
-          type: 'line',
-          itemStyle: {
-            normal: {
-              color: '#3888fa',
-              areaStyle: {
-                opacity: 0.2
-              },
-              lineStyle: {}
-              // }
-            }
-          },
-          data: actualData,
-          animationDuration: 2800,
-          animationEasing: 'quadraticOut'
-        }]
+        series
       })
     },
     initChart() {
