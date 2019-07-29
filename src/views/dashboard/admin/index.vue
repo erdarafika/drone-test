@@ -18,7 +18,7 @@
               :value="item.value"
             />
           </el-select>
-          <line-chart />
+          <line-chart :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
         </div>
       </el-col>
     </el-row>
@@ -40,8 +40,44 @@ export default {
   },
   data() {
     return {
-      dataTypeOptions: [{ label: 'Last Month', value: 'month' }],
-      selectedDataType: 'month'
+      dataTypeOptions: [{ label: 'Last Month', value: 'month' }, { label: 'Last Week', value: 'week' }],
+      selectedDataType: 'month',
+      unitPriceDate: undefined,
+      dateFormat: 'DD-MM-YYYY'
+    }
+  },
+  watch: {
+    selectedDataType(val) {
+      this.unitPriceDate = this.generateDate(val)
+      console.log(this.unitPriceDate)
+    }
+  },
+  created() {
+    this.unitPriceDate = this.generateDate(this.selectedDataType)
+  },
+  methods: {
+    generateDate(dataType) {
+      if (dataType === 'month') {
+        const date = new Date()
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+
+        return {
+          start: this.$moment(firstDay).format(this.dateFormat),
+          end: this.$moment(lastDay).format(this.dateFormat)
+        }
+      }
+      if (dataType === 'week') {
+        const end = this.$moment().format(this.dateFormat)
+        let start = this.$moment()
+        start = start.subtract(7, 'days')
+        start = start.format(this.dateFormat)
+
+        return {
+          end,
+          start
+        }
+      }
     }
   }
 }
