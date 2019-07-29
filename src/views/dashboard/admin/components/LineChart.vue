@@ -26,6 +26,12 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
+    },
+    unitPriceDate: {
+      type: Object
+    },
+    dataType: {
+      type: String
     }
   },
   data() {
@@ -33,8 +39,7 @@ export default {
       chart: null,
       sidebarElm: null,
       chartData: undefined,
-      xAxis: undefined,
-      selectedDataType: 'month'
+      xAxis: undefined
     }
   },
   computed: {
@@ -49,36 +54,14 @@ export default {
       handler(val) {
         this.setOptions(val)
       }
+    },
+    dataType() {
+      this.getData()
     }
+
   },
   created() {
-    const start = '01-07-2019'
-    const end = '30-07-2019'
-
-    this.xAxis = getXAxis(this.selectedDataType, this.lang)
-    fetchUnitPriceData({ start, end }).then(res => {
-      delete res.status_code
-      const legend = Object.keys(res)
-      const chartData = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
-      const chartDataToFill = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
-
-      for (const key in res) {
-        chartData[key] = Object.values(res[key].map(unitPrice => {
-          unitPrice.effectiveDate = this.reformatDate(unitPrice.effectiveDate)
-          return unitPrice
-        }))
-
-        chartDataToFill[key] = this.xAxis.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
-        for (const xAxis in chartDataToFill[key]) {
-          chartDataToFill[key][xAxis] = chartData[key].filter(item => item.effectiveDate === xAxis).length
-        }
-        chartDataToFill[key] = Object.values(chartDataToFill[key])
-      }
-
-      console.log(chartData, chartDataToFill)
-
-      this.chartData = chartDataToFill
-    })
+    this.getData()
   },
   mounted() {
     // this.$nextTick(function(){
@@ -111,8 +94,33 @@ export default {
     this.chart = null
   },
   methods: {
+    getData() {
+      this.xAxis = getXAxis(this.dataType, this.lang)
+      fetchUnitPriceData(this.unitPriceDate).then(res => {
+        delete res.status_code
+        const legend = Object.keys(res)
+        const chartData = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+        const chartDataToFill = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+
+        for (const key in res) {
+          chartData[key] = Object.values(res[key].map(unitPrice => {
+            unitPrice.effectiveDate = this.reformatDate(unitPrice.effectiveDate)
+            return unitPrice
+          }))
+
+          chartDataToFill[key] = this.xAxis.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+          for (const xAxis in chartDataToFill[key]) {
+            chartDataToFill[key][xAxis] = chartData[key].filter(item => item.effectiveDate === xAxis).length
+          }
+          chartDataToFill[key] = Object.values(chartDataToFill[key])
+        }
+
+        console.log(chartData, chartDataToFill)
+        this.chartData = chartDataToFill
+      })
+    },
     reformatDate(date) {
-      const dataType = this.selectedDataType
+      const dataType = this.dataType
       if (dataType === 'week') {
         return this.$moment(date).format('dddd')
       }
@@ -142,7 +150,7 @@ export default {
           }
         },
         grid: {
-          left: 10,
+          left: 20,
           right: 120,
           bottom: 20,
           top: 30,
