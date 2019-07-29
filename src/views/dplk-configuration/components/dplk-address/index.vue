@@ -7,9 +7,9 @@ div
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('dplkAddress.name')", align='left', )
-      template(slot-scope='scope')
-        span {{ scope.row.name }}
+    //- el-table-column(:label="$t('dplkAddress.name')", align='left', )
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.name }}
     el-table-column(:label="$t('dplkAddress.addressType')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.addressType.type }}
@@ -44,8 +44,8 @@ div
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('dplkAddress.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input' name='name')
+      //- el-form-item(:label="$t('dplkAddress.name')", prop='name')
+      //-   el-input(v-model.number='temp.name', type='input' name='name')
       el-form-item(:label="$t('dplkAddress.address1')", prop='address1' )
         el-input(v-model='temp.address1',  name='address1' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
       el-form-item(:label="$t('dplkAddress.address2')", prop='address2' )
@@ -103,7 +103,7 @@ export default {
       provinceOptions: [],
       cityOptions: [],
       temp: {
-        name: undefined,
+        // name: undefined,
         addressTypeId: undefined,
         countryId: undefined,
         cityId: undefined,
@@ -123,7 +123,7 @@ export default {
   computed: {
     filterredList() {
       const { q, limit, page } = this.listQuery
-      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterSearch = this.list.filter(data => !q || data.address1.toLowerCase().includes(q.toLowerCase()))
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
     },
@@ -216,7 +216,7 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        name: undefined,
+        // name: undefined,
         addressTypeId: undefined,
         countryId: undefined,
         cityId: undefined,
