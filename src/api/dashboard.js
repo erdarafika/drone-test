@@ -6,3 +6,11 @@ export function fetchDashboardPanelData() {
     method: 'get'
   })
 }
+
+export function fetchUnitPriceData(query) {
+  return request({
+    url: '/fund/investment-type/daily-unit-price',
+    method: 'get',
+    params: query
+  })
+}
