@@ -7,7 +7,7 @@ import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import { debounce } from '@/utils'
 import { fetchUnitPriceData } from '@/api/dashboard'
-import { getXAxis, generateSeries } from './lineChartType'
+import { generateSeries } from './lineChartType'
 
 export default {
   props: {
@@ -39,7 +39,9 @@ export default {
       chart: null,
       sidebarElm: null,
       chartData: undefined,
-      xAxis: undefined
+      xAxis: undefined,
+      requestDateFormat: 'DD-MM-YYYY',
+      chartDateFormat: 'DD-MM-YYYY'
     }
   },
   computed: {
@@ -94,41 +96,43 @@ export default {
     this.chart = null
   },
   methods: {
+    getXAxis() {
+      const itr = this.$moment.twix(this.unitPriceDate.start, this.unitPriceDate.end).iterate('days')
+      const range = []
+      while (itr.hasNext()) {
+        range.push(this.$moment(itr.next().toDate()).format(this.chartDateFormat))
+      }
+
+      return range
+    },
     getData() {
-      this.xAxis = getXAxis(this.dataType, this.lang)
-      fetchUnitPriceData(this.unitPriceDate).then(res => {
+      this.xAxis = this.getXAxis()
+
+      const start = this.unitPriceDate.start.format(this.requestDateFormat)
+      const end = this.unitPriceDate.end.format(this.requestDateFormat)
+      fetchUnitPriceData({ start, end }).then(res => {
         delete res.status_code
         const legend = Object.keys(res)
         const chartData = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
-        const chartDataToFill = legend.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
+        const tempChartData = JSON.parse(JSON.stringify(chartData))
 
         for (const key in res) {
           chartData[key] = Object.values(res[key].map(unitPrice => {
-            unitPrice.effectiveDate = this.reformatDate(unitPrice.effectiveDate)
-            return unitPrice
+            unitPrice.effectiveDate = this.$moment(unitPrice.effectiveDate).format(this.chartDateFormat)
+            return { date: unitPrice.effectiveDate, price: unitPrice.price }
           }))
-
-          chartDataToFill[key] = this.xAxis.reduce((acc, cur) => ({ ...acc, [cur]: [] }), {})
-          for (const xAxis in chartDataToFill[key]) {
-            chartDataToFill[key][xAxis] = chartData[key].filter(item => item.effectiveDate === xAxis).length
-          }
-          chartDataToFill[key] = Object.values(chartDataToFill[key])
+          chartData[key] = chartData[key].reduce((acc, cur) => ({ ...acc, [cur.date]: cur.price }), {})
+          tempChartData[key] = this.xAxis.map(item => {
+            let value = 0
+            if (chartData[key].hasOwnProperty(item)) {
+              value = chartData[key][item]
+            }
+            return [item, value]
+          })
         }
-
-        console.log(chartData, chartDataToFill)
-        this.chartData = chartDataToFill
+        console.log(tempChartData)
+        this.chartData = tempChartData
       })
-    },
-    reformatDate(date) {
-      const dataType = this.dataType
-      if (dataType === 'week') {
-        return this.$moment(date).format('dddd')
-      }
-      if (dataType === 'month') {
-        const momentDate = this.$moment(date)
-        var nthOfMoth = Math.ceil(momentDate.date() / 7) // 1
-        return `Minggu ${nthOfMoth}`
-      }
     },
     sidebarResizeHandler(e) {
       if (e.propertyName === 'width') {
@@ -138,48 +142,39 @@ export default {
     setOptions(data) {
       const series = []
       for (const key in data) {
-        series.push(generateSeries(key, data[key]))
+        const value = data[key].map(item => item[1])
+
+        series.push(generateSeries(key, value))
       }
+
+      const xAxisData = this.xAxis
 
       this.chart.setOption({
         xAxis: {
-          data: this.xAxis,
-          boundaryGap: false,
-          axisTick: {
-            show: false
-          }
-        },
-        grid: {
-          left: 20,
-          right: 120,
-          bottom: 20,
-          top: 30,
-          containLabel: true
+          data: xAxisData
         },
         tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross'
-          },
-          padding: [5, 10]
+          trigger: 'axis'
         },
+        dataZoom: [{}, {
+          type: 'inside'
+        }],
         yAxis: {
-          axisTick: {
+          splitLine: {
             show: false
           }
         },
         legend: {
           orient: 'vertical',
           x: 'right',
-          top: 'middle',
-          padding: 10
+          top: 'middle'
         },
         series
       })
     },
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
-      this.setOptions(this.chartData)
+      // this.setOptions(this.chartData)
     }
   }
 }

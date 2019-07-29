@@ -10,14 +10,22 @@
       </el-col>
       <el-col :span="16">
         <div style="background-color: white; padding: 10px;">
-          <el-select v-model="selectedDataType" placeholder="Select">
-            <el-option
-              v-for="item in dataTypeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
+          <el-row>
+            <el-col :span="18">
+              <h2 style="margin-left:20px;color: #636569">Statistik</h2>
+            </el-col>
+            <el-col :span="6">
+              <el-select v-model="selectedDataType" placeholder="Select">
+                <el-option
+                  v-for="item in dataTypeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-col>
+          </el-row>
+
           <line-chart :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
         </div>
       </el-col>
@@ -40,10 +48,9 @@ export default {
   },
   data() {
     return {
-      dataTypeOptions: [{ label: 'Last Month', value: 'month' }, { label: 'Last Week', value: 'week' }],
+      dataTypeOptions: [{ label: 'Last 6 Month', value: '6month' }, { label: 'Last 3 Month', value: '3month' }, { label: 'Last Month', value: 'month' }, { label: 'Last Week', value: 'week' }],
       selectedDataType: 'month',
-      unitPriceDate: undefined,
-      dateFormat: 'DD-MM-YYYY'
+      unitPriceDate: undefined
     }
   },
   watch: {
@@ -57,26 +64,24 @@ export default {
   },
   methods: {
     generateDate(dataType) {
+      const end = this.$moment()
+      let start = this.$moment()
       if (dataType === 'month') {
-        const date = new Date()
-        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-
-        return {
-          start: this.$moment(firstDay).format(this.dateFormat),
-          end: this.$moment(lastDay).format(this.dateFormat)
-        }
+        start = start.subtract(1, 'months')
       }
       if (dataType === 'week') {
-        const end = this.$moment().format(this.dateFormat)
-        let start = this.$moment()
         start = start.subtract(7, 'days')
-        start = start.format(this.dateFormat)
+      }
+      if (dataType === '3month') {
+        start = start.subtract(3, 'months')
+      }
+      if (dataType === '6month') {
+        start = start.subtract(6, 'months')
+      }
 
-        return {
-          end,
-          start
-        }
+      return {
+        end,
+        start
       }
     }
   }
