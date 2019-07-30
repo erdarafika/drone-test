@@ -6,3 +6,19 @@ export function fetchList() {
     method: 'get'
   })
 }
+
+export function createTodo(data) {
+  return request({
+    url: '/todolist',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteTodo(data) {
+  return request({
+    url: `/todolist/${data.id}`,
+    method: 'delete'
+  })
+}
+
