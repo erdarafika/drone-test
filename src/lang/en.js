@@ -145,7 +145,14 @@ export default {
     lastWeek: 'Last Week',
     lastMonth: 'Last Month',
     last3Month: 'Last 3 Month',
-    last6Month: 'Last 6 Month'
+    last6Month: 'Last 6 Month',
+    todo: {
+      newTask: 'New Task',
+      all: 'All',
+      active: 'Active',
+      completed: 'Completed',
+      itemLeft: 'item left'
+    }
   },
   addressType: {
     type: 'Name',

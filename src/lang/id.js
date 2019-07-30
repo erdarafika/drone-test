@@ -147,7 +147,14 @@ export default {
     lastWeek: 'Seminggu Terakhir',
     lastMonth: 'Sebulan Terakhir',
     last3Month: '3 bulan Terakhir',
-    last6Month: '6 bulan Terakhir'
+    last6Month: '6 bulan Terakhir',
+    todo: {
+      newTask: 'Tugas Baru',
+      all: 'Semua',
+      active: 'Aktif',
+      completed: 'Selesai',
+      itemLeft: 'tugas tersisa'
+    }
   },
   page404: {
     title: 'OOPS!',
