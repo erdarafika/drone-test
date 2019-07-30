@@ -1,10 +1,10 @@
-import { requiredValidator, emailValidator, numberValidator, alphabeticValidator, alphanumericLineDotSlashValidator } from '@/global-function/formValidator'
+import { requiredValidator, emailValidator, numberValidator, alphabeticValidator, alphanumericLineDotSlashValidator, urlValidator } from '@/global-function/formValidator'
 
 export default {
   name: [requiredValidator, alphabeticValidator],
   code: [],
   email: [requiredValidator, emailValidator],
-  website: [requiredValidator],
+  website: [requiredValidator, urlValidator],
   businessLineId: [requiredValidator],
   businessEntity: [requiredValidator],
   npwp: [requiredValidator],

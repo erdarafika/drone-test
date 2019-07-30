@@ -2,7 +2,8 @@ import {
   isAlphanumeric,
   isAlphabetic,
   isAlphanumericLine,
-  isAlphanumericLineDotSlash
+  isAlphanumericLineDotSlash,
+  validURL
 } from '@/utils/validate'
 
 const alphanumericValidatorFunc = (rule, value, callback) => {
@@ -55,6 +56,16 @@ const numberValidatorFunc = (rule, value, callback) => {
   }
 }
 
+const urlValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (!validURL(value)) {
+    callback(new Error('Please write full url. http/https included'))
+  } else {
+    callback()
+  }
+}
+
 const requiredValidator = { required: true, message: `This field is required` }
 
 const emailValidator = { type: 'email', message: 'Please write valid email', trigger: 'blur' }
@@ -69,6 +80,8 @@ const alphanumericLineDotSlashValidator = { validator: alphanumericLineDotSlashV
 
 const numberValidator = { validator: numberValidatorFunc, trigger: 'change' }
 
+const urlValidator = { validator: urlValidatorFunc, trigger: 'blur' }
+
 export {
   numberValidator,
   emailValidator,
@@ -76,5 +89,6 @@ export {
   alphanumericValidator,
   alphabeticValidator,
   alphanumericLineValidator,
-  alphanumericLineDotSlashValidator
+  alphanumericLineDotSlashValidator,
+  urlValidator
 }
