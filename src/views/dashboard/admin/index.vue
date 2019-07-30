@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard-editor-container">
-    <el-alert title="Informasi" description="Grafik dibawah adalah Mock Up UI" type="info" show-icon style="font-size:16px" />
+    <!-- <el-alert title="Informasi" description="Grafik dibawah adalah Mock Up UI" type="info" show-icon style="font-size:16px" /> -->
 
     <panel-group />
 
-    <el-row style="background:#e4e4e4;margin-bottom:32px;" :gutter="32">
+    <el-row style="background:#e4e4e4;margin-bottom:32px;" :gutter="40">
       <el-col :span="8">
         <todo-list />
       </el-col>
       <el-col :span="16">
-        <div style="background-color: white; padding: 10px;">
+        <div style="background-color: white; padding: 10px;border-radius: 10px;">
           <el-row>
             <el-col :span="18">
-              <h2 style="margin-left:20px;color: #636569">Statistik</h2>
+              <h2 style="margin-left:20px;color: #636569">{{ $t('dashboard.statistics') }}</h2>
             </el-col>
             <el-col :span="6">
               <el-select v-model="selectedDataType" placeholder="Select">
@@ -48,9 +48,25 @@ export default {
   },
   data() {
     return {
-      dataTypeOptions: [{ label: 'Last 6 Month', value: '6month' }, { label: 'Last 3 Month', value: '3month' }, { label: 'Last Month', value: 'month' }, { label: 'Last Week', value: 'week' }],
       selectedDataType: 'month',
       unitPriceDate: undefined
+    }
+  },
+  computed: {
+    dataTypeOptions() {
+      return [{
+        label: this.$t('dashboard.last6Month'),
+        value: '6month'
+      }, {
+        label: this.$t('dashboard.last3Month'),
+        value: '3month'
+      }, {
+        label: this.$t('dashboard.lastMonth'),
+        value: 'month'
+      }, {
+        label: this.$t('dashboard.lastWeek'),
+        value: 'week'
+      }]
     }
   },
   watch: {
