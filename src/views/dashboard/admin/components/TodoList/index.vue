@@ -39,7 +39,7 @@
 
 <script>
 import Todo from './Todo.vue'
-import { fetchList, createTodo, deleteTodo } from '@/api/todo.js'
+import { fetchList, createTodo, deleteTodo, updateTodo, updateTodoStatus } from '@/api/todo.js'
 
 const filters = {
   all: todos => todos,
@@ -99,29 +99,40 @@ export default {
       })
       e.target.value = ''
     },
-    toggleTodo(val) {
-      val.checklist = !val.checklist
-      // this.setLocalStorage()
+    async toggleTodo(todo) {
+      todo.checklist = !todo.checklist
+      await updateTodoStatus(todo).then(res => {
+        this.getTodo()
+      })
     },
     async deleteTodo(todo) {
       await deleteTodo(todo).then(res => {
         this.getTodo()
       })
-      // this.todos.splice(this.todos.indexOf(todo), 1)
-      // this.setLocalStorage()
     },
-    editTodo({ todo, value }) {
+    async editTodo({ todo, value }) {
       todo.todo = value
-      // this.setLocalStorage()
+      await updateTodo(todo).then(res => {
+        this.getTodo()
+      })
     },
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.checklist)
-      // this.setLocalStorage()
     },
     toggleAll({ checklist }) {
-      this.todos.forEach(todo => {
+      const todos = JSON.parse(JSON.stringify(this.todos))
+      this.loading = true
+      const requestList = []
+      todos.forEach(todo => {
         todo.checklist = checklist
-        // this.setLocalStorage()
+        requestList.push(updateTodoStatus(todo))
+      })
+
+      Promise.all(requestList).then(function(values) {
+        this.getTodo()
+      }).catch(err => {
+        console.log(err)
+        this.getTodo()
       })
     }
   }
