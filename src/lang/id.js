@@ -142,7 +142,12 @@ export default {
     totalCompany: 'Total Perusahaan',
     totalMember: 'Total Anggota',
     totalStatus: 'Status Pengguna',
-    active: 'Aktif'
+    active: 'Aktif',
+    statistics: 'Statistik',
+    lastWeek: 'Seminggu Terakhir',
+    lastMonth: 'Sebulan Terakhir',
+    last3Month: '3 bulan Terakhir',
+    last6Month: '6 bulan Terakhir'
   },
   page404: {
     title: 'OOPS!',

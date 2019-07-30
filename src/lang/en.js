@@ -140,7 +140,12 @@ export default {
     totalCompany: 'Total Company',
     totalMember: 'Total Member',
     totalStatus: 'User Status',
-    active: 'Active'
+    active: 'Active',
+    statistics: 'Statistics',
+    lastWeek: 'Last Week',
+    lastMonth: 'Last Month',
+    last3Month: 'Last 3 Month',
+    last6Month: 'Last 6 Month'
   },
   addressType: {
     type: 'Name',
