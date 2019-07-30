@@ -2,11 +2,11 @@
   <section class="todoapp">
     <!-- header -->
     <header class="header">
-      <input class="new-todo" autocomplete="off" placeholder="Todo List" @keyup.enter="addTodo">
+      <input class="new-todo" autocomplete="off" placeholder="New Task" @keyup.enter="addTodo">
     </header>
     <!-- main section -->
-    <section v-show="todos.length" class="main">
-      <input id="toggle-all" :checked="allChecked" class="toggle-all" type="checkbox" @change="toggleAll({ done: !allChecked })">
+    <section v-show="todos.length" v-loading="loading" class="main">
+      <input id="toggle-all" :checked="allChecked" class="toggle-all" type="checkbox" @change="toggleAll({ checklist: !allChecked })">
       <label for="toggle-all" />
       <ul class="todo-list">
         <todo
@@ -39,22 +39,13 @@
 
 <script>
 import Todo from './Todo.vue'
+import { fetchList, createTodo, deleteTodo } from '@/api/todo.js'
 
-const STORAGE_KEY = 'todos'
 const filters = {
   all: todos => todos,
-  active: todos => todos.filter(todo => !todo.done),
-  completed: todos => todos.filter(todo => todo.done)
+  active: todos => todos.filter(todo => !todo.checklist),
+  completed: todos => todos.filter(todo => todo.checklist)
 }
-const defalutList = [
-  { text: 'star this repository', done: false },
-  { text: 'fork this repository', done: false },
-  { text: 'follow author', done: false },
-  { text: 'vue', done: true },
-  { text: 'element-ui', done: true },
-  { text: 'axios', done: true },
-  { text: 'webpack', done: true }
-]
 export default {
   components: { Todo },
   filters: {
@@ -66,55 +57,71 @@ export default {
       visibility: 'all',
       filters,
       // todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY)) || defalutList
-      todos: defalutList
+      todos: [
+        { todo: 'todo', checklist: false }
+      ],
+      loading: true
     }
   },
   computed: {
     allChecked() {
-      return this.todos.every(todo => todo.done)
+      return this.todos.every(todo => todo.checklist)
     },
     filteredTodos() {
       return filters[this.visibility](this.todos)
     },
     remaining() {
-      return this.todos.filter(todo => !todo.done).length
+      return this.todos.filter(todo => !todo.checklist).length
     }
   },
+  created() {
+    this.getTodo()
+  },
   methods: {
-    setLocalStorage() {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.todos))
+    getTodo() {
+      this.loading = true
+      fetchList().then(res => {
+        this.todos = res
+        this.loading = false
+      }).catch(err => {
+        console.log(err)
+        this.loading = false
+      })
     },
-    addTodo(e) {
-      const text = e.target.value
-      if (text.trim()) {
-        this.todos.push({
-          text,
-          done: false
-        })
-        this.setLocalStorage()
+    async addTodo(e) {
+      const todo = e.target.value
+      const payload = {
+        todo: todo.trim(),
+        checklist: false
       }
+      await createTodo(payload).then(res => {
+        this.getTodo()
+      })
       e.target.value = ''
     },
     toggleTodo(val) {
-      val.done = !val.done
-      this.setLocalStorage()
+      val.checklist = !val.checklist
+      // this.setLocalStorage()
     },
-    deleteTodo(todo) {
-      this.todos.splice(this.todos.indexOf(todo), 1)
-      this.setLocalStorage()
+    async deleteTodo(todo) {
+      await deleteTodo(todo).then(res => {
+        this.getTodo()
+      })
+      // this.todos.splice(this.todos.indexOf(todo), 1)
+      // this.setLocalStorage()
     },
     editTodo({ todo, value }) {
-      todo.text = value
-      this.setLocalStorage()
+      todo.todo = value
+      // this.setLocalStorage()
     },
     clearCompleted() {
-      this.todos = this.todos.filter(todo => !todo.done)
-      this.setLocalStorage()
+      this.todos = this.todos.filter(todo => !todo.checklist)
+      // this.setLocalStorage()
     },
-    toggleAll({ done }) {
+    toggleAll({ checklist }) {
       this.todos.forEach(todo => {
-        todo.done = done
-        this.setLocalStorage()
+        todo.checklist = checklist
+        // this.setLocalStorage()
       })
     }
   }
