@@ -429,6 +429,7 @@ export default {
     accountName: 'Nama Akun',
     accountNumber: 'Nomor Akun',
     currentBank: 'Bank Default',
+    branchName: 'Cabang Bank',
     status: 'Status'
   },
   groupMaintenance: {

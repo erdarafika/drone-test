@@ -427,6 +427,7 @@ export default {
     accountName: 'Account Name',
     accountNumber: 'Account Number',
     currentBank: 'Default Bank',
+    branchName: 'Bank Branch',
     status: 'Status'
   },
   groupMaintenance: {

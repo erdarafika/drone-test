@@ -9,12 +9,15 @@ div
     el-table-column(:label="$t('companyBankAccount.accountName')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.accountName }}
-    el-table-column(:label="$t('companyBankAccount.accountNumber')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.accountNumber }}
+    //- el-table-column(:label="$t('companyBankAccount.accountNumber')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.accountNumber }}
     el-table-column(:label="$t('companyBankAccount.bankName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.bank.bankName }}
+    el-table-column(:label="$t('companyBankAccount.branchName')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.branchName }}
     el-table-column(:label="$t('companyBankAccount.status')", align='left',)
       template(slot-scope='scope')
         span(:class="scope.row.currentBank ?'label-enable':''")
@@ -35,7 +38,8 @@ div
       el-form-item(:label="$t('companyBankAccount.bankName')", prop='bankId')
         el-select(v-model='temp.bankId', name='bankId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in bankOptions', :key='item.value', :label='item.label', :value='item.value')
-
+      el-form-item(:label="$t('companyBankAccount.branchName')", prop='branchName')
+        el-input(v-model.number='temp.branchName', name='branchName' type='input')
       el-form-item(:label="$t('companyBankAccount.status')" prop='currentBank')
         el-switch(v-model='temp.currentBank' name='currentBank')
         span.switch-status {{ temp.currentBank?'Default':'Not Default' }}
@@ -72,6 +76,7 @@ export default {
         bankId: undefined,
         accountName: undefined,
         accountNumber: undefined,
+        branchName: undefined,
         currentBank: false
       },
       initialUpdate: false,
@@ -81,7 +86,8 @@ export default {
         bankId: [requiredValidator],
         accountName: [requiredValidator],
         accountNumber: [requiredValidator],
-        currentBank: [requiredValidator]
+        currentBank: [requiredValidator],
+        branchName: [requiredValidator]
       }
     }
   },
@@ -157,6 +163,7 @@ export default {
         companyId: this.data.id,
         id: row.id,
         bankId: row.bank.id,
+        branchName: row.branchName,
         accountName: row.accountName,
         accountNumber: row.accountNumber,
         currentBank: row.currentBank
