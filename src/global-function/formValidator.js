@@ -1,7 +1,8 @@
 import {
   isAlphanumeric,
   isAlphabetic,
-  isAlphanumericLine
+  isAlphanumericLine,
+  isAlphanumericLineDotSlash
 } from '@/utils/validate'
 
 const alphanumericValidatorFunc = (rule, value, callback) => {
@@ -19,6 +20,16 @@ const alphanumericLineValidatorFunc = (rule, value, callback) => {
     callback(new Error('Please input again'))
   } else if (!isAlphanumericLine(value)) {
     callback(new Error('This field only accept text, number & `-` '))
+  } else {
+    callback()
+  }
+}
+
+const alphanumericLineDotSlashValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (!isAlphanumericLineDotSlash(value)) {
+    callback(new Error('This field only accept text, number, `.`, `/` , `-` '))
   } else {
     callback()
   }
@@ -54,6 +65,8 @@ const alphanumericValidator = { validator: alphanumericValidatorFunc, trigger: '
 
 const alphanumericLineValidator = { validator: alphanumericLineValidatorFunc, trigger: 'change' }
 
+const alphanumericLineDotSlashValidator = { validator: alphanumericLineDotSlashValidatorFunc, trigger: 'change' }
+
 const numberValidator = { validator: numberValidatorFunc, trigger: 'change' }
 
 export {
@@ -62,5 +75,6 @@ export {
   requiredValidator,
   alphanumericValidator,
   alphabeticValidator,
-  alphanumericLineValidator
+  alphanumericLineValidator,
+  alphanumericLineDotSlashValidator
 }

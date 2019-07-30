@@ -105,10 +105,9 @@ export default {
       listLoading: true,
       companyOptions: [],
       productTypeOptions: [],
-      groupTypeOptions: ['Organization', 'Individu'],
+      groupTypeOptions: ['organization', 'individual'],
       temp: {
         id: undefined,
-        isDraft: 1,
         companyId: undefined,
         productTypeId: undefined,
         name: undefined,
@@ -127,7 +126,6 @@ export default {
       },
       dialogStatus: 'create',
       rules: {
-        isDraft: [requiredValidator],
         companyId: [],
         productTypeId: [requiredValidator],
         name: [requiredValidator],
@@ -167,6 +165,7 @@ export default {
       }
     }
     fetchCompany().then(res => {
+      res = res.filter(item => item.status === 'active')
       this.companyOptions = res.map(company => ({ value: company.id, label: company.name }))
     })
     fetchProductType().then(res => {
@@ -196,7 +195,6 @@ export default {
         response.ppkReceiveDate = this.reFormatDate(response.ppkReceiveDate)
         response.companyId = response.company.id
         response.productTypeId = response.productType.id
-        response.isDraft = 1
 
         this.temp = response
         this.listLoading = false
@@ -205,7 +203,6 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        isDraft: 1,
         companyId: undefined,
         productTypeId: undefined,
         name: undefined,

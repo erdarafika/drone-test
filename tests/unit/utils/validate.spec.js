@@ -1,4 +1,4 @@
-import { validURL, validLowerCase, validUpperCase, validAlphabets, isAlphabetic, isAlphanumeric } from '@/utils/validate.js'
+import { validURL, validLowerCase, validUpperCase, validAlphabets, isAlphabetic, isAlphanumeric, isAlphanumericLineDotSlash } from '@/utils/validate.js'
 describe('Utils:validate', () => {
   it('isAlphabetic', () => {
     expect(isAlphabetic('ABCD')).toBe(true)
@@ -10,6 +10,12 @@ describe('Utils:validate', () => {
     expect(isAlphanumeric('abcd123')).toBe(true)
     expect(isAlphanumeric('abcd')).toBe(true)
     expect(isAlphanumeric('ABCD')).toBe(true)
+    expect(isAlphanumeric('ABCD312321@-')).toBe(false)
+  })
+  it('isAlphanumericLineDotSlash', () => {
+    expect(isAlphanumericLineDotSlash('ABCD123')).toBe(true)
+    expect(isAlphanumericLineDotSlash('abcd123./-')).toBe(true)
+    expect(isAlphanumericLineDotSlash('abcd')).toBe(true)
     expect(isAlphanumeric('ABCD312321@-')).toBe(false)
   })
   it('validURL', () => {
