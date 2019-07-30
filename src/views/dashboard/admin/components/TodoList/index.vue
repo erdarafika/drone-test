@@ -2,7 +2,7 @@
   <section class="todoapp">
     <!-- header -->
     <header class="header">
-      <input class="new-todo" autocomplete="off" placeholder="New Task" @keyup.enter="addTodo">
+      <input class="new-todo" autocomplete="off" :placeholder="$t('dashboard.todo.newTask')" @keyup.enter="addTodo">
     </header>
     <!-- main section -->
     <section v-show="todos.length" v-loading="loading" class="main">
@@ -23,11 +23,11 @@
     <footer v-show="todos.length" class="footer">
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
-        {{ remaining | pluralize('item') }} left
+        {{ $t('dashboard.todo.newTask') }}
       </span>
       <ul class="filters">
         <li v-for="(val, key) in filters" :key="key">
-          <a :class="{ selected: visibility === key }" @click.prevent="visibility = key">{{ key | capitalize }}</a>
+          <a :class="{ selected: visibility === key }" @click.prevent="visibility = key">{{ $t(`dashboard.todo.${key}`) }}</a>
         </li>
       </ul>
       <!-- <button class="clear-completed" v-show="todos.length > remaining" @click="clearCompleted">
