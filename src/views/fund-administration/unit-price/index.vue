@@ -15,7 +15,10 @@ app-container
           hr
           h3 {{$t('route.investmentType') }} - {{$t('investmentType.price')}}
         el-form-item(v-for='(domain, index) in investmentTypePrice' :key='domain.key' :label="domain.label")
-          el-input-number(v-model.number='domain.value' :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend {{$t('investmentType.price')}}
+            money.el-input__inner(v-model='domain.value', name='amount' v-bind='configSeparator' :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
+          //- el-input-number(v-model.number='domain.value' :precision="configSeparator" :step='1000' controls-position="right" :disabled='["pending","active","approved"].includes(domain.status.toLowerCase())')
           el-alert(v-if='domain.status' :title='domain.status', :type='unitPriceColor(domain.status)', show-icon :closable='false' style='display: initial; margin-left:20px')
       .dialog-footer(slot='footer')
         el-button(@click='dialogFormVisible = false')
@@ -46,6 +49,7 @@ app-container
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fetchList as fetchInvestmentTypeList, fetchUnitPriceList, createUnitPrice } from '@/api/investment-type'
 import { fetchList as fetchHoliday } from '@/api/holiday'
+import { fetchMathConfig } from '@/api/config'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 // import rules from './validation-rules'
 
@@ -63,6 +67,14 @@ export default {
         limit: 20,
         q: undefined,
         date: undefined
+      },
+      configSeparator: {
+        decimal: ',',
+        thousands: '.',
+        prefix: '',
+        suffix: '',
+        precision: 0,
+        masked: false /* doesn't work with directive */
       },
       holiday: [],
       temp: {
@@ -94,6 +106,11 @@ export default {
       const self = this
       return {
         disabledDate(time) {
+          const dayKey = time.getDay()
+          if (dayKey === 6 || dayKey === 0) {
+            return true
+          }
+
           const today = self.$moment().subtract(1, 'days')
           const timeToMoment = self.$moment(time)
           return timeToMoment.isAfter(today) || self.holiday.includes(self.$moment(time.getTime()).format(self.dateFormat))
@@ -126,6 +143,13 @@ export default {
     })
     this.getInvestmentTypePrice()
     this.getList()
+
+    fetchMathConfig({ code: 'unit_price', type: 'separator' }).then(res => {
+      if (res.length) {
+        this.configSeparator.precision = res[0].value
+      }
+      console.log(this.configSeparator)
+    })
   },
   methods: {
     unitPriceColor(status) {
@@ -138,6 +162,7 @@ export default {
     getInvestmentTypePrice() {
       const DEFAULT_STATUS = ''
       fetchInvestmentTypeList().then(response => {
+        response = response.filter(item => item.status === 'active')
         this.investmentTypePrice = response.map(i => ({ label: i.name, key: i.id, value: 0, status: DEFAULT_STATUS }))
       })
     },

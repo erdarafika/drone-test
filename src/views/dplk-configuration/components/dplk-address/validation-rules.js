@@ -7,5 +7,9 @@ export default {
   cityId: [requiredValidator],
   provinceId: [requiredValidator],
   postalCode: [requiredValidator, numberValidator],
-  isDefault: [requiredValidator]
+  isDefault: [requiredValidator],
+  address1: [requiredValidator],
+  address2: [requiredValidator],
+  address3: [],
+  address4: []
 }

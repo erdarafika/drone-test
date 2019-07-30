@@ -37,8 +37,11 @@
           Detail(:data='row' :action='handleDetail')
           //- Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
+
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+        el-form-item
+          el-alert(:title="$t('table.rejectionReason')", :description='temp.reason' type='error' v-if='temp.status === "rejected"')
         el-form-item(:label="$t('investmentType.fundName')", prop='name')
           el-input(v-model='temp.name',  name='name' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
         el-form-item(:label="$t('investmentType.code')", prop='code')
@@ -58,7 +61,7 @@
 
 <script>
 import { fetchList, createInvestmentType, updateInvestmentType, deleteInvestmentType, approveInvestmentType } from '@/api/investment-type'
-// import { fetchList as fetchTaskList } from '@/api/task-management'
+import { fetchList as fetchTaskList } from '@/api/task-management'
 import Pagination from '@/components/Pagination' // secondary package based on el-paginationp
 import rules from './validation-rules'
 
@@ -182,6 +185,11 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
+
+      fetchTaskList().then(res => {
+        console.log(res, row)
+      })
+
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })

@@ -71,9 +71,10 @@
         background-color: $menuHover !important;
       }
     }
-
+    
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
+      // font-weight: bold !important;
     }
 
     & .nest-menu .el-submenu>.el-submenu__title,
@@ -84,6 +85,10 @@
       &:hover {
         background-color: $subMenuHover !important;
       }
+    }
+
+    & .el-submenu .is-active {
+      background-color: $subMenuActiveBg !important;
     }
   }
 

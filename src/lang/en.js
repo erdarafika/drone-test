@@ -35,10 +35,10 @@ export default {
     withdrawalRule: 'Benefit Rule',
     fundAdministration: 'Fund Administration',
     dplkConfiguration: 'DPLK Configuration',
-    dplkInformation: 'DPLK Information',
-    dplkAddress: 'DPLK Address',
-    dplkBankAccount: 'DPLK Bank Account',
-    dplkStaff: 'DPLK Staff',
+    dplkInformation: 'Information',
+    dplkAddress: 'Address',
+    dplkBankAccount: 'Bank Account',
+    dplkStaff: 'Staff',
     position: 'Position',
     department: 'Department',
     moneySource: 'Money Source',
@@ -90,6 +90,7 @@ export default {
     createdBy: 'Created By',
     filter: 'Filter',
     requestApproval: 'Request For Approval',
+    rejectionReason: 'Rejection Reason',
     back: 'Back',
     approve: 'Approve',
     reject: 'Reject',
@@ -135,6 +136,17 @@ export default {
     editModalHeader: 'Edit Data'
   },
   // SINGLE PAGE
+  dashboard: {
+    totalCompany: 'Total Company',
+    totalMember: 'Total Member',
+    totalStatus: 'User Status',
+    active: 'Active',
+    statistics: 'Statistics',
+    lastWeek: 'Last Week',
+    lastMonth: 'Last Month',
+    last3Month: 'Last 3 Month',
+    last6Month: 'Last 6 Month'
+  },
   addressType: {
     type: 'Name',
     displayOnMember: 'Display on Member',
@@ -199,7 +211,7 @@ export default {
     editTemplate: 'Edit Template',
     template: 'Template',
     attachments: 'Attachments',
-    subject: 'Mail Transaction',
+    subject: 'Email Subject',
     selectFile: 'Select File',
     name: 'Attachment Name',
     type: 'Mail Transaction Type'
@@ -300,7 +312,11 @@ export default {
     province: 'Province',
     postalCode: 'Postal Code',
     status: 'Status',
-    setDefault: 'Set as Default'
+    setDefault: 'Set as Default',
+    address1: 'Address 1',
+    address2: 'Address 2',
+    address3: 'Address 3',
+    address4: 'Address 4'
   },
   dplkBankAccount: {
     name: 'Account Name',

@@ -3,8 +3,8 @@ import { requiredValidator, emailValidator, numberValidator } from '@/global-fun
 export default {
   name: [requiredValidator],
   code: [],
-  email: [emailValidator],
-  website: [],
+  email: [requiredValidator, emailValidator],
+  website: [requiredValidator],
   businessLineId: [requiredValidator],
   businessEntity: [requiredValidator],
   npwp: [requiredValidator],

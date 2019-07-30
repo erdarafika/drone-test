@@ -10,8 +10,8 @@ $panGreen: #30B08F;
 
 // sidebar
 $menuText:#797171;
-$menuActiveText:#797171;
-$subMenuActiveText:#797171; // https://github.com/ElemeFE/element/issues/12951
+$menuActiveText:#489bff;
+$subMenuActiveText:#489bff; // https://github.com/ElemeFE/element/issues/12951
 
 // $menuBg:#304156;
 // Pensiunku version
@@ -20,6 +20,7 @@ $dialodheaderBg: white;
 $menuHover:#a2cdf55e;
 
 $subMenuBg:white;
+$subMenuActiveBg:#dfe4ed7a;
 $subMenuHover:#a2cdf55e;
 
 $sideBarWidth: 210px;
@@ -32,6 +33,7 @@ $sideBarWidth: 210px;
   subMenuActiveText: $subMenuActiveText;
   menuBg: $menuBg;
   menuHover: $menuHover;
+  subMenuActiveBg: $subMenuActiveBg;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;

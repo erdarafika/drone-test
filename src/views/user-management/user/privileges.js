@@ -25,11 +25,11 @@ export default {
       menuChecked: false,
       privilege: []
     },
-    {
-      menu: 'document',
-      menuChecked: false,
-      privilege: []
-    },
+    // {
+    //   menu: 'document',
+    //   menuChecked: false,
+    //   privilege: []
+    // },
     {
       menu: 'tolerance',
       menuChecked: false,
@@ -47,6 +47,11 @@ export default {
     },
     {
       menu: 'benefit-type',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'benefit-rule',
       menuChecked: false,
       privilege: []
     },

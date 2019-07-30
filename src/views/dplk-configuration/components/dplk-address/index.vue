@@ -7,9 +7,9 @@ div
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('dplkAddress.name')", align='left', )
-      template(slot-scope='scope')
-        span {{ scope.row.name }}
+    //- el-table-column(:label="$t('dplkAddress.name')", align='left', )
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.name }}
     el-table-column(:label="$t('dplkAddress.addressType')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.addressType.type }}
@@ -44,10 +44,8 @@ div
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('dplkAddress.name')", prop='name')
-        el-input(v-model.number='temp.name', type='input' name='name')
-      el-form-item(:label="$t('dplkAddress.postalCode')", prop='postalCode')
-        el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
+      //- el-form-item(:label="$t('dplkAddress.name')", prop='name')
+      //-   el-input(v-model.number='temp.name', type='input' name='name')
       el-form-item(:label="$t('dplkAddress.addressType')", prop='addressTypeId')
         el-select(v-model='temp.addressTypeId', name='addressTypeId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in addressTypeOptions', :key='item.value', :label='item.label', :value='item.value')
@@ -60,6 +58,16 @@ div
       el-form-item(:label="$t('dplkAddress.city')", prop='cityId')
         el-select(v-model='temp.cityId', name='cityId'  placeholder='Select', filterable, default-first-option  :disabled='temp.provinceId === undefined')
           el-option(v-for='item in cityOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('dplkAddress.postalCode')", prop='postalCode')
+        el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
+      el-form-item(:label="$t('dplkAddress.address1')", prop='address1' )
+        el-input(v-model='temp.address1',  name='address1' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address2')", prop='address2' )
+        el-input(v-model='temp.address2',  name='address2' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address3')", prop='address3' )
+        el-input(v-model='temp.address3',  name='address3' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+      el-form-item(:label="$t('dplkAddress.address4')", prop='address4' )
+        el-input(v-model='temp.address4',  name='address4' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
 
     .dialog-footer(slot='footer' )
       el-button(@click='dialogFormVisible = false')
@@ -73,15 +81,11 @@ div
 import { fetchList, createDplkAddress, updateDplkAddress, deleteDplkAddress } from '@/api/dplk-address'
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-// import crudPermission from '@/directive/crud-permission/index.js'
-// import checkCrudPermission from '@/utils/crud-permission'
-// import RecordStatus from '@/components/RecordStatus'
+import Pagination from '@/components/Pagination'
 import rules from './validation-rules'
 
 export default {
   name: 'Document',
-  // directives: { crudPermission },
   components: { Pagination },
   data() {
     return {
@@ -99,12 +103,16 @@ export default {
       provinceOptions: [],
       cityOptions: [],
       temp: {
-        name: undefined,
+        // name: undefined,
         addressTypeId: undefined,
         countryId: undefined,
         cityId: undefined,
         postalCode: undefined,
-        provinceId: undefined
+        provinceId: undefined,
+        address1: undefined,
+        address2: undefined,
+        address3: undefined,
+        address4: undefined
       },
       initialUpdate: false,
       dialogFormVisible: false,
@@ -115,7 +123,7 @@ export default {
   computed: {
     filterredList() {
       const { q, limit, page } = this.listQuery
-      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterSearch = this.list.filter(data => !q || data.address1.toLowerCase().includes(q.toLowerCase()))
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
     },
@@ -151,9 +159,6 @@ export default {
 
   },
   created() {
-    this.$eventBus.$on('update-location', (data) => {
-      this.getCountryAddress()
-    })
     this.getCountryAddress()
   },
   methods: {
@@ -211,13 +216,16 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        name: undefined,
+        // name: undefined,
         addressTypeId: undefined,
         countryId: undefined,
         cityId: undefined,
         postalCode: undefined,
-        provinceId: undefined
-
+        provinceId: undefined,
+        address1: undefined,
+        address2: undefined,
+        address3: undefined,
+        address4: undefined
       }
     },
     handleCreate() {
@@ -249,7 +257,11 @@ export default {
         countryId: row.country.id,
         provinceId: row.province.id,
         cityId: row.city.id,
-        addressTypeId: row.addressType.id
+        addressTypeId: row.addressType.id,
+        address1: row.address1,
+        address2: row.address2,
+        address3: row.address3,
+        address4: row.address4
       }
       this.initialUpdate = true
       this.dialogStatus = 'update'

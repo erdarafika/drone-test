@@ -1,94 +1,104 @@
 <template>
   <div class="dashboard-editor-container">
-    <el-alert title="Informasi" description="Grafik dibawah adalah Mock Up UI" type="info" show-icon style="font-size:16px" />
+    <!-- <el-alert title="Informasi" description="Grafik dibawah adalah Mock Up UI" type="info" show-icon style="font-size:16px" /> -->
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+    <panel-group />
 
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
-
-    <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <raddar-chart />
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <pie-chart />
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <bar-chart />
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="8">
-      <!-- <el-col :xs="{span: 24}" :sm="{span: 24}" :md="{span: 24}" :lg="{span: 12}" :xl="{span: 12}" style="padding-right:8px;margin-bottom:30px;">
-        <transaction-table />
-      </el-col> -->
-      <el-col :xs="{span: 24}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 12}" :xl="{span: 12}" style="margin-bottom:30px;">
+    <el-row style="background:#e4e4e4;margin-bottom:32px;" :gutter="40">
+      <el-col :span="8">
         <todo-list />
       </el-col>
-      <!-- <el-col :xs="{span: 24}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 6}" :xl="{span: 6}" style="margin-bottom:30px;">
-        <box-card />
-      </el-col> -->
+      <el-col :span="16">
+        <div style="background-color: white; padding: 10px;border-radius: 10px;">
+          <el-row>
+            <el-col :span="18">
+              <h2 style="margin-left:20px;color: #636569">{{ $t('dashboard.statistics') }}</h2>
+            </el-col>
+            <el-col :span="6">
+              <el-select v-model="selectedDataType" placeholder="Select">
+                <el-option
+                  v-for="item in dataTypeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-col>
+          </el-row>
+
+          <line-chart :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
+        </div>
+      </el-col>
     </el-row>
+
   </div>
 </template>
 
 <script>
 import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
-import RaddarChart from './components/RaddarChart'
-import PieChart from './components/PieChart'
-import BarChart from './components/BarChart'
-// import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
-// import BoxCard from './components/BoxCard'
-
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
 
 export default {
   name: 'DashboardAdmin',
   components: {
     PanelGroup,
     LineChart,
-    RaddarChart,
-    PieChart,
-    BarChart,
-    // TransactionTable,
     TodoList
-    // BoxCard
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      selectedDataType: 'month',
+      unitPriceDate: undefined
     }
   },
+  computed: {
+    dataTypeOptions() {
+      return [{
+        label: this.$t('dashboard.last6Month'),
+        value: '6month'
+      }, {
+        label: this.$t('dashboard.last3Month'),
+        value: '3month'
+      }, {
+        label: this.$t('dashboard.lastMonth'),
+        value: 'month'
+      }, {
+        label: this.$t('dashboard.lastWeek'),
+        value: 'week'
+      }]
+    }
+  },
+  watch: {
+    selectedDataType(val) {
+      this.unitPriceDate = this.generateDate(val)
+      console.log(this.unitPriceDate)
+    }
+  },
+  created() {
+    this.unitPriceDate = this.generateDate(this.selectedDataType)
+  },
   methods: {
-    handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type]
+    generateDate(dataType) {
+      const end = this.$moment()
+      let start = this.$moment()
+      if (dataType === 'month') {
+        start = start.subtract(1, 'months')
+      }
+      if (dataType === 'week') {
+        start = start.subtract(7, 'days')
+      }
+      if (dataType === '3month') {
+        start = start.subtract(3, 'months')
+      }
+      if (dataType === '6month') {
+        start = start.subtract(6, 'months')
+      }
+
+      return {
+        end,
+        start
+      }
     }
   }
 }
@@ -97,9 +107,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard-editor-container {
   padding: 32px;
-  // background-color: rgb(240, 242, 245);
-  // PensiunKu version
-  background-color: #fff;
+  background-color: #e4e4e4;
 
   position: relative;
 

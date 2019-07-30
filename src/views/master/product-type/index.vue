@@ -11,9 +11,9 @@ app-container
     el-table-column(:label="$t('productType.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name }}
-    el-table-column(:label="$t('productType.description')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.description }}
+    //- el-table-column(:label="$t('productType.description')", align='left')
+    //-   template(slot-scope='scope')
+    //-     span {{ scope.row.description }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}

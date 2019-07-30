@@ -1,28 +1,29 @@
 <template>
-  <li :class="{ completed: todo.done, editing: editing }" class="todo">
+  <li :class="{ completed: todo.checklist, editing: editing }" class="todo">
     <div class="view">
       <input
-        :checked="todo.done"
+        :checked="todo.checklist"
         class="toggle"
         type="checkbox"
         @change="toggleTodo( todo)"
       >
-      <label @dblclick="editing = true" v-text="todo.text" />
+      <label @dblclick="editing = true" v-text="todo.todo" />
       <button class="destroy" @click="deleteTodo( todo )" />
     </div>
     <input
       v-show="editing"
       v-focus="editing"
-      :value="todo.text"
+      :value="todo.todo"
       class="edit"
-      @keyup.enter="doneEdit"
+      @keyup.enter="checklistEdit"
       @keyup.esc="cancelEdit"
-      @blur="doneEdit"
+      @blur="checklistEdit"
     >
   </li>
 </template>
 
 <script>
+
 export default {
   name: 'Todo',
   directives: {
@@ -57,7 +58,7 @@ export default {
     toggleTodo(todo) {
       this.$emit('toggleTodo', todo)
     },
-    doneEdit(e) {
+    checklistEdit(e) {
       const value = e.target.value.trim()
       const { todo } = this
       if (!value) {
@@ -73,7 +74,7 @@ export default {
       }
     },
     cancelEdit(e) {
-      e.target.value = this.todo.text
+      e.target.value = this.todo.todo
       this.editing = false
     }
   }

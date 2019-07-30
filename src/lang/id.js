@@ -36,10 +36,10 @@ export default {
     withdrawalRule: 'Aturan Manfaat',
     fundAdministration: 'Administrasi Dana',
     dplkConfiguration: 'DPLK Konfigurasi',
-    dplkInformation: 'DPLK Informasi',
-    dplkAddress: 'DPLK Alamat',
-    dplkBankAccount: 'DPLK Bank Akun',
-    dplkStaff: 'DPLK Staff',
+    dplkInformation: 'Informasi',
+    dplkAddress: 'Alamat',
+    dplkBankAccount: 'Akun Bank',
+    dplkStaff: 'Staff',
     position: 'Jabatan',
     department: 'Departemen',
     moneySource: 'Sumber Dana',
@@ -91,6 +91,9 @@ export default {
     filter: 'Filter',
     requestApproval: 'Request For Approval',
     back: 'Halaman Sebelumnya',
+    approve: 'Setujui',
+    reject: 'Tolak',
+    rejectionReason: 'Alasan Ditolak',
     type: 'Tipe',
     save: 'Simpan',
     search: 'Pencarian',
@@ -135,6 +138,17 @@ export default {
     closeAll: 'Tutup Semua'
   },
   // SINGLE PAGE
+  dashboard: {
+    totalCompany: 'Total Perusahaan',
+    totalMember: 'Total Anggota',
+    totalStatus: 'Status Pengguna',
+    active: 'Aktif',
+    statistics: 'Statistik',
+    lastWeek: 'Seminggu Terakhir',
+    lastMonth: 'Sebulan Terakhir',
+    last3Month: '3 bulan Terakhir',
+    last6Month: '6 bulan Terakhir'
+  },
   page404: {
     title: 'OOPS!',
     subTitle: 'Maaf, Halamn Tidak Ditemukan...',
@@ -199,7 +213,7 @@ export default {
     editTemplate: 'Ubah Templat',
     template: 'Templat',
     attachments: 'Lampiran',
-    subject: 'Transaksi Email',
+    subject: 'Subjek Email',
     selectFile: 'Pilih Berkas',
     name: 'Nama Lampiran',
     type: 'Jenis Transaksi Email'
@@ -300,7 +314,11 @@ export default {
     province: 'Provinsi',
     postalCode: 'Kode Pos',
     status: 'Status',
-    setDefault: 'Atur sebagai Default'
+    setDefault: 'Atur sebagai Default',
+    address1: 'Alamat 1',
+    address2: 'Alamat 2',
+    address3: 'Alamat 3',
+    address4: 'Alamat 4'
   },
   dplkBankAccount: {
     name: 'Nama Akun',
