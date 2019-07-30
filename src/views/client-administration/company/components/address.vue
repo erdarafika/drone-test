@@ -72,7 +72,7 @@ import { fetchList, createCompanyAddress, updateCompanyAddress, deleteCompanyAdd
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -86,7 +86,8 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        q: undefined
       },
       defaultId: -1,
       addressTypeOptions: [],
@@ -110,11 +111,11 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        district: [requiredValidator],
-        address1: [requiredValidator],
-        address2: [requiredValidator],
-        address3: [],
-        address4: [],
+        district: [requiredValidator, alphabeticValidator],
+        address1: [requiredValidator, alphanumericDotComaValidator],
+        address2: [requiredValidator, alphanumericDotComaValidator],
+        address3: [alphanumericDotComaValidator],
+        address4: [alphanumericDotComaValidator],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
         cityId: [requiredValidator],

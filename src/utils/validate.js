@@ -117,3 +117,11 @@ export function isAlphanumericLine(str) {
 export function isAlphanumericLineDotSlash(str) {
   return /^[a-z0-9-\/. ]+$/i.test(str)
 }
+
+/**
+ * @param {string} arg
+ * @returns {Boolean}
+ */
+export function isAlphanumericDotComa(str) {
+  return /^[a-z0-9., ]+$/i.test(str)
+}
