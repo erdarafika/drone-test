@@ -35,7 +35,7 @@ app-container(:show='!objectId')
             el-form-item(:label="$t('groupMaintenance.caseCloseDate')" prop='caseCloseDate')
               el-date-picker(:value-format='dateFormat' v-model='temp.caseCloseDate', name='caseCloseDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
             el-form-item(:label="$t('groupMaintenance.terminationDate')" prop='terminationDate')
-              el-date-picker(:value-format='dateFormat' v-model='temp.terminationDate', name='terminationDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
+              el-date-picker(:value-format='dateFormat' v-model='temp.terminationDate', name='terminationDate' type='date', placeholder='Auto Generated' :disabled='true' )
             el-form-item(:label="$t('groupMaintenance.ppkReceiveDate')" prop='ppkReceiveDate')
               el-date-picker(:value-format='dateFormat' v-model='temp.ppkReceiveDate', name='ppkReceiveDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
 
@@ -91,7 +91,7 @@ import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
 import Withdrawal from './components/withdrawal'
 // import GroupCharge from './components/groupCharge'
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Company',
@@ -126,14 +126,14 @@ export default {
       },
       dialogStatus: 'create',
       rules: {
-        companyId: [],
+        companyId: [requiredValidator],
         productTypeId: [requiredValidator],
         name: [requiredValidator],
-        proposalNumber: [],
-        proposalDate: [],
-        type: [],
+        proposalNumber: [requiredValidator, numberValidator],
+        proposalDate: [requiredValidator],
+        type: [requiredValidator],
         effectiveDate: [],
-        caseCloseDate: [],
+        caseCloseDate: [requiredValidator],
         terminationDate: [],
         ppkReceiveDate: [],
         totalEmployee: [],
