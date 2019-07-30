@@ -22,3 +22,19 @@ export function deleteTodo(data) {
   })
 }
 
+export function updateTodo(data) {
+  return request({
+    url: `/todolist/${data.id}`,
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateTodoStatus(data) {
+  return request({
+    url: `/todolist/${data.id}/update-status`,
+    method: 'post',
+    data: data
+  })
+}
+
