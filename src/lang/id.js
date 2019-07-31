@@ -1,5 +1,7 @@
 export default {
   route: {
+    contribution: 'Kontribusi',
+    contributionBilling: 'Tagihan Kontribusi',
     detail: 'Detail',
     dashboard: 'Dasbor',
     addressType: 'Tipe Alamat',
