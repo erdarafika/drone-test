@@ -40,7 +40,6 @@ import SettingPassword from './components/ActionButtons/SettingPassword'
 import Status from './components/ActionButtons/Status'
 import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
-
 //  Register Component
 Vue.component('Delete', Delete)
 Vue.component('Edit', Edit)

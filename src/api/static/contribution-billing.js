@@ -1,3 +1,7 @@
+
+import store from '@/store'
+
 export function fetchList() {
-  return Promise.resolve([{ name: 'dsadsa', code: 'dsadsa', type: 'dasdsads', status: 'dsadsa', 'created_at': 'dsadsa' }])
+  const data = store.getters.contribution.billing
+  return Promise.resolve(data || [])
 }
