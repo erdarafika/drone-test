@@ -6,7 +6,7 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <!-- <search id="header-search" class="right-menu-item" /> -->
+        <search id="header-search" class="right-menu-item" />
 
         <clock class="right-menu-item" />
 
@@ -63,7 +63,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
-// import Search from '@/components/HeaderSearch'
+import Search from '@/components/HeaderSearch'
 import Clock from '@/components/Clock'
 import Notification from './Notification'
 
@@ -76,8 +76,8 @@ export default {
     Screenfull,
     SizeSelect,
     LangSelect,
-    Notification
-    // Search
+    Notification,
+    Search
   },
   computed: {
     ...mapGetters([
