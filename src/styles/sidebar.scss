@@ -26,6 +26,11 @@
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
 
+    .el-menu-item {
+      height: 46px ;
+      line-height: 46px;
+    }
+
     .scrollbar-wrapper {
       overflow-x: hidden !important;
     }
@@ -67,6 +72,8 @@
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
+      height: 46px ;
+      line-height: 46px;
       &:hover {
         background-color: $menuHover !important;
       }
@@ -79,6 +86,8 @@
 
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
+      height: 46px ;
+      line-height: 46px;
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
 
