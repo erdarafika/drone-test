@@ -1,5 +1,11 @@
 export default {
   route: {
+    contribution: 'Contribution',
+    contributionBilling: 'Billing',
+    contributionBillingPPUKP: 'Billing PPUKP',
+    contributionBillingPPIPOrganization: 'Billing PPIP Organization',
+    contributionBillingPPIPIndividu: 'Billing PPIP Individu',
+    contributionPopUpAdHoc: 'Top Up Ad Hoc',
     detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',
