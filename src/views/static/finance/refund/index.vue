@@ -5,35 +5,35 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`DPLK Bank`", align='left')
+    el-table-column(:label="`Suspend`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.dplkBank }}
-    el-table-column(:label="`Amount`", align='left')
+        span {{ scope.row.suspend }}
+    el-table-column(:label="`Group`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.amount }}
-    el-table-column(:label="`Outstanding`", align='left')
+        span {{ scope.row.group }}
+    el-table-column(:label="`Company Bank Account`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.outstanding }}
+        span {{ scope.row.companybankAccount }}
+    el-table-column(:label="`Status`", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.status }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(align='left', width='200')
-      template(slot-scope='scope')
-        el-button(size="small") Match
-        el-button(size="small") Refund
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='`Add`', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="`DPLK Bank`", prop='dplkBank')
-        el-select(v-model='temp.dplkBank', name='dplkBank' placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in dplkBankOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="`Transasction Date`", prop='transactionDate' )
-        el-date-picker(:value-format='dateFormat' v-model='temp.transactionDate', type='date', placeholder='Pick a day' name='date')
-      el-form-item(:label="`Amount`", prop='amount')
-        el-input(v-model.number='temp.amount', name='amount' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
-      el-form-item(:label="`Description`", prop='description')
-        el-input(v-model.number='temp.description', name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+      el-form-item(:label="`Company Bank Account`", prop='companyBankAccount')
+        el-select(v-model='temp.companyBankAccount', name='dplkBank' placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in companyBankAccountOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="`Group`", prop='group')
+        el-select(v-model='temp.group', name='group' placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="`Suspend`", prop='suspend')
+        el-select(v-model='temp.suspend', name='suspend' placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in suspendOptions', :key='item.value', :label='item.label', :value='item.value')
+
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -43,9 +43,10 @@ app-container
 </template>
 
 <script>
-import { fetchList, createRecord } from '@/api/static/finance-admin-suspense'
+import { fetchList, createRecord } from '@/api/static/finance-refund'
 import Pagination from '@/components/Pagination'
-import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
+import { fetchList as fetchCompanyBankAccount } from '@/api/static/company-bank-account'
+import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import rules from './validation-rules'
 
 export default {
@@ -58,12 +59,13 @@ export default {
       total: 0,
       listLoading: true,
       dialogFormVisible: false,
-      dplkBankOptions: [],
+      companyBankAccountOptions: [],
+      groupOptions: [],
+      suspendOptions: [{ value: 1, label: 'Suspend 1' }],
       temp: {
-        dplkBank: undefined,
-        amount: undefined,
-        transactionDate: undefined,
-        description: undefined
+        suspend: undefined,
+        group: undefined,
+        companyBankAccount: undefined
       },
       listQuery: {
         page: 1,
@@ -76,14 +78,18 @@ export default {
   computed: {
     filterredList() {
       const { q, limit, page } = this.listQuery
-      const listAfterSearch = this.list.filter(data => !q || data.name.toLowerCase().includes(q.toLowerCase()))
+      const listAfterSearch = this.list.filter(data => !q || data.suspend.toLowerCase().includes(q.toLowerCase()))
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
     }
   },
   created() {
-    fetchDplkBankList().then(res => {
-      this.dplkBankOptions = res.map(item => ({ label: `${item.bank.bankName} | ${item.accountName}`, value: item.id }))
+    fetchGroup().then(res => {
+      res = res.filter(item => item.status === 'active')
+      this.groupOptions = res.map(item => ({ value: item.id, label: item.name }))
+    })
+    fetchCompanyBankAccount().then(res => {
+      this.companyBankAccountOptions = res.map(item => ({ label: item.name, value: item.id }))
     })
     this.getList()
   },

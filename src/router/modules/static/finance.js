@@ -18,6 +18,24 @@ export default {
         title: 'financeAdminSuspense',
         pensionMenu: 'address-type'
       }
+    },
+    {
+      path: 'refund',
+      name: 'FinanceRefund',
+      component: () => import('@/views/static/finance/refund/index'),
+      meta: {
+        title: 'financeRefund',
+        pensionMenu: 'address-type'
+      }
+    },
+    {
+      path: 'matching-suspense',
+      name: 'FinanceMatchingSuspense',
+      component: () => import('@/views/static/finance/matching-suspense/index'),
+      meta: {
+        title: 'financeMatchingSuspense',
+        pensionMenu: 'address-type'
+      }
     }
     // {
     //   path: 'billing-ppukp',
