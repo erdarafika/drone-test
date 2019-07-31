@@ -93,6 +93,7 @@ import clientAdministration from './modules/client-administration'
 import userManagement from './modules/user-management'
 import taskManagement from './modules/task-management'
 import contribution from './modules/static/contribution'
+// import finance from './modules/static/finance'
 
 export const asyncRoutes = [
   masterSetup,
@@ -102,6 +103,7 @@ export const asyncRoutes = [
   userManagement,
   taskManagement,
   contribution,
+  // finance,
   {
     path: '/config',
     component: Layout,
