@@ -125,11 +125,11 @@ export default {
 }
 .drop{
   border: 2px dashed #bbb;
-  width: 600px;
+  width: 100%;
   height: 160px;
   line-height: 160px;
   margin: 0 auto;
-  font-size: 24px;
+  font-size: 14px;
   border-radius: 5px;
   text-align: center;
   color: #bbb;
