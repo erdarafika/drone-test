@@ -18,6 +18,7 @@ export default {
     simulation: 'Simulation',
     fundSwitching: 'Fund Switching',
     fundTransfer: 'Fund Transfer',
+    batchManagement: 'Batch Management',
     detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',

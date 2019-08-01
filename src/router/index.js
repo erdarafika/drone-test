@@ -99,6 +99,7 @@ import emailStatus from './modules/static/email-status'
 import simulation from './modules/static/simulation'
 import fundSwitching from './modules/static/fund-switching'
 import fundTransfer from './modules/static/fund-transfer'
+import batchManagement from './modules/static/batch-management'
 
 export const asyncRoutes = [
   masterSetup,
@@ -114,6 +115,7 @@ export const asyncRoutes = [
   simulation,
   fundSwitching,
   fundTransfer,
+  batchManagement,
   {
     path: '/config',
     component: Layout,
