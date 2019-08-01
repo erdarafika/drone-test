@@ -14,6 +14,7 @@ export default {
     feeManagementSummary: 'Fee Summary',
     feeManagementList: 'Fee List',
     feeManagementToFounder: 'Fee To Founder',
+    emailStatus: 'Email Status',
     detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',
