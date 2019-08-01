@@ -1,5 +1,15 @@
 export default {
   route: {
+    contribution: 'Contribution',
+    contributionBilling: 'Billing',
+    contributionBillingPPUKP: 'Billing PPUKP',
+    contributionBillingPPIPOrganization: 'Billing PPIP Organization',
+    contributionBillingPPIPIndividu: 'Billing PPIP Individu',
+    contributionPopUpAdHoc: 'Top Up Ad Hoc',
+    finance: 'Finance',
+    financeAdminSuspense: 'Admin Suspense',
+    financeRefund: 'Refund',
+    financeMatchingSuspense: 'Matching Suspense',
     detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',
@@ -145,7 +155,14 @@ export default {
     lastWeek: 'Last Week',
     lastMonth: 'Last Month',
     last3Month: 'Last 3 Month',
-    last6Month: 'Last 6 Month'
+    last6Month: 'Last 6 Month',
+    todo: {
+      newTask: 'New Task',
+      all: 'All',
+      active: 'Active',
+      completed: 'Completed',
+      itemLeft: 'item left'
+    }
   },
   addressType: {
     type: 'Name',
@@ -420,6 +437,7 @@ export default {
     accountName: 'Account Name',
     accountNumber: 'Account Number',
     currentBank: 'Default Bank',
+    branchName: 'Bank Branch',
     status: 'Status'
   },
   groupMaintenance: {

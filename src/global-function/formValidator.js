@@ -1,7 +1,10 @@
 import {
   isAlphanumeric,
   isAlphabetic,
-  isAlphanumericLine
+  isAlphanumericLine,
+  isAlphanumericLineDotSlash,
+  validURL,
+  isAlphanumericDotComa
 } from '@/utils/validate'
 
 const alphanumericValidatorFunc = (rule, value, callback) => {
@@ -19,6 +22,16 @@ const alphanumericLineValidatorFunc = (rule, value, callback) => {
     callback(new Error('Please input again'))
   } else if (!isAlphanumericLine(value)) {
     callback(new Error('This field only accept text, number & `-` '))
+  } else {
+    callback()
+  }
+}
+
+const alphanumericLineDotSlashValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (!isAlphanumericLineDotSlash(value)) {
+    callback(new Error('This field only accept text, number, `.`, `/` , `-` '))
   } else {
     callback()
   }
@@ -44,6 +57,26 @@ const numberValidatorFunc = (rule, value, callback) => {
   }
 }
 
+const urlValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (!validURL(value)) {
+    callback(new Error('Please write full url. http/https included'))
+  } else {
+    callback()
+  }
+}
+
+const alphanumericDotComaValidatorFunc = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input again'))
+  } else if (!isAlphanumericDotComa(value)) {
+    callback(new Error('This field only accept text, number, `.`, `,` '))
+  } else {
+    callback()
+  }
+}
+
 const requiredValidator = { required: true, message: `This field is required` }
 
 const emailValidator = { type: 'email', message: 'Please write valid email', trigger: 'blur' }
@@ -54,7 +87,13 @@ const alphanumericValidator = { validator: alphanumericValidatorFunc, trigger: '
 
 const alphanumericLineValidator = { validator: alphanumericLineValidatorFunc, trigger: 'change' }
 
+const alphanumericLineDotSlashValidator = { validator: alphanumericLineDotSlashValidatorFunc, trigger: 'change' }
+
 const numberValidator = { validator: numberValidatorFunc, trigger: 'change' }
+
+const urlValidator = { validator: urlValidatorFunc, trigger: 'blur' }
+
+const alphanumericDotComaValidator = { validator: alphanumericDotComaValidatorFunc, trigger: 'change' }
 
 export {
   numberValidator,
@@ -62,5 +101,8 @@ export {
   requiredValidator,
   alphanumericValidator,
   alphabeticValidator,
-  alphanumericLineValidator
+  alphanumericLineValidator,
+  alphanumericLineDotSlashValidator,
+  urlValidator,
+  alphanumericDotComaValidator
 }

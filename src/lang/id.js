@@ -1,5 +1,7 @@
 export default {
   route: {
+    contribution: 'Kontribusi',
+    contributionBilling: 'Tagihan Kontribusi',
     detail: 'Detail',
     dashboard: 'Dasbor',
     addressType: 'Tipe Alamat',
@@ -147,7 +149,14 @@ export default {
     lastWeek: 'Seminggu Terakhir',
     lastMonth: 'Sebulan Terakhir',
     last3Month: '3 bulan Terakhir',
-    last6Month: '6 bulan Terakhir'
+    last6Month: '6 bulan Terakhir',
+    todo: {
+      newTask: 'Tugas Baru',
+      all: 'Semua',
+      active: 'Aktif',
+      completed: 'Selesai',
+      itemLeft: 'tugas tersisa'
+    }
   },
   page404: {
     title: 'OOPS!',
@@ -422,6 +431,7 @@ export default {
     accountName: 'Nama Akun',
     accountNumber: 'Nomor Akun',
     currentBank: 'Bank Default',
+    branchName: 'Cabang Bank',
     status: 'Status'
   },
   groupMaintenance: {

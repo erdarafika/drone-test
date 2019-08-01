@@ -23,6 +23,7 @@ import * as filters from './filters' // global filters
 
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
+import VueTheMask from 'vue-the-mask'
 
 import confirmDelete from './global-function/deleteConfirm'
 import { successNotifier, cancelNotifier } from './global-function/defaultMessage'
@@ -39,7 +40,6 @@ import SettingPassword from './components/ActionButtons/SettingPassword'
 import Status from './components/ActionButtons/Status'
 import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
-
 //  Register Component
 Vue.component('Delete', Delete)
 Vue.component('Edit', Edit)
@@ -80,7 +80,7 @@ Vue.mixin({
     cancelNotifier
   }
 })
-
+Vue.use(VueTheMask)
 Vue.use(VCalendar)
 
 Vue.config.productionTip = false

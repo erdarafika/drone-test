@@ -23,12 +23,12 @@ app-container
         el-form-item(:label="$t('groupMaintenance.code')")
           el-input.filter-item(v-model='listQuery.code', prefix-icon='el-icon-search', style='width: 200px;')
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('groupMaintenance.name')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.name }}
     el-table-column(:label="$t('groupMaintenance.code')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.code }}
+    el-table-column(:label="$t('groupMaintenance.name')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.name }}
     el-table-column(:label="$t('groupMaintenance.productType')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.productType.name }}

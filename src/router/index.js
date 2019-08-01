@@ -92,6 +92,8 @@ import dplkConfiguration from './modules/dplk-configuration'
 import clientAdministration from './modules/client-administration'
 import userManagement from './modules/user-management'
 import taskManagement from './modules/task-management'
+import contribution from './modules/static/contribution'
+import finance from './modules/static/finance'
 
 export const asyncRoutes = [
   masterSetup,
@@ -100,15 +102,17 @@ export const asyncRoutes = [
   clientAdministration,
   userManagement,
   taskManagement,
+  contribution,
+  finance,
   {
     path: '/config',
     component: Layout,
     hidden: true,
     redirect: '/config/index',
-    name: 'ImportData',
-    meta: {
-      title: 'ImportData'
-    },
+    // name: 'Config',
+    // meta: {
+    //   title: 'Config'
+    // },
     children: [
       {
         path: 'index',

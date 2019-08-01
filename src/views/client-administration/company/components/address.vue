@@ -32,8 +32,9 @@ div
 
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('companyAddress.district')", prop='district')
-        el-input(v-model.number='temp.district', name='distric' type='input')
+      el-form-item(:label="$t('companyAddress.addressType')", prop='addressTypeId')
+        el-select(v-model='temp.addressTypeId', name='addressTypeId' placeholder='Select', filterable, default-first-option)
+          el-option(v-for='item in addressTypeOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('companyAddress.address1')", prop='address1')
         el-input(v-model.number='temp.address1', name='address1' type='input')
       el-form-item(:label="$t('companyAddress.address2')", prop='address2')
@@ -42,11 +43,6 @@ div
         el-input(v-model.number='temp.address3', name='address3' type='input')
       el-form-item(:label="$t('companyAddress.address4')", prop='address4')
         el-input(v-model.number='temp.address4', name='address4' type='input')
-      el-form-item(:label="$t('companyAddress.postalCode')", prop='postalCode')
-        el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
-      el-form-item(:label="$t('companyAddress.addressType')", prop='addressTypeId')
-        el-select(v-model='temp.addressTypeId', name='addressTypeId' placeholder='Select', filterable, default-first-option)
-          el-option(v-for='item in addressTypeOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('companyAddress.country')", prop='countryId')
         el-select(v-model='temp.countryId', name='countryId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in countryOptions', :key='item.value', :label='item.label', :value='item.value')
@@ -56,6 +52,10 @@ div
       el-form-item(:label="$t('companyAddress.city')", prop='cityId')
         el-select(v-model='temp.cityId', name='cityId' placeholder='Select', filterable, default-first-option  :disabled='temp.provinceId === undefined')
           el-option(v-for='item in cityOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('companyAddress.district')", prop='district')
+        el-input(v-model.number='temp.district', name='distric' type='input')
+      el-form-item(:label="$t('companyAddress.postalCode')", prop='postalCode')
+        el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
       el-form-item(:label="$t('companyAddress.status')")
         el-switch(v-model='temp.defaultAddress' name='defaultAddress')
         span.switch-status {{ temp.defaultAddress?'Default':'Not Default' }}
@@ -72,7 +72,7 @@ import { fetchList, createCompanyAddress, updateCompanyAddress, deleteCompanyAdd
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -86,7 +86,8 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        q: undefined
       },
       defaultId: -1,
       addressTypeOptions: [],
@@ -110,11 +111,11 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        district: [requiredValidator],
-        address1: [requiredValidator],
-        address2: [requiredValidator],
-        address3: [],
-        address4: [],
+        district: [requiredValidator, alphabeticValidator],
+        address1: [requiredValidator, alphanumericDotComaValidator],
+        address2: [requiredValidator, alphanumericDotComaValidator],
+        address3: [alphanumericDotComaValidator],
+        address4: [alphanumericDotComaValidator],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
         cityId: [requiredValidator],
