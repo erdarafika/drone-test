@@ -98,6 +98,7 @@ import feeManagement from './modules/static/fee-management'
 import emailStatus from './modules/static/email-status'
 import simulation from './modules/static/simulation'
 import fundSwitching from './modules/static/fund-switching'
+import fundTransfer from './modules/static/fund-transfer'
 
 export const asyncRoutes = [
   masterSetup,
@@ -112,6 +113,7 @@ export const asyncRoutes = [
   emailStatus,
   simulation,
   fundSwitching,
+  fundTransfer,
   {
     path: '/config',
     component: Layout,

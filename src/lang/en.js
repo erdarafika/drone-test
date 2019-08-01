@@ -16,6 +16,8 @@ export default {
     feeManagementToFounder: 'Fee To Founder',
     emailStatus: 'Email Status',
     simulation: 'Simulation',
+    fundSwitching: 'Fund Switching',
+    fundTransfer: 'Fund Transfer',
     detail: 'Detail',
     dashboard: 'Dashboard',
     addressType: 'Address Type',

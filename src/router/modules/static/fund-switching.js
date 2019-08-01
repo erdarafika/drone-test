@@ -6,7 +6,7 @@ export default {
   redirect: '/fund-switching/index',
   name: 'FundSwitching',
   meta: {
-    title: 'fund-switching'
+    title: 'fundSwitching'
   },
   children: [
     {
@@ -14,7 +14,7 @@ export default {
       name: 'FundSwitchingIndex',
       component: () => import('@/views/static/fund-switching/index'),
       meta: {
-        title: 'fund-switching',
+        title: 'fundSwitching',
         pensionMenu: 'address-type'
       }
     }
