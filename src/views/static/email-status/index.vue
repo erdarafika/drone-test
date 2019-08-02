@@ -7,7 +7,7 @@ app-container
     el-table-column(:label="`Email`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.email }}
-    el-table-column(:label="`Billing Type`", align='left')
+    el-table-column(:label="`Type`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.type }}
     el-table-column(:label="`Status`", align='left')
