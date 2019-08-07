@@ -508,5 +508,11 @@ export default {
     maximumWithdrawalAmount: 'Maximum Withdrawal Amount',
     normalRetireAge: 'Normal Retire Age',
     earlyRetireAge: 'Early Retire Age'
+  },
+  membership: {
+    certificateNumber: 'Certificate Number',
+    name: 'Name',
+    groupId: 'Group',
+    certificateStatus: 'Status'
   }
 }

@@ -60,6 +60,18 @@ export default {
         title: 'memberMaintenance',
         pensionMenu: 'member'
       }
+    },
+    {
+      path: 'member-maintenance/:action',
+      name: 'MemberMaintenanceDetail',
+      component: () => import('@/views/client-administration/member/index'),
+      meta: {
+        title: 'detail',
+        noCache: true,
+        breadcrumb: false,
+        pensionMenu: 'member'
+      },
+      hidden: true
     }
   ]
 }

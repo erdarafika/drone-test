@@ -3,7 +3,7 @@ app-container
   .table-header
     el-row
       el-col(:span='20')
-        h2.title  List Of Groups
+        h2.title  List Of Member
       el-col(:span='4')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
           | {{ $t('table.add') }}
@@ -15,27 +15,24 @@ app-container
           el-radio-group(v-model='listQuery.status')
             el-radio(v-for='option in statusOptions'  :key='option.value' :label='option.value') {{ option.label }}
       el-form(:inline='true')
-        el-form-item(:label="$t('groupMaintenance.name')")
+        el-form-item(:label="$t('membership.name')")
           el-input.filter-item(v-model='listQuery.name', prefix-icon='el-icon-search' style='width: 200px;')
-        el-form-item(:label="$t('groupMaintenance.productType')")
-          el-select(placeholder='Select' v-model='listQuery.productType' name='productTypeId')
-            el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
-        el-form-item(:label="$t('groupMaintenance.code')")
-          el-input.filter-item(v-model='listQuery.code', prefix-icon='el-icon-search', style='width: 200px;')
+        el-form-item(:label="$t('membership.certificateNumber')")
+          el-input.filter-item(v-model='listQuery.certificateNumber', prefix-icon='el-icon-search', style='width: 200px;')
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('groupMaintenance.name')", align='left')
+    el-table-column(:label="$t('membership.certificateNumber')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.certificateNumber }}
+    el-table-column(:label="$t('membership.name')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name }}
-    el-table-column(:label="$t('groupMaintenance.code')", align='left')
+    el-table-column(:label="$t('membership.groupId')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.code }}
-    el-table-column(:label="$t('groupMaintenance.productType')", align='left')
+        span {{ scope.row.group.name }}
+    el-table-column(:label="$t('membership.certificateStatus')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.productType.name }}
-    el-table-column(:label="$t('groupMaintenance.status')", align='left')
-      template(slot-scope='scope')
-        span {{ scope.row.status }}
+        span {{ scope.row.certificateStatus }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -61,19 +58,18 @@ app-container
 </style>
 
 <script>
-import { fetchList } from '@/api/group-maintenance'
-import { fetchList as fetchProductType } from '@/api/product-type'
+import { fetchList } from '@/api/membership'
+import { fetchGroupMaintanance as fetchGroupById } from '@/api/group-maintenance'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'Company',
+  name: 'Member',
   components: { Pagination },
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',
       tableKey: 0,
       list: [],
-      productTypeOptions: [],
       statusOptions: [
         { label: 'Show All', value: '' },
         { label: 'Active', value: 'active' },
@@ -88,29 +84,24 @@ export default {
         page: 1,
         limit: 20,
         status: '',
-        productType: undefined,
-        code: undefined,
+        certificateNumber: undefined,
         name: undefined
       }
     }
   },
   computed: {
     filterredList() {
-      const { status, name, productType, code, limit, page } = this.listQuery
+      const { status, name, certificateNumber, limit, page } = this.listQuery
       let listAfterSearch = this.list
       listAfterSearch = listAfterSearch.filter(data => !name || String(data.name).toLowerCase().includes(name.toLowerCase()))
-      listAfterSearch = listAfterSearch.filter(data => !status || String(data.status).toLowerCase().includes(status.toLowerCase()))
-      listAfterSearch = listAfterSearch.filter(data => !productType || String(data.productType.name).toLowerCase() === productType.toLowerCase())
-      listAfterSearch = listAfterSearch.filter(data => !code || String(data.code).toLowerCase().includes(code.toLowerCase()))
+      listAfterSearch = listAfterSearch.filter(data => !status || String(data.certificateStatus).toLowerCase().includes(status.toLowerCase()))
+      listAfterSearch = listAfterSearch.filter(data => !certificateNumber || String(data.certificateNumber).toLowerCase().includes(certificateNumber.toLowerCase()))
 
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
     }
   },
   created() {
-    fetchProductType().then(res => {
-      this.productTypeOptions = res.map(productType => ({ value: productType.name, label: productType.name }))
-    })
     this.getList()
   },
   methods: {
@@ -126,6 +117,13 @@ export default {
     getList() {
       this.listLoading = true
       fetchList().then(response => {
+        response.forEach(function(data) {
+          if (Number.isInteger(data.group)) {
+            fetchGroupById(data.group).then(group => {
+              data.group = group
+            })
+          }
+        })
         this.list = response
         this.total = response.length
         this.listLoading = false
