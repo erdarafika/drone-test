@@ -6,8 +6,8 @@ export default {
   redirect: '/fee-management/summary',
   name: 'FeeManagement',
   meta: {
-    title: 'feeManagement'
-    // icon: 'fund-administration'
+    title: 'feeManagement',
+    icon: 'fee-management'
   },
   children: [
     {

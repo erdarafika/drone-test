@@ -6,7 +6,8 @@ export default {
   redirect: '/simulation/index',
   name: 'Simulation',
   meta: {
-    title: 'simulation'
+    title: 'simulation',
+    icon: 'simulation'
   },
   children: [
     {

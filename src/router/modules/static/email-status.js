@@ -6,7 +6,8 @@ export default {
   redirect: '/email-status/index',
   name: 'EmailStatus',
   meta: {
-    title: 'emailStatus'
+    title: 'emailStatus',
+    icon: 'email-status'
   },
   children: [
     {
