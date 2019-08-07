@@ -64,7 +64,7 @@ export default {
     {
       path: 'member-maintenance/:action',
       name: 'MemberMaintenanceDetail',
-      component: () => import('@/views/client-administration/member/index'),
+      component: () => import('@/views/client-administration/member/detail'),
       meta: {
         title: 'detail',
         noCache: true,

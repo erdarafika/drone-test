@@ -6,3 +6,10 @@ export function fetchList() {
     method: 'get'
   })
 }
+
+export function fetchMembershipById(id) {
+  return request({
+    url: `/membership/${id}`,
+    method: 'get'
+  })
+}
