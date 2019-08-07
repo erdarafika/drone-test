@@ -6,7 +6,8 @@ export default {
   redirect: '/benefit-pension/index',
   name: 'BenefitPension',
   meta: {
-    title: 'benefitPension'
+    title: 'benefitPension',
+    icon: 'benefit-pension'
   },
   children: [
     {

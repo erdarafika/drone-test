@@ -1,19 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <g id="Fund_Admin_Icon" data-name="Fund Admin Icon" transform="translate(-236.666 -268.611)">
-    <circle id="Ellipse_78" data-name="Ellipse 78" cx="24" cy="24" r="24" transform="translate(236.666 268.612)" fill="#90d43c"/>
-    <g id="Group_284" data-name="Group 284" transform="translate(244.661 281.975)">
-      <path id="Path_425" data-name="Path 425" d="M277.256,294.81c-.145-1.429-27.827,3.4-27.709,4.335l-1.887-12.058c.965,1.4,29.121-3.42,28.615-4.477Z" transform="translate(-247.661 -281.881)" fill="#92a07e"/>
-      <path id="Path_426" data-name="Path 426" d="M277.034,294.786c-.673-4.3-27.036,7.334-27.463,4.6-.376-2.4-1.928-12.321-1.91-12.2.725,4.635,28.119-7.646,28.571-4.761S277.707,299.09,277.034,294.786Z" transform="translate(-247.661 -281.975)" fill="#fff"/>
-      <path id="Path_427" data-name="Path 427" d="M276.053,293.209c-.489-2.808-25.568,7.624-25.848,5.292-.361-3.026-1.44-9.2-1.559-9.964,1.157,2.284,26.36-7.507,26.7-5.259C275.729,285.827,276.053,293.209,276.053,293.209Z" transform="translate(-247.514 -281.831)" fill="#90d43c"/>
-      <ellipse id="Ellipse_79" data-name="Ellipse 79" cx="3.854" cy="3.854" rx="3.854" ry="3.854" transform="translate(11.391 5.101)" fill="#fff"/>
-      <text id="_" data-name="$" transform="translate(14.175 11.182) rotate(-8.893)" fill="#b1d288" font-size="5" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="577.275" height="369.229" viewBox="0 0 577.275 369.229">
+  <g id="Group_584" data-name="Group 584" transform="translate(-59.994 -514.363)">
+    <g id="Group_582" data-name="Group 582" transform="translate(59.994 514.363)">
+      <path id="Path_425" data-name="Path 425" d="M817.568,517.553C814.78,490.03,281.711,583.087,283.99,601.03l-36.329-232.2c18.585,26.9,560.768-65.866,551.033-86.22Z" transform="translate(-247.658 -268.585)" fill="#92a07e"/>
+      <path id="Path_426" data-name="Path 426" d="M813.278,528.664c-12.965-82.88-520.612,141.223-528.843,88.544-7.234-46.2-37.125-237.266-36.771-234.988,13.961,89.251,541.476-147.241,550.171-91.685S826.243,611.543,813.278,528.664Z" transform="translate(-247.661 -281.975)" fill="#fff"/>
+      <path id="Path_427" data-name="Path 427" d="M776.4,480.675C766.98,426.6,284.045,627.5,278.669,582.582c-6.947-58.277-27.723-177.22-30.023-191.866,22.28,43.984,507.6-144.564,514.13-101.266C770.165,338.523,776.4,480.675,776.4,480.675Z" transform="translate(-226.85 -261.576)" fill="#90d43c"/>
+      <ellipse id="Ellipse_79" data-name="Ellipse 79" cx="74.219" cy="74.22" rx="74.219" ry="74.22" transform="translate(219.343 98.235)" fill="#fff"/>
+      <text id="_" data-name="$" transform="translate(272.139 210.104) rotate(-8.893)" fill="#b1d288" font-size="92" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
     </g>
-    <g id="Group_285" data-name="Group 285" transform="translate(245.672 287.013)">
-      <path id="Path_428" data-name="Path 428" d="M277.5,299.4c.078-1.433-28.936-.939-28.963,0V287.19c.311,6.161,29.3,1.122,28.963,0Z" transform="translate(-248.541 -286.236)" fill="#92a07e"/>
-      <path id="Path_429" data-name="Path 429" d="M277.5,299.665c0-4.356-28.963,2.77-28.963,0V287.314c0,4.692,28.963-3.207,28.963-.287Z" transform="translate(-248.541 -286.36)" fill="#fff"/>
-      <path id="Path_430" data-name="Path 430" d="M276.5,297.746c-.049-2.851-27.276,3.527-27.191,1.181.111-3.046,0-9.316,0-10.085.79,2.435,27.2-3.341,27.191-1.067C276.489,290.35,276.5,297.746,276.5,297.746Z" transform="translate(-248.426 -286.23)" fill="#90d43c"/>
-      <ellipse id="Ellipse_80" data-name="Ellipse 80" cx="3.854" cy="3.854" rx="3.854" ry="3.854" transform="translate(10.627 3.162)" fill="#fff"/>
-      <text id="_2" data-name="$" transform="translate(13.115 9.993)" fill="#90d43c" font-size="7" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
+    <g id="Group_583" data-name="Group 583" transform="translate(79.476 611.398)">
+      <path id="Path_428" data-name="Path 428" d="M806.278,522.222c1.5-27.589-557.206-18.076-557.737,0V287.19c6,118.633,564.2,21.616,557.737,0Z" transform="translate(-248.541 -268.82)" fill="#92a07e"/>
+      <path id="Path_429" data-name="Path 429" d="M806.278,542.571c0-83.876-557.737,53.344-557.737,0V304.73c0,90.357,557.737-61.751,557.737-5.531Z" transform="translate(-248.541 -286.36)" fill="#fff"/>
+      <path id="Path_430" data-name="Path 430" d="M772.914,489.684c-.951-54.891-525.235,67.923-523.6,22.744,2.146-58.653,0-179.388,0-194.212,15.222,46.883,523.842-64.339,523.6-20.554C772.649,347.266,772.914,489.684,772.914,489.684Z" transform="translate(-232.258 -267.92)" fill="#90d43c"/>
+      <ellipse id="Ellipse_80" data-name="Ellipse 80" cx="74.219" cy="74.22" rx="74.219" ry="74.22" transform="translate(204.647 60.886)" fill="#fff"/>
+      <text id="_2" data-name="$" transform="translate(252.553 183.633)" fill="#90d43c" font-size="128" font-family="AgencyFB-Reg, Agency FB"><tspan x="0" y="0">$</tspan></text>
     </g>
   </g>
 </svg>

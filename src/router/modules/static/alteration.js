@@ -6,7 +6,8 @@ export default {
   redirect: '/alteration/document',
   name: 'Alteration',
   meta: {
-    title: 'alteration'
+    title: 'alteration',
+    icon: 'alteration'
   },
   children: [
     {

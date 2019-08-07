@@ -1,15 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
-  <defs>
-    <clipPath id="clip-path">
-      <rect width="48" height="48" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="Client_Admin_Icon" data-name="Client Admin Icon" clip-path="url(#clip-path)">
-    <circle id="Ellipse_83" data-name="Ellipse 83" cx="24" cy="24" r="24" fill="#2f9036"/>
-    <g id="Group_286" data-name="Group 286" transform="translate(-327.923 -293.404)">
-      <circle id="Ellipse_84" data-name="Ellipse 84" cx="8.049" cy="8.049" r="8.049" transform="translate(343.476 302.255)" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
-      <path id="Path_431" data-name="Path 431" d="M349.8,331.167l2.125,3.605H340.858c-1.932,0-3.5-.96-3.5-2.147V321.234c0-2.351,3.119-4.261,6.972-4.261l6.077,4.068-1.33,8.894Z" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
-      <path id="Path_432" data-name="Path 432" d="M366.5,321.222v11.4c0,1.187-1.571,2.147-3.5,2.147H351.922l2.136-3.752.621-1.085-1.3-8.894h0l6.159-4.068a9.641,9.641,0,0,1,4.927,1.243A3.688,3.688,0,0,1,366.5,321.222Z" fill="#fff" stroke="#2e9036" stroke-miterlimit="10" stroke-width="1"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="401.256" height="447.68" viewBox="0 0 401.256 447.68">
+  <g id="Group_582" data-name="Group 582" transform="translate(-337.355 -302.256)">
+    <circle id="Ellipse_84" data-name="Ellipse 84" cx="110.82" cy="110.82" r="110.82" transform="translate(421.628 302.255)" fill="#2e9036"/>
+    <path id="Path_431" data-name="Path 431" d="M508.651,512.39l29.256,49.632H385.583c-26.6,0-48.228-13.217-48.228-29.559V375.637c0-32.368,42.941-58.664,95.987-58.664l83.666,56.006L498.7,495.428Z" transform="translate(0 187.913)" fill="#2e9036"/>
+    <path id="Path_432" data-name="Path 432" d="M552.626,375.471V532.463c0,16.342-21.629,29.559-48.228,29.559H351.922l29.408-51.656,8.549-14.938L372,372.979h0l84.794-56.006c26.448,0,50.4,6.54,67.833,17.113C541.887,344.673,552.626,359.295,552.626,375.471Z" transform="translate(185.985 187.913)" fill="#2e9036"/>
   </g>
 </svg>
