@@ -83,6 +83,23 @@ Vue.mixin({
 Vue.use(VueTheMask)
 Vue.use(VCalendar)
 
+Vue.filter('capitalize', function(value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+})
+
+Vue.filter('striped-to-titlecase', function(value) {
+  if (!value) return ''
+  value = value.toString()
+  value = value.split('-')
+  const final = []
+  for (const word of value) {
+    final.push(word.charAt(0).toUpperCase() + word.slice(1))
+  }
+  return final.join(' ')
+})
+
 Vue.config.productionTip = false
 
 if (process.env.NODE_ENV === 'production') {
