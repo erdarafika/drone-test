@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
-  <defs>
-    <clipPath id="clip-path">
-      <rect width="48" height="48" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="Dashborard_icon" data-name="Dashborard icon" clip-path="url(#clip-path)">
-    <circle id="Ellipse_1" data-name="Ellipse 1" cx="24" cy="24" r="24" fill="#47e8dd"/>
-    <path id="Path_1" data-name="Path 1" d="M-206.634,221.222l4.6-17.2,3.4,12.405,6.994-25.18L-184.5,208.4l3.451-11.161,6.38,15.941,4.811-20.138" transform="translate(214 -181)" fill="none" stroke="#fff" stroke-width="1"/>
-  </g>
+<defs>
+  <clipPath id="clip-path">
+    <rect width="48" height="48" fill="none"/>
+  </clipPath>
+</defs>
+<g id="Dashborard_icon" data-name="Dashborard icon" clip-path="url(#clip-path)">
+  <circle id="Ellipse_1" data-name="Ellipse 1" cx="24" cy="24" r="24" fill="black"/>
+  <path id="Path_1" data-name="Path 1" d="M-206.634,221.222l4.6-17.2,3.4,12.405,6.994-25.18L-184.5,208.4l3.451-11.161,6.38,15.941,4.811-20.138" transform="translate(214 -181)" fill="none" stroke="#fff" stroke-width="1"/>
+</g>
 </svg>

@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="31.591" height="31.578" viewBox="0 0 31.591 31.578">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
   <defs>
     <clipPath id="clip-path">
       <rect width="48" height="48" fill="none"/>
     </clipPath>
   </defs>
-  <g id="Simulation" transform="translate(-8.2 -8.211)">
-    <circle id="Ellipse_1" data-name="Ellipse 1" cx="24" cy="24" r="24" fill="#288ee5"/>
+  <g id="Simulation" data-name="Simulation" clip-path="url(#clip-path)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="24" cy="24" r="24" fill="#844243"/>
     <path id="Path_536" data-name="Path 536" d="M204.36,39.79c.5-1.83,1.88-2.53,3.6-2.81,1.42-.24,2.84-.52,4.25-.8a1.13,1.13,0,0,1,1.25.38,3.73,3.73,0,0,0,5.31-.1.79.79,0,0,1,.88-.32c1.8.34,3.62.61,5.41,1a3.53,3.53,0,0,1,2.73,2.62Z" transform="translate(-192.07)" fill="#fff"/>
     <path id="Path_537" data-name="Path 537" d="M200.29,24.49l5.18.06h1.8v9.76h-7Zm1.13,2.18h4.84v-1h-4.84Zm0,4.36h4.84V30h-4.84Zm0,2.16h4.86v-1h-4.86Zm0-4.37h4.85v-1h-4.85Z" transform="translate(-192.07)" fill="#fff"/>
     <path id="Path_538" data-name="Path 538" d="M203.51,8.21v6.51h2.23V9.93h2.12v4.8h2.21V12.07h2.15v2.66l1.07.09v1h-13v-1l1.12-.08V8.21Z" transform="translate(-192.07)" fill="#fff"/>
