@@ -6,7 +6,8 @@ export default {
   redirect: '/batch-management/index',
   name: 'BatchManagement',
   meta: {
-    title: 'batchManagement'
+    title: 'batchManagement',
+    icon: 'batch-management'
   },
   children: [
     {

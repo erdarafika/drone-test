@@ -6,8 +6,8 @@ export default {
   redirect: '/finance/admin-suspense',
   name: 'Finance',
   meta: {
-    title: 'finance'
-    // icon: 'fund-administration'
+    title: 'finance',
+    icon: 'finance'
   },
   children: [
     {

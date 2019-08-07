@@ -6,8 +6,8 @@ export default {
   redirect: '/contribution/billing',
   name: 'Contribution',
   meta: {
-    title: 'contribution'
-    // icon: 'fund-administration'
+    title: 'contribution',
+    icon: 'contribution'
   },
   children: [
     {

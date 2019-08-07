@@ -6,7 +6,8 @@ export default {
   redirect: '/fund-switching/index',
   name: 'FundSwitching',
   meta: {
-    title: 'fundSwitching'
+    title: 'fundSwitching',
+    icon: 'fund-switching'
   },
   children: [
     {
