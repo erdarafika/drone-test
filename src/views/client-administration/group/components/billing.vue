@@ -11,13 +11,13 @@ div
         span {{ scope.row.frequency }}
     el-table-column(:label="$t('groupBilling.paymentMethod')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.paymentMethod }}
+        span {{ scope.row.paymentMethod | striped-to-titlecase }}
     el-table-column(:label="$t('groupBilling.payor')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.payor }}
+        span {{ scope.row.payor | capitalize }}
     el-table-column(:label="$t('groupBilling.dplkBankId')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.dplkBank.bank.bankName }}
+        span {{ scope.row.dplkBankId }}
     el-table-column(:label="$t('groupBilling.billingDate')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.billingDate }}
