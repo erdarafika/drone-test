@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/alteration/document'),
       meta: {
         title: 'alterationDocument',
-        pensionMenu: 'address-type'
+        pensionMenu: 'alteration'
       }
     },
     {
@@ -25,7 +25,7 @@ export default {
       component: () => import('@/views/static/alteration/data'),
       meta: {
         title: 'alterationData',
-        pensionMenu: 'address-type'
+        pensionMenu: 'alteration'
       }
     }
   ]

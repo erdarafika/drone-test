@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/simulation/index'),
       meta: {
         title: 'simulation',
-        pensionMenu: 'address-type'
+        pensionMenu: 'simulation'
       }
     }
   ]
