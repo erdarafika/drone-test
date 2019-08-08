@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/fee-management/summary/index'),
       meta: {
         title: 'feeManagementSummary',
-        pensionMenu: 'address-type'
+        pensionMenu: 'fee-summary'
       }
     },
     {
@@ -25,7 +25,7 @@ export default {
       component: () => import('@/views/static/fee-management/list/index'),
       meta: {
         title: 'feeManagementList',
-        pensionMenu: 'address-type'
+        pensionMenu: 'fee-list'
       }
     },
     {
@@ -34,7 +34,7 @@ export default {
       component: () => import('@/views/static/fee-management/to-founder/index'),
       meta: {
         title: 'feeManagementToFounder',
-        pensionMenu: 'address-type'
+        pensionMenu: 'fee-to-founder'
       }
     }
   ]

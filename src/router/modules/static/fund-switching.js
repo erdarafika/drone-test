@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/fund-switching/index'),
       meta: {
         title: 'fundSwitching',
-        pensionMenu: 'address-type'
+        pensionMenu: 'fund-switching'
       }
     }
   ]
