@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/benefit-pension/benefit-pension-ppukp/index'),
       meta: {
         title: 'benefitPensionPPUKP',
-        pensionMenu: 'address-type'
+        pensionMenu: 'benefit-pension-ppukp'
       }
     },
     {
@@ -25,7 +25,7 @@ export default {
       component: () => import('@/views/static/benefit-pension/benefit-pension-ppip/index'),
       meta: {
         title: 'benefitPensionPPIP',
-        pensionMenu: 'address-type'
+        pensionMenu: 'benefit-pension-ppip'
       }
     }
   ]
