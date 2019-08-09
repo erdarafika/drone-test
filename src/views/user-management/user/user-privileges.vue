@@ -8,17 +8,23 @@ app-container
         | {{ $t('table.save') }}
 
   el-row(v-loading="loading")
-    el-col(:span='8')
+    el-col(:span='12')
       PrivilegesBox(title='Master Setup' parent='master-setup' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["master-setup"]')
-    el-col(:span='8')
-      PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
-      PrivilegesBox(title='Fund Administration' parent='fund-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-administration"]')
-    el-col(:span='8')
-      PrivilegesBox(title='Client Administration' parent='client-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
-      PrivilegesBox(title='User Management' parent='user-maintenance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
+      PrivilegesBox(title='Contribution' parent='contribution' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["contribution"]')
+      PrivilegesBox(title='Finance' parent='finance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["finance"]')
+      PrivilegesBox(title='Fee Management' parent='fee-management' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fee-management"]')
       PrivilegesBox.noClick(title='Task Management' parent='task-management' :options='[]' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
         template(slot='content')
           el-alert(:title="$t('user.taskManagementMessage')" type="info" show-icon)
+    el-col(:span='12')
+      PrivilegesBox(title='Fund Administration' parent='fund-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-administration"]')
+      PrivilegesBox(title='Client Administration' parent='client-administration' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["client-administration"]')
+      PrivilegesBox(title='Benefit Pension' parent='benefit-pension' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["benefit-pension"]')
+    el-col(:span='12')
+      PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
+      PrivilegesBox(title='User Management' parent='user-maintenance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
+      PrivilegesBox(title='Email Status' parent='email-status' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["email-status"]')
+      PrivilegesBox(title='Fund Switching' parent='Fund Switching' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-switching"]')
 </template>
 
 <style lang='scss'>

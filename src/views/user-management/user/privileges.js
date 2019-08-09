@@ -110,5 +110,85 @@ export default {
       menuChecked: false,
       privilege: ['maker']
     }
+  ],
+  'contribution': [
+    {
+      menu: 'billing-ppukp',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'billing-ppip-organization',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'billing-ppip-individual',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'top-up-ad-hoc',
+      menuChecked: false,
+      privilege: []
+    }
+  ],
+  'finance': [
+    {
+      menu: 'admin-suspense',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'refund',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'matching-suspense',
+      menuChecked: false,
+      privilege: []
+    }
+  ],
+  'fee-management': [
+    {
+      menu: 'fee-summary',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'fee-list',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'fee-to-founder',
+      menuChecked: false,
+      privilege: []
+    }
+  ],
+  'email-status': [
+    {
+      menu: 'email-status',
+      menuChecked: false,
+      privilege: []
+    }],
+  'fund-switching': [
+    {
+      menu: 'fund-switching',
+      menuChecked: false,
+      privilege: []
+    }],
+  'benefit-pension': [
+    {
+      menu: 'benefit-pension-ppukp',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'benefit-pension-ppip',
+      menuChecked: false,
+      privilege: []
+    }
   ]
 }
