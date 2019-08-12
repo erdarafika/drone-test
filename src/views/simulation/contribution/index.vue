@@ -5,19 +5,19 @@ app-container
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='250px')
         el-row(:gutter='40')
           el-col(:span='12')
-            el-form-item(:label="`Average Life Expectancy`", prop='averageLifeExpectancy')
-              el-input(v-model.number='temp.averageLifeExpectancy', name='averageLifeExpectancy')
+            el-form-item(:label="`Average Life Expectancy`", prop='averageLifeExpectations')
+              el-input(v-model.number='temp.averageLifeExpectations', name='averageLifeExpectations')
             el-form-item(:label="`Average Return of Investment`", prop='averageReturnOfInvestment')
               el-input(v-model.number='temp.averageReturnOfInvestment', name='averageReturnOfInvestment')
             el-form-item(:label="`Current Age`", prop='currentAge')
               el-input(v-model.number='temp.currentAge', name='currentAge')
             el-form-item(:label="`Current Salary`", prop='currentSalary')
               el-input(v-model.number='temp.currentSalary', name='currentSalary')
-            el-form-item(:label="`Ideal Replacement Ratio`", prop='idealReplacemenRatio')
-              el-input(v-model.number='temp.idealReplacemenRatio', name='idealReplacemenRatio')
+            el-form-item(:label="`Ideal Replacement Ratio`", prop='idealReplacementRatio')
+              el-input(v-model.number='temp.idealReplacementRatio', name='idealReplacementRatio')
           el-col(:span='12')
-            el-form-item(:label="`Current Pension Asset`", prop='currentPensionAsset')
-              el-input(v-model.number='temp.currentPensionAsset', name='currentPensionAsset')
+            el-form-item(:label="`Current Pension Asset`", prop='currentPensionAssets')
+              el-input(v-model.number='temp.currentPensionAssets', name='currentPensionAssets')
             el-form-item(:label="`Retire Age`", prop='retireAge')
               el-input(v-model.number='temp.retireAge', name='retireAge')
         el-form-item
@@ -36,12 +36,12 @@ export default {
       dateFormat: 'dd-MM-yyyy',
       listLoading: true,
       temp: {
-        averageLifeExpectancy: undefined,
+        averageLifeExpectations: undefined,
         averageReturnOfInvestment: undefined,
         currentAge: undefined,
         currentSalary: undefined,
-        idealReplacemenRatio: undefined,
-        currentPensionAsset: undefined,
+        idealReplacementRatio: undefined,
+        currentPensionAssets: undefined,
         retireAge: undefined
       },
       rules
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     createContribution() {
-      const duration = 2000
+      const duration = 3500
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createContribution(this.temp).then((response) => {
@@ -69,12 +69,12 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        averageLifeExpectancy: undefined,
+        averageLifeExpectations: undefined,
         averageReturnOfInvestment: undefined,
         currentAge: undefined,
         currentSalary: undefined,
-        idealReplacemenRatio: undefined,
-        currentPensionAsset: undefined,
+        idealReplacementRatio: undefined,
+        currentPensionAssets: undefined,
         retireAge: undefined
       }
       this.$nextTick(() => {
