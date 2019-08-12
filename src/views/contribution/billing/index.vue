@@ -4,12 +4,12 @@ app-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`Billing Code`", align='left')
+    el-table-column(:label="$t('billing.billingNumber')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.code }}
+        span {{ scope.row.billingNumber }}
     el-table-column(:label="`Billing Name`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.name }}
+        span {{ scope.row.billingName }}
     el-table-column(:label="`Billing Type`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.type }}
@@ -24,7 +24,7 @@ app-container
 </template>
 
 <script>
-import { fetchList } from '@/api/static/contribution-billing'
+import { fetchList, fetchBillingDetails } from '@/api/contribution-billing'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -58,6 +58,13 @@ export default {
       this.listLoading = true
       fetchList().then(response => {
         this.list = response
+        if (response.billingType === 'dplk-ppukp' || response.billingType === 'dplk' || response.billingType === 'adhoc-topup-individual') {
+          this.list.billingName = response.group.name
+        } else if (response.billingType === 'dplk-individual' || response.billingType === 'adhoc-topup-individual') {
+          fetchBillingDetails().then(details => {
+            this.list.billingName = details
+          })
+        }
         this.total = response.length
         this.listLoading = false
       })
