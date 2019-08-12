@@ -13,9 +13,9 @@ export default {
     {
       path: 'contribution',
       name: 'SimulationContribution',
-      component: () => import('@/views/static/simulation/contribution/index'),
+      component: () => import('@/views/simulation/contribution/index'),
       meta: {
-        title: 'contribution'
+        title: 'Contribution Simulator'
       }
     }
   ]
