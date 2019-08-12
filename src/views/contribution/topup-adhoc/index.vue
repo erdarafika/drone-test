@@ -45,7 +45,7 @@ app-container
 </template>
 
 <script>
-import { createRecord, approveRecord } from '@/api/static/contribution-top-up-ad-hoc'
+import { createRecord, approveRecord } from '@/api/static/contribution-topup-adhoc'
 import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchMember } from '@/api/static/member-maintenance'
