@@ -10,8 +10,8 @@ app-container
   el-row(v-loading="loading")
     el-col(:span='12')
       PrivilegesBox(title='Master Setup' parent='master-setup' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["master-setup"]')
-      PrivilegesBox(title='Contribution' parent='contribution' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["contribution"]')
-      PrivilegesBox(title='Finance' parent='finance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["finance"]')
+      PrivilegesBox(title='Contribution' parent='contribution' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["contribution"]')
+      PrivilegesBox(title='Finance' parent='finance' :options='["checker","approver","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["finance"]')
       PrivilegesBox(title='Fee Management' parent='fee-management' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fee-management"]')
       PrivilegesBox.noClick(title='Task Management' parent='task-management' :options='[]' :handleChange='handlePrivileges' :privileges='userPrivileges["task-management"]')
         template(slot='content')
@@ -24,7 +24,7 @@ app-container
       PrivilegesBox(title='DPLK Configuration' parent='dplk-configuration' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["dplk-configuration"]')
       PrivilegesBox(title='User Management' parent='user-maintenance' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["user-maintenance"]')
       PrivilegesBox(title='Email Status' parent='email-status' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["email-status"]')
-      PrivilegesBox(title='Fund Switching' parent='Fund Switching' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-switching"]')
+      PrivilegesBox(title='Fund Switching' parent='fund-switching' :options='["checker","","maker"]' :handleChange='handlePrivileges' :privileges='userPrivileges["fund-switching"]')
 </template>
 
 <style lang='scss'>

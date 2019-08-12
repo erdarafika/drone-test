@@ -1,11 +1,11 @@
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
-  averageLifeExpectancy: [requiredValidator, numberValidator],
+  averageLifeExpectations: [requiredValidator, numberValidator],
   averageReturnOfInvestment: [requiredValidator, numberValidator],
   currentAge: [requiredValidator, numberValidator],
   currentSalary: [requiredValidator, numberValidator],
-  idealReplacemenRatio: [requiredValidator, numberValidator],
-  currentPensionAsset: [requiredValidator, numberValidator],
+  idealReplacementRatio: [requiredValidator, numberValidator],
+  currentPensionAssets: [requiredValidator, numberValidator],
   retireAge: [requiredValidator, numberValidator]
 }

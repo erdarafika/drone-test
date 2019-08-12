@@ -1,8 +1,29 @@
 <template lang="pug">
 app-container
-  .filter-container
+  //.filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-
+  .table-header
+    el-row
+      el-col(:span='20')
+        h2.title  List Of Billing
+      el-col(:span='4')
+        el-select(placeholder='Add Billing' v-model='listQuery.group' name='groupId')
+          el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+  .complex-filter-container
+    .complex-filter-item
+      .title | {{ $t('table.filter') }}
+      el-form(label-position='left')
+        el-form-item(:label="$t('table.status')")
+          el-radio-group(v-model='listQuery.status')
+            el-radio(v-for='option in statusOptions'  :key='option.value' :label='option.value') {{ option.label }}
+      el-form(:inline='true')
+        el-form-item(:label="$t('membership.name')")
+          el-input.filter-item(v-model='listQuery.name', prefix-icon='el-icon-search' style='width: 200px;')
+        el-form-item(:label="$t('membership.certificateNumber')")
+          el-input.filter-item(v-model='listQuery.certificateNumber', prefix-icon='el-icon-search', style='width: 200px;')
+        el-form-item(:label="$t('membership.groupId')")
+          el-select(placeholder='Select' v-model='listQuery.group' name='groupId')
+            el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('billing.billingNumber')", align='left')
       template(slot-scope='scope')
