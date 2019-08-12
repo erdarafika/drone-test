@@ -15,8 +15,7 @@ export default {
       name: 'BatchManagementIndex',
       component: () => import('@/views/static/batch-management/index'),
       meta: {
-        title: 'batchManagement',
-        pensionMenu: 'batch-management'
+        title: 'batchManagement'
       }
     }
   ]

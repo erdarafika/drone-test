@@ -3,7 +3,7 @@ import Layout from '@/layout'
 export default {
   path: '/simulation',
   component: Layout,
-  redirect: '/simulation/index',
+  redirect: '/simulation/contribution',
   name: 'Simulation',
   meta: {
     title: 'simulation',
@@ -11,12 +11,11 @@ export default {
   },
   children: [
     {
-      path: 'index',
-      name: 'SimulationIndex',
-      component: () => import('@/views/static/simulation/index'),
+      path: 'contribution',
+      name: 'SimulationContribution',
+      component: () => import('@/views/static/simulation/contribution/index'),
       meta: {
-        title: 'simulation',
-        pensionMenu: 'simulation'
+        title: 'contribution'
       }
     }
   ]

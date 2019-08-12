@@ -200,5 +200,35 @@ export default {
       menuChecked: false,
       privilege: []
     }
-  ]
+  ],
+  'simulation': [
+    {
+      menu: 'contribution',
+      menuChecked: false,
+      privilege: []
+    }],
+  'alteration': [
+    {
+      menu: 'data',
+      menuChecked: false,
+      privilege: []
+    },
+    {
+      menu: 'document',
+      menuChecked: false,
+      privilege: []
+    }
+  ],
+  'batch-management': [
+    {
+      menu: 'batch-management',
+      menuChecked: false,
+      privilege: []
+    }],
+  'fund-transfer': [
+    {
+      menu: 'fund-transfer',
+      menuChecked: false,
+      privilege: []
+    }]
 }
