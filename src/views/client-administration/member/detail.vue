@@ -41,6 +41,7 @@
                     el-radio-group(v-model='temp.nationality' name='nationality')
                       el-radio(label='wni') WNI
                       el-radio(label='wna') WNA
+
                   el-form-item(:label="$t('membership.identityType')" prop='identityType')
                     el-select(v-model='temp.identityType', name='identityType' placeholder='Select', filterable, default-first-option :disabled='dialogIsDetail')
                       el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')

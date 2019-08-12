@@ -1,8 +1,8 @@
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
-  dplkBank: [requiredValidator],
+  dplkBankId: [requiredValidator],
   amount: [requiredValidator, numberValidator],
-  transactionDate: [requiredValidator],
-  description: []
+  paymentDate: [requiredValidator],
+  description: [requiredValidator]
 }
