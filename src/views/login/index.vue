@@ -103,8 +103,7 @@ export default {
       capsTooltip: false,
       loading: false,
       redirect: undefined,
-      title: 'Code Cofee Creative',
-      logo: 'app-logo'
+      logo: 'car-logo'
     }
   },
   watch: {
@@ -253,7 +252,7 @@ $light_gray:#2d2d2d;
   }
 
   .login-logo {
-    width: 80px;
+    width: 200px;
     text-align: center;
     margin: auto;
     display: block;

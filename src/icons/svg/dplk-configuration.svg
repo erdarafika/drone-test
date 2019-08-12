@@ -1,57 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
-  <defs>
-    <clipPath id="clip-path">
-      <rect width="48" height="48" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="DPLK_Configuration_icon" data-name="DPLK Configuration icon" clip-path="url(#clip-path)">
-    <circle id="Ellipse_1" data-name="Ellipse 1" cx="24" cy="24" r="24" fill="#00c3f5"/>
-    <g id="Group_26" data-name="Group 26" transform="translate(-52 -421)">
-      <g id="Rectangle_8" data-name="Rectangle 8" transform="translate(63 440.714)" fill="none" stroke="#fff" stroke-width="1">
-        <path d="M4,0H8.476a0,0,0,0,1,0,0V18.987a0,0,0,0,1,0,0H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0Z" stroke="none"/>
-        <path d="M4,.5H7.476a.5.5,0,0,1,.5.5V17.987a.5.5,0,0,1-.5.5H4a3.5,3.5,0,0,1-3.5-3.5V4A3.5,3.5,0,0,1,4,.5Z" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="344.115" height="447.35" viewBox="0 0 344.115 447.35">
+  <g id="Group_582" data-name="Group 582" transform="translate(-63 -428.848)">
+    <g id="Rectangle_8" data-name="Rectangle 8" transform="translate(63 600.905)" fill="#00c3f5" stroke="#c7f4ff" stroke-width="10">
+      <path d="M70,0h32.9a20,20,0,0,1,20,20V255.293a20,20,0,0,1-20,20H20a20,20,0,0,1-20-20V70A70,70,0,0,1,70,0Z" stroke="none"/>
+      <path d="M70,5h32.9a15,15,0,0,1,15,15V255.293a15,15,0,0,1-15,15H20a15,15,0,0,1-15-15V70A65,65,0,0,1,70,5Z" fill="none"/>
+    </g>
+    <g id="Rectangle_9" data-name="Rectangle 9" transform="translate(180.982 428.847)" fill="#00c3f5" stroke="#c7f4ff" stroke-width="10">
+      <path d="M0,0H122.133a104,104,0,0,1,104,104V343.35a104,104,0,0,1-104,104H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" stroke="none"/>
+      <path d="M10,5H122.133a99,99,0,0,1,99,99V343.35a99,99,0,0,1-99,99H10a5,5,0,0,1-5-5V10A5,5,0,0,1,10,5Z" fill="none"/>
+    </g>
+    <g id="Rectangle_11" data-name="Rectangle 11" transform="translate(102.327 644.9)" fill="none" stroke="#c7f4ff" stroke-width="10">
+      <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+      <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
+    </g>
+    <g id="Rectangle_11-2" data-name="Rectangle 11" transform="translate(102.327 738.039)" fill="none" stroke="#c7f4ff" stroke-width="10">
+      <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+      <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
+    </g>
+    <g id="Group_8" data-name="Group 8" transform="translate(225.226 546.829)">
+      <g id="Rectangle_10" data-name="Rectangle 10" transform="translate(88.487)" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
-      <g id="Rectangle_9" data-name="Rectangle 9" transform="translate(71.137 428.847)" fill="none" stroke="#fff" stroke-width="1">
-        <path d="M0,0H7.6a8,8,0,0,1,8,8V22.854a8,8,0,0,1-8,8H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" stroke="none"/>
-        <path d="M1,.5H7.6A7.5,7.5,0,0,1,15.1,8V22.854a7.5,7.5,0,0,1-7.5,7.5H1a.5.5,0,0,1-.5-.5V1A.5.5,0,0,1,1,.5Z" fill="none"/>
+      <g id="Rectangle_12" data-name="Rectangle 12" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
-      <g id="Rectangle_11" data-name="Rectangle 11" transform="translate(65.712 443.748)" fill="none" stroke="#fff" stroke-width="1">
-        <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-        <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
+    </g>
+    <g id="Group_10" data-name="Group 10" transform="translate(225.226 644.924)">
+      <g id="Rectangle_10-2" data-name="Rectangle 10" transform="translate(88.487)" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
-      <g id="Rectangle_11-2" data-name="Rectangle 11" transform="translate(65.712 450.172)" fill="none" stroke="#fff" stroke-width="1">
-        <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-        <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
+      <g id="Rectangle_12-2" data-name="Rectangle 12" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
-      <g id="Group_8" data-name="Group 8" transform="translate(74.189 436.984)">
-        <g id="Rectangle_10" data-name="Rectangle 10" transform="translate(6.103)" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
-        <g id="Rectangle_12" data-name="Rectangle 12" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
+    </g>
+    <g id="Group_9" data-name="Group 9" transform="translate(225.226 737.743)">
+      <g id="Rectangle_10-3" data-name="Rectangle 10" transform="translate(88.487 0)" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
-      <g id="Group_10" data-name="Group 10" transform="translate(74.189 443.75)">
-        <g id="Rectangle_10-2" data-name="Rectangle 10" transform="translate(6.103)" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
-        <g id="Rectangle_12-2" data-name="Rectangle 12" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
-      </g>
-      <g id="Group_9" data-name="Group 9" transform="translate(74.189 450.152)">
-        <g id="Rectangle_10-3" data-name="Rectangle 10" transform="translate(6.103 0)" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
-        <g id="Rectangle_12-3" data-name="Rectangle 12" transform="translate(0 0)" fill="none" stroke="#fff" stroke-width="1">
-          <path d="M1.7,0h0a1.7,1.7,0,0,1,1.7,1.7V4.069a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1.7A1.7,1.7,0,0,1,1.7,0Z" stroke="none"/>
-          <path d="M1.7.5h0a1.2,1.2,0,0,1,1.2,1.2V3.33a.239.239,0,0,1-.239.239H.739A.239.239,0,0,1,.5,3.33V1.7A1.2,1.2,0,0,1,1.7.5Z" fill="none"/>
-        </g>
+      <g id="Rectangle_12-3" data-name="Rectangle 12" transform="translate(0 0)" fill="none" stroke="#c7f4ff" stroke-width="10">
+        <rect width="49.159" height="58.991" rx="15" stroke="none"/>
+        <rect x="5" y="5" width="39.159" height="48.991" rx="10" fill="none"/>
       </g>
     </g>
   </g>

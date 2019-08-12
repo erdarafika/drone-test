@@ -23,7 +23,7 @@ export default {
     {
       path: 'user/privileges',
       name: 'userPrivileges',
-      component: () => import('@/views/user-management/user/Privileges'),
+      component: () => import('@/views/user-management/user/user-privileges'),
       meta: {
         title: 'detail',
         noCache: true,

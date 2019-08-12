@@ -6,8 +6,8 @@ export default {
   redirect: '/contribution/billing',
   name: 'Contribution',
   meta: {
-    title: 'contribution'
-    // icon: 'fund-administration'
+    title: 'contribution',
+    icon: 'contribution'
   },
   children: [
     {
@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/contribution/billing/index'),
       meta: {
         title: 'contributionBilling',
-        pensionMenu: 'address-type'
+        pensionMenu: 'billing'
       }
     },
     {
@@ -25,7 +25,7 @@ export default {
       component: () => import('@/views/static/contribution/billing-ppukp/index'),
       meta: {
         title: 'contributionBillingPPUKP',
-        pensionMenu: 'address-type'
+        pensionMenu: 'billing-ppukp'
       }
     },
     {
@@ -34,7 +34,7 @@ export default {
       component: () => import('@/views/static/contribution/billing-ppip-organization/index'),
       meta: {
         title: 'contributionBillingPPIPOrganization',
-        pensionMenu: 'address-type'
+        pensionMenu: 'billing-ppip'
       }
     },
     {
@@ -43,7 +43,7 @@ export default {
       component: () => import('@/views/static/contribution/billing-ppip-individu/index'),
       meta: {
         title: 'contributionBillingPPIPIndividu',
-        pensionMenu: 'address-type'
+        pensionMenu: 'billing-ppip-individual'
       }
     },
     {
@@ -52,7 +52,7 @@ export default {
       component: () => import('@/views/static/contribution/top-up-ad-hoc/index'),
       meta: {
         title: 'contributionPopUpAdHoc',
-        pensionMenu: 'address-type'
+        pensionMenu: 'topup-adhoc'
       }
     }
   ]

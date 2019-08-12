@@ -6,8 +6,8 @@ export default {
   redirect: '/finance/admin-suspense',
   name: 'Finance',
   meta: {
-    title: 'finance'
-    // icon: 'fund-administration'
+    title: 'finance',
+    icon: 'finance'
   },
   children: [
     {
@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/finance/admin-suspense/index'),
       meta: {
         title: 'financeAdminSuspense',
-        pensionMenu: 'address-type'
+        pensionMenu: 'admin-suspense'
       }
     },
     {
@@ -25,7 +25,7 @@ export default {
       component: () => import('@/views/static/finance/refund/index'),
       meta: {
         title: 'financeRefund',
-        pensionMenu: 'address-type'
+        pensionMenu: 'refund'
       }
     },
     {
@@ -34,7 +34,7 @@ export default {
       component: () => import('@/views/static/finance/matching-suspense/index'),
       meta: {
         title: 'financeMatchingSuspense',
-        pensionMenu: 'address-type'
+        pensionMenu: 'match-suspense'
       }
     }
     // {

@@ -57,7 +57,7 @@ app-container(:show='!objectId')
         el-button(type='primary' @click="createData()")
           | {{ $t('table.confirm') }}
 
-    el-tab-pane(label='Member Class Plan' name='Member Class Plan' :disabled='!dialogNotCreate')
+    el-tab-pane(label='Group Class Plan' name='Group Class Plan' :disabled='!dialogNotCreate')
       ClassPlan(:data='temp')
     el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
       Billing(:data='temp')
@@ -94,7 +94,7 @@ import Withdrawal from './components/withdrawal'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
-  name: 'Company',
+  name: 'Group',
   components: { Pagination, ClassPlan, Billing, Withdrawal },
   props: ['objectId'],
   data() {

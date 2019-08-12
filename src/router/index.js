@@ -94,6 +94,14 @@ import userManagement from './modules/user-management'
 import taskManagement from './modules/task-management'
 import contribution from './modules/static/contribution'
 import finance from './modules/static/finance'
+import feeManagement from './modules/static/fee-management'
+import emailStatus from './modules/static/email-status'
+import simulation from './modules/static/simulation'
+import fundSwitching from './modules/static/fund-switching'
+import fundTransfer from './modules/static/fund-transfer'
+import batchManagement from './modules/static/batch-management'
+import alteration from './modules/static/alteration'
+import benefitPension from './modules/static/benefit-pension'
 
 export const asyncRoutes = [
   masterSetup,
@@ -104,6 +112,14 @@ export const asyncRoutes = [
   taskManagement,
   contribution,
   finance,
+  feeManagement,
+  emailStatus,
+  simulation,
+  fundSwitching,
+  fundTransfer,
+  batchManagement,
+  alteration,
+  benefitPension,
   {
     path: '/config',
     component: Layout,
