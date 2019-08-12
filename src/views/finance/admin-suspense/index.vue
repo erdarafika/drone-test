@@ -7,29 +7,32 @@ app-container
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="`DPLK Bank`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.dplkBank }}
+        span {{ scope.row.dplkBank.accountName }} - {{ scope.row.dplkBank.bank.bankName }}
     el-table-column(:label="`Amount`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.amount }}
     el-table-column(:label="`Outstanding`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.outstanding }}
+    el-table-column(:label="`Status`", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.status }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(align='left', width='200')
       template(slot-scope='scope')
-        el-button(size="small") Match
-        el-button(size="small") Refund
+        el-button(size="small" :disabled='scope.row.status !== "active"' class="el-button--success") Match
+        el-button(size="small" class="el-button--warning") Refund
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='`Add`', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="`DPLK Bank`", prop='dplkBank')
-        el-select(v-model='temp.dplkBank', name='dplkBank' placeholder='Select', filterable, default-first-option)
+      el-form-item(:label="`DPLK Bank`", prop='dplkBankId')
+        el-select(v-model='temp.dplkBankId', name='dplkBankId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in dplkBankOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="`Transasction Date`", prop='transactionDate' )
-        el-date-picker(:value-format='dateFormat' v-model='temp.transactionDate', type='date', placeholder='Pick a day' name='date')
+      el-form-item(:label="`Payment Date`", prop='paymentDate' )
+        el-date-picker(:value-format='dateFormat' v-model='temp.paymentDate', type='date', placeholder='Pick a day' name='date')
       el-form-item(:label="`Amount`", prop='amount')
         el-input(v-model.number='temp.amount', name='amount' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
       el-form-item(:label="`Description`", prop='description')
@@ -43,7 +46,7 @@ app-container
 </template>
 
 <script>
-import { fetchList, createRecord } from '@/api/static/finance-admin-suspense'
+import { fetchList, createAdminSuspense } from '@/api/admin-suspense'
 import Pagination from '@/components/Pagination'
 import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import rules from './validation-rules'
@@ -60,9 +63,9 @@ export default {
       dialogFormVisible: false,
       dplkBankOptions: [],
       temp: {
-        dplkBank: undefined,
+        dplkBankId: undefined,
         amount: undefined,
-        transactionDate: undefined,
+        paymentDate: undefined,
         description: undefined
       },
       listQuery: {
@@ -83,7 +86,7 @@ export default {
   },
   created() {
     fetchDplkBankList().then(res => {
-      this.dplkBankOptions = res.map(item => ({ label: `${item.bank.bankName} | ${item.accountName}`, value: item.id }))
+      this.dplkBankOptions = res.map(item => ({ label: `${item.accountName} - ${item.bank.bankName}`, value: item.id }))
     })
     this.getList()
   },
@@ -91,9 +94,10 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createRecord(this.temp).then((response) => {
+          createAdminSuspense(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
+              this.getList()
               this.dialogFormVisible = false
             }
           })
@@ -102,6 +106,7 @@ export default {
     },
     handleCreate() {
       this.resetTemp()
+      this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
@@ -109,9 +114,9 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        dplkBank: undefined,
+        dplkBankId: undefined,
         amount: undefined,
-        transactionDate: undefined
+        paymentDate: undefined
       }
     },
     getList() {
