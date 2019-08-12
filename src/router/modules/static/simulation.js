@@ -15,7 +15,7 @@ export default {
       name: 'SimulationContribution',
       component: () => import('@/views/static/simulation/contribution/index'),
       meta: {
-        title: 'contribution'
+        title: 'Contribution Simulator'
       }
     }
   ]

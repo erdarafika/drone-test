@@ -13,7 +13,7 @@ app-container
               el-input(v-model.number='temp.currentAge', name='currentAge')
             el-form-item(:label="`Current Salary`", prop='currentSalary')
               el-input(v-model.number='temp.currentSalary', name='currentSalary')
-            el-form-item(:label="`Ideal Replacment Ratio`", prop='idealReplacemenRatio')
+            el-form-item(:label="`Ideal Replacement Ratio`", prop='idealReplacemenRatio')
               el-input(v-model.number='temp.idealReplacemenRatio', name='idealReplacemenRatio')
           el-col(:span='12')
             el-form-item(:label="`Current Pension Asset`", prop='currentPensionAsset')
@@ -21,13 +21,14 @@ app-container
             el-form-item(:label="`Retire Age`", prop='retireAge')
               el-input(v-model.number='temp.retireAge', name='retireAge')
         el-form-item
-          el-button.pull-right(@click='calculateSimulation' style='margin-left: 20px;') Calculate
+          el-button.pull-right(@click='createContribution' style='margin-left: 20px;') Calculate
           el-button.pull-right(@click='resetTemp') Cancel
 </template>
 
 <script>
-// import { createRecord, approveRecord } from '@/api/static/contribution-billing-ppip-individu'
+import { createContribution } from '@/api/simulation'
 import rules from './validation-rules'
+import { Notification } from 'element-ui'
 
 export default {
   data() {
@@ -50,19 +51,19 @@ export default {
     this.resetTemp()
   },
   methods: {
-    calculateSimulation() {
+    createContribution() {
+      const duration = 2000
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          // createRecord(this.temp).then((response) => {
-          //   if (response.status_code >= 200 && response.status_code <= 300) {
-          //     approveRecord(this.temp).then(response => {
-          //       if (response.status_code >= 200 && response.status_code <= 300) {
-          //         this.successNotifier()
-          //       }
-          //       this.$router.push({ name: 'ContributionBilling' })
-          //     })
-          //   }
-          // })
+          createContribution(this.temp).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              Notification({
+                message: 'Contribution Needed: ' + response.contributionNeeded,
+                type: 'success',
+                duration
+              })
+            }
+          })
         }
       })
     },
