@@ -95,6 +95,11 @@ export default {
       menu: 'group',
       menuChecked: false,
       privilege: []
+    },
+    {
+      menu: 'member',
+      menuChecked: false,
+      privilege: []
     }
   ],
   'user-maintenance': [
@@ -113,12 +118,17 @@ export default {
   ],
   'contribution': [
     {
+      menu: 'billing',
+      menuChecked: false,
+      privilege: []
+    },
+    {
       menu: 'billing-ppukp',
       menuChecked: false,
       privilege: []
     },
     {
-      menu: 'billing-ppip-organization',
+      menu: 'billing-ppip',
       menuChecked: false,
       privilege: []
     },
@@ -128,7 +138,7 @@ export default {
       privilege: []
     },
     {
-      menu: 'top-up-ad-hoc',
+      menu: 'topup-adhoc',
       menuChecked: false,
       privilege: []
     }
@@ -145,7 +155,7 @@ export default {
       privilege: []
     },
     {
-      menu: 'matching-suspense',
+      menu: 'match-suspense',
       menuChecked: false,
       privilege: []
     }
