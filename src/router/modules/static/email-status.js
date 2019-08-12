@@ -16,7 +16,7 @@ export default {
       component: () => import('@/views/static/email-status/index'),
       meta: {
         title: 'emailStatus',
-        pensionMenu: 'address-type'
+        pensionMenu: 'email-status'
       }
     }
   ]
