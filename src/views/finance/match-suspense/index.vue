@@ -46,7 +46,7 @@ app-container
 </style>
 
 <script>
-// import { createRecord } from '@/api/static/contribution-top-up-ad-hoc'
+// import { createRecord } from '@/api/static/contribution-topup-adhoc'
 // import { fetchList as fetchCompany } from '@/api/company'
 import rules from './validation-rules'
 

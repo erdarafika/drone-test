@@ -544,5 +544,16 @@ export default {
     religion: 'Religion',
     salary: 'Salary',
     familyCardNumber: 'Family Card Number'
+  },
+  billing: {
+    amount: 'Amount',
+    approvedAt: 'Approved At',
+    billingDate: 'Billing Date',
+    billingNumber: 'Billing Number',
+    billingType: 'Billing Type',
+    groupId: 'Group',
+    settledAt: 'Settled At',
+    status: 'Status',
+    totalMember: 'Total Member'
   }
 }

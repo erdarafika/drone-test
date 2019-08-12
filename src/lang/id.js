@@ -478,6 +478,17 @@ export default {
     showRejected: 'Tampilkan Tertolak',
     reason: 'Alasan'
   },
+  billing: {
+    amount: 'Nominal',
+    approvedAt: 'Tanggal Disetujui',
+    billingDate: 'Tanggal Billing',
+    billingNumber: 'Nomor Billing',
+    billingType: 'Tipe Billing',
+    groupId: 'Grup',
+    settledAt: 'Tanggal Matching',
+    status: 'Status',
+    totalMember: 'Jumlah Member'
+  },
   membership: {
     avgIncomePerMonth: 'Rata-rata Gaji Per Bulan',
     cellPhoneNumber: 'Nomor HP',

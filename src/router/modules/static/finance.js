@@ -65,9 +65,9 @@ export default {
     //   }
     // },
     // {
-    //   path: 'top-up-ad-hoc',
+    //   path: 'topup-adhoc',
     //   name: 'ContributionPopUpAdHoc',
-    //   component: () => import('@/views/static/contribution/top-up-ad-hoc/index'),
+    //   component: () => import('@/views/static/contribution/topup-adhoc/index'),
     //   meta: {
     //     title: 'contributionPopUpAdHoc',
     //     pensionMenu: 'address-type'
