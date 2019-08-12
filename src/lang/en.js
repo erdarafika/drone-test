@@ -542,6 +542,7 @@ export default {
     reason: 'Rejection Reason',
     relationToPayor: 'Relation To Payor',
     religion: 'Religion',
-    salary: 'Salary'
+    salary: 'Salary',
+    familyCardNumber: 'Family Card Number'
   }
 }

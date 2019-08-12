@@ -15,6 +15,10 @@
             el-tab-pane(label='General')
               el-form-item(:label="$t('membership.certificateNumber')", prop='certificateNumber' )
                 el-input(v-model='temp.certificateNumber',  name='certificateNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail'  )
+              el-form-item(:label="$t('membership.certificateStatus')" prop='certificateStatus')
+                el-radio-group(v-model='temp.certificateStatus' name='certificateStatus')
+                  el-radio(label='active') Active
+                  el-radio(label='inactive') Inactive
               el-form-item(:label="$t('membership.proposalNumber')", prop='proposalNumber' )
                 el-input(v-model='temp.proposalNumber',  name='proposalNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail'  )
               el-form-item(:label="$t('membership.groupId')", prop='groupId')
@@ -23,12 +27,13 @@
               el-form-item(:label="$t('membership.companyId')", prop='companyId')
                 el-select(placeholder='Select' v-model='temp.companyId'  name='companyId' :disabled='dialogIsDetail' )
                   el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
-
             el-tab-pane(label='Private')
               el-row(:gutter='40')
                 el-col(:span='12')
                   el-form-item(:label="$t('membership.name')" prop='name')
                     el-input(v-model='temp.name', name='name' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.employmentDate')" prop='employmentDate')
+                    el-date-picker(:value-format='dateFormat' v-model='temp.employmentDate', name='employmentDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.employeeNumberId')" prop='employeeNumberId')
                     el-input(v-model='temp.employeeNumberId', name='employeeNumberId' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.gender')" prop='gender')
@@ -37,24 +42,52 @@
                       el-radio(label='female') Female
                   el-form-item(:label="$t('membership.dobPlace')" prop='dobPlace')
                     el-input(v-model='temp.dobPlace', name='dobPlace' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.dateOfBirth')" prop='dateOfBirth')
+                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.nationality')" prop='nationality')
                     el-radio-group(v-model='temp.nationality' name='nationality')
                       el-radio(label='wni') WNI
                       el-radio(label='wna') WNA
+                  el-form-item(:label="$t('membership.effectiveDate')" prop='effectiveDate')
+                    el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', name='effectiveDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.identityType')" prop='identityType')
                     el-select(v-model='temp.identityType', name='identityType' placeholder='Select', filterable, default-first-option :disabled='dialogIsDetail')
                       el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
                   el-form-item(:label="$t('membership.identityNumber')" prop='identityNumber')
                     el-input(v-model='temp.identityNumber', name='identityNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.familyCardNumber')" prop='familyCardNumber')
+                    el-input(v-model='temp.familyCardNumber', name='familyCardNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' placeholder="WIP")
+                  el-form-item(:label="$t('membership.maritalStatus')" prop='maritalStatus')
+                    el-input(v-model='temp.maritalStatus', name='maritalStatus' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.religion')" prop='religion')
+                    el-input(v-model='temp.religion', name='religion' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                 el-col(:span='12')
+                  el-form-item(:label="$t('membership.motherName')" prop='motherName')
+                    el-input(v-model='temp.motherName', name='motherName' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.normalRetireAge')" prop='normalRetireAge')
                     el-input(:value-format='dateFormat' v-model='temp.normalRetireAge', name='normalRetireAge' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-                  el-form-item(:label="$t('membership.employmentDate')" prop='employmentDate')
-                    el-date-picker(:value-format='dateFormat' v-model='temp.employmentDate', name='employmentDate' type='date', placeholder='Pick a date' :disabled='dialogIsDetail' )
-                  el-form-item(:label="$t('membership.dateOfBirth')" prop='dateOfBirth')
-                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-
-        .dialog-footer.pull-right(v-show='!dialogNotCreate' style='margin-top:-20px' v-if='!dialogNotCreate')
+                  el-form-item(:label="$t('membership.email')" prop='email')
+                    el-input(v-model='temp.email', name='email' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.job')" prop='job')
+                    el-input(:value-format='dateFormat' v-model='temp.job', name='job' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.npwp')" prop='npwp')
+                    el-input(:value-format='dateFormat' v-model='temp.npwp', name='npwp' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.purpose')" prop='purpose')
+                    el-input(:value-format='dateFormat' v-model='temp.purpose', name='purpose' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.moneySource')" prop='moneySource')
+                    el-input(v-model='temp.moneySource', name='moneySource' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.avgIncomePerMonth')" prop='avgIncomePerMonth')
+                    el-input(v-model='temp.avgIncomePerMonth', name='avgIncomePerMonth' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.relationToPayor')" prop='relationToPayor')
+                    el-input(v-model='temp.relationToPayor', name='relationToPayor' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.salary')" prop='salary')
+                    el-input(v-model='temp.salary', name='salary' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.classPlanId')" prop='classPlanId')
+                    el-input(v-model='temp.classPlanId', name='classPlanId' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.phoneNumber')" prop='phoneNumber')
+                    el-input(v-model='temp.phoneNumber', name='phoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                  el-form-item(:label="$t('membership.cellPhoneNumber')" prop='cellPhoneNumber')
+                    el-input(v-model='temp.cellPhoneNumber', name='cellPhoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
           el-button(type='primary' @click="createData()")
             | {{ $t('table.confirm') }}
 
@@ -69,7 +102,6 @@
       //- el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogNotCreate')
       //- el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogNotCreate')
 </template>
-
 <style>
   .multi-form {
     padding: 10px;
