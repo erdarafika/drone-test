@@ -12,14 +12,18 @@ app-container
             el-form-item(:label="`Current Age`", prop='currentAge')
               el-input(v-model.number='temp.currentAge', name='currentAge')
             el-form-item(:label="`Current Salary`", prop='currentSalary')
-              el-input(v-model.number='temp.currentSalary', name='currentSalary')
+              .el-input.el-input-group.el-input-group--prepend
+                .el-input-group__prepend Rp
+                money.el-input__inner(v-model.number='temp.currentSalary', name='currentSalary' v-bind='configSeparator')
             el-form-item(:label="`Ideal Replacement Ratio`", prop='idealReplacementRatio')
               el-input(v-model.number='temp.idealReplacementRatio', name='idealReplacementRatio')
-          el-col(:span='12')
             el-form-item(:label="`Current Pension Asset`", prop='currentPensionAssets')
-              el-input(v-model.number='temp.currentPensionAssets', name='currentPensionAssets')
+              .el-input.el-input-group.el-input-group--prepend
+                .el-input-group__prepend Rp
+                money.el-input__inner(v-model.number='temp.currentPensionAssets', name='currentPensionAssets' v-bind='configSeparator')
             el-form-item(:label="`Retire Age`", prop='retireAge')
               el-input(v-model.number='temp.retireAge', name='retireAge')
+          //el-col(:span='12')
         el-form-item
           el-button.pull-right(@click='createContribution' style='margin-left: 20px;') Calculate
           el-button.pull-right(@click='resetTemp') Cancel
@@ -29,12 +33,21 @@ app-container
 import { createContribution } from '@/api/simulation'
 import rules from './validation-rules'
 import { Notification } from 'element-ui'
+import { fetchMathConfig } from '@/api/config'
 
 export default {
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',
       listLoading: true,
+      configSeparator: {
+        decimal: ',',
+        thousands: '.',
+        prefix: '',
+        suffix: '',
+        precision: 0,
+        masked: false /* doesn't work with directive */
+      },
       temp: {
         averageLifeExpectations: undefined,
         averageReturnOfInvestment: undefined,
@@ -49,6 +62,12 @@ export default {
   },
   created() {
     this.resetTemp()
+    fetchMathConfig({ code: 'amount', type: 'separator' }).then(res => {
+      if (res.length) {
+        this.configSeparator.precision = res[0].value
+      }
+      console.log(this.configSeparator)
+    })
   },
   methods: {
     createContribution() {
