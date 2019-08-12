@@ -29,7 +29,8 @@ app-container
               el-table-column(align='left', width='200')
                 template(slot-scope='scope')
                   Delete.pull-right(:data='scope.row', :action='handleDeleteBilling')
-
+    el-button.pull-right(@click='' style='margin-left: 20px;') Match
+    el-button.pull-right(@click='resetTemp') Cancel
 </template>
 
 <style lang="scss">
