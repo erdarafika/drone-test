@@ -15,8 +15,7 @@ export default {
       name: 'AlterationDocument',
       component: () => import('@/views/static/alteration/document'),
       meta: {
-        title: 'alterationDocument',
-        pensionMenu: 'alteration'
+        title: 'alterationDocument'
       }
     },
     {
@@ -24,8 +23,7 @@ export default {
       name: 'AlterationData',
       component: () => import('@/views/static/alteration/data'),
       meta: {
-        title: 'alterationData',
-        pensionMenu: 'alteration'
+        title: 'alterationData'
       }
     }
   ]
