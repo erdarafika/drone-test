@@ -27,7 +27,7 @@ app-container
 
 <script>
 // import { createRecord, approveRecord } from '@/api/static/contribution-billing-ppip-individu'
-import rules from './validation-rules'
+import rules from '../validation-rules'
 
 export default {
   data() {
