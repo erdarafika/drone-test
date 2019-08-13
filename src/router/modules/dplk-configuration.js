@@ -19,41 +19,5 @@ export default {
         pensionMenu: 'dplk-configuration'
       }
     }
-    // {
-    //   path: 'dplk-information',
-    //   name: 'DplkInformation',
-    //   component: () => import('@/views/dplk-configuration/dplk-information/index'),
-    //   meta: {
-    //     title: 'dplkInformation',
-    //     pensionMenu: ''
-    //   }
-    // },
-    // {
-    //   path: 'dplk-address',
-    //   name: 'DplkAddress',
-    //   component: () => import('@/views/dplk-configuration/dplk-address/index'),
-    //   meta: {
-    //     title: 'dplkAddress',
-    //     pensionMenu: ''
-    //   }
-    // },
-    // {
-    //   path: 'dplk-bank-account',
-    //   name: 'DplkBankAccount',
-    //   component: () => import('@/views/dplk-configuration/dplk-bank-account/index'),
-    //   meta: {
-    //     title: 'dplkBankAccount',
-    //     pensionMenu: ''
-    //   }
-    // },
-    // {
-    //   path: 'dplk-staff',
-    //   name: 'DplkStaff',
-    //   component: () => import('@/views/dplk-configuration/dplk-staff/index'),
-    //   meta: {
-    //     title: 'dplkStaff',
-    //     pensionMenu: ''
-    //   }
-    // }
   ]
 }
