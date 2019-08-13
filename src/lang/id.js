@@ -483,6 +483,7 @@ export default {
     approvedAt: 'Tanggal Disetujui',
     billingDate: 'Tanggal Billing',
     billingNumber: 'Nomor Billing',
+    billingName: 'Nama Billing',
     billingType: 'Tipe Billing',
     groupId: 'Grup',
     settledAt: 'Tanggal Matching',

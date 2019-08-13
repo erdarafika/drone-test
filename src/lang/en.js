@@ -550,6 +550,7 @@ export default {
     approvedAt: 'Approved At',
     billingDate: 'Billing Date',
     billingNumber: 'Billing Number',
+    billingName: 'Billing Name',
     billingType: 'Billing Type',
     groupId: 'Group',
     settledAt: 'Settled At',
