@@ -557,5 +557,10 @@ export default {
     settledAt: 'Settled At',
     status: 'Status',
     totalMember: 'Total Member'
+  },
+  feeList: {
+    transactionDate: 'Transaction Date',
+    description: 'Description',
+    moneySource: 'Money Source'
   }
 }
