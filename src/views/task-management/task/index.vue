@@ -57,7 +57,7 @@ import { fetchList } from '@/api/task-management'
 import Pagination from '@/components/Pagination'
 
 export default {
-  name: 'AddressType',
+  name: 'TaskManagement',
   components: { Pagination },
   data() {
     return {
