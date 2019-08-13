@@ -1,7 +1,7 @@
 <template lang="pug">
 app-container
   el-tabs(type='border-card')
-    el-tab-pane(label='Matching Suspend')
+    el-tab-pane(label='Matching Suspense')
       el-row(:gutter='12')
         el-col(:span='12')
           el-card(shadow='never')

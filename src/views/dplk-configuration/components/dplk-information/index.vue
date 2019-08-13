@@ -3,15 +3,15 @@
 div
   el-form.dplk-information-form(:model='dplkInformation', :rules='rules', ref='dataForm', label-width='200px')
     el-form-item(:label="$t('dplkInformation.name')" prop="name")
-        el-input(v-model='dplkInformation.name'  name='name' )
+      el-input(v-model='dplkInformation.name'  name='name' )
     el-form-item(:label="$t('dplkInformation.website')" prop="website")
-        el-input(v-model='dplkInformation.website'  name='website')
+      el-input(v-model='dplkInformation.website'  name='website')
     el-form-item(:label="$t('dplkInformation.email')" prop="email")
-        el-input(v-model='dplkInformation.email'  name='email')
+      el-input(v-model='dplkInformation.email'  name='email')
     el-form-item(:label="$t('dplkInformation.telpNumber')" prop="telp")
-        el-input(v-model.number='dplkInformation.telp'  name='help')
+      el-input(v-model.number='dplkInformation.telp'  name='help')
     el-form-item(:label="$t('dplkInformation.fax')" prop="fax")
-        el-input(v-model.number='dplkInformation.fax'  name='fax')
+      el-input(v-model.number='dplkInformation.fax'  name='fax')
     el-form-item(v-crud-permission="['maker']")
       el-button(type='primary', @click="submitForm('ruleForm')") {{ $t('table.save') }}
 

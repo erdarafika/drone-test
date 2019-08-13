@@ -141,7 +141,8 @@ export default {
     searchPlaceholder: 'Find something',
     createdDate: 'Created Date',
     setDefault: 'Set as Default',
-    history: 'History'
+    history: 'History',
+    switching: 'Switching'
   },
   settings: {
     title: 'Page style setting',
@@ -321,7 +322,7 @@ export default {
     description: 'Description',
     pricing: 'Pricing',
     price: 'Price',
-    unavailableMessage: 'All Status is UNAVAILABLE'
+    unavailableMessage: 'All Status is Unavailable'
   },
   unitPrice: {
     fundName: 'Investment Name',
@@ -333,7 +334,7 @@ export default {
     name: 'DPLK Name',
     website: 'Website',
     email: 'Email',
-    telpNumber: 'Telephones Number',
+    telpNumber: 'Telephone Number',
     fax: 'Fax'
   },
   dplkAddress: {
@@ -353,13 +354,13 @@ export default {
   dplkBankAccount: {
     name: 'Account Name',
     number: 'Account Number',
-    bank: 'Bank',
+    bank: 'Bank Name',
     bankAddress: 'Bank Address',
     bankBranch: 'Bank Branch',
     bankCountry: 'Country'
   },
   dplkStaff: {
-    nip: 'NIP',
+    nip: 'Staff Number',
     name: 'Name',
     email: 'Email',
     department: 'Department'

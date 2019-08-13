@@ -1,6 +1,8 @@
 <template lang="pug">
 app-container
-
+  el-form(:inline='true')
+    el-form-item(:label="$t('')")
+      el-input.filter-item(placeholder="Search by Year" v-model='listQuery.period', prefix-icon='el-icon-search' style='width: 200px;')
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="`Period`", align='left')
       template(slot-scope='scope')
