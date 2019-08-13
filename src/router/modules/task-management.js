@@ -4,7 +4,7 @@ export default {
   path: '/task-management',
   component: Layout,
   redirect: '/task-management/user',
-  name: 'UserManagement',
+  name: 'TaskManagement',
   meta: {
     title: 'taskManagement',
     icon: 'task-management'
