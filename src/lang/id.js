@@ -145,7 +145,7 @@ export default {
     totalMember: 'Total Anggota',
     totalStatus: 'Status Pengguna',
     active: 'Aktif',
-    statistics: 'Statistik',
+    statistics: 'Statistik Tipe Investasi',
     lastWeek: 'Seminggu Terakhir',
     lastMonth: 'Sebulan Terakhir',
     last3Month: '3 bulan Terakhir',

@@ -167,7 +167,7 @@ export default {
     totalMember: 'Total Member',
     totalStatus: 'User Status',
     active: 'Active',
-    statistics: 'Statistics',
+    statistics: 'Invesment Type Statistics',
     lastWeek: 'Last Week',
     lastMonth: 'Last Month',
     last3Month: 'Last 3 Month',
