@@ -1,7 +1,7 @@
 <template lang="pug">
 app-container
   el-tabs(type='border-card')
-    el-tab-pane(label='Matching Suspend')
+    el-tab-pane(label='Matching Suspense')
       el-row(:gutter='12')
         el-col(:span='12')
           el-card(shadow='never')
@@ -29,7 +29,8 @@ app-container
               el-table-column(align='left', width='200')
                 template(slot-scope='scope')
                   Delete.pull-right(:data='scope.row', :action='handleDeleteBilling')
-
+    el-button.pull-right(@click='' style='margin-left: 20px;') Match
+    el-button.pull-right(@click='resetTemp') Cancel
 </template>
 
 <style lang="scss">

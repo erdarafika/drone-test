@@ -1,7 +1,7 @@
 
 import Layout from '@/layout'
 export default {
-  path: '/fee-managemeng',
+  path: '/fee-management',
   component: Layout,
   redirect: '/fee-management/summary',
   name: 'FeeManagement',
@@ -22,7 +22,7 @@ export default {
     {
       path: 'list',
       name: 'FeeManagementList',
-      component: () => import('@/views/static/fee-management/list/index'),
+      component: () => import('@/views/fee-management/list/index'),
       meta: {
         title: 'feeManagementList',
         pensionMenu: 'fee-list'
