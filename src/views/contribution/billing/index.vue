@@ -2,13 +2,11 @@
 app-container
   .table-header
     el-row
-      el-col(:span='18')
+      el-col(:span='20')
         h2.title  List Of Billing
-      el-col(:span='6')
-        el-select(placeholder='Add Billing' v-model='billingType' name='billingType')
+      el-col(:span='4')
+        el-select(placeholder='Add Billing' v-model='temp.billingType', :default-first-option='true', filterable, @change='handleCreate($event)', ref="billingTypeRef")
           el-option(v-for='item in listBillingOptions', :key='item.value', :label='item.label', :value='item.value')
-        el-button.filter-item.add-button(style='float:right', type='primary', @click='handleCreate')
-          | {{ $t('table.add') }}
   .complex-filter-container
     .complex-filter-item
       .title | {{ $t('table.filter') }}
@@ -107,6 +105,17 @@ export default {
     this.getList()
   },
   methods: {
+    handleCreate(event) {
+      switch (event) {
+        case 'dplk-ppukp':
+          this.$router.push({ name: 'ContributionBillingPPUKP', params: { action: 'create' }})
+          break
+        case 'dplk':
+          break
+        case 'dplk-individual':
+          break
+      }
+    },
     getList() {
       this.listLoading = true
       fetchList().then(response => {
