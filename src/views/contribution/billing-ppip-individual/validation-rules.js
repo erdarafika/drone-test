@@ -4,6 +4,5 @@ export default {
   companyId: [requiredValidator],
   groupId: [requiredValidator],
   memberId: [requiredValidator],
-  effectiveDate: [requiredValidator],
   amount: [requiredValidator, numberValidator]
 }

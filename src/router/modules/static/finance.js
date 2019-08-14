@@ -56,9 +56,9 @@ export default {
     //   }
     // },
     // {
-    //   path: 'billing-ppip-individu',
+    //   path: 'billing-ppip-individual',
     //   name: 'ContributionBillingPPIPIndividu',
-    //   component: () => import('@/views/static/contribution/billing-ppip-individu/index'),
+    //   component: () => import('@/views/static/contribution/billing-ppip-individual/index'),
     //   meta: {
     //     title: 'contributionBillingPPIPIndividu',
     //     pensionMenu: 'address-type'
