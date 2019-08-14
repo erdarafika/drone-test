@@ -15,8 +15,10 @@ app-container
           el-radio-group(v-model='listQuery.status')
             el-radio(v-for='option in statusOptions'  :key='option.value' :label='option.value') {{ option.label }}
       el-form(:inline='true')
-        el-form-item(:label="$t('groupMaintenance.name')")
+        el-form-item(:label="$t('groupMaintenance.filterGroup')")
           el-input.filter-item(v-model='listQuery.name', prefix-icon='el-icon-search' style='width: 200px;')
+        el-form-item(:label="$t('groupMaintenance.companyId')")
+          el-input.filter-item(v-model='listQuery.companyName', prefix-icon='el-icon-search' style='width: 200px;')
         el-form-item(:label="$t('groupMaintenance.productType')")
           el-select(placeholder='Select' v-model='listQuery.productType' name='productTypeId')
             el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
@@ -89,18 +91,20 @@ export default {
         status: '',
         productType: undefined,
         code: undefined,
-        name: undefined
+        name: undefined,
+        companyName: undefined
       }
     }
   },
   computed: {
     filterredList() {
-      const { status, name, productType, code, limit, page } = this.listQuery
+      const { status, name, productType, companyName, code, limit, page } = this.listQuery
       let listAfterSearch = this.list
       listAfterSearch = listAfterSearch.filter(data => !name || String(data.name).toLowerCase().includes(name.toLowerCase()))
       listAfterSearch = listAfterSearch.filter(data => !status || String(data.status).toLowerCase().includes(status.toLowerCase()))
       listAfterSearch = listAfterSearch.filter(data => !productType || String(data.productType.name).toLowerCase() === productType.toLowerCase())
       listAfterSearch = listAfterSearch.filter(data => !code || String(data.code).toLowerCase().includes(code.toLowerCase()))
+      listAfterSearch = listAfterSearch.filter(data => !companyName || String(data.company.name).toLowerCase().includes(companyName.toLowerCase()))
 
       const listAfterPagination = listAfterSearch.filter((item, index) => index < limit * page && index >= limit * (page - 1))
       return listAfterPagination
