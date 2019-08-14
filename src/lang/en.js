@@ -5,7 +5,7 @@ export default {
     contributionBillingPPUKP: 'Billing PPUKP',
     contributionBillingPPIPOrganization: 'Billing PPIP Organization',
     contributionBillingPPIPIndividual: 'Billing PPIP Individual',
-    contributionPopUpAdHoc: 'Top Up Ad Hoc',
+    contributionTopUpAdHoc: 'Top Up Ad Hoc',
     finance: 'Finance',
     financeAdminSuspense: 'Admin Suspense',
     financeRefund: 'Refund',
@@ -75,7 +75,8 @@ export default {
     importData: 'Import Data',
     importExcel: 'Import Excel',
     taskManagement: 'Task Management',
-    config: 'Configuration'
+    config: 'Configuration',
+    contributionSimulator: 'Contribution Simulator'
   },
   // GLOBAL
   validatorMessage: {
@@ -458,11 +459,11 @@ export default {
   },
   groupMaintenance: {
     name: 'Name',
-    code: 'Code',
+    code: 'Group Code',
     status: 'Status',
-    productType: 'Product',
+    productType: 'Product Type',
     isDraft: 'Draft',
-    companyId: 'Employer Name',
+    companyId: 'Company Name',
     productTypeId: 'Product Type',
     proposalNumber: 'Proposal Number',
     proposalDate: 'Proposal Date',
