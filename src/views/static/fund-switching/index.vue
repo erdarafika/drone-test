@@ -40,7 +40,7 @@ app-container
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="createData()")
-        | {{ $t('table.confirm') }}
+        | {{ $t('table.switching') }}
 
 </template>
 

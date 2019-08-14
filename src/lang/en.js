@@ -75,7 +75,7 @@ export default {
     importData: 'Import Data',
     importExcel: 'Import Excel',
     taskManagement: 'Task Management',
-    config: 'Pengaturan'
+    config: 'Configuration'
   },
   // GLOBAL
   validatorMessage: {
@@ -141,7 +141,8 @@ export default {
     searchPlaceholder: 'Find something',
     createdDate: 'Created Date',
     setDefault: 'Set as Default',
-    history: 'History'
+    history: 'History',
+    switching: 'Switching'
   },
   settings: {
     title: 'Page style setting',
@@ -166,7 +167,7 @@ export default {
     totalMember: 'Total Member',
     totalStatus: 'User Status',
     active: 'Active',
-    statistics: 'Statistics',
+    statistics: 'Invesment Type Statistics',
     lastWeek: 'Last Week',
     lastMonth: 'Last Month',
     last3Month: 'Last 3 Month',
@@ -321,7 +322,7 @@ export default {
     description: 'Description',
     pricing: 'Pricing',
     price: 'Price',
-    unavailableMessage: 'All Status is UNAVAILABLE'
+    unavailableMessage: 'All Status is Unavailable'
   },
   unitPrice: {
     fundName: 'Investment Name',
@@ -333,7 +334,7 @@ export default {
     name: 'DPLK Name',
     website: 'Website',
     email: 'Email',
-    telpNumber: 'Telephones Number',
+    telpNumber: 'Telephone Number',
     fax: 'Fax'
   },
   dplkAddress: {
@@ -353,13 +354,13 @@ export default {
   dplkBankAccount: {
     name: 'Account Name',
     number: 'Account Number',
-    bank: 'Bank',
+    bank: 'Bank Name',
     bankAddress: 'Bank Address',
     bankBranch: 'Bank Branch',
     bankCountry: 'Country'
   },
   dplkStaff: {
-    nip: 'NIP',
+    nip: 'Staff Number',
     name: 'Name',
     email: 'Email',
     department: 'Department'
@@ -448,7 +449,7 @@ export default {
     status: 'Status'
   },
   companyBankAccount: {
-    bankName: 'Bank',
+    bankName: 'Bank Name',
     accountName: 'Account Name',
     accountNumber: 'Account Number',
     currentBank: 'Default Bank',
@@ -474,7 +475,8 @@ export default {
     totalEmployeeRegistered: 'Total Employee Registered',
     isHavingFundOutsideDplk: 'Having Fund Outside DPLK',
     isTaxPaidByEmployer: 'Tax Paid by Employee',
-    notes: 'Group Notes'
+    notes: 'Group Notes',
+    filterGroup: 'Group Name'
   },
   classPlan: {
     name: 'Name',
@@ -556,5 +558,10 @@ export default {
     settledAt: 'Settled At',
     status: 'Status',
     totalMember: 'Total Member'
+  },
+  feeList: {
+    transactionDate: 'Transaction Date',
+    description: 'Description',
+    moneySource: 'Money Source'
   }
 }
