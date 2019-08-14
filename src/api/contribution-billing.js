@@ -7,6 +7,14 @@ export function fetchList() {
   })
 }
 
+export function createRecord(data) {
+  return request({
+    url: 'billing',
+    method: 'post',
+    data
+  })
+}
+
 export function fetchBillingDetails(id) {
   return request({
     url: `billing/${id}/detail`,
