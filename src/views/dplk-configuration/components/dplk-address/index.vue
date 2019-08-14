@@ -53,7 +53,7 @@ div
         el-select(v-model='temp.countryId', name='countryId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in countryOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('dplkAddress.province')", prop='provinceId')
-        el-select(v-model='temp.provinceId' name='provinceId', placeholder='Select', filterable, default-first-option  :disabled='temp.countryId === undefined')
+        el-select(v-model='temp.provinceId' name='provinceId', placeholder='Select', filterable, default-first-option :disabled='temp.countryId === undefined')
           el-option(v-for='item in provinceOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('dplkAddress.city')", prop='cityId')
         el-select(v-model='temp.cityId', name='cityId'  placeholder='Select', filterable, default-first-option  :disabled='temp.provinceId === undefined')

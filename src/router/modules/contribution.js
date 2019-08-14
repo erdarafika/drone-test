@@ -20,6 +20,18 @@ export default {
       }
     },
     {
+      path: 'billing-ppukp',
+      name: 'ContributionBillingPPUKP',
+      component: () => import('@/views/contribution/billing-ppukp/index'),
+      meta: {
+        title: 'contributionBillingPPUKP',
+        pensionMenu: 'billing',
+        noCache: true,
+        breadcrumb: false
+      },
+      hidden: true
+    },
+    {
       path: 'topup-adhoc',
       name: 'ContributionPopUpAdHoc',
       component: () => import('@/views/contribution/topup-adhoc/index'),
