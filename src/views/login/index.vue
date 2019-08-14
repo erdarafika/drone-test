@@ -103,7 +103,8 @@ export default {
       capsTooltip: false,
       loading: false,
       redirect: undefined,
-      logo: 'car-logo'
+      logo: 'car-logo',
+      title: ''
     }
   },
   watch: {

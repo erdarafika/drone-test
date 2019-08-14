@@ -143,7 +143,9 @@ export default {
     createdDate: 'Created Date',
     setDefault: 'Set as Default',
     history: 'History',
-    switching: 'Switching'
+    switching: 'Switching',
+    lineNumber: 'Line Number',
+    errors: 'Errors'
   },
   settings: {
     title: 'Page style setting',
@@ -559,6 +561,7 @@ export default {
     companyId: 'Company',
     memberId: 'Member',
     settledAt: 'Settled At',
+    importBilling: 'Import Billing',
     status: 'Status',
     totalMember: 'Total Member'
   },
