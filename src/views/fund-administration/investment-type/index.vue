@@ -28,9 +28,9 @@
       //- el-table-column(:label="$t('investmentType.effectiveDate')", align='left', width='180')
       //-   template(slot-scope='scope')
       //-     span {{ scope.row.effectiveDate | moment("Do MMMM, YYYY") }}
-      //- el-table-column(:label="$t('table.createdDate')", align='left')
-      //-   template(slot-scope='scope')
-      //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+      el-table-column(:label="$t('table.createdDate')", align='left')
+         template(slot-scope='scope')
+           | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
       el-table-column(label='', align='right', class-name='small-padding fixed-width', width='230')
         template(slot-scope='{row}')
           Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" v-if='row.status === "rejected"')
