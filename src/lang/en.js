@@ -5,7 +5,7 @@ export default {
     contributionBillingPPUKP: 'Billing PPUKP',
     contributionBillingPPIPOrganization: 'Billing PPIP Organization',
     contributionBillingPPIPIndividu: 'Billing PPIP Individu',
-    contributionPopUpAdHoc: 'Top Up Ad Hoc',
+    contributionTopUpAdHoc: 'Top Up Ad Hoc',
     finance: 'Finance',
     financeAdminSuspense: 'Admin Suspense',
     financeRefund: 'Refund',
@@ -75,7 +75,8 @@ export default {
     importData: 'Import Data',
     importExcel: 'Import Excel',
     taskManagement: 'Task Management',
-    config: 'Configuration'
+    config: 'Configuration',
+    contributionSimulator: 'Contribution Simulator'
   },
   // GLOBAL
   validatorMessage: {
