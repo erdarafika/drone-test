@@ -111,8 +111,10 @@ export default {
           this.$router.push({ name: 'ContributionBillingPPUKP', params: { action: 'create' }})
           break
         case 'dplk':
+          this.$router.push({ name: 'ContributionBillingPPIPOrganization', params: { action: 'create' }})
           break
         case 'dplk-individual':
+          this.$router.push({ name: 'ContributionBillingPPIPIndividual', params: { action: 'create' }})
           break
       }
     },

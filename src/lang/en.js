@@ -4,7 +4,7 @@ export default {
     contributionBilling: 'Billing',
     contributionBillingPPUKP: 'Billing PPUKP',
     contributionBillingPPIPOrganization: 'Billing PPIP Organization',
-    contributionBillingPPIPIndividu: 'Billing PPIP Individu',
+    contributionBillingPPIPIndividual: 'Billing PPIP Individual',
     contributionPopUpAdHoc: 'Top Up Ad Hoc',
     finance: 'Finance',
     financeAdminSuspense: 'Admin Suspense',
@@ -555,6 +555,8 @@ export default {
     billingName: 'Billing Name',
     billingType: 'Billing Type',
     groupId: 'Group',
+    companyId: 'Company',
+    memberId: 'Member',
     settledAt: 'Settled At',
     status: 'Status',
     totalMember: 'Total Member'

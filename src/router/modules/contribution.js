@@ -25,7 +25,31 @@ export default {
       component: () => import('@/views/contribution/billing-ppukp/index'),
       meta: {
         title: 'contributionBillingPPUKP',
-        pensionMenu: 'billing',
+        pensionMenu: 'billing-ppukp',
+        noCache: true,
+        breadcrumb: false
+      },
+      hidden: true
+    },
+    {
+      path: 'billing-ppip-individual',
+      name: 'ContributionBillingPPIPIndividual',
+      component: () => import('@/views/contribution/billing-ppip-individual/index'),
+      meta: {
+        title: 'contributionBillingPPIPIndividual',
+        pensionMenu: 'billing-ppip-individual',
+        noCache: true,
+        breadcrumb: false
+      },
+      hidden: true
+    },
+    {
+      path: 'billing-ppip-organization',
+      name: 'ContributionBillingPPIPOrganization',
+      component: () => import('@/views/contribution/billing-ppip-organization/index'),
+      meta: {
+        title: 'contributionBillingPPIPOrganization',
+        pensionMenu: 'billing-ppip',
         noCache: true,
         breadcrumb: false
       },
