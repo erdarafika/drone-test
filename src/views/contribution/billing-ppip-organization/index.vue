@@ -83,6 +83,9 @@ export default {
     })
   },
   methods: {
+    back() {
+      this.$router.push({ name: 'ContributionBilling' })
+    },
     beforeUpload(file) {
       const isLt1M = file.size / 1024 / 1024 < 1
       if (isLt1M) {
@@ -125,19 +128,23 @@ export default {
               let lineNumber = 1
               const listErrors = []
               errors.forEach(function(data) {
-                const listError = []
-                data.forEach(function(error) {
-                  const errorMessage = {
-                    field: error.field,
-                    message: error.defaultMessage
+                console.log(data)
+                if (data.length > 0) {
+                  const listError = []
+                  data.forEach(function(error) {
+                    const errorMessage = {
+                      field: error.field,
+                      message: error.defaultMessage
+                    }
+                    listError.push(errorMessage)
+                  })
+                  const constructData = {
+                    line: lineNumber,
+                    errors: listError
                   }
-                  listError.push(errorMessage)
-                })
-                const constructData = {
-                  line: lineNumber++,
-                  errors: listError
+                  listErrors.push(constructData)
                 }
-                listErrors.push(constructData)
+                lineNumber++
               })
               console.log(listErrors)
               this.errorsData = listErrors
