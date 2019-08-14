@@ -75,7 +75,7 @@ export default {
     importData: 'Import Data',
     importExcel: 'Import Excel',
     taskManagement: 'Task Management',
-    config: 'Pengaturan'
+    config: 'Configuration'
   },
   // GLOBAL
   validatorMessage: {
@@ -167,7 +167,7 @@ export default {
     totalMember: 'Total Member',
     totalStatus: 'User Status',
     active: 'Active',
-    statistics: 'Statistics',
+    statistics: 'Invesment Type Statistics',
     lastWeek: 'Last Week',
     lastMonth: 'Last Month',
     last3Month: 'Last 3 Month',
@@ -449,7 +449,7 @@ export default {
     status: 'Status'
   },
   companyBankAccount: {
-    bankName: 'Bank',
+    bankName: 'Bank Name',
     accountName: 'Account Name',
     accountNumber: 'Account Number',
     currentBank: 'Default Bank',
@@ -475,7 +475,8 @@ export default {
     totalEmployeeRegistered: 'Total Employee Registered',
     isHavingFundOutsideDplk: 'Having Fund Outside DPLK',
     isTaxPaidByEmployer: 'Tax Paid by Employee',
-    notes: 'Group Notes'
+    notes: 'Group Notes',
+    filterGroup: 'Group Name'
   },
   classPlan: {
     name: 'Name',

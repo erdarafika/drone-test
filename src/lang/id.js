@@ -145,7 +145,7 @@ export default {
     totalMember: 'Total Anggota',
     totalStatus: 'Status Pengguna',
     active: 'Aktif',
-    statistics: 'Statistik',
+    statistics: 'Statistik Tipe Investasi',
     lastWeek: 'Seminggu Terakhir',
     lastMonth: 'Sebulan Terakhir',
     last3Month: '3 bulan Terakhir',
@@ -332,7 +332,7 @@ export default {
   dplkBankAccount: {
     name: 'Nama Akun',
     number: 'Nomor Akun',
-    bank: 'Bank',
+    bank: 'Nama Bank',
     bankAddress: 'Alamat Bank',
     bankBranch: 'Cabang Bank',
     bankCountry: 'Negara'
@@ -427,7 +427,7 @@ export default {
     status: 'Status'
   },
   companyBankAccount: {
-    bankName: 'Bank',
+    bankName: 'Nama Bank',
     accountName: 'Nama Akun',
     accountNumber: 'Nomor Akun',
     currentBank: 'Bank Default',
