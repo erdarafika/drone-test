@@ -36,7 +36,7 @@ export default {
       name: 'ContributionPopUpAdHoc',
       component: () => import('@/views/contribution/topup-adhoc/index'),
       meta: {
-        title: 'contributionPopUpAdHoc',
+        title: 'contributionTopUpAdHoc',
         pensionMenu: 'topup-adhoc'
       }
     }
