@@ -3,13 +3,13 @@ app-container
   el-tabs(type='border-card')
     el-tab-pane(label='Billing PPUKP')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
-        el-form-item(:label="`Company`", prop='companyId')
+        el-form-item(:label="$t('billing.companyId')", prop='companyId')
           el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)
             el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
-        el-form-item(:label="`Group`", prop='groupId')
+        el-form-item(:label="$t('billing.groupId')", prop='groupId')
           el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option :disabled='temp.companyId === undefined')
             el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
-        el-form-item(:label="`Amount`", prop='amount')
+        el-form-item(:label="$t('billing.amount')", prop='amount')
           .el-input.el-input-group.el-input-group--prepend
             .el-input-group__prepend Rp
             money.el-input__inner(v-model.number='temp.amount', name='amount' v-bind='configSeparator')
@@ -57,7 +57,6 @@ export default {
       if (!this.initialUpdate) {
         this.temp.groupId = undefined
       }
-
       if (companyId) {
         fetchGroup({ companyId: companyId }).then(res => {
           res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk-ppukp')
@@ -72,7 +71,7 @@ export default {
       res = res.filter(item => item.status === 'active')
       this.companyOptions = res.map(item => ({ value: item.id, label: item.name }))
     })
-    fetchMathConfig({ code: 'unit_price', type: 'separator' }).then(res => {
+    fetchMathConfig({ code: 'amount', type: 'separator' }).then(res => {
       if (res.length) {
         this.configSeparator.precision = res[0].value
       }

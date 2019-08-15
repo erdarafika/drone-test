@@ -15,6 +15,18 @@ export function createRecord(data) {
   })
 }
 
+export function upload(data) {
+  return request({
+    url: 'billing/upload',
+    method: 'post',
+    headers: {
+      'X-Import-Process': true,
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
+}
+
 export function fetchBillingDetails(id) {
   return request({
     url: `billing/${id}/detail`,

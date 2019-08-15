@@ -4,7 +4,7 @@ export default {
     contributionBilling: 'Billing',
     contributionBillingPPUKP: 'Billing PPUKP',
     contributionBillingPPIPOrganization: 'Billing PPIP Organization',
-    contributionBillingPPIPIndividu: 'Billing PPIP Individu',
+    contributionBillingPPIPIndividual: 'Billing PPIP Individual',
     contributionTopUpAdHoc: 'Top Up Ad Hoc',
     finance: 'Finance',
     financeAdminSuspense: 'Admin Suspense',
@@ -143,7 +143,9 @@ export default {
     createdDate: 'Created Date',
     setDefault: 'Set as Default',
     history: 'History',
-    switching: 'Switching'
+    switching: 'Switching',
+    lineNumber: 'Line Number',
+    errors: 'Errors'
   },
   settings: {
     title: 'Page style setting',
@@ -556,7 +558,10 @@ export default {
     billingName: 'Billing Name',
     billingType: 'Billing Type',
     groupId: 'Group',
+    companyId: 'Company',
+    memberId: 'Member',
     settledAt: 'Settled At',
+    importBilling: 'Import Billing',
     status: 'Status',
     totalMember: 'Total Member'
   },

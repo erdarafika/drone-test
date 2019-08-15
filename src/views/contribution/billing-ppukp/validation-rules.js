@@ -3,6 +3,5 @@ import { requiredValidator, numberValidator } from '@/global-function/formValida
 export default {
   companyId: [requiredValidator],
   groupId: [requiredValidator],
-  effectiveDate: [requiredValidator],
   amount: [requiredValidator, numberValidator]
 }

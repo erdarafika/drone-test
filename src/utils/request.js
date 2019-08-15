@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Notification } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -49,7 +49,7 @@ service.interceptors.response.use(
       res = { response_data: res, status_code: response.status }
     }
     if (response.status < 200 || response.status >= 300) {
-      Message({
+      Notification({
         message: response.message || res.message || 'Something went wrong',
         type: 'error',
         duration: 5 * 1000
@@ -87,7 +87,7 @@ service.interceptors.response.use(
     const res = error.response.data
 
     console.log('err' + error) // for debug
-    Message({
+    Notification({
       message: res.message ? res.message : error.message,
       type: 'error',
       duration: 5 * 1000
