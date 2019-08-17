@@ -19,9 +19,9 @@ app-container
             el-form-item
               table.pull-right
                 td
-                  el-button.pull-right(size='small' @click='resetTemp') Cancel
+                  Cancel(:callback='resetTemp')
                 td
-                  RequestApproval.pull-right(:callback='requestApproval')
+                  RequestApproval(:callback='requestApproval')
         el-col(:span='12' v-if='isConflict')
           h4(style='color:#646266') Invalid Data
           el-table(:data='errorsData')

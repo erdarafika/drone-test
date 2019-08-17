@@ -27,7 +27,9 @@ import VueTheMask from 'vue-the-mask'
 
 import confirmDelete from './global-function/deleteConfirm'
 import { successNotifier, cancelNotifier } from './global-function/defaultMessage'
+import { IDR } from './global-function/amountFormatter'
 import Delete from './components/ActionButtons/Delete'
+import Cancel from './components/ActionButtons/Cancel'
 import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
 import Reject from './components/ActionButtons/Reject'
@@ -42,6 +44,7 @@ import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
 //  Register Component
 Vue.component('Delete', Delete)
+Vue.component('Cancel', Cancel)
 Vue.component('Edit', Edit)
 Vue.component('Detail', Detail)
 Vue.component('Approve', Approve)
@@ -77,7 +80,8 @@ Vue.mixin({
   methods: {
     confirmDelete,
     successNotifier,
-    cancelNotifier
+    cancelNotifier,
+    IDR
   }
 })
 Vue.use(VueTheMask)
