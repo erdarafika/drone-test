@@ -2,6 +2,7 @@ export default {
   route: {
     contribution: 'Contribution',
     contributionBilling: 'Billing',
+    contributionBillingDetail: 'Billing Detail',
     contributionBillingPPUKP: 'Billing PPUKP',
     contributionBillingPPIPOrganization: 'Billing PPIP Organization',
     contributionBillingPPIPIndividual: 'Billing PPIP Individual',
@@ -143,6 +144,9 @@ export default {
     createdDate: 'Created Date',
     setDefault: 'Set as Default',
     history: 'History',
+    hide: 'Hide',
+    expand: 'Expand',
+    total: 'Total',
     switching: 'Switching',
     lineNumber: 'Line Number',
     errors: 'Errors'
@@ -552,6 +556,7 @@ export default {
   },
   billing: {
     amount: 'Amount',
+    totalAmount: 'Total Amount',
     approvedAt: 'Approved At',
     billingDate: 'Billing Date',
     billingNumber: 'Billing Number',
@@ -562,8 +567,19 @@ export default {
     memberId: 'Member',
     settledAt: 'Settled At',
     importBilling: 'Import Billing',
+    detailBilling: 'Detail Billing',
+    memberDetail: 'Member Detail',
     status: 'Status',
     totalMember: 'Total Member'
+  },
+  billingDetail: {
+    billingId: 'Billing',
+    memberId: 'Member',
+    employee: 'Employee Contribution (IDR)',
+    employer: 'Employer Contribution (IDR)',
+    topupEE: 'Top Up Employee (IDR)',
+    topupER: 'Top Up Employer (IDR)',
+    totalAmount: 'Total (IDR)'
   },
   feeList: {
     transactionDate: 'Transaction Date',

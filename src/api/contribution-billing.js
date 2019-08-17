@@ -27,6 +27,13 @@ export function upload(data) {
   })
 }
 
+export function fetchBillingDetail(id) {
+  return request({
+    url: `billing/${id}`,
+    method: 'get'
+  })
+}
+
 export function fetchBillingDetails(id) {
   return request({
     url: `billing/${id}/detail`,

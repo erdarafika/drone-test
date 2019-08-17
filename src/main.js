@@ -27,6 +27,7 @@ import VueTheMask from 'vue-the-mask'
 
 import confirmDelete from './global-function/deleteConfirm'
 import { successNotifier, cancelNotifier } from './global-function/defaultMessage'
+import { IDR } from './global-function/amountFormatter'
 import Delete from './components/ActionButtons/Delete'
 import Cancel from './components/ActionButtons/Cancel'
 import Edit from './components/ActionButtons/Edit'
@@ -79,7 +80,8 @@ Vue.mixin({
   methods: {
     confirmDelete,
     successNotifier,
-    cancelNotifier
+    cancelNotifier,
+    IDR
   }
 })
 Vue.use(VueTheMask)
