@@ -29,13 +29,13 @@ div
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('classPlan.name')", prop='name')
         el-input(v-model.number='temp.name', name='name' type='input')
+      el-form-item(:label="$t('classPlan.isPercentage')" prop='isPercentage')
+        el-switch(v-model='temp.isPercentage' name='isPercentage')
+        span.switch-status {{ temp.isPercentage?'Yes':'No' }}
       el-form-item(:label="$t('classPlan.employee')", prop='employee')
         el-input-number(v-model.number='temp.employee', name='employee' type='input')
       el-form-item(:label="$t('classPlan.employer')", prop='employer')
         el-input-number(v-model.number='temp.employer', name='employer' type='input')
-      el-form-item(:label="$t('classPlan.isPercentage')" prop='isPercentage')
-        el-switch(v-model='temp.isPercentage' name='isPercentage')
-        span.switch-status {{ temp.isPercentage?'Yes':'No' }}
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
