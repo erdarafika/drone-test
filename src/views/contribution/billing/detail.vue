@@ -47,6 +47,17 @@ app-container(:show="!objectId")
         el-table(:data="totalAmount")
           el-table-column(prop="label" class-name="has-text-weight-bold totalAmount")
           el-table-column(prop="value" class-name="totalAmount")
+    el-row(:gutter="40")
+      el-col
+        h2(style="font-weight: lighter;") {{ $t('billing.historyDetail') }}
+        el-table(:data="billingHistory")
+          el-table-column(type="index")
+          el-table-column(:label="$t('billingHistory.historyType')")
+            template(slot-scope="scope")
+              span {{ scope.row.historyType }}
+          el-table-column(:label="$t('billingHistory.username')")
+            template(slot-scope="scope")
+              span {{ scope.row.username }}
 </template>
 
 <style>
@@ -59,7 +70,7 @@ app-container(:show="!objectId")
 </style>
 
 <script>
-import { fetchBillingDetail, fetchBillingDetails } from '@/api/contribution-billing'
+import { fetchBillingDetail, fetchBillingDetails, fetchBillingHistories } from '@/api/contribution-billing'
 export default {
   name: 'ContributionBillingDetail',
   // eslint-disable-next-line vue/require-prop-types
@@ -73,6 +84,7 @@ export default {
       tableDetailBillingRight: [],
       totalAmount: [],
       billingDetail: [],
+      billingHistory: [],
       expand: false,
       temp: {
         id: undefined
@@ -139,6 +151,9 @@ export default {
             this.billingDetail = response
           })
         }
+        fetchBillingHistories(this.temp.id).then(response => {
+          this.billingHistory = response
+        })
       })
     },
     goToMember(member) {

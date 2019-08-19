@@ -570,6 +570,7 @@ export default {
     importBilling: 'Import Billing',
     detailBilling: 'Detail Billing',
     memberDetail: 'Member Detail',
+    historyDetail: 'History Detail',
     status: 'Status',
     totalMember: 'Total Member'
   },
@@ -581,6 +582,10 @@ export default {
     topupEE: 'Top Up Employee (IDR)',
     topupER: 'Top Up Employer (IDR)',
     totalAmount: 'Total (IDR)'
+  },
+  billingHistory: {
+    historyType: 'History Type',
+    username: 'Username'
   },
   feeList: {
     transactionDate: 'Transaction Date',
