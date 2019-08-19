@@ -15,12 +15,24 @@ export function createRecord(data) {
   })
 }
 
-export function upload(data) {
+export function processImport(data) {
   return request({
     url: 'billing/upload',
     method: 'post',
     headers: {
       'X-Import-Process': true,
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
+}
+
+export function preview(data) {
+  return request({
+    url: 'billing/upload',
+    method: 'post',
+    headers: {
+      'X-Import-Process': false,
       'Content-Type': 'multipart/form-data'
     },
     data

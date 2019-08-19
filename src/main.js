@@ -30,6 +30,7 @@ import { successNotifier, cancelNotifier } from './global-function/defaultMessag
 import { IDR } from './global-function/amountFormatter'
 import Delete from './components/ActionButtons/Delete'
 import Cancel from './components/ActionButtons/Cancel'
+import Confirm from './components/ActionButtons/Confirm'
 import Edit from './components/ActionButtons/Edit'
 import Detail from './components/ActionButtons/Detail'
 import Reject from './components/ActionButtons/Reject'
@@ -45,6 +46,7 @@ import AppContainer from './components/AppContainer/'
 //  Register Component
 Vue.component('Delete', Delete)
 Vue.component('Cancel', Cancel)
+Vue.component('Confirm', Confirm)
 Vue.component('Edit', Edit)
 Vue.component('Detail', Detail)
 Vue.component('Approve', Approve)
