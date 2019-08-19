@@ -21,7 +21,7 @@ app-container
                 td
                   Cancel(:callback='resetTemp')
                 td
-                  Confirm(:callback='previewData')
+                  Upload(:callback='previewData')
         el-col(:span='12' v-if='isConflict')
           h4(style='color:#646266') Invalid Data
           el-table(:data='errorsData')
@@ -33,10 +33,12 @@ app-container
                 span(v-for="item in scope.row.errors") <strong>{{ item.field }}</strong> {{ item.message }}<br/>
       el-row(:gutter="40")
         el-col
-          el-table(v-if='showPreview === true' height="265" :key="tableKey" :data="billingDetail" stripe)
+          el-table(v-if='showPreview === true' height="265" :key="tableKey" :data="billingDetail" :span-method="arraySpanMethod" stripe)
+            el-table-column(type="index", align='left')
             el-table-column(:label="$t('billingDetail.memberId')", align='left')
               template(slot-scope="scope")
-                span {{ scope.row.member.name }}
+                span(v-if="scope.row.member.name !== 'Total'") {{ scope.row.member.name }}
+                span(v-else style="font-weight: bold;") {{ scope.row.member.name }}
             el-table-column(:label="$t('billingDetail.employee')")
               template(slot-scope="scope")
                 span {{ IDR(scope.row.employee) }}
@@ -51,7 +53,8 @@ app-container
                 span {{ IDR(scope.row.topupER) }}
             el-table-column(:label="$t('billingDetail.totalAmount')")
               template(slot-scope="scope")
-                span {{ IDR(scope.row.totalAmount) }}
+                span(v-if="scope.row.member.name !== 'Total'") {{ IDR(scope.row.totalAmount) }}
+                span(v-else style="font-weight: bold;") {{ IDR(scope.row.totalAmount) }}
           RequestApproval.pull-right(v-if='showPreview === true' style="margin-top:5px;" :callback='requestApproval')
 </template>
 
@@ -78,6 +81,7 @@ export default {
       errorsData: [],
       showPreview: false,
       billingDetail: [],
+      sumTotalAmount: [],
       temp: {
         companyId: undefined,
         groupId: undefined,
@@ -136,6 +140,21 @@ export default {
         }
       }
     },
+    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (row.member.name === 'Total') {
+        if (columnIndex === 1) {
+          return {
+            rowspan: 1,
+            colspan: 6
+          }
+        } else if (columnIndex in [1, 2, 3, 4, 5, 6]) {
+          return {
+            rowspan: 0,
+            colspan: 0
+          }
+        }
+      }
+    },
     previewData() {
       this.temp.billingType = 'dplk'
       this.$refs['dataForm'].validate((valid) => {
@@ -146,9 +165,20 @@ export default {
           formData.append('file', this.temp.file)
           preview(formData).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
+              let totalAmount = 0
               this.isConflict = false
               this.showPreview = true
               this.billingDetail = response
+              response.forEach(function(data) {
+                totalAmount = totalAmount + data.totalAmount
+              })
+              this.billingDetail.push({ member: { name: 'Total' }, totalAmount: totalAmount })
+              this.sumTotalAmount = [
+                {
+                  label: this.$t('table.total'),
+                  value: 'IDR ' + this.IDR(totalAmount)
+                }
+              ]
             }
           }).catch((err) => {
             this.showPreview = false
@@ -157,7 +187,6 @@ export default {
               let lineNumber = 1
               const listErrors = []
               errors.forEach(function(data) {
-                console.log(data)
                 if (data.length > 0) {
                   const listError = []
                   data.forEach(function(error) {

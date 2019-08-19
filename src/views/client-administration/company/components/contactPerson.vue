@@ -68,6 +68,7 @@ import { requiredValidator, alphabeticValidator, numberValidator } from '@/globa
 export default {
   name: 'Document',
   components: { Pagination },
+  // eslint-disable-next-line
   props: ['data'],
   data() {
     return {
