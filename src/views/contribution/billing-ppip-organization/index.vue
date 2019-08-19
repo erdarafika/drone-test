@@ -89,7 +89,7 @@ export default {
   },
   created() {
     this.resetTemp()
-    fetchGroup({ code: 'dplk' }).then(res => {
+    fetchGroup().then(res => {
       res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'organization')
       this.groupOptions = res.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
     })

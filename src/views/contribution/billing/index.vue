@@ -62,8 +62,8 @@ export default {
       groupOptions: [],
       listBillingOptions: [
         { label: 'Billing PPUKP', value: 'dplk-ppukp' },
-        { label: 'Billing PPIP Individual', value: 'dplk-individual' },
-        { label: 'Billing PPIP Organization', value: 'dplk' }
+        { label: 'Billing PPIP Organization', value: 'dplk' },
+        { label: 'Billing PPIP Individual', value: 'dplk-individual' }
       ],
       statusOptions: [
         { label: 'Show All', value: '' },
