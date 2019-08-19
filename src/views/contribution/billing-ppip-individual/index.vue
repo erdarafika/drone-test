@@ -1,27 +1,29 @@
 <template lang="pug">
-  app-container
-    el-tabs(type='border-card')
-      el-tab-pane(label='Billing PPIP Individual')
-        el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
-          el-form-item(:label="$t('billing.companyId')", prop='companyId')
-            el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)
-              el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
-          el-form-item(:label="$t('billing.groupId')", prop='groupId')
-            el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option :disabled='temp.companyId === undefined')
-              el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
-          el-form-item(:label="$t('billing.memberId')", prop='memberId')
-            el-select(v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
-              el-option(v-for='item in memberOptions', :key='item.value', :label='item.label', :value='item.value')
-          el-form-item(:label="$t('billing.amount')", prop='amount')
-            .el-input.el-input-group.el-input-group--prepend
-              .el-input-group__prepend Rp
-              money.el-input__inner(v-model.number='temp.amount', name='amount' v-bind='configSeparator')
-          el-form-item
-            table.pull-right
-              td
-                Cancel(:callback='resetTemp')
-              td
-                RequestApproval(:callback='requestApproval')
+app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.push({name: 'ContributionBilling'}) }")
+  el-tabs(type='border-card')
+    el-tab-pane(label='Billing PPIP Individual')
+      el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
+        el-form-item(:label="$t('billing.companyId')", prop='companyId')
+          el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)
+            el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
+        el-form-item(:label="$t('billing.groupId')", prop='groupId')
+          el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option :disabled='temp.companyId === undefined')
+            el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+        el-form-item(:label="$t('billing.memberId')", prop='memberId')
+          el-select(v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
+            el-option(v-for='item in memberOptions', :key='item.value', :label='item.label', :value='item.value')
+        el-form-item(:label="$t('billing.amount')", prop='amount')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend Rp
+            money.el-input__inner(v-model.number='temp.amount', name='amount' v-bind='configSeparator')
+        el-form-item
+          table.pull-right
+            td
+              Cancel(:callback='resetTemp')
+            td
+              RequestApproval(:callback='requestApproval')
 </template>
 
 <script>
@@ -116,7 +118,6 @@ export default {
         companyId: undefined,
         groupId: undefined,
         memberId: undefined,
-        effectiveDate: undefined,
         amount: undefined
       }
       this.$nextTick(() => {
