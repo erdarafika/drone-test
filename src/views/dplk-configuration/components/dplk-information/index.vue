@@ -25,7 +25,7 @@ div
 
 <script>
 import { fetchDplkInformation, updateDplkInformation } from '@/api/dplk-information'
-import rules from './validation-tules'
+import rules from './validation-rules'
 
 export default {
   name: 'DplkInformation',

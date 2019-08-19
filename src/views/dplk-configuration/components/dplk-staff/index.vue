@@ -52,7 +52,7 @@ div
 <script>
 import { fetchList, createDplkStaff, updateDplkStaff, deleteDplkStaff } from '@/api/dplk-staff'
 import { fetchList as fetchDepartmentList } from '@/api/department'
-import rules from './validation-tules'
+import rules from './validation-rules'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 export default {
