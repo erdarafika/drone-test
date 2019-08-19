@@ -63,7 +63,7 @@ div
 <script>
 import { fetchList, createCompanyContactPerson, updateCompanyContactPerson, deleteCompanyContactPerson } from '@/api/company-contact-person'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -96,14 +96,14 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
-        name: [requiredValidator],
+        name: [requiredValidator, alphabeticValidator],
         type: [requiredValidator],
-        title: [requiredValidator],
+        title: [requiredValidator, alphabeticValidator],
         identityType: [requiredValidator],
-        identityNumber: [requiredValidator],
+        identityNumber: [requiredValidator, numberValidator],
         gender: [requiredValidator],
         email: [requiredValidator],
-        phone: [requiredValidator],
+        phone: [requiredValidator, numberValidator],
         defaultContact: [requiredValidator]
       }
     }

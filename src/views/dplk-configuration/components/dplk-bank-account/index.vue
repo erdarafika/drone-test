@@ -65,7 +65,7 @@ import { fetchList, createDplkBankAccount, updateDplkBankAccount, deleteDplkBank
 import { fetchList as fetchBankList } from '@/api/bank'
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import rules from './validation-tules'
+import rules from './validation-rules'
 
 export default {
   name: 'Document',

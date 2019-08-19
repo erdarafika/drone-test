@@ -9,14 +9,14 @@ div
     el-table-column(:label="$t('classPlan.name')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.name }}
-    el-table-column(:label="$t('classPlan.isPercentage')", align='left',)
+    el-table-column(:label="$t('classPlan.isPercentage')", align='center',)
       template(slot-scope='scope')
         span(:class="scope.row.isPercentage ?'label-enable':''")
           | {{ scope.row.isPercentage ? 'Yes':'No' }}
-    el-table-column(:label="$t('classPlan.employee')", align='left')
+    el-table-column(:label="$t('classPlan.employee')", align='center')
       template(slot-scope='scope')
         span {{ scope.row.employee }}
-    el-table-column(:label="$t('classPlan.employer')", align='left')
+    el-table-column(:label="$t('classPlan.employer')", align='center')
       template(slot-scope='scope')
         span {{ scope.row.employer }}
     el-table-column(label='', align='right', width='150' )

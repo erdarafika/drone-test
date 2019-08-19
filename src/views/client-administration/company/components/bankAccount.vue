@@ -55,7 +55,7 @@ div
 import { fetchList, createCompanyBankAccount, updateCompanyBankAccount, deleteCompanyBankAccount } from '@/api/company-bank-account'
 import { fetchList as fetchBankList } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -84,10 +84,10 @@ export default {
       dialogStatus: '',
       rules: {
         bankId: [requiredValidator],
-        accountName: [requiredValidator],
-        accountNumber: [requiredValidator],
+        accountName: [requiredValidator, alphabeticValidator],
+        accountNumber: [requiredValidator, numberValidator],
         currentBank: [requiredValidator],
-        branchName: [requiredValidator]
+        branchName: [requiredValidator, alphabeticValidator]
       }
     }
   },
