@@ -136,6 +136,7 @@ export default {
     enable: 'Enable',
     cancel: 'Cancel',
     confirm: 'Confirm',
+    upload: 'Upload',
     successCaption: 'Success',
     successTitle: 'Operation Success',
     cancelCaption: 'Cancelled',

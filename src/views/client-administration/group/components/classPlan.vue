@@ -52,6 +52,7 @@ import { requiredValidator } from '@/global-function/formValidator'
 export default {
   name: 'Document',
   components: { Pagination },
+  // eslint-disable-next-line
   props: ['data'],
   data() {
     return {

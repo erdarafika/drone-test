@@ -77,6 +77,7 @@ import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator, n
 export default {
   name: 'Document',
   components: { Pagination },
+  // eslint-disable-next-line
   props: ['data'],
   data() {
     return {
