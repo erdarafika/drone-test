@@ -11,6 +11,13 @@ el-popover(placement='bottom', width='100', v-model='visible')
 <style lang='scss'>
 .approval {
   margin-left:20px;
+  color: white;
+  background: #00c2c7;
+  border: none;
+}
+.approval:hover {
+  background: #009b9f;
+  color: white;
 }
 </style>
 

@@ -20,6 +20,16 @@ export default {
       }
     },
     {
+      path: 'billing-detail',
+      name: 'ContributionBillingDetail',
+      component: () => import('@/views/contribution/billing/detail'),
+      meta: {
+        title: 'contributionBillingDetail',
+        pensionMenu: 'billing'
+      },
+      hidden: true
+    },
+    {
       path: 'billing-ppukp',
       name: 'ContributionBillingPPUKP',
       component: () => import('@/views/contribution/billing-ppukp/index'),
