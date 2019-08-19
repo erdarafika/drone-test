@@ -44,12 +44,12 @@ app-container
           el-table-column(:label="$t('billingDetail.employer')")
             template(slot-scope="scope")
               span {{ IDR(scope.row.employer) }}
-          el-table-column(:label="$t('billingDetail.topupEE')")
+          el-table-column(:label="$t('billingDetail.topUpEe')")
             template(slot-scope="scope")
-              span {{ IDR(scope.row.topupEE) }}
-          el-table-column(:label="$t('billingDetail.topupER')")
+              span {{ IDR(scope.row.topUpEe) }}
+          el-table-column(:label="$t('billingDetail.topUpEr')")
             template(slot-scope="scope")
-              span {{ IDR(scope.row.topupER) }}
+              span {{ IDR(scope.row.topUpEr) }}
           el-table-column(:label="$t('billingDetail.totalAmount')")
             template(slot-scope="scope")
               span(v-if="scope.row.member.name !== 'Total'") {{ IDR(scope.row.totalAmount) }}
@@ -116,7 +116,8 @@ export default {
         const duration = 3500
         if (this.showPreview !== true) {
           Notification({
-            message: 'File added: ' + this.temp.file.name,
+            title: 'File added',
+            message: this.temp.file.name,
             type: 'success',
             duration
           })
@@ -146,6 +147,7 @@ export default {
           formData.append('groupId', this.temp.groupId)
           formData.append('billingDate', this.temp.billingDate)
           formData.append('file', this.temp.file)
+          formData.append('billingType', this.temp.billingType)
           preview(formData).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               let totalAmount = 0
@@ -203,6 +205,7 @@ export default {
           formData.append('groupId', this.temp.groupId)
           formData.append('billingDate', this.temp.billingDate)
           formData.append('file', this.temp.file)
+          formData.append('billingType', this.temp.billingType)
           processImport(formData).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
