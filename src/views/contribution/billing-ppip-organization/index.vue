@@ -16,12 +16,12 @@ app-container
             el-form-item(:label="$t('billing.importBilling')", prop='file')
               upload-excel-component(:on-success='handleSuccess()', :before-upload='beforeUpload' style='width: 100%;' ref="file")
               span(class='el-alert el-alert--success' v-if='temp.file !== undefined') {{ temp.file.name }}
-            el-form-item
+            el-form-item(v-if='showPreview === false')
               table.pull-right
                 td
                   Cancel(:callback='resetTemp')
                 td
-                  RequestApproval(:callback='requestApproval')
+                  Confirm(:callback='previewData')
         el-col(:span='12' v-if='isConflict')
           h4(style='color:#646266') Invalid Data
           el-table(:data='errorsData')
@@ -31,10 +31,32 @@ app-container
             el-table-column(:label="$t('table.errors')")
               template(slot-scope='scope')
                 span(v-for="item in scope.row.errors") <strong>{{ item.field }}</strong> {{ item.message }}<br/>
+      el-row(:gutter="40")
+        el-col
+          el-table(v-if='showPreview === true' height="265" :key="tableKey" :data="billingDetail" stripe)
+            el-table-column(:label="$t('billingDetail.memberId')", align='left')
+              template(slot-scope="scope")
+                span {{ scope.row.member.name }}
+            el-table-column(:label="$t('billingDetail.employee')")
+              template(slot-scope="scope")
+                span {{ IDR(scope.row.employee) }}
+            el-table-column(:label="$t('billingDetail.employer')")
+              template(slot-scope="scope")
+                span {{ IDR(scope.row.employer) }}
+            el-table-column(:label="$t('billingDetail.topupEE')")
+              template(slot-scope="scope")
+                span {{ IDR(scope.row.topupEE) }}
+            el-table-column(:label="$t('billingDetail.topupER')")
+              template(slot-scope="scope")
+                span {{ IDR(scope.row.topupER) }}
+            el-table-column(:label="$t('billingDetail.totalAmount')")
+              template(slot-scope="scope")
+                span {{ IDR(scope.row.totalAmount) }}
+          RequestApproval.pull-right(v-if='showPreview === true' style="margin-top:5px;" :callback='requestApproval')
 </template>
 
 <script>
-import { upload } from '@/api/contribution-billing'
+import { processImport, preview } from '@/api/contribution-billing'
 import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import rules from './validation-rules'
@@ -46,6 +68,7 @@ export default {
   data() {
     return {
       dateFormat: 'dd-MM-yyyy',
+      tableKey: 0,
       tableData: [],
       tableHeader: [],
       listLoading: true,
@@ -53,6 +76,8 @@ export default {
       groupOptions: [],
       isConflict: true,
       errorsData: [],
+      showPreview: false,
+      billingDetail: [],
       temp: {
         companyId: undefined,
         groupId: undefined,
@@ -102,14 +127,16 @@ export default {
     handleSuccess() {
       if (this.temp.file !== undefined) {
         const duration = 3500
-        Notification({
-          message: 'File added: ' + this.temp.file.name,
-          type: 'success',
-          duration
-        })
+        if (this.showPreview !== true) {
+          Notification({
+            message: 'File added: ' + this.temp.file.name,
+            type: 'success',
+            duration
+          })
+        }
       }
     },
-    requestApproval() {
+    previewData() {
       this.temp.billingType = 'dplk'
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
@@ -117,12 +144,14 @@ export default {
           formData.append('groupId', this.temp.groupId)
           formData.append('billingDate', this.temp.billingDate)
           formData.append('file', this.temp.file)
-          upload(formData).then((response) => {
+          preview(formData).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.back()
+              this.isConflict = false
+              this.showPreview = true
+              this.billingDetail = response
             }
           }).catch((err) => {
+            this.showPreview = false
             if (err.response.data.error === 'conflict') {
               const errors = err.response.data.errors
               let lineNumber = 1
@@ -146,12 +175,27 @@ export default {
                 }
                 lineNumber++
               })
-              console.log(listErrors)
               this.errorsData = listErrors
               this.temp.file = undefined
               this.isConflict = true
             }
-            // this.errorsData = err.response.data.errors
+          })
+        }
+      })
+    },
+    requestApproval() {
+      this.temp.billingType = 'dplk'
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          const formData = new FormData()
+          formData.append('groupId', this.temp.groupId)
+          formData.append('billingDate', this.temp.billingDate)
+          formData.append('file', this.temp.file)
+          processImport(formData).then((response) => {
+            if (response.status_code >= 200 && response.status_code <= 300) {
+              this.successNotifier()
+              this.back()
+            }
           })
         }
       })
