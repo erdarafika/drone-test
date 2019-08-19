@@ -3,13 +3,9 @@ app-container
   template(v-slot:header-left)
     Back(:action="()=> { $router.push({name: 'ContributionBilling'}) }")
   el-tabs(type='border-card')
-    el-tab-pane(label='Billing PPIP Individual')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
-        el-form-item(:label="$t('billing.companyId')", prop='companyId')
-          el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)
-            el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
         el-form-item(:label="$t('billing.groupId')", prop='groupId')
-          el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option :disabled='temp.companyId === undefined')
+          el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option)
             el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
         el-form-item(:label="$t('billing.memberId')", prop='memberId')
           el-select(v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
@@ -28,7 +24,6 @@ app-container
 
 <script>
 import { createRecord } from '@/api/contribution-billing'
-import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchMember } from '@/api/membership'
 import { fetchMathConfig } from '@/api/config'
@@ -39,7 +34,6 @@ export default {
     return {
       dateFormat: 'dd-MM-yyyy',
       listLoading: true,
-      companyOptions: [],
       groupOptions: [],
       memberOptions: [],
       configSeparator: {
@@ -51,7 +45,6 @@ export default {
         masked: false /* doesn't work with directive */
       },
       temp: {
-        companyId: undefined,
         groupId: undefined,
         memberId: undefined,
         billingType: undefined,
@@ -60,35 +53,23 @@ export default {
       rules
     }
   },
-  watch: {
-    'temp.companyId': function(companyId) {
-      if (!this.initialUpdate) {
-        this.temp.groupId = undefined
-      }
-      if (companyId) {
-        fetchGroup({ companyId: companyId }).then(res => {
-          res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'individual')
-          this.groupOptions = res.map(item => ({ value: item.id, label: item.name }))
-        })
-      }
-    },
-    'temp.groupId': function(groupId) {
-      if (!this.initialUpdate) {
-        this.temp.memberId = undefined
-      }
-      if (groupId) {
-        fetchMember({ groupId: groupId }).then(res => {
-          res = res.filter(item => item.certificateStatus === 'active')
-          this.memberOptions = res.map(item => ({ value: item.id, label: item.name }))
-        })
-      }
+  watch: { 'temp.groupId': function(groupId) {
+    if (!this.initialUpdate) {
+      this.temp.memberId = undefined
     }
+    if (groupId) {
+      fetchMember({ groupId: groupId }).then(res => {
+        res = res.filter(item => item.certificateStatus === 'active')
+        this.memberOptions = res.map(item => ({ value: item.id, label: item.name }))
+      })
+    }
+  }
   },
   created() {
     this.resetTemp()
-    fetchCompany().then(res => {
-      res = res.filter(item => item.status === 'active')
-      this.companyOptions = res.map(item => ({ value: item.id, label: item.name }))
+    fetchGroup().then(res => {
+      res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'individual')
+      this.groupOptions = res.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
     })
     fetchMathConfig({ code: 'amount', type: 'separator' }).then(res => {
       if (res.length) {
