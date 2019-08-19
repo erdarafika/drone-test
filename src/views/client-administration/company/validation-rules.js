@@ -29,5 +29,6 @@ export default {
   office: [numberValidator],
   office2: [numberValidator],
   fax: [numberValidator],
-  home: [numberValidator]
+  home: [numberValidator],
+  postalCode: [numberValidator]
 }

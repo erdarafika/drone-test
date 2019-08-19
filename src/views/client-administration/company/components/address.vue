@@ -72,7 +72,7 @@ import { fetchList, createCompanyAddress, updateCompanyAddress, deleteCompanyAdd
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -120,7 +120,7 @@ export default {
         countryId: [requiredValidator],
         cityId: [requiredValidator],
         provinceId: [requiredValidator],
-        postalCode: [requiredValidator],
+        postalCode: [requiredValidator, numberValidator],
         defaultAddress: [requiredValidator]
       }
     }
