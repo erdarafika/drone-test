@@ -1,66 +1,63 @@
 <template lang="pug">
 app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.push({name: 'ContributionBilling'}) }")
   el-tabs(type='border-card')
-    el-tab-pane(label='Billing PPIP Organization')
-      el-row(:gutter='40')
-        el-col(:span='12')
-          el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
-            el-form-item(:label="$t('billing.companyId')", prop='companyId')
-              el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)
-                el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
+    el-row(:gutter='40')
+      el-col
+        el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
+          el-col(:span='12')
             el-form-item(:label="$t('billing.groupId')", prop='groupId')
               el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option)
                 el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('billing.billingDate')", prop='billingDate' )
               el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a day' name='date')
+          el-col(:span='12')
             el-form-item(:label="$t('billing.importBilling')", prop='file')
               upload-excel-component(:on-success='handleSuccess()', :before-upload='beforeUpload' style='width: 100%;' ref="file")
               span(class='el-alert el-alert--success' v-if='temp.file !== undefined') {{ temp.file.name }}
             el-form-item(v-if='showPreview === false')
-              table.pull-right
-                td
-                  Cancel(:callback='resetTemp')
-                td
-                  Upload(:callback='previewData')
-        el-col(:span='12' v-if='isConflict')
-          h4(style='color:#646266') Invalid Data
-          el-table(:data='errorsData')
-            el-table-column(:label="$t('table.lineNumber')")
-              template(slot-scope='scope')
-                span {{ scope.row.line }}
-            el-table-column(:label="$t('table.errors')")
-              template(slot-scope='scope')
-                span(v-for="item in scope.row.errors") <strong>{{ item.field }}</strong> {{ item.message }}<br/>
-      el-row(:gutter="40")
-        el-col
-          el-table(v-if='showPreview === true' height="265" :key="tableKey" :data="billingDetail" :span-method="arraySpanMethod" stripe)
-            el-table-column(type="index", align='left')
-            el-table-column(:label="$t('billingDetail.memberId')", align='left')
-              template(slot-scope="scope")
-                span(v-if="scope.row.member.name !== 'Total'") {{ scope.row.member.name }}
-                span(v-else style="font-weight: bold;") {{ scope.row.member.name }}
-            el-table-column(:label="$t('billingDetail.employee')")
-              template(slot-scope="scope")
-                span {{ IDR(scope.row.employee) }}
-            el-table-column(:label="$t('billingDetail.employer')")
-              template(slot-scope="scope")
-                span {{ IDR(scope.row.employer) }}
-            el-table-column(:label="$t('billingDetail.topupEE')")
-              template(slot-scope="scope")
-                span {{ IDR(scope.row.topupEE) }}
-            el-table-column(:label="$t('billingDetail.topupER')")
-              template(slot-scope="scope")
-                span {{ IDR(scope.row.topupER) }}
-            el-table-column(:label="$t('billingDetail.totalAmount')")
-              template(slot-scope="scope")
-                span(v-if="scope.row.member.name !== 'Total'") {{ IDR(scope.row.totalAmount) }}
-                span(v-else style="font-weight: bold;") {{ IDR(scope.row.totalAmount) }}
-          RequestApproval.pull-right(v-if='showPreview === true' style="margin-top:5px;" :callback='requestApproval')
+              Upload.pull-right(style="margin-left: 5px;" :callback='previewData')
+              Cancel.pull-right(:callback='resetTemp')
+    el-row(:gutter="40")
+      el-col(v-if='isConflict === true')
+        h4(style='color:#646266') Invalid Data
+        el-table(height="450" :data='errorsData' stripe)
+          el-table-column(type="index" width="120" :label="$t('table.lineNumber')")
+            template(slot-scope='scope')
+              span {{ scope.row.line }}
+          el-table-column(:label="$t('table.errors')")
+            template(slot-scope='scope')
+              span(v-for="item in scope.row.errors") <strong>{{ item.field }}</strong> {{ item.message }}<br/>
+      el-col(v-else)
+        RequestApproval.pull-right(v-if='showPreview === true' :callback='requestApproval')
+        Cancel.pull-right(v-if='showPreview === true' :callback='resetTemp')
+        el-table(v-if='showPreview === true' height="500" :key="tableKey" :data="billingDetail" :span-method="arraySpanMethod" stripe)
+          el-table-column(type="index", align='left')
+          el-table-column(:label="$t('billingDetail.memberId')", align='left')
+            template(slot-scope="scope")
+              span(v-if="scope.row.member.name !== 'Total'") {{ scope.row.member.name }}
+              span(v-else style="font-weight: bold;") {{ scope.row.member.name }}
+          el-table-column(:label="$t('billingDetail.employee')")
+            template(slot-scope="scope")
+              span {{ IDR(scope.row.employee) }}
+          el-table-column(:label="$t('billingDetail.employer')")
+            template(slot-scope="scope")
+              span {{ IDR(scope.row.employer) }}
+          el-table-column(:label="$t('billingDetail.topupEE')")
+            template(slot-scope="scope")
+              span {{ IDR(scope.row.topupEE) }}
+          el-table-column(:label="$t('billingDetail.topupER')")
+            template(slot-scope="scope")
+              span {{ IDR(scope.row.topupER) }}
+          el-table-column(:label="$t('billingDetail.totalAmount')")
+            template(slot-scope="scope")
+              span(v-if="scope.row.member.name !== 'Total'") {{ IDR(scope.row.totalAmount) }}
+              span(v-else style="font-weight: bold;") {{ IDR(scope.row.totalAmount) }}
 </template>
 
 <script>
 import { processImport, preview } from '@/api/contribution-billing'
-import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import rules from './validation-rules'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -77,13 +74,12 @@ export default {
       listLoading: true,
       companyOptions: [],
       groupOptions: [],
-      isConflict: true,
+      isConflict: false,
       errorsData: [],
       showPreview: false,
       billingDetail: [],
       sumTotalAmount: [],
       temp: {
-        companyId: undefined,
         groupId: undefined,
         billingDate: undefined,
         file: undefined
@@ -91,24 +87,11 @@ export default {
       rules
     }
   },
-  watch: {
-    'temp.companyId': function(companyId) {
-      if (!this.initialUpdate) {
-        this.temp.groupId = undefined
-      }
-      if (companyId) {
-        fetchGroup({ companyId: companyId }).then(res => {
-          res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'organization')
-          this.groupOptions = res.map(item => ({ value: item.id, label: item.name }))
-        })
-      }
-    }
-  },
   created() {
     this.resetTemp()
-    fetchCompany().then(res => {
-      res = res.filter(item => item.status === 'active')
-      this.companyOptions = res.map(item => ({ value: item.id, label: item.name }))
+    fetchGroup({ code: 'dplk' }).then(res => {
+      res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'organization')
+      this.groupOptions = res.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
     })
   },
   methods: {
@@ -231,12 +214,12 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        companyId: undefined,
         groupId: undefined,
         billingDate: undefined,
         file: undefined
       }
       this.isConflict = false
+      this.showPreview = false
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })

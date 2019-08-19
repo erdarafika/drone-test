@@ -1,7 +1,8 @@
 <template lang="pug">
 app-container
+  template(v-slot:header-left)
+    Back(:action="()=> { $router.push({name: 'ContributionBilling'}) }")
   el-tabs(type='border-card')
-    el-tab-pane(label='Billing PPUKP')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
         el-form-item(:label="$t('billing.companyId')", prop='companyId')
           el-select(v-model='temp.companyId', name='company' placeholder='Select', filterable, default-first-option)

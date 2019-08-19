@@ -37,7 +37,7 @@ export default {
   background: white;
   .header {
     border-radius: 10px 10px 0px 0px;
-    padding: 20px;
+    padding: 15px;
     background: #489bff;
     color: white;
     font-weight: bold;
