@@ -33,12 +33,12 @@ app-container(:show="!objectId")
           el-table-column(:label="$t('billingDetail.employer')")
             template(slot-scope="scope")
               span {{ IDR(scope.row.employer) }}
-          el-table-column(:label="$t('billingDetail.topupEE')")
+          el-table-column(:label="$t('billingDetail.topUpEe')")
             template(slot-scope="scope")
-              span {{ IDR(scope.row.topupEE) }}
-          el-table-column(:label="$t('billingDetail.topupER')")
+              span {{ IDR(scope.row.topUpEe) }}
+          el-table-column(:label="$t('billingDetail.topUpEr')")
             template(slot-scope="scope")
-              span {{ IDR(scope.row.topupER) }}
+              span {{ IDR(scope.row.topUpEr) }}
           el-table-column(:label="$t('billingDetail.totalAmount')")
             template(slot-scope="scope")
               span {{ IDR(scope.row.totalAmount) }}

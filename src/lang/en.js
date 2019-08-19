@@ -150,7 +150,8 @@ export default {
     total: 'Total',
     switching: 'Switching',
     lineNumber: 'Line Number',
-    errors: 'Errors'
+    errors: 'Errors',
+    inputType: 'Input Type'
   },
   settings: {
     title: 'Page style setting',
@@ -579,8 +580,8 @@ export default {
     memberId: 'Member',
     employee: 'Employee Contribution (IDR)',
     employer: 'Employer Contribution (IDR)',
-    topupEE: 'Top Up Employee (IDR)',
-    topupER: 'Top Up Employer (IDR)',
+    topUpEe: 'Top Up Employee (IDR)',
+    topUpEr: 'Top Up Employer (IDR)',
     totalAmount: 'Total (IDR)'
   },
   billingHistory: {

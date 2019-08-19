@@ -88,7 +88,8 @@ service.interceptors.response.use(
 
     console.log('err' + error) // for debug
     Notification({
-      message: res.message ? res.message : error.message,
+      title: res.message,
+      message: res.errors[0].defaultMessage,
       type: 'error',
       duration: 5 * 1000
     })
