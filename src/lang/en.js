@@ -499,7 +499,16 @@ export default {
     paymentMethod: 'Payment Method',
     payor: 'Contribution Payor',
     billingDate: 'Billing Date',
-    dplkBankId: 'DPLK Bank'
+    dplkBankId: 'DPLK Bank',
+    correspondenceNationality: 'Correspondence Nationality',
+    correspondenceName: 'Correspondence Name',
+    correspondenceEmail: 'Correspondence Email',
+    correspondenceCarbonCopy: 'Correspondence Carbon Copy',
+    correspondenceGender: 'Correspondence Gender',
+    correspondenceTitle: 'Correspondence Title',
+    correspondencePhoneNumber: 'Correspondence Phone Number',
+    correspondenceIdentityNumber: 'Correspondence Identity Number',
+    correspondenceIdentityType: 'Correspondence Identity Type'
   },
   taskManagement: {
     showApproved: 'Show Approved',
