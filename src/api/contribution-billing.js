@@ -52,3 +52,10 @@ export function fetchBillingDetails(id) {
     method: 'get'
   })
 }
+
+export function fetchBillingHistories(id) {
+  return request({
+    url: `billing/${id}/history`,
+    method: 'get'
+  })
+}
