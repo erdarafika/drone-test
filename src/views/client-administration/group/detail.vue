@@ -18,14 +18,16 @@ app-container(:show='!objectId')
             el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
               el-select(placeholder='Select' v-model='temp.companyId'  name='companyId' :disabled='dialogIsDetail' )
                 el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
-            el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId')
-              el-select(placeholder='Select' v-model='temp.productTypeId' name='productTypeId' :disabled='dialogIsDetail' )
+            el-form-item(:label="$t('groupMaintenance.productTypeId')", prop='productTypeId' )
+              el-select(placeholder='Select' v-model='temp.productTypeId' name='productTypeId' :disabled='dialogIsDetail' @change="chooseType($event)")
                 el-option(v-for='item in productTypeOptions', :key='item.value', :label='item.label', :value='item.value')
             el-form-item(:label="$t('groupMaintenance.proposalNumber')", prop='proposalNumber')
               el-input(v-model='temp.proposalNumber',  name='proposalNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail'  )
             el-form-item(:label="$t('groupMaintenance.type')", prop='type')
-              el-select(placeholder='Select' v-model='temp.type'  name='type' :disabled='dialogIsDetail' )
-                el-option(v-for='item in groupTypeOptions', :key='item', :label='item', :value='item')
+              el-select(v-if="isPpukp === true" placeholder='Select' v-model='temp.type' default-first-option name='type' :disabled='dialogIsDetail')
+                el-option(:key="`organization`", :label="`Organization`", :value="`organization`")
+              el-select(v-else placeholder='Select' v-model='temp.type' name='type' :disabled='dialogIsDetail')
+                el-option(v-for='item in groupTypeOptions', :key='item.value', :label='item.label', :value='item.value')
 
           el-tab-pane(label='Dates')
             el-form-item(:label="$t('groupMaintenance.proposalDate')" prop='proposalDate')
@@ -105,7 +107,11 @@ export default {
       listLoading: true,
       companyOptions: [],
       productTypeOptions: [],
-      groupTypeOptions: ['organization', 'individual'],
+      isPpukp: true,
+      groupTypeOptions: [
+        { label: 'Organization', value: 'organization' },
+        { label: 'Individual', value: 'individual' }
+      ],
       temp: {
         id: undefined,
         companyId: undefined,
@@ -173,6 +179,18 @@ export default {
     })
   },
   methods: {
+    chooseType(event) {
+      switch (event) {
+        case 1:
+          this.isPpukp = false
+          this.temp.type = undefined
+          break
+        case 2:
+          this.isPpukp = true
+          this.temp.type = 'organization'
+          break
+      }
+    },
     requestApproval() {
       approveGroupMaintanance(this.temp.id).then(response => {
         if (response.status_code >= 200 && response.status_code <= 300) {
