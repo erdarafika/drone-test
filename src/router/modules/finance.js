@@ -20,20 +20,20 @@ export default {
       }
     },
     {
-      path: 'refund',
-      name: 'FinanceRefund',
-      component: () => import('@/views/finance/refund/index'),
-      meta: {
-        title: 'financeRefund',
-        pensionMenu: 'admin-suspense'
-      }
-    },
-    {
       path: 'match-suspense',
       name: 'FinanceMatchingSuspense',
       component: () => import('@/views/finance/match-suspense/index'),
       meta: {
         title: 'financeMatchingSuspense',
+        pensionMenu: 'admin-suspense'
+      }
+    },
+    {
+      path: 'refund',
+      name: 'FinanceRefund',
+      component: () => import('@/views/finance/refund/index'),
+      meta: {
+        title: 'financeRefund',
         pensionMenu: 'admin-suspense'
       }
     }

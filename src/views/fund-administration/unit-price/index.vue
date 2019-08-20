@@ -148,7 +148,6 @@ export default {
       if (res.length) {
         this.configSeparator.precision = res[0].value
       }
-      console.log(this.configSeparator)
     })
   },
   methods: {
@@ -194,13 +193,10 @@ export default {
 
     createData() {
       this.$refs['dataForm'].validate((valid) => {
-        console.log('valid', valid)
         if (valid) {
           this.temp.effectiveDate = this.$moment(this.temp.effectiveDate).format('DD-MM-YYYY')
           const dataPayload = this.investmentTypePrice.filter(item => !item.status)
           createUnitPrice({ effectiveDate: this.temp.effectiveDate, data: dataPayload }).then((response) => {
-            console.log(response)
-
             // if (response[0].status_code >= 200 && response.status_code[0] <= 300) {
             this.successNotifier()
             this.getList()
@@ -213,8 +209,6 @@ export default {
     getList() {
       this.listLoading = true
       fetchUnitPriceList().then(response => {
-        console.log(response)
-
         this.list = response
         this.total = response.length
         this.listLoading = false
