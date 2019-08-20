@@ -1,7 +1,7 @@
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
-  companyId: [requiredValidator],
   groupId: [requiredValidator],
+  billingDate: [requiredValidator],
   amount: [requiredValidator, numberValidator]
 }
