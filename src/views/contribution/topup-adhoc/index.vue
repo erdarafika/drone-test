@@ -7,14 +7,13 @@
         el-col
           el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='150px', style='width: 80%')
             el-col(:span='12')
-              el-form-item(:label="$t('table.inputType')", prop='inputType')
-                el-select(v-model='temp.inputType', name='inputType' placeholder='Select', filterable, default-first-option, @change='handleType($event)')
-                  el-option(v-for='item in inputTypeOptions', :key='item.value', :label='item.label', :value='item.value')
               el-form-item(:label="$t('billing.groupId')", prop='groupId')
                 el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option)
-                  el-option(v-if="isImport === true" v-for='item in groupOrganizationOptions', :key='item.value', :label='item.label', :value='item.value')
-                  el-option(v-if="isImport === false" v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
-              el-form-item(v-if="isImport === true" :label="$t('billing.billingDate')", prop='billingDate')
+                  el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+              el-form-item(:label="$t('table.inputType')", prop='inputType')
+                el-select(v-model='temp.inputType', name='inputType' placeholder='Select', filterable, default-first-option, @change='handleType($event)' :disabled='temp.groupId === undefined || isDisabledOption === true')
+                  el-option(v-for='item in inputTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+              el-form-item(:label="$t('billing.billingDate')", prop='billingDate')
                 el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a day' name='date')
               el-form-item(v-if="isImport === false" :label="$t('billing.memberId')", prop='memberId')
                 el-select(v-if="memberOptions !== undefined" v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
@@ -78,7 +77,7 @@
 
 <script>
 import { processImport, preview, createRecord } from '@/api/contribution-billing'
-import { fetchList as fetchGroup } from '@/api/group-maintenance'
+import { fetchList as fetchGroup, fetchGroupMaintanance } from '@/api/group-maintenance'
 import { fetchList as fetchMember } from '@/api/membership'
 import { fetchMathConfig } from '@/api/config'
 import rules from './validation-rules'
@@ -95,12 +94,12 @@ export default {
       tableHeader: [],
       listLoading: true,
       groupOptions: [],
-      groupOrganizationOptions: [],
       memberOptions: [],
       isConflict: false,
       errorsData: [],
       showPreview: false,
       isImport: undefined,
+      isDisabledOption: true,
       inputTypeOptions: [
         { label: 'Input Manual', value: 'manual' },
         { label: 'Import Billing Topup', value: 'import' }
@@ -139,16 +138,23 @@ export default {
         res = res.filter(item => item.certificateStatus === 'active')
         this.memberOptions = res.map(item => ({ value: item.id, label: item.name + ' - ' + item.certificateNumber }))
       })
+      fetchGroupMaintanance(groupId).then(response => {
+        if (response.type === 'organization') {
+          this.isImport = true
+          this.isDisabledOption = true
+        } else {
+          this.isImport = undefined
+          this.isDisabledOption = false
+        }
+      })
     }
   }
   },
   created() {
     this.resetTemp()
     fetchGroup().then(res => {
-      const data = res.filter(item => item.status === 'active' && item.productType.code === 'dplk')
-      const data2 = res.filter(item => item.status === 'active' && item.productType.code === 'dplk' && item.type === 'organization')
-      this.groupOptions = data.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
-      this.groupOrganizationOptions = data2.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
+      res = res.filter(item => item.status === 'active' && item.productType.code === 'dplk')
+      this.groupOptions = res.map(item => ({ value: item.id, label: item.name + ' - ' + item.company.name }))
     })
     fetchMathConfig({ code: 'amount', type: 'separator' }).then(res => {
       if (res.length) {
