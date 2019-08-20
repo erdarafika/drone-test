@@ -5,5 +5,6 @@ export default {
   billingDate: [requiredValidator],
   memberId: [requiredValidator],
   inputType: [requiredValidator],
-  amount: [requiredValidator, numberValidator]
+  amount: [requiredValidator, numberValidator],
+  billingType: [requiredValidator]
 }
