@@ -37,14 +37,33 @@ div
         el-select(placeholder='Select' v-model='temp.paymentMethod'  name='paymentMethod')
           el-option(v-for='item in paymentMethodOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('groupBilling.payor')", prop='payor')
-        el-select(placeholder='Select' v-model='temp.payor' name='payor')
+        el-select(placeholder='Select' v-model='temp.payor' name='payor' @change="changePayor")
           el-option(v-for='item in payorOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('groupBilling.billingDate')" prop='billingDate')
         el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', name='billingDate'  type='date', placeholder='Pick a date')
       el-form-item(:label="$t('groupBilling.dplkBankId')" prop='dplkBankId')
         el-select(placeholder='Select' v-model='temp.dplkBankId' name='dplkBankId')
           el-option(v-for='item in dplkBankOptions', :key='item.value', :label='item.label', :value='item.value')
-
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceName')", prop='correspondenceName' )
+        el-input(v-model='temp.correspondenceName', name='correspondenceName' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(:label="$t('groupBilling.correspondenceGender')", prop='correspondenceGender')
+        el-select(placeholder='Select' v-model='temp.correspondenceGender' name='correspondenceGender')
+          el-option(v-for='item in correspondenceGenderOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceEmail')", prop='correspondenceEmail' )
+        el-input(v-model='temp.correspondenceEmail', name='correspondenceEmail' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceCarbonCopy')", prop='correspondenceCarbonCopy' )
+        el-input(v-model='temp.correspondenceCarbonCopy', name='correspondenceCarbonCopy' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondencePhoneNumber')", prop='correspondencePhoneNumber' )
+        el-input(v-model='temp.correspondencePhoneNumber', name='correspondencePhoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceTitle')", prop='correspondenceTitle' )
+        el-input(v-model='temp.correspondenceTitle', name='correspondenceTitle' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(:label="$t('groupBilling.correspondenceNationality')", prop='correspondenceNationality')
+        el-select(placeholder='Select' v-model='temp.correspondenceNationality' name='correspondenceNationality')
+          el-option(v-for='item in correspondenceNationalityOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceIdentityNumber')", prop='correspondenceIdentityNumber' )
+        el-input(v-model='temp.correspondenceIdentityNumber', name='correspondenceIdentityNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
+      el-form-item(v-if="isPaymentBySelf !== true" :label="$t('groupBilling.correspondenceIdentityType')", prop='correspondenceIdentityType' )
+        el-input(v-model='temp.correspondenceIdentityType', name='correspondenceIdentityType' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -58,6 +77,7 @@ import { fetchList, createGroupBilling, updateGroupBilling, deleteGroupBilling }
 import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { requiredValidator } from '@/global-function/formValidator'
+import { alphabeticValidator, numberValidator } from '../../../../global-function/formValidator'
 
 export default {
   name: 'Document',
@@ -69,6 +89,7 @@ export default {
       tableKey: 0,
       list: [],
       total: 0,
+      isPaymentBySelf: true,
       listLoading: true,
       listQuery: {
         page: 1,
@@ -80,11 +101,14 @@ export default {
         paymentMethod: undefined,
         payor: undefined,
         billingDate: undefined,
-        dplkBankId: undefined
+        dplkBankId: undefined,
+        correspondenceName: undefined
       },
-      frequencyOptions: [{ label: 1, value: 1 }, { label: 4, value: 4 }, { label: 6, value: 6 }, { label: 12, value: 12 }],
+      frequencyOptions: [{ label: 'Monthly', value: 1 }, { label: 'Quarterly', value: 4 }, { label: 'Semi Anually', value: 6 }, { label: 'Anually', value: 12 }],
       paymentMethodOptions: [{ label: 'Bank Transfer', value: 'bank-transfer' }, { label: 'Virtual Account', value: 'virtual-account' }],
       payorOptions: [{ label: 'Self', value: 'self' }, { label: 'Others', value: 'others' }],
+      correspondenceGenderOptions: [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'female' }],
+      correspondenceNationalityOptions: [{ label: 'WNI', value: 'wni' }, { label: 'WNA', value: 'wni' }],
       dplkBankOptions: undefined,
       initialUpdate: false,
       dialogFormVisible: false,
@@ -94,7 +118,17 @@ export default {
         paymentMethod: [requiredValidator],
         payor: [requiredValidator],
         billingDate: [requiredValidator],
-        dplkBankId: [requiredValidator]
+        dplkBankId: [requiredValidator],
+        correspondencePhoneNumber: [requiredValidator, numberValidator],
+        correspondenceGenderOptions: [requiredValidator],
+        correspondenceNationalityOptions: [requiredValidator],
+        correspondenceCarbonCopy: [requiredValidator],
+        correspondenceTitle: [requiredValidator, alphabeticValidator],
+        correspondenceEmail: [requiredValidator],
+        correspondenceIdentityNumber: [requiredValidator, numberValidator],
+        correspondenceIdentityType: [requiredValidator],
+        correspondenceName: [requiredValidator, alphabeticValidator]
+
       }
     }
   },
@@ -116,6 +150,14 @@ export default {
     })
   },
   methods: {
+    changePayor(event) {
+      if (event === 'others') {
+        this.isPaymentBySelf = false
+      } else {
+        this.isPaymentBySelf = true
+      }
+      console.log(this.isPaymentBySelf)
+    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
