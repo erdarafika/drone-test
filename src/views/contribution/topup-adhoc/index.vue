@@ -11,14 +11,14 @@
                 el-select(v-model='temp.groupId', name='group' placeholder='Select', filterable, default-first-option)
                   el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
               el-form-item(:label="$t('table.inputType')", prop='inputType')
-                el-select(v-model='temp.inputType', name='inputType' placeholder='Select', filterable, default-first-option, @change='handleType($event)' :disabled='temp.groupId === undefined || isDisabledOption === true')
+                el-select(v-model='temp.inputType', name='inputType' placeholder='Select', filterable, @change='handleType($event)' :disabled='temp.groupId === undefined || isDisabledOption === true')
                   el-option(v-for='item in inputTypeOptions', :key='item.value', :label='item.label', :value='item.value')
               el-form-item(:label="$t('billing.billingDate')", prop='billingDate')
-                el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a day' name='date')
+                el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a day' name='billingDate')
               el-form-item(v-if="isImport === false" :label="$t('billing.memberId')", prop='memberId')
                 el-select(v-if="memberOptions !== undefined" v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
                   el-option(v-for='item in memberOptions', :key='item.value', :label='item.label', :value='item.value')
-              el-form-item(v-if="isImport === false" :label="$t('billing.billingType')", prop='inputType')
+              el-form-item(v-if="isImport === false" :label="$t('billing.billingType')", prop='billingType')
                 el-select(v-model='temp.billingType', name='billingType' placeholder='Select', filterable, default-first-option)
                   el-option(v-for='item in billingTypeOptions', :key='item.value', :label='item.label', :value='item.value')
               el-form-item(v-if="isImport === false" :label="$t('billing.amount')", prop='amount')
@@ -80,6 +80,7 @@ import { processImport, preview, createRecord } from '@/api/contribution-billing
 import { fetchList as fetchGroup, fetchGroupMaintanance } from '@/api/group-maintenance'
 import { fetchList as fetchMember } from '@/api/membership'
 import { fetchMathConfig } from '@/api/config'
+import { requiredValidator } from '@/global-function/formValidator'
 import rules from './validation-rules'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import { Notification } from 'element-ui'
@@ -122,6 +123,7 @@ export default {
         groupId: undefined,
         memberId: undefined,
         amount: undefined,
+        inputType: undefined,
         billingDate: undefined,
         billingType: undefined,
         file: undefined
@@ -140,11 +142,14 @@ export default {
       })
       fetchGroupMaintanance(groupId).then(response => {
         if (response.type === 'organization') {
-          this.isImport = true
-          this.isDisabledOption = true
-        } else {
           this.isImport = undefined
           this.isDisabledOption = false
+          this.rules.inputType = [requiredValidator]
+        } else {
+          this.isImport = false
+          this.isDisabledOption = true
+          this.temp.inputType = undefined
+          this.rules.inputType = []
         }
       })
     }
@@ -313,6 +318,7 @@ export default {
         billingDate: undefined,
         memberId: undefined,
         amount: undefined,
+        inputType: undefined,
         file: undefined,
         billingType: undefined
       }
