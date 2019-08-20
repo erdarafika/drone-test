@@ -1,16 +1,15 @@
 <template lang="pug">
 app-container
-
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('feeList.transactionDate')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.transactionDate | moment("Do MMMM, YYYY")  }}
+        span {{ scope.row.name | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('feeList.description')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.description }}
+        span {{ scope.row.type }}
     el-table-column(:label="$t('feeList.moneySource')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.moneySource }}
+        span {{ scope.row.status }}
     el-table-column(align='left')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
@@ -29,9 +28,11 @@ app-container
 <script>
 import { fetchList } from '@/api/fee-management-list'
 import Pagination from '@/components/Pagination'
+import Todo from '../../dashboard/admin/components/TodoList/Todo'
 
 export default {
-  components: { Pagination },
+  name: 'FeeList',
+  components: { Todo, Pagination },
   data() {
     return {
       tableKey: 0,
@@ -40,7 +41,8 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        q: undefined
       }
     }
   },
@@ -57,7 +59,7 @@ export default {
   },
   methods: {
     handleDetail(row) {
-      this.$router.push({ name: 'FeeManagementListDetail', params: { action: 'detail' }, query: { id: row.id }})
+      this.$router.push({ name: 'FeeListDetail', params: { action: 'detail' }, query: { id: row.id }})
     },
     handleCreate() {
       this.$router.push({ name: 'MemberMaintenanceDetail', params: { action: 'create' }})
@@ -67,10 +69,13 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchList().then(response => {
+      fetchList(this.listQuery).then(response => {
         this.list = response
         this.total = response.length
         this.listLoading = false
+        console.log(response)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
