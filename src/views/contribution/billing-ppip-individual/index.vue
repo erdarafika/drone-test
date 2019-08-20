@@ -10,6 +10,8 @@ app-container
         el-form-item(:label="$t('billing.memberId')", prop='memberId')
           el-select(v-model='temp.memberId', name='member' placeholder='Select', filterable, default-first-option :disabled='temp.groupId === undefined')
             el-option(v-for='item in memberOptions', :key='item.value', :label='item.label', :value='item.value')
+        el-form-item(:label="$t('billing.billingDate')", prop='billingDate' )
+          el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', type='date', placeholder='Pick a day' name='date')
         el-form-item(:label="$t('billing.amount')", prop='amount')
           .el-input.el-input-group.el-input-group--prepend
             .el-input-group__prepend Rp
@@ -48,6 +50,7 @@ export default {
         groupId: undefined,
         memberId: undefined,
         billingType: undefined,
+        billingDate: undefined,
         amount: undefined
       },
       rules
@@ -99,6 +102,7 @@ export default {
         companyId: undefined,
         groupId: undefined,
         memberId: undefined,
+        billingDate: undefined,
         amount: undefined
       }
       this.$nextTick(() => {
