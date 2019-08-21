@@ -48,7 +48,7 @@ app-container
 </style>
 
 <script>
-import { fetchList as fetchAllSuspenses, fetchById } from '@/api/admin-suspense'
+import { fetchList as fetchAllSuspenses, fetchById, matchingSuspense } from '@/api/admin-suspense'
 import { fetchList as fetchAllBillings, fetchBillingDetail } from '@/api/contribution-billing'
 
 export default {
@@ -85,6 +85,9 @@ export default {
     })
   },
   methods: {
+    back() {
+      this.$router.push({ name: 'FinanceAdminSuspense' })
+    },
     handleDeleteSuspend({ suspenseId }) {
       this.temp.suspenses = this.temp.suspenses.filter(item => item.suspenseId !== suspenseId)
     },
@@ -118,7 +121,12 @@ export default {
         billingsId: this.temp.billings.map(item => (item.billingId)),
         suspensesId: this.temp.suspenses.map(item => (item.suspenseId))
       }
-      console.log(request)
+      matchingSuspense(request).then(response => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.successNotifier()
+          this.back()
+        }
+      })
     }
   }
 }

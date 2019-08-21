@@ -22,4 +22,10 @@ export function fetchById(id) {
   })
 }
 
-// TODO: Create Endpoint Match Suspense
+export function matchingSuspense(data) {
+  return request({
+    url: '/admin-suspense/matching',
+    method: 'post',
+    data
+  })
+}

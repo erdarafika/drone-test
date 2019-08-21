@@ -8,12 +8,12 @@ app-container
     el-table-column(:label="`DPLK Bank`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.dplkBank.accountName }} - {{ scope.row.dplkBank.bank.bankName }}
-    el-table-column(:label="`Amount`", align='left')
+    el-table-column(:label="`Amount (IDR)`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.amount }}
-    el-table-column(:label="`Outstanding`", align='left')
+        span {{ IDR(scope.row.amount) }}
+    el-table-column(:label="`Outstanding (IDR)`", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.outstanding }}
+        span {{ IDR(scope.row.outstanding) }}
     el-table-column(:label="`Status`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.status }}
