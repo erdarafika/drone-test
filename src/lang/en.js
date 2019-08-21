@@ -304,7 +304,7 @@ export default {
     inactive: 'Inactive'
   },
   withdrawalRule: {
-    maxPerYear: 'Max Withdrawal Frequency per Year',
+    maxPerYear: 'Maximum Withdrawal Frequency per Year',
     minAmmount: 'Minimum Withdrawal Amount',
     minEffectiveYear: 'Minimum Effective Year',
     normalRetiringAge: 'Normal Retiring Age',
