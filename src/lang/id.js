@@ -12,7 +12,7 @@ export default {
     holiday: 'Hari Libur',
     pagePermission: 'Halaman Izin',
     rolePermission: 'Pengaturan',
-    directivePermission: 'Directive Permission',
+    directivePermission: 'Izin Direktif',
     role: 'Jabatan',
     page401: '401',
     page404: '404',
@@ -298,6 +298,11 @@ export default {
     minEffectiveYear: 'Minimal Tahun Kepesertaan',
     normalRetiringAge: 'Usia Pensiun Normal',
     differenceRetiringAge: 'Selisih Usia Pensiun'
+  },
+  groupWithdrawal: {
+    isPartialAllowed: 'Diperbolehkan Sebagian',
+    minimumWithdrawalYear: 'Minimal Tahun Kepersetaan untuk Penarikan',
+    maximumWithdrawalFrequency: 'Maksimal Total Penarikan'
   },
   role: {
     roleKey: 'Kode Jabatan',
