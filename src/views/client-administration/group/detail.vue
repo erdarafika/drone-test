@@ -65,10 +65,26 @@ app-container(:show='!objectId')
       Billing(:data='temp')
     el-tab-pane(label='Withdrawal Rule'  name='Withdrawal Rule'  :disabled='!dialogNotCreate')
       Withdrawal(:data='temp')
-    //- el-tab-pane(label='Group Charge'  name='Group Charge' :disabled='!dialogNotCreate')
-    //-   GroupCharge(:data='temp')
-    //- el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogNotCreate')
-    //- el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogNotCreate')
+    el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
+      el-table(:data="tableData" style="width: 100%" max-height="250")
+        el-table-column(prop='label' class-name="has-text-weight-bold")
+        el-table-column(prop="value")
+    el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogNotCreate')
+      el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
+        el-tabs.pane(tab-position='top', style='height:100%;')
+          el-tab-pane(label='Name')
+           el-form-item(:label="$t('')", prop='' )
+    el-tab-pane(label='Agent'  name='Agent'  :disabled='!dialogNotCreate')
+      el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style="width: 50%")
+        el-tabs.pane(tab-position='top', style='height:100%;')
+          el-form-item(:label="$t('DPLK Sale')", prop='dplkSale' )
+            el-input()
+          el-form-item(:label="`Commission`", prop='commission')
+            .el-input.el-input-group.el-input-group--append
+              .el-input__inner()
+              .el-input.el-input-group__append %
+          el-form-item(:label="$t('Effective Date')", prop='Effective Date' )
+            el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', name='effectiveDate'  type='date', placeholder='Pick a date')
 </template>
 
 <style>
@@ -92,7 +108,6 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
 import Withdrawal from './components/withdrawal'
-// import GroupCharge from './components/groupCharge'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
