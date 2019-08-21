@@ -85,11 +85,18 @@ service.interceptors.response.use(
   },
   error => {
     const res = error.response.data
-
+    let message = ''
+    let title = res.message
+    if (res.errors !== null && res.errors !== undefined) {
+      message = res.errors[0].defaultMessage
+    } else {
+      title = ''
+      message = res.message
+    }
     console.log('err' + error) // for debug
     Notification({
-      title: res.message,
-      message: res.errors[0].defaultMessage,
+      title: title,
+      message: message,
       type: 'error',
       duration: 5 * 1000
     })
