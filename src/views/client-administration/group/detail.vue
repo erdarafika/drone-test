@@ -108,7 +108,6 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
 import Withdrawal from './components/withdrawal'
-// import GroupCharge from './components/groupCharge'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
