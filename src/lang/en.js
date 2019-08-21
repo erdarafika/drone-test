@@ -485,7 +485,17 @@ export default {
     isHavingFundOutsideDplk: 'Having Fund Outside DPLK',
     isTaxPaidByEmployer: 'Tax Paid by Employee',
     notes: 'Group Notes',
-    filterGroup: 'Group Name'
+    filterGroup: 'Group Name',
+    information: 'Information',
+    groupclassplan: 'Class Plan',
+    billingcontribution: 'Billing Contribution',
+    withdrawrule: 'Withdraw Rule',
+    investmentdirection: 'Investment Direction',
+    groupcharge: 'Charge',
+    agent: 'Agent',
+    general: 'General',
+    dates: 'Dates',
+    other: 'Other'
   },
   classPlan: {
     name: 'Name',
@@ -527,7 +537,11 @@ export default {
     maximumWithdrawalPercentage: 'Maximum Withdrawal Percentage',
     maximumWithdrawalAmount: 'Maximum Withdrawal Amount',
     normalRetireAge: 'Normal Retire Age',
-    earlyRetireAge: 'Early Retire Age'
+    earlyRetireAge: 'Early Retire Age',
+    general: 'General',
+    minimumlimit: 'Minimum Limit',
+    maximumlimit: 'Maximum Limit',
+    retrirement: 'Retrirement'
   },
   membership: {
     avgIncomePerMonth: 'Average Income per Month',
