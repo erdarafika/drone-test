@@ -29,6 +29,13 @@ export function successNotifier(language = 'id') {
     duration
   })
 }
+export function errorNotifier(message) {
+  Notification({
+    title: message,
+    type: 'error',
+    duration
+  })
+}
 
 export function cancelNotifier(language = 'id') {
   if (store.getters && store.getters.language) {

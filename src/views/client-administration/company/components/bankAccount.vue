@@ -198,6 +198,9 @@ export default {
           this.dialogFormVisible = false
           this.successNotifier()
           this.getList()
+        }).catch(error => {
+          console.log(error)
+          // this.errorNotifier()
         })
       }
 
