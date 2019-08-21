@@ -2,7 +2,7 @@
 <template lang="pug">
 div
   el-form.dplk-information-form(:model='groupWithdrawal', :rules='rules', ref='dataForm', label-width='300px' label-position='left')
-    h2(style="font-weight: lighter;" label="General")
+    h2(style="font-weight: lighter;") {{ $t('groupWithdrawal.general') }}
     el-form-item(:label="$t('groupWithdrawal.isPartialAllowed')" prop="isPartialAllowed")
       el-switch(v-model='groupWithdrawal.isPartialAllowed' name='isPartialAllowed')
       span.switch-status {{ groupWithdrawal.isPartialAllowed?'Yes':'No' }}
@@ -10,15 +10,15 @@ div
       el-input-number(v-model='groupWithdrawal.minimumWithdrawalYear'  name='minimumWithdrawalYear' )
     el-form-item(:label="$t('groupWithdrawal.maximumWithdrawalFrequency')" prop="maximumWithdrawalFrequency")
       el-input-number(v-model='groupWithdrawal.maximumWithdrawalFrequency'  name='maximumWithdrawalFrequency')
-    h2(style="font-weight: lighter;" label="Minimum Limit")
+    h2(style="font-weight: lighter;") {{ $t('groupWithdrawal.minimumlimit') }}
     el-form-item(:label="$t('groupWithdrawal.minimumWithdrawalAmount')" prop="maximumWithdrawalFrequency")
       el-input-number(v-model='groupWithdrawal.minimumWithdrawalAmount'  name='minimumWithdrawalAmount')
-    h2(style="font-weight: lighter;" label="Maximum Limit")
+    h2(style="font-weight: lighter;") {{ $t('groupWithdrawal.maximumlimit') }}
     el-form-item(:label="$t('groupWithdrawal.maximumWithdrawalPercentage')" prop="minimumWithdrawalAmount")
       el-input-number(v-model.number='groupWithdrawal.maximumWithdrawalPercentage'  name='maximumWithdrawalPercentage')
     el-form-item(:label="$t('groupWithdrawal.maximumWithdrawalAmount')" prop="maximumWithdrawalAmount")
       el-input-number(v-model.number='groupWithdrawal.maximumWithdrawalAmount'  name='maximumWithdrawalAmount')
-    h2(style="font-weight: lighter;" label="Retirement")
+    h2(style="font-weight: lighter;") {{ $t('groupWithdrawal.retrirement') }}
     el-form-item(:label="$t('groupWithdrawal.normalRetireAge')" prop="normalRetireAge")
       el-input-number(v-model.number='groupWithdrawal.normalRetireAge' :min="40"  name='normalRetireAge')
     el-form-item(:label="$t('groupWithdrawal.earlyRetireAge')" prop="earlyRetireAge")

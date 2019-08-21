@@ -40,6 +40,9 @@ export default {
     }
   },
   methods: {
+    back() {
+      this.$router.push({ name: 'Dashboard' })
+    },
     updatePassword() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
@@ -47,7 +50,7 @@ export default {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
-              this.getList()
+              this.back()
             }
           })
         }

@@ -302,7 +302,16 @@ export default {
   groupWithdrawal: {
     isPartialAllowed: 'Diperbolehkan Sebagian',
     minimumWithdrawalYear: 'Minimal Tahun Kepersetaan untuk Penarikan',
-    maximumWithdrawalFrequency: 'Maksimal Total Penarikan'
+    maximumWithdrawalFrequency: 'Maksimal Total Penarikan',
+    minimumWithdrawalAmount: 'Minimal Nominal Penarikan',
+    maximumWithdrawalPercentage: 'Maksimal Persentase Penarikan',
+    maximumWithdrawalAmount: 'Maksimal Nominal Penarikan',
+    normalRetireAge: 'Usia Pensiun Normal',
+    earlyRetireAge: 'Usia Pensiun Dipercepat',
+    general: 'Umum',
+    minimumlimit: 'Batas Minimum',
+    maximumlimit: 'Batas Maksimum',
+    retrirement: 'Pensiun'
   },
   role: {
     roleKey: 'Kode Jabatan',
@@ -478,7 +487,17 @@ export default {
     totalEmployeeRegistered: 'Jumlah Perkerja Terdaftar',
     isHavingFundOutsideDplk: 'Dana di Luar DPLK',
     isTaxPaidByEmployer: 'Pajak Dibayar oleh Pemberi Kerja',
-    notes: 'Catatan'
+    notes: 'Catatan',
+    information: 'Informasi',
+    groupclassplan: 'Rencana Kelas',
+    billingcontribution: 'Tagihan Iuran',
+    withdrawrule: 'Penarikan',
+    investmentdirection: 'Arah Investasi',
+    groupcharge: 'Biaya Group',
+    agent: 'Agen',
+    general: 'Umum',
+    dates: 'Tanggal',
+    other: 'Lainnya'
   },
   classPlan: {
     name: 'Nama',
