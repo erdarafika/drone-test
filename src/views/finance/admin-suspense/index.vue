@@ -34,7 +34,9 @@ app-container
       el-form-item(:label="`Payment Date`", prop='paymentDate' )
         el-date-picker(:value-format='dateFormat' v-model='temp.paymentDate', type='date', placeholder='Pick a day' name='date')
       el-form-item(:label="`Amount`", prop='amount')
-        el-input(v-model.number='temp.amount', name='amount' type='textarea', :autosize='{ minRows: 1, maxRows: 2}')
+        .el-input.el-input-group.el-input-group--prepend
+          .el-input-group__prepend Rp
+          money.el-input__inner(v-model.number='temp.amount', name='amount' v-bind='configSeparator')
       el-form-item(:label="`Description`", prop='description')
         el-input(v-model.number='temp.description', name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
     .dialog-footer(slot='footer')
@@ -50,6 +52,7 @@ import { fetchList, createAdminSuspense } from '@/api/admin-suspense'
 import Pagination from '@/components/Pagination'
 import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import rules from './validation-rules'
+import { fetchMathConfig } from '@/api/config'
 
 export default {
   components: { Pagination },
@@ -60,6 +63,14 @@ export default {
       list: [],
       total: 0,
       listLoading: true,
+      configSeparator: {
+        decimal: ',',
+        thousands: '.',
+        prefix: '',
+        suffix: '',
+        precision: 0,
+        masked: false /* doesn't work with directive */
+      },
       dialogFormVisible: false,
       dplkBankOptions: [],
       temp: {
@@ -89,6 +100,13 @@ export default {
       this.dplkBankOptions = res.map(item => ({ label: `${item.accountName} - ${item.bank.bankName}`, value: item.id }))
     })
     this.getList()
+    this.resetTemp()
+    fetchMathConfig({ code: 'amount', type: 'separator' }).then(res => {
+      if (res.length) {
+        this.configSeparator.precision = res[0].value
+      }
+      console.log(this.configSeparator)
+    })
   },
   methods: {
     createData() {
