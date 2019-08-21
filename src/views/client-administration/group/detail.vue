@@ -77,13 +77,13 @@ app-container(:show='!objectId')
     el-tab-pane(:label="$t('groupMaintenance.agent')"  name='Agent'  :disabled='!dialogNotCreate')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style="width: 50%")
         el-tabs.pane(tab-position='top', style='height:100%;')
-          el-form-item(:label="$t('DPLK Sale')", prop='dplkSale' )
+          el-form-item(:label="`DPLK Sale`", prop='dplkSale' )
             el-input()
           el-form-item(:label="`Commission`", prop='commission')
             .el-input.el-input-group.el-input-group--append
               .el-input__inner()
               .el-input.el-input-group__append %
-          el-form-item(:label="$t('Effective Date')", prop='Effective Date' )
+          el-form-item(:label="`Effective Date`", prop='Effective Date' )
             el-date-picker(:value-format='dateFormat' v-model='temp.effectiveDate', name='effectiveDate'  type='date', placeholder='Pick a date')
 </template>
 
