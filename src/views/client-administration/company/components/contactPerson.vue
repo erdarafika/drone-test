@@ -3,7 +3,7 @@
 div
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-button.filter-item.add-button(v-if="!isCompanyActive" style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('companyContactPerson.name')", align='left', )
@@ -19,7 +19,7 @@ div
       template(slot-scope='scope')
         span(:class="scope.row.defaultContact ?'label-enable':''")
           | {{ scope.row.defaultContact ? 'Default':'' }}
-    el-table-column(label='', align='right', width='150' )
+    el-table-column(v-if="!isCompanyActive" label='', align='right', width='150' )
       template(slot-scope='{row}')
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
@@ -61,6 +61,7 @@ div
 </template>
 
 <script>
+import { fetchCompany as fetchCompany } from '@/api/company'
 import { fetchList, createCompanyContactPerson, updateCompanyContactPerson, deleteCompanyContactPerson } from '@/api/company-contact-person'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
@@ -80,6 +81,7 @@ export default {
         page: 1,
         limit: 20
       },
+      isCompanyActive: true,
       typeOptions: [{ label: 'PERSON IN CHARGE', value: 'pic' }, { label: 'CORRESPONDENCE', value: 'correspondence' }, { label: 'PAYOR', value: 'payor' }, { label: 'DIRECTOR', value: 'director' }],
       identityTypeOptions: [{ label: 'Identity Card', value: 'ktp' }, { label: 'Driving License', value: 'sim' }, { label: 'Passport', value: 'passport' }, { label: 'Kitas', value: 'kitas' }],
       temp: {
@@ -119,6 +121,19 @@ export default {
   },
   created() {
     if (this.data.id) { this.getList() }
+
+    if (this.data.status === 'active') {
+      this.isCompanyActive = true
+    }
+
+    if (this.data.id) {
+      this.getList()
+      fetchCompany(this.data.id).then(res => {
+        if (res.status === 'active') {
+          this.isCompanyActive = true
+        }
+      })
+    }
   },
   methods: {
     getDialogHeader(dialogStatus) {

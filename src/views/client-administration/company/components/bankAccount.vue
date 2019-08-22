@@ -3,7 +3,7 @@
 div
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-button.filter-item.add-button(v-if="!isCompanyActive" style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('companyBankAccount.accountName')", align='left', )
@@ -22,7 +22,7 @@ div
       template(slot-scope='scope')
         span(:class="scope.row.currentBank ?'label-enable':''")
           | {{ scope.row.currentBank ? 'Default':'' }}
-    el-table-column(label='', align='right', width='150' )
+    el-table-column(v-if="!isCompanyActive" label='', align='right', width='150' )
       template(slot-scope='{row}')
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
@@ -52,6 +52,7 @@ div
 </template>
 
 <script>
+import { fetchCompany as fetchCompany } from '@/api/company'
 import { fetchList, createCompanyBankAccount, updateCompanyBankAccount, deleteCompanyBankAccount } from '@/api/company-bank-account'
 import { fetchList as fetchBankList } from '@/api/bank'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -72,6 +73,7 @@ export default {
         page: 1,
         limit: 20
       },
+      isCompanyActive: false,
       bankOptions: [],
       temp: {
         bankId: undefined,
@@ -103,6 +105,19 @@ export default {
   created() {
     this.getBankOptions()
     if (this.data.id) { this.getList() }
+
+    if (this.data.status === 'active') {
+      this.isCompanyActive = true
+    }
+
+    if (this.data.id) {
+      this.getBankOptions()
+      fetchCompany(this.data.id).then(res => {
+        if (res.status === 'active') {
+          this.isCompanyActive = true
+        }
+      })
+    }
   },
   methods: {
     getBankOptions() {
