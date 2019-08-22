@@ -181,7 +181,6 @@ export default {
         this.getRecord()
       }
     }
-
     fetchBusinessLine().then(res => {
       this.businessLineOptions = res.map(businessLine => ({ value: businessLine.id, label: businessLine.name }))
     })
