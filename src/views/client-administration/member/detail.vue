@@ -88,26 +88,22 @@
                     el-input(v-model='temp.phoneNumber', name='phoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.cellPhoneNumber')" prop='cellPhoneNumber')
                     el-input(v-model='temp.cellPhoneNumber', name='cellPhoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-          el-button(type='primary' @click="createData()")
+          el-button(v-if="dialogStatus !== 'detail'" type='primary' @click="createData()")
             | {{ $t('table.confirm') }}
-      el-tab-pane(label='Address'  name='Address'  :disabled='!dialogNotCreate')
+      // el-tab-pane(label='Address'  name='Address'  :disabled='!dialogNotCreate')
         Address(:data='temp')
       el-tab-pane(label='Bank Account' name='Bank Account' :disabled='!dialogNotCreate')
-        BankAccount(:data='temp')
-      el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
+        MemberBank(:data='temp')
+      // el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
         Billing(:data='temp')
-      el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
+      // el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
         InvestmentDirection(:data='temp')
-      el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
+      // el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
         Beneficiary(:data='temp')
-      el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
+      // el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
         FundInfo(:data='temp')
-      el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
+      // el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
         FundHistory(:data='temp')
-      //- el-tab-pane(label='Group Charge'  name='Group Charge' :disabled='!dialogNotCreate')
-      //-   GroupCharge(:data='temp')
-      //- el-tab-pane(label='Group Charge'  name='Group Charge'  :disabled='!dialogNotCreate')
-      //- el-tab-pane(label='Agent'  name='Agent' :disabled='!dialogNotCreate')
 </template>
 <style>
   .multi-form {
@@ -128,11 +124,11 @@ import { fetchMembershipById } from '@/api/membership'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { requiredValidator } from '@/global-function/formValidator'
-import AddressType from '../../user-management/user/index'
+import MemberBank from './components/bank'
 
 export default {
   name: 'Member',
-  components: { AddressType, Pagination },
+  components: { Pagination, MemberBank },
   // eslint-disable-next-line vue/require-prop-types
   props: ['objectId'],
   data() {

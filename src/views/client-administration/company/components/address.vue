@@ -73,7 +73,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import { requiredValidator, alphabeticValidator, alphanumericDotComaValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
-  name: 'Document',
+  name: 'CompanyAddress',
   components: { Pagination },
   // eslint-disable-next-line
   props: ['data'],

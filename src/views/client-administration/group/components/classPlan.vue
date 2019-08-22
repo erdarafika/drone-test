@@ -50,9 +50,8 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
-  name: 'Document',
+  name: 'GroupClassPlan',
   components: { Pagination },
-  // eslint-disable-next-line
   props: ['data'],
   data() {
     return {

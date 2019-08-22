@@ -80,7 +80,7 @@ import { requiredValidator } from '@/global-function/formValidator'
 import { alphabeticValidator, numberValidator } from '../../../../global-function/formValidator'
 
 export default {
-  name: 'Document',
+  name: 'GroupBilling',
   components: { Pagination },
   props: ['data'],
   data() {
