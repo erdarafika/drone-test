@@ -3,7 +3,7 @@
 div
   .filter-container
     el-input.filter-item(v-model='listQuery.q', prefix-icon='el-icon-search', :placeholder="$t('table.searchPlaceholder')", style='width: 200px;')
-    el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
+    el-button.filter-item.add-button(v-if="!isCompanyActive" style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
 
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
@@ -20,13 +20,10 @@ div
       template(slot-scope='scope')
         span(:class="scope.row.defaultAddress ?'label-enable':''")
           | {{ scope.row.defaultAddress ? 'Default':'' }}
-    el-table-column(label='', align='right', width='150' )
+    el-table-column(v-if="!isCompanyActive" label='', align='right', width='150' )
       template(slot-scope='{row}')
-        //- el-button(type='success', size='mini', @click='setDefault(row)' :disabled="defaultId===row.id" )
-        //-   | {{ $t('companyAddress.setDefault')  }}
-
-        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
-        Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
+        Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']" :disabled='dialogIsDetail')
+        Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']" :disabled='dialogIsDetail')
 
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
@@ -68,6 +65,7 @@ div
 </template>
 
 <script>
+import { fetchCompany as fetchCompany } from '@/api/company'
 import { fetchList, createCompanyAddress, updateCompanyAddress, deleteCompanyAddress } from '@/api/company-address'
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
@@ -90,6 +88,7 @@ export default {
         limit: 20,
         q: undefined
       },
+      isCompanyActive: false,
       defaultId: -1,
       addressTypeOptions: [],
       countryOptions: [],
@@ -135,6 +134,12 @@ export default {
     },
     location() {
       return this.provinceOptions && this.cityOptions && this.countryOptions
+    },
+    dialogNotCreate() {
+      return this.dialogStatus !== 'create'
+    },
+    dialogIsDetail() {
+      return this.dialogStatus === 'detail'
     }
   },
   watch: {
@@ -171,7 +176,18 @@ export default {
       this.getCountryAddress()
     })
 
-    if (this.data.id) { this.getCountryAddress() }
+    if (this.data.status === 'active') {
+      this.isCompanyActive = true
+    }
+
+    if (this.data.id) {
+      this.getCountryAddress()
+      fetchCompany(this.data.id).then(res => {
+        if (res.status === 'active') {
+          this.isCompanyActive = true
+        }
+      })
+    }
   },
   methods: {
     getCountryAddress() {

@@ -413,7 +413,8 @@ export default {
     office: `Office`,
     office2: `Office 2`,
     fax: `Fax`,
-    home: `Home`
+    home: `Home`,
+    general: `General`
   },
   user: {
     staff: 'Staff',
