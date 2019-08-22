@@ -194,13 +194,12 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteCompanyBankAccount(row).then((response) => {
+        deleteCompanyBankAccount(row).then(() => {
           this.dialogFormVisible = false
           this.successNotifier()
           this.getList()
         }).catch(error => {
           console.log(error)
-          // this.errorNotifier()
         })
       }
 

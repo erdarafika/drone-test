@@ -579,6 +579,13 @@ export default {
     salary: 'Salary',
     familyCardNumber: 'Family Card Number'
   },
+  memberBank: {
+    accountName: 'Account Name',
+    accountNumber: 'Account Number',
+    bankName: 'Bank Name',
+    branchName: 'Bank Branch',
+    status: 'Status'
+  },
   billing: {
     amount: 'Amount',
     totalAmount: 'Total Amount',
