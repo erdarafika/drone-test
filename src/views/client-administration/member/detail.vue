@@ -88,7 +88,7 @@
                     el-input(v-model='temp.phoneNumber', name='phoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.cellPhoneNumber')" prop='cellPhoneNumber')
                     el-input(v-model='temp.cellPhoneNumber', name='cellPhoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-          el-button(type='primary' @click="createData()")
+          el-button(v-if="dialogStatus !== 'detail'" type='primary' @click="createData()")
             | {{ $t('table.confirm') }}
       // el-tab-pane(label='Address'  name='Address'  :disabled='!dialogNotCreate')
         Address(:data='temp')
