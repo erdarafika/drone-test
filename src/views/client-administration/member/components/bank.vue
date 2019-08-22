@@ -187,7 +187,7 @@ export default {
       })
     },
     handleDelete(row) {
-      row['companyId'] = this.data.id
+      row['memberId'] = this.data.id
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {

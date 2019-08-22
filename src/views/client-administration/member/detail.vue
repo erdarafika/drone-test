@@ -14,7 +14,7 @@
           el-tabs.pane(tab-position='top', style='height:100%;')
             el-tab-pane(label='General')
               el-form-item(:label="$t('membership.certificateNumber')", prop='certificateNumber' )
-                el-input(v-model='temp.certificateNumber',  name='certificateNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail'  )
+                el-input(v-model='temp.certificateNumber',  name='certificateNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail')
               el-form-item(:label="$t('membership.certificateStatus')" prop='certificateStatus')
                 el-radio-group(v-model='temp.certificateStatus' name='certificateStatus')
                   el-radio(label='active') Active

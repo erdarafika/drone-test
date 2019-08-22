@@ -587,6 +587,25 @@ export default {
     branchName: 'Bank Branch',
     status: 'Status'
   },
+  memberBilling: {
+    billingDate: 'Billing Date',
+    correspondenceCarbonCopy: 'Correspondence Carbon Copy',
+    correspondenceEmail: 'Correspondence Email',
+    correspondenceGender: 'Correspondence Gender',
+    correspondenceIdentityNumber: 'Correspondence Identity Number',
+    correspondenceIdentityType: 'Correspondence Identity Type',
+    correspondenceName: 'Correspondence Name',
+    correspondenceNationality: 'Correspondence Nationality',
+    correspondencePhoneNumber: 'Correspondence Phone Number',
+    correspondenceTitle: 'Correspondence Title',
+    dplkBankId: 'DPLK Bank',
+    frequency: 'Frequency',
+    isAutomatic: 'Is Automatic',
+    nextBillingSequence: 'Next Billing Sequence',
+    paymentMethod: 'Payment Method',
+    payor: 'Payor',
+    sendNotification: 'Send Notification'
+  },
   billing: {
     amount: 'Amount',
     totalAmount: 'Total Amount',
