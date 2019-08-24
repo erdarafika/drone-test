@@ -94,7 +94,7 @@
         Address(:data='temp')
       el-tab-pane(label='Bank Account' name='Bank Account' :disabled='!dialogNotCreate')
         MemberBank(:data='temp')
-      // el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
         Billing(:data='temp')
       // el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
         InvestmentDirection(:data='temp')
@@ -125,10 +125,11 @@ import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { requiredValidator } from '@/global-function/formValidator'
 import MemberBank from './components/bank'
+import Billing from './components/billing'
 
 export default {
   name: 'Member',
-  components: { Pagination, MemberBank },
+  components: { Pagination, MemberBank, Billing },
   // eslint-disable-next-line vue/require-prop-types
   props: ['objectId'],
   data() {
