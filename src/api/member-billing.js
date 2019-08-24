@@ -1,13 +1,6 @@
 import request from '@/utils/request'
 
-export function fetchList(memberId) {
-  return request({
-    url: `membership/${memberId}/billing`,
-    method: 'get'
-  })
-}
-
-export function createRecord(data) {
+export function createOrUpdateRecord(data) {
   return request({
     url: `membership/${data.memberId}/billing`,
     method: 'post',
@@ -15,24 +8,9 @@ export function createRecord(data) {
   })
 }
 
-export function getRecord(data) {
+export function getRecord(memberId) {
   return request({
-    url: `membership/${data.memberId}/billing/${data.id}`,
+    url: `membership/${memberId}/billing`,
     method: 'get'
-  })
-}
-
-export function updateRecord(data) {
-  return request({
-    url: `membership/${data.memberId}/billing/${data.id}`,
-    method: 'post',
-    data
-  })
-}
-
-export function deleteRecord(data) {
-  return request({
-    url: `membership/${data.memberId}/billing/${data.id}`,
-    method: 'delete'
   })
 }

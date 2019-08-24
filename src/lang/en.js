@@ -113,6 +113,18 @@ export default {
     yes: 'Yes',
     no: 'No'
   },
+  schedulerDay: {
+    zeroDay: '0 Day',
+    oneDay: '1 Day',
+    twoDay: '2 Day',
+    threeDay: '3 Day',
+    fourDay: '4 Day',
+    fiveDay: '5 Day',
+    sixDay: '6 Day',
+    sevenDay: '7 Day',
+    fourteenDay: '14 Day',
+    twentyEightDay: '28 Day'
+  },
   table: {
     createdBy: 'Created By',
     filter: 'Filter',
@@ -598,13 +610,15 @@ export default {
     correspondenceNationality: 'Correspondence Nationality',
     correspondencePhoneNumber: 'Correspondence Phone Number',
     correspondenceTitle: 'Correspondence Title',
+    billingId: 'Billing',
     dplkBankId: 'DPLK Bank',
-    frequency: 'Frequency',
-    isAutomatic: 'Is Automatic',
+    notificationScheduler: 'Billing Notification Scheduler',
+    frequency: 'Billing Cycle',
+    isAutomatic: 'Automatic',
     nextBillingSequence: 'Next Billing Sequence',
     paymentMethod: 'Payment Method',
     payor: 'Payor',
-    sendNotification: 'Send Notification'
+    sendNotification: 'Notification'
   },
   billing: {
     amount: 'Amount',
