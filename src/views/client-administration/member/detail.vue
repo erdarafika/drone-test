@@ -90,12 +90,12 @@
                     el-input(v-model='temp.cellPhoneNumber', name='cellPhoneNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
           el-button(v-if="dialogStatus !== 'detail'" type='primary' @click="createData()")
             | {{ $t('table.confirm') }}
-      // el-tab-pane(label='Address'  name='Address'  :disabled='!dialogNotCreate')
-        Address(:data='temp')
+      el-tab-pane(label='Address'  name='Address'  :disabled='!dialogNotCreate')
+        MemberAddress(:data='temp')
       el-tab-pane(label='Bank Account' name='Bank Account' :disabled='!dialogNotCreate')
         MemberBank(:data='temp')
       el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
-        Billing(:data='temp')
+        MemberBilling(:data='temp')
       // el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
         InvestmentDirection(:data='temp')
       // el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
@@ -124,12 +124,13 @@ import { fetchMembershipById } from '@/api/membership'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { requiredValidator } from '@/global-function/formValidator'
+import MemberAddress from './components/address'
 import MemberBank from './components/bank'
-import Billing from './components/billing'
+import MemberBilling from './components/billing'
 
 export default {
   name: 'Member',
-  components: { Pagination, MemberBank, Billing },
+  components: { Pagination, MemberAddress, MemberBank, MemberBilling },
   // eslint-disable-next-line vue/require-prop-types
   props: ['objectId'],
   data() {
