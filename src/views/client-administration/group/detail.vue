@@ -59,15 +59,15 @@ app-container(:show='!objectId')
         el-button(type='primary' @click="createData()")
           | {{ $t('table.confirm') }}
 
-    el-tab-pane(:label="$t('groupMaintenance.groupclassplan')", name='Group Class Plan' :disabled='!dialogNotCreate')
+    el-tab-pane(:label="$t('groupMaintenance.groupClassPlan')", name='Group Class Plan' :disabled='!dialogNotCreate')
       ClassPlan(:data='temp')
-    el-tab-pane(:label="$t('groupMaintenance.billingcontribution')", name='Billing Contribution'  :disabled='!dialogNotCreate')
+    el-tab-pane(:label="$t('groupMaintenance.billingContribution')", name='Billing Contribution'  :disabled='!dialogNotCreate')
       Billing(:data='temp')
-    el-tab-pane(:label="$t('groupMaintenance.withdrawrule')"  name='Withdrawal Rule'  :disabled='!dialogNotCreate')
+    el-tab-pane(:label="$t('groupMaintenance.withdrawalRule')"  name='Withdrawal Rule'  :disabled='!dialogNotCreate')
       Withdrawal(:data='temp')
-    el-tab-pane(:label="$t('groupMaintenance.investmentdirection')"  name='Investment Direction'  :disabled='!dialogNotCreate')
+    el-tab-pane(:label="$t('groupMaintenance.investmentDirection')"  name='Investment Direction'  :disabled='!dialogNotCreate')
       InvestmentDirection(:data='temp')
-    el-tab-pane(:label="$t('groupMaintenance.groupcharge')"  name='Group Charge'  :disabled='!dialogNotCreate')
+    el-tab-pane(:label="$t('groupMaintenance.groupCharge')"  name='Group Charge'  :disabled='!dialogNotCreate')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
         el-tabs.pane(tab-position='top', style='height:100%;')
           el-tab-pane(label='Name')
@@ -111,6 +111,7 @@ import { requiredValidator, numberValidator } from '@/global-function/formValida
 export default {
   name: 'Group',
   components: { Pagination, ClassPlan, Billing, Withdrawal },
+  // eslint-disable-next-line
   props: ['objectId'],
   data() {
     return {
