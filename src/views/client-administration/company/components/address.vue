@@ -10,12 +10,18 @@ div
     el-table-column(:label="$t('companyAddress.addressType')", align='left', )
       template(slot-scope='scope')
         span {{ scope.row.addressType.type }}
-    el-table-column(:label="$t('companyAddress.address1')", align='left')
+    el-table-column(:label="$t('companyAddress.address')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.address1 }}
+    el-table-column(:label="$t('companyAddress.province')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.province.name }}
     el-table-column(:label="$t('companyAddress.city')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.city.name }}
+    el-table-column(:label="$t('companyAddress.postalCode')", align='left')
+      template(slot-scope='scope')
+        span {{ scope.row.postalCode }}
     el-table-column(:label="$t('companyAddress.status')", align='left',)
       template(slot-scope='scope')
         span(:class="scope.row.defaultAddress ?'label-enable':''")
@@ -36,10 +42,6 @@ div
         el-input(v-model.number='temp.address1', name='address1' type='input')
       el-form-item(:label="$t('companyAddress.address2')", prop='address2')
         el-input(v-model.number='temp.address2', name='address2' type='input')
-      el-form-item(:label="$t('companyAddress.address3')", prop='address3')
-        el-input(v-model.number='temp.address3', name='address3' type='input')
-      el-form-item(:label="$t('companyAddress.address4')", prop='address4')
-        el-input(v-model.number='temp.address4', name='address4' type='input')
       el-form-item(:label="$t('companyAddress.country')", prop='countryId')
         el-select(v-model='temp.countryId', name='countryId' placeholder='Select', filterable, default-first-option)
           el-option(v-for='item in countryOptions', :key='item.value', :label='item.label', :value='item.value')
@@ -50,7 +52,9 @@ div
         el-select(v-model='temp.cityId', name='cityId' placeholder='Select', filterable, default-first-option  :disabled='temp.provinceId === undefined')
           el-option(v-for='item in cityOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('companyAddress.district')", prop='district')
-        el-input(v-model.number='temp.district', name='distric' type='input')
+        el-input(v-model.number='temp.district', name='district' type='input')
+      el-form-item(:label="$t('companyAddress.subDistrict')", prop='subDistrict')
+        el-input(v-model.number='temp.subDistrict', name='subDistrict' type='input')
       el-form-item(:label="$t('companyAddress.postalCode')", prop='postalCode')
         el-input(v-model.number='temp.postalCode', name='postalCode' type='input')
       el-form-item(:label="$t('companyAddress.status')")
@@ -97,12 +101,11 @@ export default {
       temp: {
         address1: undefined,
         address2: undefined,
-        address3: undefined,
-        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
         district: undefined,
+        subDistrict: undefined,
         postalCode: undefined,
         addressTypeId: undefined,
         defaultAddress: false
@@ -112,10 +115,8 @@ export default {
       dialogStatus: '',
       rules: {
         district: [requiredValidator, alphabeticValidator],
+        subDistrict: [requiredValidator, alphabeticValidator],
         address1: [requiredValidator, alphanumericDotComaValidator],
-        address2: [requiredValidator, alphanumericDotComaValidator],
-        address3: [alphanumericDotComaValidator],
-        address4: [alphanumericDotComaValidator],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
         cityId: [requiredValidator],
@@ -223,12 +224,11 @@ export default {
       this.temp = {
         address1: undefined,
         address2: undefined,
-        address3: undefined,
-        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
         district: undefined,
+        subDistrict: undefined,
         postalCode: undefined,
         addressTypeId: undefined,
         defaultAddress: false
@@ -265,8 +265,6 @@ export default {
         defaultAddress: row.defaultAddress,
         address1: row.address1,
         address2: row.address2,
-        address3: row.address3,
-        address4: row.address4,
         countryId: row.country.id,
         provinceId: row.province.id,
         cityId: row.city.id,
