@@ -36,10 +36,6 @@
           el-input(v-model.number='temp.address1', name='address1' type='input')
         el-form-item(:label="$t('memberAddress.address2')", prop='address2')
           el-input(v-model.number='temp.address2', name='address2' type='input')
-        el-form-item(:label="$t('memberAddress.address3')", prop='address3')
-          el-input(v-model.number='temp.address3', name='address3' type='input')
-        el-form-item(:label="$t('memberAddress.address4')", prop='address4')
-          el-input(v-model.number='temp.address4', name='address4' type='input')
         el-form-item(:label="$t('memberAddress.country')", prop='countryId')
           el-select(v-model='temp.countryId', name='countryId' placeholder='Select', filterable, default-first-option)
             el-option(v-for='item in countryOptions', :key='item.value', :label='item.label', :value='item.value')
@@ -51,6 +47,8 @@
             el-option(v-for='item in cityOptions', :key='item.value', :label='item.label', :value='item.value')
         el-form-item(:label="$t('memberAddress.district')", prop='district')
           el-input(v-model='temp.district', name='district' type='input')
+        el-form-item(:label="$t('memberAddress.subDistrict')", prop='subDistrict')
+          el-input(v-model='temp.subDistrict', name='subDistrict' type='input')
         el-form-item(:label="$t('memberAddress.rt')", prop='rt')
           el-input(v-model.number='temp.rt', name='rt' type='input')
         el-form-item(:label="$t('memberAddress.rw')", prop='rw')
@@ -101,12 +99,11 @@ export default {
       temp: {
         address1: undefined,
         address2: undefined,
-        address3: undefined,
-        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
         district: undefined,
+        subDistrict: undefined,
         rt: undefined,
         rw: undefined,
         postalCode: undefined,
@@ -119,8 +116,6 @@ export default {
       rules: {
         address1: [requiredValidator, alphanumericDotComaValidator],
         address2: [requiredValidator, alphanumericDotComaValidator],
-        address3: [alphanumericDotComaValidator],
-        address4: [alphanumericDotComaValidator],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
         cityId: [requiredValidator],
@@ -226,12 +221,11 @@ export default {
       this.temp = {
         address1: undefined,
         address2: undefined,
-        address3: undefined,
-        address4: undefined,
         cityId: undefined,
         provinceId: undefined,
         countryId: undefined,
         district: undefined,
+        subDistrict: undefined,
         rt: undefined,
         rw: undefined,
         postalCode: undefined,
@@ -267,13 +261,12 @@ export default {
         id: row.id,
         postalCode: row.postalCode,
         district: row.district,
+        subDistrict: row.subDistrict,
         rt: row.rt,
         rw: row.rw,
         defaultAddress: row.defaultAddress,
         address1: row.address1,
         address2: row.address2,
-        address3: row.address3,
-        address4: row.address4,
         countryId: row.country.id,
         provinceId: row.province.id,
         cityId: row.city.id,
