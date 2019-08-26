@@ -1,7 +1,7 @@
 <template lang="pug">
 el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
   el-row(:gutter="40")
-    el-col(:span="10")
+    el-col(:span="8")
       el-form-item(:label="$t('memberBilling.billingId')")
         el-switch(v-model='temp.isAutomatic' name='isAutomatic')
         span.switch-status {{ $t('memberBilling.isAutomatic') + ' ' }}
@@ -14,26 +14,72 @@ el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', lab
               el-select(placeholder='+ / -' v-model='temp.isPlusDay' name='isPlusDay')
                 el-option(:label='`+`', :value='`+`')
                 el-option(:label='`-`', :value='`-`')
-          el-col(:span="6")
+          el-col(:span="8")
             el-form-item(:label="``", prop="notificationSchedulerDay")
               el-select(placeholder='Select' v-model='temp.notificationSchedulerDay' name='notificationSchedulerDay')
                 el-option(v-for='item in notificationSchedulerDayOptions', :key='item.value', :label='item.label', :value='item.value')
-      el-form-item(:label="$t('memberBilling.billingDate')", prop='billingDate' )
+      el-form-item(:label="$t('memberBilling.billingDate')", prop='billingDate')
         el-date-picker(:value-format='dateFormat' v-model='temp.billingDate', name='billingDate' type='textarea', placeholder='Pick a date')
-    el-col(:span="10")
+    el-col(:span="8")
       el-form-item(:label="$t('memberBilling.frequency')", prop='frequency')
         el-select(placeholder='Select' v-model='temp.frequency' name='frequency')
           el-option(v-for='item in frequencyOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('memberBilling.dplkBankId')", prop='dplkBankId')
-        el-select(placeholder='Select' v-model='temp.dplkBankId' name='dplkBankId')
+        el-select(placeholder='Select' v-model='temp.dplkBankId' name='dplkBankId' @change="getDplkBank")
           el-option(v-for='item in dplkBankOptions', :key='item.value', :label='item.label', :value='item.value')
-    el-col(:span="4")
-      el-form-item(:label="$t('memberBilling.paymentMethod')", prop='paymentMethod')
-        el-select(placeholder='Select' v-model='temp.paymentMethod' name='paymentMethod')
-          el-option(v-for='item in paymentMethodOptions', :key='item.value', :label='item.label', :value='item.value')
       el-form-item(:label="$t('memberBilling.payor')", prop='payor')
         el-select(placeholder='Select' v-model='temp.payor' name='payor')
           el-option(v-for='item in payorOptions', :key='item.value', :label='item.label', :value='item.value')
+    el-col(:span="8")
+      el-form-item(:label="$t('memberBilling.paymentMethod')", prop='paymentMethod')
+        el-select(placeholder='Select' v-model='temp.paymentMethod' name='paymentMethod')
+          el-option(v-for='item in paymentMethodOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(v-if="temp.dplkBankId !== undefined")
+        el-card
+          table
+            tr
+              td
+                b {{ $t('dplkBank.accountName') }}
+              td
+                b :
+              td {{ dplkBank.accountName }}
+            tr
+              td
+                b {{ $t('dplkBank.accountNumber') }}
+              td
+                b :
+              td {{ dplkBank.accountNumber }}
+            tr
+              td
+                b {{ $t('dplkBank.bankName') }}
+              td
+                b :
+              td {{ dplkBank.bank.bankName }}
+  el-row(:gutter="40" v-if="temp.payor !== 'self'")
+    el-col(:span="8")
+      el-form-item(:label="$t('memberBilling.correspondenceName')", prop='correspondenceName')
+        el-input(v-model='temp.correspondenceName', name='correspondenceName' type='input', placeholder='Ex: John')
+      el-form-item(:label="$t('memberBilling.correspondenceTitle')", prop='correspondenceTitle')
+        el-input(v-model='temp.correspondenceTitle', name='correspondenceTitle' type='input', placeholder='Ex: example@email.com')
+      el-form-item(:label="$t('memberBilling.correspondenceNationality')", prop='correspondenceNationality')
+        el-select(placeholder='Select' v-model='temp.nationality' name='nationality')
+          el-option(v-for='item in correspondenceNationalityOptions', :key='item.value', :label='item.label', :value='item.value')
+    el-col(:span="8")
+      el-form-item(:label="$t('memberBilling.correspondenceIdentityType')", prop='correspondenceIdentityType')
+        el-select(placeholder='Select' v-model='temp.correspondenceIdentityType' name='correspondenceIdentityType')
+          el-option(v-for='item in correspondenceIdentityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
+      el-form-item(:label="$t('memberBilling.correspondenceIdentityNumber')", prop='correspondenceIdentityNumber')
+        el-input(v-model='temp.correspondenceIdentityNumber', name='correspondenceIdentityNumber' type='input', placeholder='Ex: 230493589383')
+      el-form-item(:label="$t('memberBilling.correspondenceGender')", prop='correspondenceGender')
+        el-select(placeholder='Select' v-model='temp.correspondenceGender' name='correspondenceGender')
+          el-option(v-for='item in correspondenceGenderOptions', :key='item.value', :label='item.label', :value='item.value')
+    el-col(:span="8")
+      el-form-item(:label="$t('memberBilling.correspondenceEmail')", prop='correspondenceEmail')
+        el-input(v-model='temp.correspondenceEmail', name='correspondenceEmail' type='input', placeholder='Ex: example@email.com')
+      el-form-item(:label="$t('memberBilling.correspondencePhoneNumber')", prop='correspondencePhoneNumber')
+        el-input(v-model='temp.correspondencePhoneNumber', name='correspondencePhoneNumber' type='input', placeholder='Ex: 0893465xxx')
+      el-form-item(:label="$t('memberBilling.correspondenceCarbonCopy')", prop='correspondenceCarbonCopy')
+        el-input(v-model='temp.correspondenceCarbonCopy', name='correspondenceCarbonCopy' type='input', placeholder='Ex: example@email.com')
   el-row
     el-col
       el-button(type="primary" @click="createOrUpdateData") {{ $t('table.confirm') }}
@@ -42,8 +88,8 @@ el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', lab
 
 <script>
 import Pagination from '@/components/Pagination'
-import { fetchList as getAllDplkBank } from '@/api/dplk-bank-account'
-import { requiredValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
+import { fetchList as getAllDplkBank, getDplkBankAccount } from '@/api/dplk-bank-account'
+import { requiredValidator, alphabeticValidator, numberValidator, emailValidator } from '@/global-function/formValidator'
 import { createOrUpdateRecord, getRecord as getMemberBilling } from '@/api/member-billing'
 export default {
   name: 'MemberBilling',
@@ -55,11 +101,24 @@ export default {
       momentDateFormat: 'DD-MM-YYYY',
       listLoading: true,
       dplkBankOptions: [],
+      dplkBank: {
+        accountName: undefined,
+        accountNumber: undefined,
+        bank: {
+          bankName: undefined
+        }
+      },
       frequencyOptions: [{ label: 'Monthly', value: 1 }, { label: 'Quarterly', value: 4 }, { label: 'Semi Anually', value: 6 }, { label: 'Anually', value: 12 }],
       paymentMethodOptions: [{ label: 'Bank Transfer', value: 'bank-transfer' }],
       payorOptions: [{ label: 'Self', value: 'self' }, { label: 'Others', value: 'others' }],
       correspondenceGenderOptions: [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'female' }],
-      correspondenceNationalityOptions: [{ label: 'WNI', value: 'wni' }, { label: 'WNA', value: 'wni' }],
+      correspondenceNationalityOptions: [{ label: 'WNI', value: 'wni' }, { label: 'WNA', value: 'wna' }],
+      correspondenceIdentityTypeOptions: [
+        { label: 'KTP', value: 'ktp' },
+        { label: 'Kitas', value: 'kitas' },
+        { label: 'SIM', value: 'sim' },
+        { label: 'Passport', value: 'passport' }
+      ],
       notificationSchedulerDay: undefined,
       isPlusDay: undefined,
       notificationSchedulerDayOptions: [
@@ -86,8 +145,8 @@ export default {
         correspondencePhoneNumber: undefined,
         notificationScheduler: undefined,
         notificationSchedulerDay: undefined,
-        isPlusDay: undefined,
         correspondenceTitle: undefined,
+        isPlusDay: undefined,
         dplkBankId: undefined,
         frequency: undefined,
         isAutomatic: undefined,
@@ -106,15 +165,15 @@ export default {
         payor: [requiredValidator],
         isPlusDay: [requiredValidator],
         notificationSchedulerDay: [requiredValidator],
-        correspondenceCarbonCopy: [],
-        correspondenceEmail: [],
-        correspondenceGender: [],
-        correspondenceIdentityNumber: [numberValidator],
-        correspondenceIdentityType: [],
-        correspondenceName: [alphabeticValidator],
-        correspondenceNationality: [],
-        correspondencePhoneNumber: [numberValidator],
-        correspondenceTitle: []
+        correspondenceCarbonCopy: [requiredValidator, emailValidator],
+        correspondenceEmail: [requiredValidator, emailValidator],
+        correspondenceGender: [requiredValidator],
+        correspondenceIdentityNumber: [requiredValidator, numberValidator],
+        correspondenceIdentityType: [requiredValidator],
+        correspondenceName: [requiredValidator, alphabeticValidator],
+        correspondenceNationality: [requiredValidator],
+        correspondencePhoneNumber: [requiredValidator, numberValidator],
+        correspondenceTitle: [requiredValidator]
       }
     }
   },
@@ -131,7 +190,12 @@ export default {
     },
     getDplkBankOptions() {
       getAllDplkBank().then(response => {
-        this.dplkBankOptions = response.map(dplkBank => ({ value: dplkBank.id, label: dplkBank.accountName + ' - ' + dplkBank.accountName }))
+        this.dplkBankOptions = response.map(dplkBank => ({ value: dplkBank.id, label: dplkBank.accountName + ' - ' + dplkBank.bank.bankName }))
+      })
+    },
+    getDplkBank() {
+      getDplkBankAccount(this.temp.dplkBankId).then(response => {
+        this.dplkBank = response
       })
     },
     getRecord() {
@@ -140,6 +204,7 @@ export default {
         response.nextBillingSequence = this.reFormatDate(response.nextBillingSequence)
         this.temp = response
         this.temp.dplkBankId = response.dplkBank.id
+        this.dplkBank = response.dplkBank
         if (response.notificationScheduler !== undefined) {
           this.temp.isPlusDay = '+'
           this.temp.notificationSchedulerDay = response.notificationScheduler

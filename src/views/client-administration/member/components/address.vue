@@ -10,12 +10,18 @@
       el-table-column(:label="$t('memberAddress.addressType')", align='left', )
         template(slot-scope='scope')
           span {{ scope.row.addressType.type }}
-      el-table-column(:label="$t('memberAddress.address1')", align='left')
+      el-table-column(:label="$t('memberAddress.address')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.address1 }}
+      el-table-column(:label="$t('memberAddress.province')", align='left')
+        template(slot-scope='scope')
+          span {{ scope.row.province.name }}
       el-table-column(:label="$t('memberAddress.city')", align='left')
         template(slot-scope='scope')
           span {{ scope.row.city.name }}
+      el-table-column(:label="$t('memberAddress.postalCode')", align='left')
+        template(slot-scope='scope')
+          span {{ scope.row.postalCode }}
       el-table-column(:label="$t('memberAddress.status')", align='left',)
         template(slot-scope='scope')
           span(:class="scope.row.defaultAddress ?'label-enable':''")
@@ -72,7 +78,7 @@ import { fetchList, createRecord, updateRecord, deleteRecord } from '@/api/membe
 import { fetchList as fetchAddressTypeList } from '@/api/address-type'
 import { fetchCountryList, fetchProvinceListById, fetchCityListById } from '@/api/location'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { requiredValidator, alphanumericDotComaValidator, numberValidator } from '@/global-function/formValidator'
+import { requiredValidator, alphanumericDotComaValidator, alphabeticValidator, numberValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'MemberAddress',
@@ -115,11 +121,14 @@ export default {
       dialogStatus: '',
       rules: {
         address1: [requiredValidator, alphanumericDotComaValidator],
-        address2: [requiredValidator, alphanumericDotComaValidator],
         addressTypeId: [requiredValidator],
         countryId: [requiredValidator],
-        cityId: [requiredValidator],
         provinceId: [requiredValidator],
+        cityId: [requiredValidator],
+        district: [requiredValidator, alphabeticValidator],
+        subDistrict: [requiredValidator, alphabeticValidator],
+        rt: [requiredValidator, numberValidator],
+        rw: [requiredValidator, numberValidator],
         postalCode: [requiredValidator, numberValidator],
         defaultAddress: [requiredValidator]
       }
