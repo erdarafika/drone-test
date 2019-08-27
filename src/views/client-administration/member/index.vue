@@ -2,9 +2,9 @@
 app-container
   .table-header
     el-row
-      el-col(:span='20')
+      el-col(:span='16')
         h2.title  List Of Member
-      el-col(:span='4')
+      el-col(:span='8')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
           | {{ $t('table.add') }}
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
@@ -55,7 +55,7 @@ app-container
       el-form-item(:label="$t('membership.groupId')", prop='groupId')
         el-select(v-model='temp.groupId', name='groupId' placeholder='Select', filterable, default-first-option)
           el-option(:key='0', :label="$t('table.selectAll')", :value='0')
-          el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+          el-option(v-for='item in groupExportOptions', :key='item.value', :label='item.label', :value='item.value')
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -92,6 +92,7 @@ export default {
       tableKey: 0,
       list: [],
       groupOptions: [],
+      groupExportOptions: [],
       statusOptions: [
         { label: 'Show All', value: '' },
         { label: 'Active', value: 'active' },
@@ -135,6 +136,7 @@ export default {
   created() {
     fetchGroup().then(res => {
       this.groupOptions = res.map(group => ({ value: group.name, label: group.name }))
+      this.groupExportOptions = res.map(group => ({ value: group.id, label: group.name }))
     })
     this.getList()
   },
