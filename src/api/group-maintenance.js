@@ -44,3 +44,12 @@ export function approveGroupMaintanance(id) {
     method: 'post'
   })
 }
+
+export function exportExcel(query) {
+  return request({
+    url: '/company/group/export',
+    method: 'get',
+    responseType: 'blob',
+    params: query
+  })
+}

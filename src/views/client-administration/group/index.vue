@@ -7,6 +7,8 @@ app-container
       el-col(:span='4')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
           | {{ $t('table.add') }}
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
+          | {{ $t('table.exportToXlsx') }}
   .complex-filter-container
     .complex-filter-item
       .title | {{ $t('table.filter') }}
@@ -45,6 +47,18 @@ app-container
         Detail(:data='row' :action='handleDetail')
         Edit(:data='row' :action='handleUpdate'  v-if='row.status === "draft" || row.status === "rejected"' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
+
+  el-dialog(:title="$t('modal.exportModalHeader')", :visible.sync='dialogFormVisible' append-to-body)
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('groupMaintenance.companyId')", prop='companyId')
+        el-select(v-model='temp.companyId', name='companyId' placeholder='Select', filterable, default-first-option)
+          el-option(:key='0', :label="$t('table.selectAll')", :value='0')
+          el-option(v-for='item in companyOptions', :key='item.value', :label='item.label', :value='item.value')
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="exportData")
+        | {{ $t('table.export') }}
 </template>
 
 <style>
@@ -62,9 +76,11 @@ app-container
 </style>
 
 <script>
-import { fetchList } from '@/api/group-maintenance'
+import { fetchList, exportExcel } from '@/api/group-maintenance'
+import { fetchList as fetchCompany } from '@/api/company'
 import { fetchList as fetchProductType } from '@/api/product-type'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Company',
@@ -75,6 +91,7 @@ export default {
       tableKey: 0,
       list: [],
       productTypeOptions: [],
+      companyOptions: [],
       statusOptions: [
         { label: 'Show All', value: '' },
         { label: 'Active', value: 'active' },
@@ -83,6 +100,8 @@ export default {
         { label: 'Rejected', value: 'rejected' },
         { label: 'Terminated', value: 'terminated' }
       ],
+      dialogFormVisible: false,
+      dialogStatus: '',
       total: 0,
       listLoading: true,
       listQuery: {
@@ -93,6 +112,12 @@ export default {
         code: undefined,
         name: undefined,
         companyName: undefined
+      },
+      temp: {
+        companyId: undefined
+      },
+      rules: {
+        companyId: [requiredValidator]
       }
     }
   },
@@ -114,6 +139,9 @@ export default {
     fetchProductType().then(res => {
       this.productTypeOptions = res.map(productType => ({ value: productType.name, label: productType.name }))
     })
+    fetchCompany().then(res => {
+      this.companyOptions = res.map(company => ({ value: company.id, label: company.name }))
+    })
     this.getList()
   },
   methods: {
@@ -126,6 +154,34 @@ export default {
     handleCreate() {
       this.$router.push({ name: 'GroupMaintenanceDetail', params: { action: 'create' }})
     },
+    handleExport() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    exportData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          if (this.temp.companyId === 0) {
+            exportExcel().then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'groups.xlsx')
+              }
+            })
+          } else {
+            exportExcel(this.temp).then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'groups.xlsx')
+              }
+            })
+          }
+          this.dialogFormVisible = false
+        }
+      })
+    },
     getList() {
       this.listLoading = true
       fetchList().then(response => {
@@ -133,6 +189,11 @@ export default {
         this.total = response.length
         this.listLoading = false
       })
+    },
+    resetTemp() {
+      this.temp = {
+        companyId: undefined
+      }
     }
   }
 }
