@@ -3,10 +3,12 @@ app-container
   .table-header
     el-row
       el-col(:span='20')
-        h2.title List Of Companies
+        h2.title {{ $t('table.listOfCompanies') }}
       el-col(:span='4')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
           | {{ $t('table.add') }}
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
+          | {{ $t('table.exportToXlsx') }}
   .complex-filter-container
     .complex-filter-item
       .title | {{ $t('table.filter') }}
@@ -38,9 +40,9 @@ app-container
     el-table-column(:label="$t('table.status')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.status }}
-    //- el-table-column(:label="$t('table.createdDate')", align='left', width='200')
-    //-   template(slot-scope='scope')
-    //-     | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
+    el-table-column(:label="$t('table.createdDate')", align='left', width='200')
+      template(slot-scope='scope')
+        | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
@@ -64,7 +66,7 @@ app-container
 </style>
 
 <script>
-import { fetchList } from '@/api/company'
+import { fetchList, exportExcel } from '@/api/company'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 export default {
   name: 'Company',
@@ -118,6 +120,13 @@ export default {
     },
     handleCreate() {
       this.$router.push({ name: 'CompanyDetail', params: { action: 'create' }})
+    },
+    handleExport() {
+      exportExcel().then(response => {
+        if (response.status_code >= 200 && response.status_code <= 300) {
+          this.saveAs(response, 'companies.xlsx')
+        }
+      })
     },
     getList() {
       this.listLoading = true

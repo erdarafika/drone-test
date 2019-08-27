@@ -53,3 +53,12 @@ export function processImport(data) {
     data
   })
 }
+
+export function exportExcel(query) {
+  return request({
+    url: '/membership/export',
+    method: 'get',
+    responseType: 'blob',
+    params: query
+  })
+}

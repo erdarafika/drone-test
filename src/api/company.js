@@ -43,3 +43,11 @@ export function deleteCompany(data) {
     method: 'delete'
   })
 }
+
+export function exportExcel() {
+  return request({
+    url: '/company/export',
+    method: 'get',
+    responseType: 'blob'
+  })
+}
