@@ -7,6 +7,8 @@ app-container
       el-col(:span='8')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
           | {{ $t('table.add') }}
+        el-button.filter-item.import-button(style='margin-left: 10px;float:right', type='primary', @click='handleImport')
+          | {{ $t('table.import') }}
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
           | {{ $t('table.exportToXlsx') }}
   .complex-filter-container
@@ -184,6 +186,9 @@ export default {
           this.dialogFormVisible = false
         }
       })
+    },
+    handleImport() {
+      this.$router.push({ name: 'MemberMaintenanceImport' })
     },
     handleExport() {
       this.resetTemp()

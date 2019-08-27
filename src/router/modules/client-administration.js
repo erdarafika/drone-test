@@ -72,6 +72,18 @@ export default {
         pensionMenu: 'member'
       },
       hidden: true
+    },
+    {
+      path: 'member-maintenance/import',
+      name: 'MemberMaintenanceImport',
+      component: () => import('@/views/client-administration/member/import'),
+      meta: {
+        title: 'memberMaintenanceImport',
+        noCache: true,
+        breadcrumb: false,
+        pensionMenu: 'member'
+      },
+      hidden: true
     }
   ]
 }

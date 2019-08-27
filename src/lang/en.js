@@ -72,6 +72,7 @@ export default {
     company: 'Company Maintenance',
     groupMaintenance: 'Group Maintenance',
     memberMaintenance: 'Member Maintenance',
+    memberMaintenanceImport: 'Member Import',
     userManagement: 'User Management',
     importData: 'Import Data',
     importExcel: 'Import Excel',
@@ -139,6 +140,7 @@ export default {
     add: 'Add',
     view: 'View',
     detail: 'Detail',
+    import: 'Import',
     export: 'Export',
     exportToXlsx: 'Export to .xlsx',
     status: 'Status',
@@ -574,10 +576,12 @@ export default {
     email: 'Email',
     employeeNumberId: 'Employee Number Id',
     employmentDate: 'Employment Date',
+    familyCardNumber: 'Family Card Number',
     gender: 'Gender',
     groupId: 'Group',
     identityNumber: 'Identity Number',
     identityType: 'Identity Type',
+    importMember: 'Import Member',
     job: 'Job',
     maritalStatus: 'Marital Status',
     moneySource: 'Money Source',
@@ -593,8 +597,7 @@ export default {
     reason: 'Rejection Reason',
     relationToPayor: 'Relation To Payor',
     religion: 'Religion',
-    salary: 'Salary',
-    familyCardNumber: 'Family Card Number'
+    salary: 'Salary'
   },
   memberAddress: {
     addressType: 'Address Type',
