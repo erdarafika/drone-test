@@ -2,9 +2,9 @@
 app-container
   .table-header
     el-row
-      el-col(:span='20')
+      el-col(:span='16')
         h2.title  List Of Groups
-      el-col(:span='4')
+      el-col(:span='8')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
           | {{ $t('table.add') }}
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
