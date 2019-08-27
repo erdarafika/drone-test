@@ -140,6 +140,7 @@ export default {
     view: 'View',
     detail: 'Detail',
     export: 'Export',
+    exportToXlsx: 'Export to .xlsx',
     status: 'Status',
     actions: 'Actions',
     edit: 'Edit',
@@ -163,7 +164,9 @@ export default {
     switching: 'Switching',
     lineNumber: 'Line Number',
     errors: 'Errors',
-    inputType: 'Input Type'
+    inputType: 'Input Type',
+    listOfCompanies: 'List Of Companies',
+    selectAll: 'Select All'
   },
   settings: {
     title: 'Page style setting',
@@ -180,7 +183,8 @@ export default {
   },
   modal: {
     addModalHeader: 'Add New Data',
-    editModalHeader: 'Edit Data'
+    editModalHeader: 'Edit Data',
+    exportModalHeader: 'Export Data'
   },
   // SINGLE PAGE
   dashboard: {

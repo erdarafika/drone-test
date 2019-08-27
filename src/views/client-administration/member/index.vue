@@ -7,6 +7,8 @@ app-container
       el-col(:span='4')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
           | {{ $t('table.add') }}
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
+          | {{ $t('table.exportToXlsx') }}
   .complex-filter-container
     .complex-filter-item
       .title | {{ $t('table.filter') }}
@@ -47,6 +49,18 @@ app-container
         Detail(:data='row' :action='handleDetail')
         Edit(v-if="row.certificateStatus === 'draft' || row.certificateStatus === 'rejected'" :data='row' :action='handleUpdate')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
+
+  el-dialog(:title="$t('modal.exportModalHeader')", :visible.sync='dialogFormVisible' append-to-body)
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('membership.groupId')", prop='groupId')
+        el-select(v-model='temp.groupId', name='groupId' placeholder='Select', filterable, default-first-option)
+          el-option(:key='0', :label="$t('table.selectAll')", :value='0')
+          el-option(v-for='item in groupOptions', :key='item.value', :label='item.label', :value='item.value')
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="exportData")
+        | {{ $t('table.export') }}
 </template>
 
 <style>
@@ -64,9 +78,10 @@ app-container
 </style>
 
 <script>
-import { fetchList } from '@/api/membership'
+import { fetchList, exportExcel } from '@/api/membership'
 import { fetchGroupMaintanance as fetchGroupById, fetchList as fetchGroup } from '@/api/group-maintenance'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Member',
@@ -85,6 +100,8 @@ export default {
         { label: 'Rejected', value: 'rejected' },
         { label: 'Terminated', value: 'terminated' }
       ],
+      dialogFormVisible: false,
+      dialogStatus: '',
       total: 0,
       listLoading: true,
       listQuery: {
@@ -93,6 +110,12 @@ export default {
         status: '',
         certificateNumber: undefined,
         name: undefined
+      },
+      temp: {
+        groupId: undefined
+      },
+      rules: {
+        groupId: [requiredValidator]
       }
     }
   },
@@ -139,6 +162,39 @@ export default {
         this.total = response.length
         this.listLoading = false
       })
+    },
+    exportData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          if (this.temp.groupId === 0) {
+            exportExcel().then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'members.xlsx')
+              }
+            })
+          } else {
+            exportExcel(this.temp).then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'members.xlsx')
+              }
+            })
+          }
+          this.dialogFormVisible = false
+        }
+      })
+    },
+    handleExport() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    resetTemp() {
+      this.temp = {
+        groupId: undefined
+      }
     }
   }
 }
