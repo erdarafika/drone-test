@@ -66,14 +66,9 @@ app-container(:show='!objectId')
     el-tab-pane(:label="$t('groupMaintenance.withdrawrule')"  name='Withdrawal Rule'  :disabled='!dialogNotCreate')
       Withdrawal(:data='temp')
     el-tab-pane(:label="$t('groupMaintenance.investmentdirection')"  name='Investment Direction'  :disabled='!dialogNotCreate')
-      el-table(:data="tableData" style="width: 100%" max-height="250")
-        el-table-column(prop='label' class-name="has-text-weight-bold")
-        el-table-column(prop="value")
+      InvestmentDirection(:data='temp')
     el-tab-pane(:label="$t('groupMaintenance.groupcharge')"  name='Group Charge'  :disabled='!dialogNotCreate')
-      el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style='width: 80%')
-        el-tabs.pane(tab-position='top', style='height:100%;')
-          el-tab-pane(label='Name')
-           el-form-item(:label="$t('')", prop='' )
+      GroupCharge(:data='temp')
     el-tab-pane(:label="$t('groupMaintenance.agent')"  name='Agent'  :disabled='!dialogNotCreate')
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='top', label-width='150px', style="width: 50%")
         el-tabs.pane(tab-position='top', style='height:100%;')
@@ -108,11 +103,13 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ClassPlan from './components/classPlan'
 import Billing from './components/billing'
 import Withdrawal from './components/withdrawal'
+import GroupCharge from './components/groupCharge'
 import { requiredValidator, numberValidator } from '@/global-function/formValidator'
+import InvestmentDirection from './components/investmentDirection'
 
 export default {
   name: 'Group',
-  components: { Pagination, ClassPlan, Billing, Withdrawal },
+  components: { InvestmentDirection, Pagination, ClassPlan, Billing, Withdrawal, GroupCharge },
   props: ['objectId'],
   data() {
     return {

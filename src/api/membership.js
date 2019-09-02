@@ -14,3 +14,4 @@ export function fetchMembershipById(id) {
     method: 'get'
   })
 }
+

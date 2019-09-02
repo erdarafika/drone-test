@@ -90,7 +90,7 @@ export default {
         accountName: [requiredValidator, alphabeticValidator],
         accountNumber: [requiredValidator, numberValidator],
         currentBank: [requiredValidator],
-        branchName: [requiredValidator, alphabeticValidator]
+        branchName: [alphabeticValidator]
       }
     }
   },

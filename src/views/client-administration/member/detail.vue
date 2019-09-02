@@ -43,7 +43,7 @@
                   el-form-item(:label="$t('membership.dobPlace')" prop='dobPlace')
                     el-input(v-model='temp.dobPlace', name='dobPlace' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.dateOfBirth')" prop='dateOfBirth')
-                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='date', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' placeholder='Pick a date')
                   el-form-item(:label="$t('membership.nationality')" prop='nationality')
                     el-radio-group(v-model='temp.nationality' name='nationality')
                       el-radio(label='wni') WNI
@@ -129,10 +129,12 @@ import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { requiredValidator } from '@/global-function/formValidator'
 import AddressType from '../../user-management/user/index'
+import Beneficiary from './components/beneficiary'
+import InvestmentDirection from './components/investmentDirection'
 
 export default {
   name: 'Member',
-  components: { AddressType, Pagination },
+  components: { AddressType, Pagination, Beneficiary, InvestmentDirection },
   // eslint-disable-next-line vue/require-prop-types
   props: ['objectId'],
   data() {
