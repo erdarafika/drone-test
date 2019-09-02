@@ -26,8 +26,9 @@ import * as Integrations from '@sentry/integrations'
 import VueTheMask from 'vue-the-mask'
 
 import confirmDelete from './global-function/deleteConfirm'
-import { successNotifier, cancelNotifier, errorNotifier } from './global-function/defaultMessage'
+import { successNotifier, cancelNotifier } from './global-function/defaultMessage'
 import { IDR } from './global-function/amountFormatter'
+import { saveAs } from 'file-saver'
 import Delete from './components/ActionButtons/Delete'
 import Cancel from './components/ActionButtons/Cancel'
 import Upload from './components/ActionButtons/Upload'
@@ -82,9 +83,9 @@ Vue.mixin({
   methods: {
     confirmDelete,
     successNotifier,
-    errorNotifier,
     cancelNotifier,
-    IDR
+    IDR,
+    saveAs
   }
 })
 Vue.use(VueTheMask)

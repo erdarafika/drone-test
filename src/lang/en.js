@@ -72,6 +72,7 @@ export default {
     company: 'Company Maintenance',
     groupMaintenance: 'Group Maintenance',
     memberMaintenance: 'Member Maintenance',
+    memberMaintenanceImport: 'Member Import',
     userManagement: 'User Management',
     importData: 'Import Data',
     importExcel: 'Import Excel',
@@ -113,6 +114,18 @@ export default {
     yes: 'Yes',
     no: 'No'
   },
+  schedulerDay: {
+    zeroDay: '0 Day',
+    oneDay: '1 Day',
+    twoDay: '2 Day',
+    threeDay: '3 Day',
+    fourDay: '4 Day',
+    fiveDay: '5 Day',
+    sixDay: '6 Day',
+    sevenDay: '7 Day',
+    fourteenDay: '14 Day',
+    twentyEightDay: '28 Day'
+  },
   table: {
     createdBy: 'Created By',
     filter: 'Filter',
@@ -127,7 +140,9 @@ export default {
     add: 'Add',
     view: 'View',
     detail: 'Detail',
+    import: 'Import',
     export: 'Export',
+    exportToXlsx: 'Export to .xlsx',
     status: 'Status',
     actions: 'Actions',
     edit: 'Edit',
@@ -151,7 +166,9 @@ export default {
     switching: 'Switching',
     lineNumber: 'Line Number',
     errors: 'Errors',
-    inputType: 'Input Type'
+    inputType: 'Input Type',
+    listOfCompanies: 'List Of Companies',
+    selectAll: 'Select All'
   },
   settings: {
     title: 'Page style setting',
@@ -168,7 +185,8 @@ export default {
   },
   modal: {
     addModalHeader: 'Add New Data',
-    editModalHeader: 'Edit Data'
+    editModalHeader: 'Edit Data',
+    exportModalHeader: 'Export Data'
   },
   // SINGLE PAGE
   dashboard: {
@@ -440,11 +458,11 @@ export default {
     postalCode: 'Postal Code',
     status: 'Status',
     setDefault: 'Set as Default',
+    address: 'Address',
     address1: 'Address 1',
     address2: 'Address 2',
-    address3: 'Address 3',
-    address4: 'Address 4',
-    district: 'District'
+    district: 'District',
+    subDistrict: 'Sub District'
   },
   companyContactPerson: {
     name: 'Name',
@@ -488,11 +506,11 @@ export default {
     notes: 'Group Notes',
     filterGroup: 'Group Name',
     information: 'Information',
-    groupclassplan: 'Class Plan',
-    billingcontribution: 'Billing Contribution',
-    withdrawrule: 'Withdrawal Rule',
-    investmentdirection: 'Investment Direction',
-    groupcharge: 'Group Charge',
+    groupClassPlan: 'Class Plan',
+    billingContribution: 'Billing Contribution',
+    withdrawalRule: 'Withdrawal Rule',
+    investmentDirection: 'Investment Direction',
+    groupCharge: 'Charge',
     agent: 'Agent',
     general: 'General',
     dates: 'Dates',
@@ -558,10 +576,12 @@ export default {
     email: 'Email',
     employeeNumberId: 'Employee Number Id',
     employmentDate: 'Employment Date',
+    familyCardNumber: 'Family Card Number',
     gender: 'Gender',
     groupId: 'Group',
     identityNumber: 'Identity Number',
     identityType: 'Identity Type',
+    importMember: 'Import Member',
     job: 'Job',
     maritalStatus: 'Marital Status',
     moneySource: 'Money Source',
@@ -577,8 +597,50 @@ export default {
     reason: 'Rejection Reason',
     relationToPayor: 'Relation To Payor',
     religion: 'Religion',
-    salary: 'Salary',
-    familyCardNumber: 'Family Card Number'
+    salary: 'Salary'
+  },
+  memberAddress: {
+    addressType: 'Address Type',
+    address: 'Address',
+    address1: 'Address 1',
+    address2: 'Address 2',
+    country: 'Country',
+    province: 'Province',
+    city: 'City',
+    district: 'District',
+    subDistrict: 'Sub District',
+    rt: 'RT',
+    rw: 'RW',
+    postalCode: 'Postal Code',
+    status: 'Status'
+  },
+  memberBank: {
+    accountName: 'Account Name',
+    accountNumber: 'Account Number',
+    bankName: 'Bank Name',
+    branchName: 'Bank Branch',
+    status: 'Status'
+  },
+  memberBilling: {
+    billingDate: 'Billing Date',
+    correspondenceCarbonCopy: 'Email Carbon Copy',
+    correspondenceEmail: 'Email',
+    correspondenceGender: 'Gender',
+    correspondenceIdentityNumber: 'Identity Number',
+    correspondenceIdentityType: 'Identity Type',
+    correspondenceName: 'Contact Name',
+    correspondenceNationality: 'Nationality',
+    correspondencePhoneNumber: 'Phone Number',
+    correspondenceTitle: 'Contact Title',
+    billingId: 'Billing',
+    dplkBankId: 'DPLK Bank',
+    notificationScheduler: 'Billing Notification Scheduler',
+    frequency: 'Billing Cycle',
+    isAutomatic: 'Automatic',
+    nextBillingSequence: 'Next Billing Sequence',
+    paymentMethod: 'Payment Method',
+    payor: 'Payor',
+    sendNotification: 'Notification'
   },
   billing: {
     amount: 'Amount',

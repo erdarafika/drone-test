@@ -204,6 +204,21 @@ aside {
   }
 }
 
+.import-button {
+  background: #d6b02f;
+  border: None !important;
+
+  &:hover {
+    background: #937326;
+  }
+  &:active {
+    background: #937326;
+  }
+  &:focus {
+    background: #937326;
+  }
+}
+
 
 
 

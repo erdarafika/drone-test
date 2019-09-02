@@ -80,7 +80,7 @@ import { requiredValidator } from '@/global-function/formValidator'
 import { alphabeticValidator, numberValidator } from '../../../../global-function/formValidator'
 
 export default {
-  name: 'Document',
+  name: 'GroupBilling',
   components: { Pagination },
   props: ['data'],
   data() {
@@ -146,7 +146,7 @@ export default {
       this.temp.groupId = this.data.id
     }
     fetchDplkBankList().then(res => {
-      this.dplkBankOptions = res.map(item => ({ label: `${item.bank.bankName} | ${item.accountName}`, value: item.id }))
+      this.dplkBankOptions = res.map(item => ({ label: `${item.bank.bankName} - ${item.accountName}`, value: item.id }))
     })
   },
   methods: {

@@ -2,11 +2,15 @@
 app-container
   .table-header
     el-row
-      el-col(:span='20')
+      el-col(:span='16')
         h2.title  List Of Member
-      el-col(:span='4')
+      el-col(:span='8')
         el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate')
           | {{ $t('table.add') }}
+        el-button.filter-item.import-button(style='margin-left: 10px;float:right', type='primary', @click='handleImport')
+          | {{ $t('table.import') }}
+        el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleExport')
+          | {{ $t('table.exportToXlsx') }}
   .complex-filter-container
     .complex-filter-item
       .title | {{ $t('table.filter') }}
@@ -45,8 +49,20 @@ app-container
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
         Detail(:data='row' :action='handleDetail')
-        Edit(:data='row' :action='handleUpdate')
+        Edit(v-if="row.certificateStatus === 'draft' || row.certificateStatus === 'rejected'" :data='row' :action='handleUpdate')
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
+
+  el-dialog(:title="$t('modal.exportModalHeader')", :visible.sync='dialogFormVisible' append-to-body)
+    el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+      el-form-item(:label="$t('membership.groupId')", prop='groupId')
+        el-select(v-model='temp.groupId', name='groupId' placeholder='Select', filterable, default-first-option)
+          el-option(:key='0', :label="$t('table.selectAll')", :value='0')
+          el-option(v-for='item in groupExportOptions', :key='item.value', :label='item.label', :value='item.value')
+    .dialog-footer(slot='footer')
+      el-button(@click='dialogFormVisible = false')
+        | {{ $t('table.cancel') }}
+      el-button(type='primary', @click="exportData")
+        | {{ $t('table.export') }}
 </template>
 
 <style>
@@ -64,9 +80,10 @@ app-container
 </style>
 
 <script>
-import { fetchList } from '@/api/membership'
+import { fetchList, exportExcel } from '@/api/membership'
 import { fetchGroupMaintanance as fetchGroupById, fetchList as fetchGroup } from '@/api/group-maintenance'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { requiredValidator } from '@/global-function/formValidator'
 
 export default {
   name: 'Member',
@@ -77,6 +94,7 @@ export default {
       tableKey: 0,
       list: [],
       groupOptions: [],
+      groupExportOptions: [],
       statusOptions: [
         { label: 'Show All', value: '' },
         { label: 'Active', value: 'active' },
@@ -85,6 +103,8 @@ export default {
         { label: 'Rejected', value: 'rejected' },
         { label: 'Terminated', value: 'terminated' }
       ],
+      dialogFormVisible: false,
+      dialogStatus: '',
       total: 0,
       listLoading: true,
       listQuery: {
@@ -93,6 +113,12 @@ export default {
         status: '',
         certificateNumber: undefined,
         name: undefined
+      },
+      temp: {
+        groupId: undefined
+      },
+      rules: {
+        groupId: [requiredValidator]
       }
     }
   },
@@ -112,6 +138,7 @@ export default {
   created() {
     fetchGroup().then(res => {
       this.groupOptions = res.map(group => ({ value: group.name, label: group.name }))
+      this.groupExportOptions = res.map(group => ({ value: group.id, label: group.name }))
     })
     this.getList()
   },
@@ -139,6 +166,42 @@ export default {
         this.total = response.length
         this.listLoading = false
       })
+    },
+    exportData() {
+      this.$refs['dataForm'].validate((valid) => {
+        if (valid) {
+          if (this.temp.groupId === 0) {
+            exportExcel().then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'members.xlsx')
+              }
+            })
+          } else {
+            exportExcel(this.temp).then((response) => {
+              if (response.status_code >= 200 && response.status_code <= 300) {
+                this.saveAs(response, 'members.xlsx')
+              }
+            })
+          }
+          this.dialogFormVisible = false
+        }
+      })
+    },
+    handleImport() {
+      this.$router.push({ name: 'MemberMaintenanceImport' })
+    },
+    handleExport() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    resetTemp() {
+      this.temp = {
+        groupId: undefined
+      }
     }
   }
 }

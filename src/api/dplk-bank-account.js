@@ -7,6 +7,13 @@ export function fetchList() {
   })
 }
 
+export function getDplkBankAccount(dplkBankId) {
+  return request({
+    url: `/master/dplk/bank/${dplkBankId}`,
+    method: 'get'
+  })
+}
+
 export function createDplkBankAccount(data) {
   return request({
     url: '/master/dplk/bank',
