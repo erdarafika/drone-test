@@ -81,7 +81,7 @@ export default {
         page: 1,
         limit: 20
       },
-      isCompanyActive: true,
+      isCompanyActive: false,
       typeOptions: [{ label: 'PERSON IN CHARGE', value: 'pic' }, { label: 'CORRESPONDENCE', value: 'correspondence' }, { label: 'PAYOR', value: 'payor' }, { label: 'DIRECTOR', value: 'director' }],
       identityTypeOptions: [{ label: 'Identity Card', value: 'ktp' }, { label: 'Driving License', value: 'sim' }, { label: 'Passport', value: 'passport' }, { label: 'Kitas', value: 'kitas' }],
       temp: {

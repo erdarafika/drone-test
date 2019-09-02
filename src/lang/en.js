@@ -678,5 +678,32 @@ export default {
     transactionDate: 'Transaction Date',
     description: 'Description',
     moneySource: 'Money Source'
+  },
+  groupCharge: {
+    name: 'Name',
+    frequency: 'Frequency',
+    nextDeducted: 'Next Deducted',
+    feeCharge: 'Fee Charge',
+    feeFund: 'Fee Fund',
+    fee: 'Fee'
+  },
+  investmentDirection: {
+    fundName: 'Fund Name',
+    percentage: 'Percentage',
+    minPercentage: 'Minimum Percentage',
+    maxPercentage: 'Maximum Percentage'
+  },
+  beneficiary: {
+    relation: 'Relation',
+    name: 'Full Name',
+    gender: 'Gender',
+    nationality: 'Nationality',
+    identityType: 'Identity Type',
+    identityNumber: 'Identity Number',
+    birthPlace: 'Birth Place',
+    birthDate: 'Birth Date',
+    address: 'Address',
+    npwp: 'Tax ID'
   }
+
 }

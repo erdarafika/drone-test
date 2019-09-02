@@ -43,7 +43,7 @@
                   el-form-item(:label="$t('membership.dobPlace')" prop='dobPlace')
                     el-input(v-model='temp.dobPlace', name='dobPlace' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
                   el-form-item(:label="$t('membership.dateOfBirth')" prop='dateOfBirth')
-                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+                    el-date-picker(:value-format='dateFormat' v-model='temp.dateOfBirth', name='dateOfBirth' type='date', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' placeholder='Pick a date')
                   el-form-item(:label="$t('membership.nationality')" prop='nationality')
                     el-radio-group(v-model='temp.nationality' name='nationality')
                       el-radio(label='wni') WNI
@@ -96,13 +96,13 @@
         MemberBank(:data='temp')
       el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
         MemberBilling(:data='temp')
-      // el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
         InvestmentDirection(:data='temp')
-      // el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
         Beneficiary(:data='temp')
-      // el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
         FundInfo(:data='temp')
-      // el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
         FundHistory(:data='temp')
 </template>
 <style>
@@ -124,14 +124,16 @@ import { fetchMembershipById } from '@/api/membership'
 import { fetchList as fetchGroup } from '@/api/group-maintenance'
 import { fetchList as fetchCompany } from '@/api/company'
 import { requiredValidator } from '@/global-function/formValidator'
+import UserManagement from '../../user-management/user/index'
+import Beneficiary from './components/beneficiary'
+import InvestmentDirection from './components/investmentDirection'
 import MemberAddress from './components/address'
 import MemberBank from './components/bank'
 import MemberBilling from './components/billing'
 
 export default {
   name: 'Member',
-  components: { Pagination, MemberAddress, MemberBank, MemberBilling },
-  // eslint-disable-next-line vue/require-prop-types
+  components: { UserManagement, Pagination, Beneficiary, InvestmentDirection, MemberAddress, MemberBank, MemberBilling },
   props: ['objectId'],
   data() {
     return {

@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchList(data) {
+export function fetchList(groupId) {
   return request({
-    url: `/company/group/${data.id}/fee`,
-    method: 'get',
-    data
+    url: `/company/group/${groupId}/fee`,
+    method: 'get'
   })
 }
 
