@@ -96,13 +96,13 @@
         MemberBank(:data='temp')
       el-tab-pane(label='Billing Contribution' name='Billing Contribution'  :disabled='!dialogNotCreate')
         MemberBilling(:data='temp')
-      // el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Investment Direction'  name='Investment Direction'  :disabled='!dialogNotCreate')
         InvestmentDirection(:data='temp')
-      // el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Beneficiary'  name='Beneficiary'  :disabled='!dialogNotCreate')
         Beneficiary(:data='temp')
-      // el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Fund Info'  name='Fund Info'  :disabled='!dialogNotCreate')
         FundInfo(:data='temp')
-      // el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
+      el-tab-pane(label='Fund History'  name='Fund History'  :disabled='!dialogNotCreate')
         FundHistory(:data='temp')
 </template>
 <style>

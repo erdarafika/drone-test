@@ -23,6 +23,10 @@
 
     el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible' append-to-body)
       el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
+        el-form-item(:label="$t('beneficiary.name')" prop='name')
+          el-input(v-model='temp.name', name='name' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
+        el-form-item(:label="$t('beneficiary.address')" prop='address')
+          el-input(v-model='temp.address', name='address' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
         el-form-item(:label="$t('beneficiary.relation')" prop='relation')
           el-input(v-model='temp.relation', name='relation' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
         el-form-item(:label="$t('beneficiary.birthDate')" prop='dateOfBirth')
@@ -42,10 +46,6 @@
             el-option(v-for='item in identityTypeOptions', :key='item.value', :label='item.label', :value='item.value')
         el-form-item(:label="$t('beneficiary.identityNumber')" prop='identityNumber')
           el-input(v-model='temp.identityNumber', name='identityNumber' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-        el-form-item(:label="$t('beneficiary.name')" prop='name')
-          el-input(v-model='temp.name', name='name' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
-        el-form-item(:label="$t('beneficiary.address')" prop='address')
-          el-input(v-model='temp.address', name='address' type='textarea', :autosize='{ minRows: 1, maxRows: 2}' :disabled='dialogIsDetail' )
       .dialog-footer(slot='footer')
         el-button(@click='dialogFormVisible = false')
           | {{ $t('table.cancel') }}
