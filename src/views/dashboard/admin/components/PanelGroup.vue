@@ -1,9 +1,9 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
+  <el-row :gutter="20" style="margin-top: -18px" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
       <div class="card-panel company-card">
         <el-row class="card-wrapper">
-          <el-col :span="10">
+          <el-col :span="14">
             <div class="card-panel-icon-wrapper">
               <svg-icon icon-class="dashboard-company" class-name="card-panel-icon" />
               <div class="card-panel-text">
@@ -11,7 +11,7 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="14">
+          <el-col :span="10">
             <div class="card-panel-description">
               <count-to :start-val="0" :end-val="totalActiveCompany" :duration="2600" class="card-panel-num" />
             </div>
@@ -23,7 +23,7 @@
     <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
       <div class="card-panel member-card">
         <el-row class="card-wrapper">
-          <el-col :span="10">
+          <el-col :span="14">
             <div class="card-panel-icon-wrapper">
               <svg-icon icon-class="dashboard-member" class-name="card-panel-icon" />
               <div class="card-panel-text">
@@ -31,7 +31,7 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="14">
+          <el-col :span="10">
             <div class="card-panel-description">
               <count-to :start-val="0" :end-val="totalActiveMember" :duration="2600" class="card-panel-num" />
             </div>
