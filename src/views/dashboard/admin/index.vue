@@ -5,10 +5,7 @@
     <panel-group />
 
     <el-row style="background:#e4e4e4;margin-bottom:32px;" :gutter="40">
-      <el-col :span="8">
-        <todo-list />
-      </el-col>
-      <el-col :span="16">
+      <el-col>
         <div style="background-color: white; padding: 10px;border-radius: 10px;">
           <el-row>
             <el-col :span="18">
@@ -28,6 +25,12 @@
 
           <line-chart :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
         </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="8">
+        <todo-list />
       </el-col>
     </el-row>
 
