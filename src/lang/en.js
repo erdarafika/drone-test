@@ -510,7 +510,7 @@ export default {
     billingContribution: 'Billing Contribution',
     withdrawalRule: 'Withdrawal Rule',
     investmentDirection: 'Investment Direction',
-    groupCharge: 'Charge',
+    groupCharge: 'Group Charge',
     agent: 'Agent',
     general: 'General',
     dates: 'Dates',
