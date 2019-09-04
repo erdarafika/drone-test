@@ -4,10 +4,11 @@
     .filter-container
     el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
       el-table-column(:label="`Fund Type`", align='center', )
-      template(slot-scope='scope')
-        span {{ scope.row.fundType }}
+        template(slot-scope='scope')
+          span {{ scope.row.investmentDirection.fundName }}
       el-table-column(:label="`Direction`", align='center', )
-
+        template(slot-scope='scope')
+          span {{ scope.row.price }}
     pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
 
 </template>
@@ -56,14 +57,6 @@ export default {
     }
   },
   methods: {
-    changeView(event) {
-      if (event === '') {
-        this.isDetail = false
-      } else {
-        this.isDetail = true
-      }
-      console.log(this.isDetail)
-    },
     getDialogHeader(dialogStatus) {
       if (dialogStatus === 'update') {
         return this.$t('modal.editModalHeader')
