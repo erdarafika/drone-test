@@ -12,9 +12,9 @@
       el-table-column(:label="$t('beneficiary.relation')", align='center',)
         template(slot-scope='scope')
           span {{ scope.row.relation }}
-      el-table-column(:label="$t('beneficiary.address')", align='center',)
+      el-table-column(:label="$t('beneficiary.identityNumber')", align='center',)
         template(slot-scope='scope')
-          span {{ scope.row.address }}
+          span {{ scope.row.identityNumber }}
       el-table-column(label='', align='right', width='150' )
         template(slot-scope='{row}')
           Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
