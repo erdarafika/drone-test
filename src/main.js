@@ -30,6 +30,7 @@ import { successNotifier, cancelNotifier } from './global-function/defaultMessag
 import { IDR } from './global-function/amountFormatter'
 import { saveAs } from 'file-saver'
 import Delete from './components/ActionButtons/Delete'
+import Done from './components/ActionButtons/Done'
 import Cancel from './components/ActionButtons/Cancel'
 import Upload from './components/ActionButtons/Upload'
 import Edit from './components/ActionButtons/Edit'
@@ -46,6 +47,7 @@ import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
 //  Register Component
 Vue.component('Delete', Delete)
+Vue.component('Done', Done)
 Vue.component('Cancel', Cancel)
 Vue.component('Upload', Upload)
 Vue.component('Edit', Edit)
