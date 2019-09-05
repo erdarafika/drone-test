@@ -24,7 +24,7 @@ export function createBusinessLine(data) {
 
 export function updateBusinessLine(data) {
   return request({
-    url: `/master/business-line/${data.id}`,
+    url: `/master/business-line/${data.objectId}`,
     method: 'post',
     data
   })

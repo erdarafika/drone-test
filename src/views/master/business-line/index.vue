@@ -31,10 +31,13 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('businessLine.name')", prop='name')
-        el-input(v-model='temp.name', name='name' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='name')
+        el-input(v-else v-model='temp.name', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='name' :disabled="!field.name")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.name")
       el-form-item(:label="$t('businessLine.code')", prop='code')
-        el-input(v-model.number='temp.code', name='code' type='input')
-
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.code', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='code')
+        el-input(v-else v-model='temp.code', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' :disabled="!field.code")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.code")
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -65,6 +68,17 @@ export default {
       temp: {
         name: '',
         code: ''
+      },
+      temp2: undefined,
+      tempUpdate: {
+        name: '',
+        code: '',
+        objectId: undefined,
+        details: []
+      },
+      field: {
+        name: false,
+        code: false
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -125,6 +139,16 @@ export default {
         name: '',
         code: ''
       }
+      this.temp2 = undefined
+      this.field = {
+        name: false,
+        code: false
+      }
+      this.tempUpdate = {
+        type: '',
+        objectId: undefined,
+        details: []
+      }
     },
     handleCreate() {
       this.resetTemp()
@@ -150,22 +174,35 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      this.temp2 = Object.assign({}, row)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
+      this.tempUpdate.objectId = row.id
+      this.tempUpdate.type = 'internal'
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateBusinessLine(tempData).then((response) => {
-            this.dialogFormVisible = false
+          if (this.field.name) {
+            this.tempUpdate.details.push({
+              field: 'name', oldValue: this.temp2.name, newValue: this.temp.name
+            })
+          }
+          if (this.field.code) {
+            this.tempUpdate.details.push({
+              field: 'code', oldValue: this.temp2.code, newValue: this.temp.code
+            })
+          }
+          updateBusinessLine(this.tempUpdate).then(response => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
+              this.resetTemp()
               this.getList()
             }
+            this.dialogFormVisible = false
           })
         }
       })
