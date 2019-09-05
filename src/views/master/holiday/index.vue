@@ -28,10 +28,13 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('holiday.date')", prop='date')
-        el-date-picker(v-model='temp.date', type='date', placeholder='Pick a day' name='date')
+        el-date-picker(v-if="dialogStatus === 'create'" v-model='temp.date', type='date', placeholder='Pick a day' name='date')
+        el-date-picker(v-else v-model='temp.date' name='date' :disabled="!field.date")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.date")
       el-form-item(:label="$t('holiday.description')", prop='description')
-        el-input(v-model='temp.description', name='description' type='textarea', :autosize='{ minRows: 2, maxRows: 4}')
-
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='description')
+        el-input(v-else v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' :disabled="!field.description")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.description")
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
@@ -74,9 +77,19 @@ export default {
         limit: 20,
         q: undefined
       },
+      field: {
+        date: false,
+        description: false
+      },
       temp: {
         date: undefined,
         description: undefined
+      },
+      temp2: undefined,
+      tempUpdate: {
+        type: '',
+        objectId: undefined,
+        details: []
       },
       attributes: [
 
@@ -127,8 +140,18 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        date: undefined,
-        description: undefined
+        date: '',
+        description: ''
+      }
+      this.temp2 = undefined
+      this.field = {
+        date: false,
+        description: false
+      }
+      this.tempUpdate = {
+        type: '',
+        objectId: undefined,
+        details: []
       }
     },
     handleCreate() {
@@ -156,23 +179,36 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      this.temp2 = Object.assign({}, row)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
+      this.tempUpdate.objectId = row.id
+      this.tempUpdate.type = 'internal'
     },
     updateData() {
       this.temp.date = this.$moment(this.temp.date).format('DD-MM-YYYY')
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateHoliday(tempData).then((response) => {
-            this.dialogFormVisible = false
+          if (this.field.date) {
+            this.tempUpdate.details.push({
+              field: 'date', oldValue: this.temp2.date, newValue: this.temp.date
+            })
+          }
+          if (this.field.description) {
+            this.tempUpdate.details.push({
+              field: 'description', oldValue: this.temp2.description, newValue: this.temp.description
+            })
+          }
+          updateHoliday(this.tempUpdate).then(response => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
+              this.resetTemp()
               this.getList()
             }
+            this.dialogFormVisible = false
           })
         }
       })
