@@ -41,7 +41,7 @@ app-container
         span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
         el-checkbox(v-if="dialogStatus === 'update'" v-model="field.isCompanyAddress")
     .dialog-footer(slot='footer')
-      el-button(@click='dialogFormVisible = false')
+      el-button(@click='resetTemp')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
@@ -80,7 +80,7 @@ export default {
       },
       temp2: undefined,
       tempUpdate: {
-        type: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       },
@@ -130,6 +130,7 @@ export default {
       })
     },
     resetTemp() {
+      this.dialogFormVisible = false
       this.temp = {
         type: '',
         isMemberAddress: true,
@@ -142,7 +143,7 @@ export default {
         isCompanyAddress: false
       }
       this.tempUpdate = {
-        type: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       }
@@ -177,7 +178,6 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
       this.tempUpdate.objectId = row.id
-      this.tempUpdate.type = 'internal'
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
@@ -198,12 +198,12 @@ export default {
             })
           }
           updateAddressType(this.tempUpdate).then(response => {
+            this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
               this.resetTemp()
               this.getList()
             }
-            this.dialogFormVisible = false
           })
         }
       })
