@@ -44,6 +44,7 @@ import SettingPassword from './components/ActionButtons/SettingPassword'
 import Status from './components/ActionButtons/Status'
 import VCalendar from 'v-calendar'
 import AppContainer from './components/AppContainer/'
+import Notification from './components/ActionButtons/Notification'
 //  Register Component
 Vue.component('Delete', Delete)
 Vue.component('Cancel', Cancel)
@@ -59,6 +60,7 @@ Vue.component('Terminate', Terminate)
 Vue.component('SettingPassword', SettingPassword)
 Vue.component('Status', Status)
 Vue.component('AppContainer', AppContainer)
+Vue.component('Notification', Notification)
 
 Vue.use(crudPermission)
 const moment = require('moment')

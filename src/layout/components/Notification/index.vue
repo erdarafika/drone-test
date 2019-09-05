@@ -1,8 +1,7 @@
 <template lang="pug">
-el-badge.item.notification-box(:value='notification.length')
   el-dropdown( trigger='click')
-    el-button(type='primary')
-      | {{$t('navbar.notification')}}
+    Notification( style="margin-top:8px")
+    el-badge.item.notification-box(:value='notification.length' style="margin-top:-28px; margin-left:-7px")
     el-dropdown-menu.notification-dropdown(slot='dropdown')
       el-dropdown-item.notification-item(v-for='(notif,index) in notification' :key='index' :divided='true')
         div.title {{notif.title}}
