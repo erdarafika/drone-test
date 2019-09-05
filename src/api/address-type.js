@@ -25,7 +25,7 @@ export function createAddressType(data) {
 
 export function updateAddressType(data) {
   return request({
-    url: `/master/address-type/${data.id}`,
+    url: `/master/address-type/${data.objectId}`,
     method: 'post',
     data
   })

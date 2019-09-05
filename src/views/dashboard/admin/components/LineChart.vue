@@ -27,10 +27,10 @@ export default {
       type: Boolean,
       default: true
     },
-    unitPriceDate: {
+    'unitPriceDate': {
       type: Object
     },
-    dataType: {
+    'dataType': {
       type: String
     }
   },

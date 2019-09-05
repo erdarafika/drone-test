@@ -47,7 +47,7 @@ export default {
     moneySource: 'Sumber Dana',
     company: 'Pengelolaan Perusahaan',
     userManagement: 'Manajamen Pengguna',
-    groupMaintenance: 'Pengelolaan Grup',
+    groupMaintenance: 'Pengelolaan Group',
     memberMaintenance: 'Pengelolaan Anggota',
     clientAdministration: 'Administrasi Klien',
     importData: 'Import Data',
@@ -63,7 +63,7 @@ export default {
     benefitPensionPPIP: 'Manfaat Pensiun PPIP',
     fundSwitching: 'Pengalihan Dana',
     fundTransfer: 'Transfer Dana',
-    contributionTopUpAdHoc: 'Top Up Ad Hoc',
+    contributionTopUpAdHoc: 'Isi Ulang Ad Hoc',
     finance: 'Finansial',
     financeAdminSuspense: 'Admin Suspense',
     financeRefund: 'Pengembalian Dana',
@@ -140,7 +140,12 @@ export default {
     setDefault: 'Atur sebagai Default',
     clientAdministration: 'Administrasi Peserta',
     company: 'Perusahaan',
-    history: 'Riwayat'
+    history: 'Riwayat',
+    total: 'Jumlah',
+    listOfCompanies: 'Daftar Perusahaan',
+    exportToXlsx: 'Export To Xlsx',
+    import: 'Impor',
+    inputType: 'Tipe Masukan'
   },
   settings: {
     title: 'Pengaturan Tampilan',
@@ -420,7 +425,7 @@ export default {
   },
   user: {
     staff: 'Staff',
-    username: 'Username',
+    username: 'Nama User',
     password: 'Sandi',
     confirmPassword: 'Konfirmasi Sandi',
     name: 'Nama',
@@ -478,7 +483,7 @@ export default {
     productTypeId: 'ID Tipe Produk',
     proposalNumber: 'Nomor Proposal',
     proposalDate: 'Tanggal Proposal',
-    type: 'Tipe Grup',
+    type: 'Tipe Group',
     effectiveDate: 'Tanggal Efektif',
     caseCloseDate: 'Tanggal Tutup Kasus',
     terminationDate: 'Tanggal Berakhir',
@@ -497,11 +502,12 @@ export default {
     agent: 'Agen',
     general: 'Umum',
     dates: 'Tanggal',
-    other: 'Lainnya'
+    other: 'Lainnya',
+    filterGroup: 'Group Filter'
   },
   classPlan: {
     name: 'Nama',
-    groupId: 'Grup',
+    groupId: 'Group',
     isPercentage: 'Menggunakan Persentase',
     employee: 'Employee',
     employer: 'Employer'
@@ -525,15 +531,19 @@ export default {
   billing: {
     amount: 'Nominal',
     approvedAt: 'Tanggal Disetujui',
-    billingDate: 'Tanggal Billing',
-    billingNumber: 'Nomor Billing',
-    billingName: 'Nama Billing',
-    billingType: 'Tipe Billing',
-    groupId: 'Grup',
+    billingDate: 'Tanggal Tagihan',
+    billingNumber: 'Nomor Tagihan',
+    billingName: 'Nama Tagihan',
+    billingType: 'Tipe Tagihan',
+    groupId: 'Group',
     settledAt: 'Tanggal Matching',
     status: 'Status',
-    totalMember: 'Jumlah Member'
+    totalMember: 'Jumlah Member',
+    companyId: 'ID Perusahaan',
+    totalAmount: 'Jumlah Total',
+    detailBilling: 'Detail Tagihan'
   },
+
   membership: {
     avgIncomePerMonth: 'Rata-rata Gaji Per Bulan',
     cellPhoneNumber: 'Nomor HP',
@@ -549,7 +559,7 @@ export default {
     employeeNumberId: 'Nomor ID Karyawan',
     employmentDate: 'Tanggal Dipekerjakan',
     gender: 'Jenis Kelamin',
-    groupId: 'Grup',
+    groupId: 'Group',
     identityNumber: 'Nomor Identitas',
     identityType: 'Tipe Identitas',
     job: 'Pekerjaan',
@@ -569,5 +579,72 @@ export default {
     religion: 'Agama',
     salary: 'Gaji',
     familyCardNumber: 'Nomor Kartu Keluarga'
+  },
+  benefitPpip: {
+    member: 'Anggota',
+    subBenefitType: 'Sub Tipe Manfaat',
+    submitDate: 'Tanggal Masuk'
+  },
+  benefitPpukp: {
+    code: 'Kode',
+    groupSource: 'Sumber Group',
+    member: 'Anggota',
+    groupDestination: 'Tujuan Group',
+    status: 'Status',
+    subBenefitType: 'Sub Jenis Manfaat',
+    type: 'Tipe',
+    withdrawalNow: 'Penarikan Sekarang',
+    withdrawalAmount: 'Jumlah Penarikan'
+  },
+  managementBatch: {
+    type: 'Tipe',
+    description: 'Deskripsi',
+    time: 'Waktu',
+    status: 'Status'
+  },
+  fundtransfer: {
+    companyName: 'Nama Perusahaan',
+    groupName: 'Nama Group',
+    memberName: 'Nama Anggota',
+    newCompany: 'Perusahaan Baru',
+    status: 'Status'
+  },
+  fundSwitching: {
+    companyName: 'Nama Perusahaan',
+    groupName: 'Nama Group',
+    memberName: 'Nama Anggota',
+    newCompany: 'Perusahaan Baru',
+    status: 'Status'
+  },
+  contributionSimulation: {
+    averageLifeExpectations: 'Rata-rata Harapan Hidup',
+    averageReturnOfInvestment: 'Rata-rata Pengembalian Investasi',
+    currentAge: 'Usia Saat Ini',
+    currentSalary: 'Gaji Saat Ini',
+    ideaReplacementRatio: 'Rasio Ideal Pendapatan',
+    currentPensionAssets: 'Aset Pensiun Saat ini',
+    retireAge: 'Usia Pensiun'
+  },
+  feeSummary: {
+    feeType: 'Jenis Biaya',
+    totalTransaction: 'Total Transaksi',
+    totalFee: 'Total Biaya'
+  },
+  feeList: {
+    transactionData: 'Data Transaksi',
+    description: 'Deskripsi',
+    moneySource: 'Sumber Uang'
+  },
+  tofounder: {
+    period: 'Periode',
+    money: 'Jumlah Uang'
+  },
+  adminSuspense: {
+    dplkBank: 'Bank DPLK',
+    amountIdr: 'Jumlah (IDR)',
+    outstanding: 'Sisa Pembayaran'
+  },
+  refund: {
+    companyBankAccount: 'Rekening Bank Tujuan'
   }
 }

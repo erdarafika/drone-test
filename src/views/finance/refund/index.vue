@@ -11,7 +11,7 @@ app-container
     el-table-column(:label="`Group`", align='left')
       template(slot-scope='scope')
         span {{ scope.row.group }}
-    el-table-column(:label="`Company Bank Account`", align='left')
+    el-table-column(:label="$t('refund.companyBankAccount')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.companybankAccount }}
     el-table-column(:label="`Status`", align='left')

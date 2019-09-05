@@ -5,13 +5,13 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`DPLK Bank`", align='left')
+    el-table-column(:label="$t('adminSuspense.dplkBank')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.dplkBank.accountName }} - {{ scope.row.dplkBank.bank.bankName }}
-    el-table-column(:label="`Amount (IDR)`", align='left')
+    el-table-column(:label="$t('adminSuspense.amountIdr')", align='left')
       template(slot-scope='scope')
         span {{ IDR(scope.row.amount) }}
-    el-table-column(:label="`Outstanding (IDR)`", align='left')
+    el-table-column(:label="$t('adminSuspense.outstanding')", align='left')
       template(slot-scope='scope')
         span {{ IDR(scope.row.outstanding) }}
     el-table-column(:label="`Status`", align='left')
@@ -20,10 +20,14 @@ app-container
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    el-table-column(align='left', width='200')
+    el-table-column(align='left', width='250')
       template(slot-scope='scope')
-        el-button(size="small" :disabled='scope.row.status !== "active"' class="el-button--success" @click="handleMatch(scope.row)") Match
-        el-button(size="small" class="el-button--warning") Refund
+        el-button(size="small" :disabled='scope.row.status !== "active"'
+          class="el-button--success" @click="handleMatch(scope.row)") {{ $t('adminSuspense.match') }}
+        el-button(size="small" class="el-button--warning") {{ $t('adminSuspense.refund') }}
+        el-tooltip(:content="$t('table.delete')" placement="top")
+          el-button(size="small" class="el-button--danger" :disabled='scope.row.status !== "active"' @click="handleDelete(scope.row)") {{ $t('adminSuspense.void') }}
+
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
 
   el-dialog(:title='`Add`', :visible.sync='dialogFormVisible')
@@ -46,9 +50,12 @@ app-container
         | {{ $t('table.confirm') }}
 
 </template>
+<style>
+
+</style>
 
 <script>
-import { fetchList, createAdminSuspense } from '@/api/admin-suspense'
+import { fetchList, createAdminSuspense, deleteSuspense } from '@/api/admin-suspense'
 import Pagination from '@/components/Pagination'
 import { fetchList as fetchDplkBankList } from '@/api/dplk-bank-account'
 import rules from './validation-rules'
@@ -105,7 +112,6 @@ export default {
       if (res.length) {
         this.configSeparator.precision = res[0].value
       }
-      console.log(this.configSeparator)
     })
   },
   methods: {
@@ -147,7 +153,21 @@ export default {
         this.total = response.length
         this.listLoading = false
       })
+    },
+    handleDelete(row) {
+      const cancelCallback = () => this.cancelNotifier()
+      const deleteCallback = () => {
+        deleteSuspense(row.id).then(() => {
+          this.dialogFormVisible = false
+          this.successNotifier()
+          this.getList()
+        })
+      }
+      this.confirmDelete(deleteCallback, cancelCallback)
     }
   }
 }
+
+//
 </script>
+

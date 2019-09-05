@@ -27,16 +27,16 @@ app-container
               el-form-item(label='Error')
                 el-input()
 
-    el-table-column(:label="`Type`", align='left')
+    el-table-column(:label="$t('managementBatch.type')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.type }}
-    el-table-column(:label="`Description`", align='left')
+    el-table-column(:label="$t('managementBatch.description')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.description }}
-    el-table-column(:label="`Time`", align='left')
+    el-table-column(:label="$t('managementBatch.time')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.time }}
-    el-table-column(:label='`Status`' align='left')
+    el-table-column(:label="$t('managementBatch.status')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.status }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')

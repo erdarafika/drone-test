@@ -19,13 +19,8 @@ app-container
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
-    //- el-table-column(:label="$t('table.status')", align='left')
-    //-   template(slot-scope='scope')
-    //-     span(:class="scope.row.isActive ? 'label-enable' : 'label-disable'")
-    //-       | {{ scope.row.isActive ? 'Active' : 'Not Active' }}
     el-table-column(label='', align='right', class-name='small-padding fixed-width', width='150')
       template(slot-scope='{row}')
-        //- Status(:data='row' :action='handleUpdateStatus' :status='row.isActive' v-crud-permission="['maker']")
         Edit(:data='row' :action='handleUpdate' v-crud-permission="['maker']")
         Delete(:data='row' :action='handleDelete' v-crud-permission="['maker']")
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')
@@ -33,16 +28,19 @@ app-container
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('addressType.type')", prop='type')
         el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' )
+        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'type'")
       el-form-item(:label="$t('addressType.displayOnMember')" prop="isMemberAddress")
         el-switch(v-model='temp.isMemberAddress' name='isMemberAddress')
         span.switch-status {{ temp.isMemberAddress?'Enabled':'Disabled' }}
+        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'isMemberAddress'")
       el-form-item(:label="$t('addressType.displayOnCompany')" prop="isCompanyAddress")
         el-switch(v-model='temp.isCompanyAddress' name='isCompanyAddress')
         span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
+        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'isCompanyAddress'")
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
-      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
+      el-button(v-if="dialogStatus==='create'" type='primary', @click="createData()")
         | {{ $t('table.confirm') }}
 
 </template>
@@ -71,6 +69,12 @@ export default {
         type: '',
         isMemberAddress: true,
         isCompanyAddress: true
+      },
+      temp2: undefined,
+      tempUpdate: {
+        type: '',
+        objectId: undefined,
+        details: []
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -134,7 +138,6 @@ export default {
     },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
-        console.log('valid', valid)
         if (valid) {
           createAddressType(this.temp).then((response) => {
             if (response.status_code >= 200 && response.status_code <= 300) {
@@ -148,21 +151,31 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      this.temp2 = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
+      this.tempUpdate.objectId = row.id
+      this.tempUpdate.type = 'internal'
     },
-    updateData() {
+    updateData(data) {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          updateAddressType(this.temp).then((response) => {
-            this.dialogFormVisible = false
+          this.tempUpdate.details = [
+            {
+              field: data,
+              oldValue: this.temp2[data],
+              newValue: this.temp[data]
+            }
+          ]
+          updateAddressType(this.tempUpdate).then(response => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
               this.getList()
             }
+            this.dialogFormVisible = false
           })
         }
       })
@@ -171,7 +184,7 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteAddressType(row).then((response) => {
+        deleteAddressType(row).then(() => {
           this.dialogFormVisible = false
           this.successNotifier()
           this.getList()

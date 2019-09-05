@@ -26,11 +26,11 @@ app-container
     el-table-column(:label="$t('billing.billingNumber')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.billingNumber }}
-    el-table-column(:label="`Billing Name`", align='left')
+    el-table-column(:label="$t('billing.billingName')", align='left')
       template(slot-scope='scope')
         span(v-if="scope.row.billingType === 'dplk-individual' || scope.row.billingType === 'adhoc-topup-individual'") {{ scope.row.billingName }}
         span(v-else) {{ scope.row.group.name }}
-    el-table-column(:label="`Billing Type`", align='left')
+    el-table-column(:label="$t('billing.billingType')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.billingType }}
     el-table-column(:label="`Status`", align='left')
