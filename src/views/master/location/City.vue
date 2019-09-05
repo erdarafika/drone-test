@@ -61,6 +61,13 @@ export default {
         provinceId: undefined,
         name: undefined
       },
+      temp2: undefined,
+      tempUpdate: {
+        type: 'internal',
+        objectId: undefined,
+        details: []
+
+      },
       dialogFormVisible: false,
       dialogStatus: '',
       rules: {
@@ -124,6 +131,12 @@ export default {
         name: undefined,
         countryId: this.id
       }
+      this.temp2 = undefined
+      this.tempUpdate = {
+        type: 'internal',
+        objectId: undefined,
+        details: []
+      }
     },
     handleCreate() {
       this.resetTemp()
@@ -150,7 +163,9 @@ export default {
     handleUpdate(row) {
       console.log(row)
       this.temp = Object.assign({}, row) // copy obj
+      this.temp2 = Object.assign({}, row) // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
+      this.tempUpdate.objectId = row.id
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -160,10 +175,14 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          updateCity({ ...this.temp, countryId: this.id, provinceId: this.provinceId }).then((response) => {
+          this.tempUpdate.details = [
+            { field: 'name', oldValue: this.temp2.name, newValue: this.temp.name }
+          ]
+          updateCity(this.tempUpdate, this.id, this.provinceId, this.tempUpdate.objectId).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
+              this.resetTemp()
               this.getList()
             }
           })

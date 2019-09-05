@@ -65,13 +65,11 @@ export function createCity({ name, countryId, provinceId }) {
   })
 }
 
-export function updateCity({ name, countryId, provinceId, id }) {
+export function updateCity(data, countryId, provinceId, id) {
   return request({
     url: `/master/country/${countryId}/province/${provinceId}/city/${id}`,
     method: 'post',
-    data: {
-      name
-    }
+    data
   })
 }
 
