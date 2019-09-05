@@ -41,7 +41,7 @@ app-container
         span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
         el-checkbox(v-if="dialogStatus === 'update'" v-model="field.isCompanyAddress")
     .dialog-footer(slot='footer')
-      el-button(@click='dialogFormVisible = false')
+      el-button(@click='resetTemp')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
@@ -130,6 +130,7 @@ export default {
       })
     },
     resetTemp() {
+      this.dialogFormVisible = false
       this.temp = {
         type: '',
         isMemberAddress: true,
