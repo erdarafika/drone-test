@@ -4,10 +4,10 @@ app-container
     el-form-item(:label="$t('')")
       el-input.filter-item(placeholder="Search by Year" v-model='listQuery.period', prefix-icon='el-icon-search' style='width: 200px;')
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`Period`", align='left')
+    el-table-column(:label="$t('tofounder.period')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.period | moment("Do MMMM, YYYY")  }}
-    el-table-column(:label="`Money`", align='left')
+    el-table-column(:label="$t('tofounder.money')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.money }}
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit')

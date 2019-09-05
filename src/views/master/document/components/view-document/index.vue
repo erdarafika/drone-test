@@ -56,7 +56,7 @@ import { fetchReason, createReason, deleteReason } from '@/api/document'
 export default {
   name: 'ViewDocument',
   props: {
-    data: Object
+    'data': Object
   },
   data() {
     return {

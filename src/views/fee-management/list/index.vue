@@ -1,7 +1,7 @@
 <template lang="pug">
 app-container
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="$t('feeList.transactionDate')", align='left')
+    el-table-column(:label="$t('feeList.transactionData')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.name | moment("Do MMMM, YYYY")  }}
     el-table-column(:label="$t('feeList.description')", align='left')

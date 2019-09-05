@@ -29,3 +29,10 @@ export function matchingSuspense(data) {
     data
   })
 }
+
+export function deleteSuspense(id) {
+  return request({
+    url: `admin-suspense/${id}`,
+    method: 'delete'
+  })
+}

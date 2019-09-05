@@ -5,9 +5,9 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`Member`", align='left' prop='member')
-    el-table-column(:label="`Sub Benefit Type`", align='left' prop='subBenefitType')
-    el-table-column(:label="`Submit Date`", align='left', width='200')
+    el-table-column(:label="$t('benefitPpip.member')", align='left' prop='member')
+    el-table-column(:label="$t('benefitPpip.subBenefitType')", align='left' prop='subBenefitType')
+    el-table-column(:label="$t('benefitPpip.submitDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.submitDate | moment("Do MMMM, YYYY") }}
     el-table-column(:label="`Status`", align='left' prop='status')

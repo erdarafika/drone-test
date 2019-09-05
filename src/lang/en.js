@@ -675,8 +675,73 @@ export default {
     username: 'Username'
   },
   feeList: {
-    transactionDate: 'Transaction Date',
+    transactionData: 'Transaction Data',
     description: 'Description',
     moneySource: 'Money Source'
+  },
+  feeSummary: {
+    feeType: 'Fee Type',
+    totalTransaction: 'Total Transaction',
+    totalFee: 'Total Fee'
+  },
+  tofounder: {
+    period: 'Period',
+    money: 'Amount Money'
+  },
+  contributionSimulation: {
+    averageLifeExpectations: 'Average Life Expectations',
+    averageReturnOfInvestment: 'Average Return Of Investment',
+    currentAge: 'Current Age',
+    currentSalary: 'Current Salary',
+    ideaReplacementRatio: 'Idea Replacement Ratio',
+    currentPensionAssets: 'Current Pension Assets',
+    retireAge: 'Retire Age'
+  },
+  fundSwitching: {
+    companyName: 'Company Name',
+    groupName: 'Group Name',
+    memberName: 'Member Name',
+    newCompany: 'New Company',
+    status: 'Status'
+  },
+  fundtransfer: {
+    companyName: 'Company Name',
+    groupName: 'Group Name',
+    memberName: 'Member Name',
+    newCompany: 'New Company',
+    status: 'Status'
+  },
+  adminSuspense: {
+    dplkBank: 'DPLK Bank',
+    amountIdr: 'Amount (IDR)',
+    outstanding: 'Outstanding',
+    void: 'Void',
+    match: 'Match',
+    refund: 'Refund'
+  },
+  refund: {
+    companyBankAccount: 'Company Bank Account'
+  },
+  managementBatch: {
+    type: 'Type',
+    description: 'Description',
+    time: 'Time',
+    status: 'Status'
+  },
+  benefitPpukp: {
+    code: 'Code',
+    groupSource: 'Group Source',
+    member: 'Member',
+    groupDestination: 'Group Destination',
+    status: 'Status',
+    subBenefitType: 'Sub Benefit Type',
+    type: 'Tipe',
+    withdrawalNow: 'Withdrwall Now',
+    withdrawalAmount: 'Withdrawal Amount'
+  },
+  benefitPpip: {
+    member: 'Member',
+    subBenefitType: 'Sub Benefit Type',
+    submitDate: 'Submit Date'
   }
 }
