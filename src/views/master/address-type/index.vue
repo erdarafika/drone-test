@@ -27,20 +27,23 @@ app-container
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
       el-form-item(:label="$t('addressType.type')", prop='type')
-        el-input(v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' )
-        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'type'")
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type')
+        el-input(v-else v-model='temp.type', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='type' :disabled="!field.type")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.type")
       el-form-item(:label="$t('addressType.displayOnMember')" prop="isMemberAddress")
-        el-switch(v-model='temp.isMemberAddress' name='isMemberAddress')
+        el-switch(v-if="dialogStatus === 'create'" v-model='temp.isMemberAddress' name='isMemberAddress')
+        el-switch(v-else v-model='temp.isMemberAddress' name='isMemberAddress' :disabled="!field.isMemberAddress")
         span.switch-status {{ temp.isMemberAddress?'Enabled':'Disabled' }}
-        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'isMemberAddress'")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.isMemberAddress")
       el-form-item(:label="$t('addressType.displayOnCompany')" prop="isCompanyAddress")
-        el-switch(v-model='temp.isCompanyAddress' name='isCompanyAddress')
+        el-switch(v-if="dialogStatus === 'create'" v-model='temp.isCompanyAddress' name='isCompanyAddress')
+        el-switch(v-else v-model='temp.isCompanyAddress' name='isCompanyAddress' :disabled="!field.isCompanyAddress")
         span.switch-status {{ temp.isCompanyAddress?'Enabled':'Disabled' }}
-        Done(v-if="dialogStatus === 'update'" :action="updateData" :data="'isCompanyAddress'")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.isCompanyAddress")
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
         | {{ $t('table.cancel') }}
-      el-button(v-if="dialogStatus==='create'" type='primary', @click="createData()")
+      el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
 
 </template>
@@ -65,6 +68,11 @@ export default {
         q: undefined
       },
       statusOptions: [{ value: true, label: ' enable' }, { value: false, label: ' disable' }],
+      field: {
+        type: false,
+        isMemberAddress: false,
+        isCompanyAddress: false
+      },
       temp: {
         type: '',
         isMemberAddress: true,
@@ -127,6 +135,17 @@ export default {
         isMemberAddress: true,
         isCompanyAddress: true
       }
+      this.temp2 = undefined
+      this.field = {
+        type: false,
+        isMemberAddress: false,
+        isCompanyAddress: false
+      }
+      this.tempUpdate = {
+        type: '',
+        objectId: undefined,
+        details: []
+      }
     },
     handleCreate() {
       this.resetTemp()
@@ -160,19 +179,28 @@ export default {
       this.tempUpdate.objectId = row.id
       this.tempUpdate.type = 'internal'
     },
-    updateData(data) {
+    updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.tempUpdate.details = [
-            {
-              field: data,
-              oldValue: this.temp2[data],
-              newValue: this.temp[data]
-            }
-          ]
+          if (this.field.type) {
+            this.tempUpdate.details.push({
+              field: 'type', oldValue: this.temp2.type, newValue: this.temp.type
+            })
+          }
+          if (this.field.isMemberAddress) {
+            this.tempUpdate.details.push({
+              field: 'isMemberAddress', oldValue: this.temp2.isMemberAddress, newValue: this.temp.isMemberAddress
+            })
+          }
+          if (this.field.isCompanyAddress) {
+            this.tempUpdate.details.push({
+              field: 'isCompanyAddress', oldValue: this.temp2.isCompanyAddress, newValue: this.temp.isCompanyAddress
+            })
+          }
           updateAddressType(this.tempUpdate).then(response => {
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
+              this.resetTemp()
               this.getList()
             }
             this.dialogFormVisible = false
