@@ -40,7 +40,7 @@ export function createBank(data) {
 
 export function updateBank(data) {
   return request({
-    url: `/master/bank/${data.id}`,
+    url: `/master/bank/${data.objectId}`,
     method: 'post',
     data
   })

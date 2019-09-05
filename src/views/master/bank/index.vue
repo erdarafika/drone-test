@@ -37,14 +37,25 @@ app-container
   pagination(v-show='total>0', :total='total', :page.sync='listQuery.page', :limit.sync='listQuery.limit', @pagination='getList')
   el-dialog(:title='getDialogHeader(dialogStatus)', :visible.sync='dialogFormVisible')
     el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='200px', style='width: 80%; margin-left:50px;')
-      el-form-item(:label="$t('bank.name')", prop='bankName')
-        el-input(v-model='temp.bankName', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='bankName')
+      el-form-item(:label="$t('bank.name')", prop='name')
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.bankName', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='name')
+        el-input(v-else v-model='temp.bankName', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='name' :disabled="!field.bankName")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.bankName")
+
       el-form-item(:label="$t('bank.code')", prop='code')
-        el-input(v-model='temp.code', type='input' name='code')
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.code', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='code')
+        el-input(v-else v-model='temp.code', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='code' :disabled="!field.code")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.code")
+
       el-form-item(:label="$t('bank.swiftCode')", prop='swiftCode')
-        el-input(v-model='temp.swiftCode', type='input' name='swiftCode')
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.swiftCode', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='swiftCode')
+        el-input(v-else v-model='temp.swiftCode', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='swiftCode' :disabled="!field.swiftCode")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.swiftCode")
+
       el-form-item(:label="$t('bank.transferCode')", prop='transferCode')
-        el-input(v-model='temp.transferCode', type='input' name='transferCode')
+        el-input(v-if="dialogStatus === 'create'" v-model='temp.transferCode', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='transferCode')
+        el-input(v-else v-model='temp.transferCode', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='transferCode' :disabled="!field.transferCode")
+        el-checkbox(v-if="dialogStatus === 'update'" v-model="field.transferCode")
 
     .dialog-footer(slot='footer')
       el-button(@click='dialogFormVisible = false')
@@ -77,10 +88,25 @@ export default {
         q: undefined
       },
       temp: {
-        bankName: undefined,
-        swiftCode: undefined,
-        transferCode: undefined,
-        code: undefined
+        bankName: '',
+        swiftCode: '',
+        transferCode: '',
+        code: ''
+      },
+      temp2: undefined,
+      tempUpdate: {
+        bankName: '',
+        swiftCode: '',
+        transferCode: '',
+        code: '',
+        objectId: undefined,
+        details: []
+      },
+      field: {
+        bankName: false,
+        swiftCode: false,
+        transferCode: false,
+        code: false
       },
       viewData: null,
       dialogFormVisible: false,
@@ -135,12 +161,24 @@ export default {
         this.listLoading = false
       })
     },
-    resetTemp() {
+    resetTemp: function() {
       this.temp = {
-        bankName: undefined,
-        swiftCode: undefined,
-        transferCode: undefined,
-        code: undefined
+        bankName: '',
+        swiftCode: '',
+        transferCode: '',
+        code: ''
+      }
+      this.temp2 = undefined
+      this.field = {
+        bankName: false,
+        swiftCode: false,
+        transferCode: false,
+        code: false
+      }
+      this.tempUpdate = {
+        type: '',
+        objectId: undefined,
+        details: []
       }
     },
     handleCreate() {
@@ -169,27 +207,53 @@ export default {
         }
       })
     },
-    handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
+    handleUpdate: function(row) {
+      this.temp = Object.assign({}, row) // copy obj//
+      this.temp2 = Object.assign({}, row)
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
+      this.tempUpdate.objectId = row.id
+      this.tempUpdate.type = 'internal'
     },
-    updateData() {
+    updateData: function() {
       this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateBank(tempData).then((response) => {
-            this.dialogFormVisible = false
-            if (response.status_code >= 200 && response.status_code <= 300) {
-              this.successNotifier()
-              this.getList()
-            }
+        if (!valid) {
+          return
+        }
+        if (this.field.bankName) {
+          this.tempUpdate.details.push({
+            field: 'bankName', oldValue: this.temp2.bankName, newValue: this.temp.bankName
           })
         }
+        if (this.field.swiftCode) {
+          this.tempUpdate.details.push({
+            field: 'swiftCode', oldValue: this.temp2.swiftCode, newValue: this.temp.swiftCode
+          })
+        }
+        if (this.field.transferCode) {
+          this.tempUpdate.details.push({
+            field: 'transferCode', oldValue: this.temp2.transferCode, newValue: this.temp.transferCode
+          })
+        }
+        if (this.field.code) {
+          this.tempUpdate.details.push({
+            field: 'code', oldValue: this.temp2.code, newValue: this.temp.code
+          })
+        }
+        updateBank(this.tempUpdate).then((response) => {
+          this.dialogFormVisible = false
+          if (!(response.status_code >= 200 && response.status_code <= 300)) {
+          } else {
+            this.successNotifier()
+            this.resetTemp()
+            this.getList()
+          }
+          this.dialogFormVisible = false
+        })
       })
     },
     handleDelete(row) {
