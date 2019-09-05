@@ -161,7 +161,6 @@ export default {
       })
     },
     handleUpdate(row) {
-      console.log(row)
       this.temp = Object.assign({}, row) // copy obj
       this.temp2 = Object.assign({}, row) // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)

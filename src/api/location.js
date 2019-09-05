@@ -19,7 +19,7 @@ export function createCountry(data) {
 
 export function updateCountry(data) {
   return request({
-    url: `/master/country/${data.id}`,
+    url: `/master/country/${data.objectId}`,
     method: 'post',
     data
   })

@@ -9,7 +9,7 @@ app-container
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('location.country')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.name | moment("Do MMMM, YYYY") }}
+        span {{ scope.row.name }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -54,6 +54,13 @@ export default {
       },
       temp: {
         name: undefined
+      },
+      temp2: undefined,
+      tempUpdate: {
+        type: 'internal',
+        objectId: undefined,
+        details: []
+
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -110,6 +117,12 @@ export default {
         id: undefined,
         name: undefined
       }
+      this.temp2 = undefined
+      this.tempUpdate = {
+        type: 'internal',
+        objectId: undefined,
+        details: []
+      }
     },
     handleCreate() {
       this.resetTemp()
@@ -134,6 +147,8 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      this.temp2 = Object.assign({}, row) // copy obj
+      this.tempUpdate.objectId = row.id
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -143,8 +158,10 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          updateCountry(tempData).then((response) => {
+          this.tempUpdate.details = [
+            { field: 'name', oldValue: this.temp2.name, newValue: this.temp.name }
+          ]
+          updateCountry(this.tempUpdate).then((response) => {
             this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
@@ -158,7 +175,7 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteCountry(row).then((response) => {
+        deleteCountry(row).then(() => {
           this.dialogFormVisible = false
           this.successNotifier()
           this.getList()
