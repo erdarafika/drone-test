@@ -58,8 +58,8 @@ tr.top-bar {
 export default {
   name: 'ViewDocument',
   props: {
-    data: Object,
-    handleDocumentDelete: Function
+    'data': Object,
+    'handleDocumentDelete': Function
   }
 }
 </script>

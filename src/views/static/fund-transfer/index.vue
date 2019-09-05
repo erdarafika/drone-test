@@ -5,19 +5,19 @@ app-container
     el-button.filter-item.add-button(style='margin-left: 10px;float:right', type='primary', @click='handleCreate' v-crud-permission="['maker']")
       | {{ $t('table.add') }}
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
-    el-table-column(:label="`Company Name`", align='left')
+    el-table-column(:label="$t('fundtransfer.companyName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.company }}
-    el-table-column(:label="`Group Name`", align='left')
+    el-table-column(:label="$t('fundtransfer.groupName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.group }}
-    el-table-column(:label="`Member Name`", align='left')
+    el-table-column(:label="$t('fundtransfer.memberName')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.member }}
-    el-table-column(:label="`New Company`", align='left')
+    el-table-column(:label="$t('fundtransfer.newCompany')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.newCompany }}
-    el-table-column(:label="`Status`", align='left')
+    el-table-column(:label="$t('fundtransfer.status')", align='left')
       template(slot-scope='scope')
         span {{ scope.row.status }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
