@@ -11,7 +11,7 @@ app-container
   el-table(:key='tableKey', v-loading='listLoading', :data='filterredList', fit='', highlight-current-row='', style='width: 100%;')
     el-table-column(:label="$t('location.city')", align='left')
       template(slot-scope='scope')
-        span {{ scope.row.name | moment("Do MMMM, YYYY") }}
+        span {{ scope.row.name }}
     el-table-column(:label="$t('table.createdDate')", align='left', width='200')
       template(slot-scope='scope')
         | {{ scope.row.created_at | moment("Do MMMM, YYYY") }}
@@ -193,7 +193,8 @@ export default {
       const cancelCallback = () => this.cancelNotifier()
 
       const deleteCallback = () => {
-        deleteCity({ ...this.temp, countryId: this.id, provinceId: this.provinceId }).then((response) => {
+        console.log(row)
+        deleteCity({ countryId: this.id, provinceId: this.provinceId, id: row.id }).then((response) => {
           this.dialogFormVisible = false
           this.successNotifier()
           this.getList()
