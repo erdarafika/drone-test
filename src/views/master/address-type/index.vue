@@ -80,7 +80,7 @@ export default {
       },
       temp2: undefined,
       tempUpdate: {
-        type: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       },
@@ -142,7 +142,7 @@ export default {
         isCompanyAddress: false
       }
       this.tempUpdate = {
-        type: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       }
@@ -177,7 +177,6 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
       this.tempUpdate.objectId = row.id
-      this.tempUpdate.type = 'internal'
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
@@ -198,12 +197,12 @@ export default {
             })
           }
           updateAddressType(this.tempUpdate).then(response => {
+            this.dialogFormVisible = false
             if (response.status_code >= 200 && response.status_code <= 300) {
               this.successNotifier()
               this.resetTemp()
               this.getList()
             }
-            this.dialogFormVisible = false
           })
         }
       })

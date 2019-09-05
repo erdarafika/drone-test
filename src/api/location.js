@@ -19,7 +19,7 @@ export function createCountry(data) {
 
 export function updateCountry(data) {
   return request({
-    url: `/master/country/${data.id}`,
+    url: `/master/country/${data.objectId}`,
     method: 'post',
     data
   })
@@ -65,7 +65,7 @@ export function createCity({ name, countryId, provinceId }) {
   })
 }
 
-export function updateCity({ name, countryId, provinceId, id }) {
+export function updateCity(data, countryId, provinceId, id) {
   return request({
     url: `/master/country/${countryId}/province/${provinceId}/city/${id}`,
     method: 'post',
@@ -116,13 +116,11 @@ export function createProvince({ name, countryId }) {
   })
 }
 
-export function updateProvince({ id, name, countryId }) {
+export function updateProvince(data, countryId, id) {
   return request({
     url: `/master/country/${countryId}/province/${id}`,
     method: 'post',
-    data: {
-      name
-    }
+    data
   })
 }
 

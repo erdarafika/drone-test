@@ -17,7 +17,7 @@ export function createHoliday(data) {
 
 export function updateHoliday(data) {
   return request({
-    url: `/master/holiday/${data.id}`,
+    url: `/master/holiday/${data.objectId}`,
     method: 'post',
     data
   })
