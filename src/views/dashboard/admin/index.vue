@@ -5,17 +5,14 @@
     <panel-group />
 
     <el-row style="background:#e4e4e4;margin-bottom:32px;" :gutter="40">
-      <el-col :span="8">
-        <todo-list />
-      </el-col>
-      <el-col :span="16">
+      <el-col>
         <div style="background-color: white; padding: 10px;border-radius: 10px;">
           <el-row>
             <el-col :span="18">
-              <h2 style="margin-left:20px;color: #636569">{{ $t('dashboard.statistics') }}</h2>
+              <h2 style="margin-left:20px;color: #636569;margin-bottom: -40px">{{ $t('dashboard.statistics') }}</h2>
             </el-col>
             <el-col :span="6">
-              <el-select v-model="selectedDataType" placeholder="Select">
+              <el-select v-model="selectedDataType" style="margin-top: 20px" placeholder="Select">
                 <el-option
                   v-for="item in dataTypeOptions"
                   :key="item.value"
@@ -26,8 +23,14 @@
             </el-col>
           </el-row>
 
-          <line-chart :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
+          <line-chart style="margin-left:-50px;" :unit-price-date="unitPriceDate" :data-type="selectedDataType" />
         </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="8">
+        <todo-list />
       </el-col>
     </el-row>
 

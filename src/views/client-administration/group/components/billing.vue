@@ -108,7 +108,7 @@ export default {
       paymentMethodOptions: [{ label: 'Bank Transfer', value: 'bank-transfer' }, { label: 'Virtual Account', value: 'virtual-account' }],
       payorOptions: [{ label: 'Self', value: 'self' }, { label: 'Others', value: 'others' }],
       correspondenceGenderOptions: [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'female' }],
-      correspondenceNationalityOptions: [{ label: 'WNI', value: 'wni' }, { label: 'WNA', value: 'wni' }],
+      correspondenceNationalityOptions: [{ label: 'WNI', value: 'wni' }, { label: 'WNA', value: 'wna' }],
       dplkBankOptions: undefined,
       initialUpdate: false,
       dialogFormVisible: false,

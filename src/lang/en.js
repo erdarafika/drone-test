@@ -510,7 +510,7 @@ export default {
     billingContribution: 'Billing Contribution',
     withdrawalRule: 'Withdrawal Rule',
     investmentDirection: 'Investment Direction',
-    groupCharge: 'Charge',
+    groupCharge: 'Group Charge',
     agent: 'Agent',
     general: 'General',
     dates: 'Dates',
@@ -743,5 +743,31 @@ export default {
     member: 'Member',
     subBenefitType: 'Sub Benefit Type',
     submitDate: 'Submit Date'
+  },
+  groupCharge: {
+    name: 'Name',
+    frequency: 'Frequency',
+    nextDeducted: 'Next Deducted',
+    feeCharge: 'Fee Charge',
+    feeFund: 'Fee Fund',
+    fee: 'Fee'
+  },
+  investmentDirection: {
+    fundName: 'Fund Name',
+    percentage: 'Percentage',
+    minPercentage: 'Minimum Percentage',
+    maxPercentage: 'Maximum Percentage'
+  },
+  beneficiary: {
+    relation: 'Relation',
+    name: 'Full Name',
+    gender: 'Gender',
+    nationality: 'Nationality',
+    identityType: 'Identity Type',
+    identityNumber: 'Identity Number',
+    birthPlace: 'Birth Place',
+    birthDate: 'Birth Date',
+    address: 'Address',
+    npwp: 'Tax ID'
   }
 }
