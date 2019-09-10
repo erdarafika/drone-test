@@ -37,7 +37,7 @@ app-container
         el-input(v-else v-model='temp.description', type='textarea', :autosize='{ minRows: 2, maxRows: 4}' name='description' :disabled="!field.description")
         el-checkbox(v-if="dialogStatus === 'update'" v-model="field.description")
     .dialog-footer(slot='footer')
-      el-button(@click='dialogFormVisible = false')
+      el-button(@click='resetTemp')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
@@ -115,6 +115,7 @@ export default {
       })
     },
     resetTemp() {
+      this.dialogFormVisible = false
       this.temp = {
         name: '',
         code: '',

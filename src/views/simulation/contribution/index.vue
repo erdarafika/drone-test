@@ -1,36 +1,34 @@
 <template lang="pug">
 app-container
-  el-tabs(type='border-card')
-    el-tab-pane(label='Simulation')
-      el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='250px')
-        el-row(:gutter='40')
-          el-col(:span='12')
-            el-form-item(:label="$t('contributionSimulation.averageLifeExpectations')", prop='averageLifeExpectations')
-              el-input(v-model.number='temp.averageLifeExpectations', name='averageLifeExpectations')
-            el-form-item(:label="$t('contributionSimulation.averageReturnOfInvestment')", prop='averageReturnOfInvestment')
-              .el-input.el-input-group.el-input-group--prepend
-                .el-input-group__prepend %
-                money.el-input__inner(v-model.number='temp.averageReturnOfInvestment', name='averageReturnOfInvestment' v-bind='configSeparator')
-            el-form-item(:label="$t('contributionSimulation.currentAge')", prop='currentAge')
-              el-input(v-model.number='temp.currentAge', name='currentAge')
-            el-form-item(:label="$t('contributionSimulation.currentSalary')", prop='currentSalary')
-              .el-input.el-input-group.el-input-group--prepend
-                .el-input-group__prepend Rp
-                money.el-input__inner(v-model.number='temp.currentSalary', name='currentSalary' v-bind='configSeparator')
-            el-form-item(:label="$t('contributionSimulation.ideaReplacementRatio')", prop='currentSalary')
-              .el-input.el-input-group.el-input-group--prepend
-                .el-input-group__prepend %
-                money.el-input__inner(v-model.number='temp.currentSalary', name='currentSalary' v-bind='configSeparator')
-            el-form-item(:label="$t('contributionSimulation.currentPensionAssets')", prop='currentPensionAssets')
-              .el-input.el-input-group.el-input-group--prepend
-                .el-input-group__prepend Rp
-                money.el-input__inner(v-model.number='temp.currentPensionAssets', name='currentPensionAssets' v-bind='configSeparator')
-            el-form-item(:label="$t('contributionSimulation.retireAge')", prop='retireAge')
-              el-input(v-model.number='temp.retireAge', name='retireAge')
-          //el-col(:span='12')
-        el-form-item
-          el-button.pull-right(@click='createContribution' style='margin-left: 20px;') Calculate
-          el-button.pull-right(@click='resetTemp') Cancel
+  el-form(ref='dataForm', :rules='rules', :model='temp', label-position='left', label-width='250px')
+    el-row(:gutter='40')
+      el-col(:span='12')
+        el-form-item(:label="$t('contributionSimulation.averageLifeExpectations')", prop='averageLifeExpectations')
+          el-input(v-model.number='temp.averageLifeExpectations', name='averageLifeExpectations')
+        el-form-item(:label="$t('contributionSimulation.averageReturnOfInvestment')", prop='averageReturnOfInvestment')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend %
+            money.el-input__inner(v-model.number='temp.averageReturnOfInvestment', name='averageReturnOfInvestment' v-bind='configSeparator')
+        el-form-item(:label="$t('contributionSimulation.currentAge')", prop='currentAge')
+          el-input(v-model.number='temp.currentAge', name='currentAge')
+        el-form-item(:label="$t('contributionSimulation.currentSalary')", prop='currentSalary')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend Rp
+            money.el-input__inner(v-model.number='temp.currentSalary', name='currentSalary' v-bind='configSeparator')
+        el-form-item(:label="$t('contributionSimulation.ideaReplacementRatio')", prop='currentSalary')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend %
+            money.el-input__inner(v-model.number='temp.currentSalary', name='currentSalary' v-bind='configSeparator')
+        el-form-item(:label="$t('contributionSimulation.currentPensionAssets')", prop='currentPensionAssets')
+          .el-input.el-input-group.el-input-group--prepend
+            .el-input-group__prepend Rp
+            money.el-input__inner(v-model.number='temp.currentPensionAssets', name='currentPensionAssets' v-bind='configSeparator')
+        el-form-item(:label="$t('contributionSimulation.retireAge')", prop='retireAge')
+          el-input(v-model.number='temp.retireAge', name='retireAge')
+      //el-col(:span='12')
+    el-form-item
+      el-button.pull-right(@click='createContribution' style='margin-left: 20px;') Calculate
+      el-button.pull-right(@click='resetTemp') Cancel
 </template>
 
 <script>
