@@ -78,7 +78,8 @@ export default {
     importExcel: 'Import Excel',
     taskManagement: 'Task Management',
     config: 'Configuration',
-    contributionSimulator: 'Contribution Simulator'
+    contributionSimulator: 'Contribution Simulator',
+    logUser: 'Log User'
   },
   // GLOBAL
   validatorMessage: {
@@ -769,5 +770,12 @@ export default {
     birthDate: 'Birth Date',
     address: 'Address',
     npwp: 'Tax ID'
+  },
+  logUser: {
+    accessTime: 'Access Time',
+    userId: 'Username',
+    ipSource: 'IP Source',
+    activity: 'Activity',
+    description: 'Description'
   }
 }

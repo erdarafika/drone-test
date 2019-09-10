@@ -102,6 +102,7 @@ import fundTransfer from './modules/static/fund-transfer'
 import batchManagement from './modules/static/batch-management'
 import alteration from './modules/static/alteration'
 import benefitPension from './modules/static/benefit-pension'
+import logUser from './modules/log-user'
 
 export const asyncRoutes = [
   masterSetup,
@@ -120,6 +121,7 @@ export const asyncRoutes = [
   batchManagement,
   alteration,
   benefitPension,
+  logUser,
   {
     path: '/config',
     component: Layout,
