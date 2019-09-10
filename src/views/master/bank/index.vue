@@ -58,7 +58,7 @@ app-container
         el-checkbox(v-if="dialogStatus === 'update'" v-model="field.transferCode")
 
     .dialog-footer(slot='footer')
-      el-button(@click='dialogFormVisible = false')
+      el-button(@click='resetTemp')
         | {{ $t('table.cancel') }}
       el-button(type='primary', @click="dialogStatus==='create'?createData():updateData()")
         | {{ $t('table.confirm') }}
@@ -95,10 +95,7 @@ export default {
       },
       temp2: undefined,
       tempUpdate: {
-        bankName: '',
-        swiftCode: '',
-        transferCode: '',
-        code: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       },
@@ -161,7 +158,8 @@ export default {
         this.listLoading = false
       })
     },
-    resetTemp: function() {
+    resetTemp() {
+      this.dialogFormVisible = false
       this.temp = {
         bankName: '',
         swiftCode: '',
@@ -176,7 +174,7 @@ export default {
         code: false
       }
       this.tempUpdate = {
-        type: '',
+        type: 'internal',
         objectId: undefined,
         details: []
       }
@@ -217,7 +215,6 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
       this.tempUpdate.objectId = row.id
-      this.tempUpdate.type = 'internal'
     },
     updateData: function() {
       this.$refs['dataForm'].validate((valid) => {
@@ -246,8 +243,7 @@ export default {
         }
         updateBank(this.tempUpdate).then((response) => {
           this.dialogFormVisible = false
-          if (!(response.status_code >= 200 && response.status_code <= 300)) {
-          } else {
+          if (response.status_code >= 200 && response.status_code <= 300) {
             this.successNotifier()
             this.resetTemp()
             this.getList()
