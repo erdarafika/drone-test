@@ -17,7 +17,7 @@ export function createDepartment(data) {
 
 export function updateDepartment(data) {
   return request({
-    url: `/master/department/${data.id}`,
+    url: `/master/department/${data.objectId}`,
     method: 'post',
     data
   })
