@@ -10,8 +10,8 @@ platform:
 steps:
 - name: build-image
   commands:
-  - docker build --no-cache -t webapp-test:staging -f Dockerfile-staging .
-  - docker stack deploy -c stack-staging.yml drone-test
+  # - docker build --no-cache -t webapp-test:staging -f Dockerfile-staging .
+  - docker stack rm drone-test
 
 trigger:
   branch:
