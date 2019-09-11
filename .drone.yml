@@ -8,29 +8,10 @@ platform:
   arch: amd64
 
 steps:
-- name: dplk-webapp
+- name: build-image
   commands:
-  - docker ps
-  
-# server:
-#   host:
-#     from_secret: host
-#   user:
-#     from_secret: username
-#   ssh_key:
-#     from_secret: ssh_key
-  
-# platform:
-#   os: linux
-#   arch: amd64
+  - docker build --no-cache -t webapp-test:staging -f Dockerfile-staging .
 
-# steps:
-# - name: super-peer
-#   image: node
-#   commands:
-#   - node --version
-#   - docker ps
-
-# trigger:
-#   branch:
-#   - master
+trigger:
+  branch:
+  - staging
