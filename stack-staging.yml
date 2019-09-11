@@ -7,7 +7,7 @@ services:
     networks:
       - webgateway
     ports:
-      - '8002:8002'
+      - '8020:8002'
     deploy:
       restart_policy:
         condition: on-failure
